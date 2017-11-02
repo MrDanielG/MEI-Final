@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/sesion"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_inicio"
+            android:icon="@drawable/ic_home_black_24px"
+            android:title="Inicio" />
+        <item
+            android:id="@+id/nav_test"
+            android:icon="@drawable/ic_test"
+            android:title="Test" />
+        <item
+            android:id="@+id/nav_perfil"
+            android:icon="@mipmap/profile_ic"
+            android:title="Perfil" />
+        <item
+            android:id="@+id/nav_recomendaciones"
+            android:icon="@drawable/ic_map_black_24px"
+            android:title="Recomendaciones" />
+    </group>
+
+    <group
+        android:id="@+id/config"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_cerrarc"
+            android:icon="@android:drawable/ic_menu_close_clear_cancel"
+            android:title="Cerrar sesión" />
+    </group>
+
+</menu>
