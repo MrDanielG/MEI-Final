@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "735472365857",
+    "firebase_url": "https://meiv3-6b45a.firebaseio.com",
+    "project_id": "meiv3-6b45a",
+    "storage_bucket": "meiv3-6b45a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:735472365857:android:c85977ade7e3633b",
+        "android_client_info": {
+          "package_name": "com.example.ramir.meiv3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "735472365857-pt01p6jitjt58j2magtiiaat9rfltr1p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ramir.meiv3",
+            "certificate_hash": "9f36c3f75908015701afdb8a4f8d39c30d0acfca"
+          }
+        },
+        {
+          "client_id": "735472365857-je9trd1hqqc0dt08m6in2lban98uulfj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ramir.meiv3",
+            "certificate_hash": "8a490c361ac3069c84913a451f54bab73b44b8aa"
+          }
+        },
+        {
+          "client_id": "735472365857-qgevham70douoqda9el8amt4gvjl7ugi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPI3pLUMX4bzxYH6oWfNg7AQySGILcrz8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "735472365857-qgevham70douoqda9el8amt4gvjl7ugi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
