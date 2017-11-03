@@ -1,7 +1,7 @@
 <?php
     session_start();
     if(isset($_SESSION['user'])){      /*Permite revisar si el usuario ya estaba logeado*/
-        header("Location: MEI/index.php"); /*Regresa al usuario logueado al menu*/
+       // header("Location: MEI/index.php"); /*Regresa al usuario logueado al menu*/
     }
 
     include 'conn.php';
@@ -57,19 +57,22 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="js/materialize.min.js"></script>
     <?php
-        if(mysqli_num_rows($consulta)){
-            $_SESSION['user'] = $usr;
-            echo '
-                <script type="text/javascript">
-                    console.log("true|{$usr}|{$pass}");
-                    window.location="MEI/index.php";
-                </script>';
-        }else{
-            echo '
-                <script type="text/javascript">
-                    console.log("false|");
-                    Materialize.toast("No se pudo iniciar sesión", 3000, "rounded");
-                </script>';
+        if(isset($consulta)){
+            if(mysqli_num_rows($consulta)){
+                $_SESSION['user'] = $usr;
+                echo '
+                    <script type="text/javascript">
+                        console.log("true|{$usr}|{$pass}");
+                        window.location="MEI/index.php";
+                    </script>';
+            }else{
+                echo '
+                    <script type="text/javascript">
+                        console.log("false|");
+                        Materialize.toast("No se pudo iniciar sesión", 3000, "rounded");
+                        $("#input_usuario").val("'.$usr.'");
+                    </script>';
+            }
         }
     ?>
 </body>
