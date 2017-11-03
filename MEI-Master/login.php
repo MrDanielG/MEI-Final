@@ -49,7 +49,7 @@
 			<input type="submit" name="sbmt" id="btn_submit">
 
 			<div align="center">
-			<a href="signin.php">¿No tienes cuenta? Registrate</a>
+			    <a href="signin.php">¿No tienes cuenta? Registrate</a>
 			</div>
 
 		</form>

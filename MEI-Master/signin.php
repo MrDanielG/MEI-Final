@@ -46,6 +46,9 @@
 
                 <input type="submit" name="sbmt" id="btn_submit">
             </form>
+            <div align="center">
+			    <a href="login.php">¿Ya tienes cuenta? Inicia sesión</a>
+			</div>
         </div>
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script type="text/javascript" src="js/materialize.min.js"></script>
@@ -61,34 +64,27 @@
         </script>
         <?php 
             if(isset($_POST["sbmt"])){
-                if(!$con){
+                $consulta = mysqli_query($con,"SELECT * FROM `usuarios` WHERE `email` = '{$usuario}'");
+                if(isset($usuario)&&isset($pass)&& mysqli_num_rows($consulta)<1){
+                    $consulta = mysqli_query($con," INSERT INTO usuarios (email, pass, ciudad,`nombre(s)`,`apellido(s)`,edad) VALUES ('$usuario','$pass','$city','$nombre','$apellido','$edad') ");
+    
                     echo '
-                    <script type="text/javascript">
-                        Materialize.toast("Hubo un error en nuestros servidores, por favor intentelo más tarde.", 3000, "rounded");
-                    </script>';
-                }else{
-                    $consulta = mysqli_query($con,"SELECT * FROM `usuarios` WHERE `email` = '{$usuario}'");
-                    if(isset($usuario)&&isset($pass)&& mysqli_num_rows($consulta)<1){
-                        $consulta = mysqli_query($con," INSERT INTO usuarios (email, pass, ciudad,`nombre(s)`,`apellido(s)`,edad) VALUES ('$usuario','$pass','$city','$nombre','$apellido','$edad') ");
-        
-                        echo '
-                            <script type="text/javascript">
-                                console.log("true|");
-                                Materialize.toast("Se ha registrado con éxito.", 3000, "rounded");
-                                Materialize.toast("Bienvenido ;)", 3000, "rounded");
-                            </script>';
-                    }else {
-                        echo '
-                            <script type="text/javascript">
-                                console.log("false|");
-                                Materialize.toast("No se pudo registrar, por favor intentelo de nuevo.", 3000, "rounded");
-                                $("#input_usuario").val("'.$usuario.'");
-                                $("#input_nombre").val("'.$nombre.'");
-                                $("#input_last").val("'.$apellido.'");
-                                $("#input_edad").val('.$edad.');
-                                $("#input_lugar").val("'.$city.'");
-                            </script>';
-                    }
+                        <script type="text/javascript">
+                            console.log("true|");
+                            Materialize.toast("Se ha registrado con éxito.", 3000, "rounded");
+                            Materialize.toast("Bienvenido ;)", 3000, "rounded");
+                        </script>';
+                }else {
+                    echo '
+                        <script type="text/javascript">
+                            console.log("false|");
+                            Materialize.toast("No se pudo registrar, por favor intentelo de nuevo.", 3000, "rounded");
+                            $("#input_usuario").val("'.$usuario.'");
+                            $("#input_nombre").val("'.$nombre.'");
+                            $("#input_last").val("'.$apellido.'");
+                            $("#input_edad").val('.$edad.');
+                            $("#input_lugar").val("'.$city.'");
+                        </script>';
                 }
             }
         ?>
