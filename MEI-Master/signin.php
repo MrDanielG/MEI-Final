@@ -20,7 +20,7 @@
         <title>Registro</title>
         <meta charset="UTF-8">
         <!--Estilos-->
-        <link rel="stylesheet" type="text/css" href="css/estilos.css">
+        <link rel="stylesheet" type="text/css" href="css/estilos_login.css">
         <!--Import Google Icon Font-->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
@@ -31,27 +31,82 @@
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     </head>
-    <body>
-        <div class="contenido" align="center">
-            <form method="post" action="#" onsubmit="if(confirmForm())return true;return false;">
-                <h2>Registrar Usuario</h2>
+    <body id="body_singin">
+        <div class="container" align="center">
+        <div class="row">
+        <div align="center" id="card" class="col s11 m5">
+        <div class="card white-1">
+        <div class="card-content">
 
-                <input type="email" name="usr" id="input_usuario" autofocus placeholder="Correo electrónico" autocomplete="off" required>
-                <input type="password" name="pass" id="input_pass" minlength="6" placeholder="Contraseña" autocomplete="off" required>
-                <input type="password" name="pass" id="input_pass2" minlength="6" placeholder="Confirmar contraseña" autocomplete="off" required>
-                <input type="text" name="nombre" id="input_nombre" class="input_nombre" placeholder="Nombre(s)" autocomplete="off" required>
-                <input type="text" name="apellido" id="input_last" placeholder="Apellido(s)" autocomplete="off" required>
-                <input type="number" name="edad" min="10" title="Necesitas más de 10 años para registrarte" id="input_edad" placeholder="Edad" autocomplete="off" required>
-                <input type="text" name="city" id="input_lugar" placeholder="Ciudad" autocomplete="off" required>
+                <form method="post" action="#" onsubmit="if(confirmForm())return true;return false;">
+                    <h3>Registrar Usuario</h3>
 
-                <input type="submit" name="sbmt" id="btn_submit">
-            </form>
-            <div align="center">
-			    <a href="login.php">¿Ya tienes cuenta? Inicia sesión</a>
-			</div>
+                    <div align="center">
+                    <img src="imgs\logo1.png" heigh="50%" width="50%">
+                    </div>
+
+                    <div class="input-field"> 
+                    <input class="validate" type="email" name="usr" id="input_usuario" autofocus autocomplete="off" required>
+                    <label for="email">E-mail</label>
+                    </div>
+
+                    <div class="input-field">
+                    <input class="validate" type="password" name="pass" id="input_pass" minlength="6" autocomplete="off" required>
+                    <label for="password">Contraseña</label>
+                    </div>
+
+                    <div class="input-field">
+                    <input class="validate" type="password" name="pass" id="input_pass2" minlength="6" autocomplete="off" required>
+                    <label for="password">Confirmar Contraseña</label>
+                    </div>
+
+                    <div class="input-field">
+                    <input class="validate" type="text" name="nombre" id="input_nombre" class="input_nombre" autocomplete="off" required>
+                    <label for="text">Nombre(s)</label>
+                    </div>
+
+                    <div class="input-field">
+                    <input class="validate" type="text" name="apellido" id="input_last" autocomplete="off" required>
+                    <label for="text">Apellido(s)</label>
+                    </div>
+
+                    <div class="input-field">
+                    <input class="validate" type="number" name="edad" min="10" title="Necesitas más de 10 años para registrarte" id="input_edad" autocomplete="off" required>
+                    <label for="number">Edad</label>
+                    </div>
+                    
+                    <div class="input-field">
+                    <input class="validate" type="text" name="city" id="input_lugar" autocomplete="off" required>
+                    <label for="number">Ciudad</label>
+                    </div>
+
+                    <button class="btn waves-effect waves-light" type="submit" name="sbmt"id="btn_submit" value="Iniciar">Ingresar
+                    <i class="material-icons right">send</i>
+                    </button>
+
+                    <br><br>
+
+                </form>
+                <div class="card-action"  align="center">
+                    <a href="login.php">¿Ya tienes cuenta? Inicia sesión</a>
+                </div>
         </div>
+        </div>
+        </div>
+        </div>
+        </div>
+
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script type="text/javascript" src="js/materialize.min.js"></script>
+        <script>
+        $(document).ready(function() {
+        Materialize.updateTextFields();
+        });
+        </script>
+        <script>
+        $('#textarea1').val('New Text');
+        $('#textarea1').trigger('autoresize');
+        </script>
         <script>
             function confirmForm(){
                 if($("#input_pass").val()===$("#input_pass2").val()){

@@ -7,13 +7,25 @@
 }
 
 #body_login {
-    background-image: url("https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?auto=format&fit=crop&w=1350&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D");
+    background-image: url("https://images.unsplash.com/photo-1471970394675-613138e45da3?auto=format&fit=crop&w=800&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D");
     background-repeat: no-repeat;
-    background-size: auto;
+    background-size: 100%;
 }
 
 @media screen and (max-width: 1100px) {
     #body_login {
+        background-size: auto;
+    }
+}
+
+#body_singin {
+    background-image: url("https://images.unsplash.com/photo-1471970471555-19d4b113e9ed?auto=format&fit=crop&w=800&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D");
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+@media screen and (max-width: 1100px) {
+    #body_singin {
         background-size: auto;
     }
 }

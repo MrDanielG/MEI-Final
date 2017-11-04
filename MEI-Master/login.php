@@ -59,7 +59,7 @@
                                     </div>
 
                                     <div class="input-field">
-                                    <input type="password" name="pass" id="input_pass" minlength="6"  autocomplete="off" required>
+                                    <input class="validate" type="password" name="pass" id="input_pass" minlength="6"  autocomplete="off" required>
                                     <label for="password">Contraseña</label>
                                     </div>
 
