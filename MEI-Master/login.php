@@ -47,7 +47,7 @@
 
                             <form method="post">
 
-                                    <h3>Inicio de Sesión</h3>
+                                    <h3>Inicio de sesión</h3>
 
                                     <div align="center">
                                     <img src="imgs\logo1.png" heigh="40%" width="40%">

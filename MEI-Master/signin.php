@@ -39,7 +39,7 @@
         <div class="card-content">
 
                 <form method="post" action="#" onsubmit="if(confirmForm())return true;return false;">
-                    <h3>Registrar Usuario</h3>
+                    <h3>Registrar usuario</h3>
 
                     <div align="center">
                     <img src="imgs\logo1.png" heigh="40%" width="40%">
@@ -57,7 +57,7 @@
 
                     <div class="input-field">
                     <input class="validate" type="password" name="pass" id="input_pass2" minlength="6" autocomplete="off" required>
-                    <label for="password">Confirmar Contraseña</label>
+                    <label for="password">Confirmar contraseña</label>
                     </div>
 
                     <div class="input-field">
