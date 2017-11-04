@@ -1,7 +1,7 @@
 <?php
     session_start();
     if(isset($_SESSION['user'])){      /*Permite revisar si el usuario ya estaba logeado*/
-       // header("Location: MEI/index.php"); /*Regresa al usuario logueado al menu*/
+       header("Location: MEI/index.php"); /*Regresa al usuario logueado al menu*/
     }
 
     include 'conn.php';
@@ -36,47 +36,37 @@
 </head>
 <body id="body_login"> 
 	<div class="container" align="center">
-
         <div class="row">
-
             <div align="center" id="card" class="col s11 m8 l5">
+                <div class="card white-1">
+                    <div class="card-content" style="padding-bottom:0">
+                        <form method="post">
+                            <h3>Inicio de sesión</h3>
 
-                    <div class="card white-1">
+                            <div align="center">
+                                <img src="imgs\logo1.png" heigh="40%" width="40%">
+                            </div>
 
-                        <div class="card-content" style="padding-bottom:0">
+                            <div class="input-field">  
+                                <input class="validate" data-error="Inserta Correo Valido" type="email" name="usr" id="input_usuario" autofocus  autocomplete="off" required><br>
+                                <label for="email">E-mail</label>
+                            </div>
 
-                            <form method="post">
+                            <div class="input-field">
+                                <input class="validate" type="password" name="pass" id="input_pass" minlength="6"  autocomplete="off" required>
+                                <label for="password">Contraseña</label>
+                            </div>
 
-                                    <h3>Inicio de sesión</h3>
+                            <button class="btn waves-effect waves-light" type="submit" name="sbmt"id="btn_submit" value="Iniciar">Ingresar
+                                <i class="material-icons right">send</i>
+                            </button>
 
-                                    <div align="center">
-                                    <img src="imgs\logo1.png" heigh="40%" width="40%">
-                                    </div>
+                            <br><br>
 
-                                    <div class="input-field">  
-                                    <input class="validate" data-error="Inserta Correo Valido" type="email" name="usr" id="input_usuario" autofocus  autocomplete="off" required><br>
-                                    <label for="email">E-mail</label>
-                                    </div>
-
-                                    <div class="input-field">
-                                    <input class="validate" type="password" name="pass" id="input_pass" minlength="6"  autocomplete="off" required>
-                                    <label for="password">Contraseña</label>
-                                    </div>
-
-                                    <button class="btn waves-effect waves-light" type="submit" name="sbmt"id="btn_submit" value="Iniciar">Ingresar
-                                    <i class="material-icons right">send</i>
-                                    </button>
-
-                                    <br><br>
-
-                                    <div class="card-action" align="center">
-                                        <a href="signin.php">¿No tienes cuenta? Registrate</a>
-                                    </div>
-
-                                    
-
-                            </form>
-
+                            <div class="card-action" align="center">
+                                <a href="signin.php">¿No tienes cuenta? Registrate</a>
+                            </div>
+                        </form>
                     </div>    
                 </div>    
             </div>        
