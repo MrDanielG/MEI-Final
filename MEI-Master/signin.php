@@ -34,7 +34,7 @@
     <body id="body_singin">
         <div class="container" align="center">
         <div class="row">
-        <div align="center" id="card" class="col s11 m5">
+        <div align="center" id="card" class="col s11 m8 l5">
         <div class="card white-1">
         <div class="card-content">
 
