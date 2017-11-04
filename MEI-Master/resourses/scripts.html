@@ -1,2 +1,29 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="../js/materialize.min.js"></script>
+<script>
+        $(document).ready(function(){
+        $('.slider').slider();
+        });
+      </script>
+      <script>$(".button-collapse").sideNav();</script>
+      <script>
+        $(document).ready(function(){
+        $('.parallax').parallax();
+        });
+      </script>
+
+      <!-- SCRIPT GOOGLE MAPS -->
+      <script>
+          function initMap() {
+            var uluru = {lat:  22.783898, lng: -102.617015}; 
+            var map = new google.maps.Map(document.getElementById('map'), {
+              zoom: 17,
+              center: uluru
+            });
+            var marker = new google.maps.Marker({
+              position: uluru,
+              map: map
+            });
+          }
+        </script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZfDEE62mg_IxJAJctQtb7d0nUkHH1Bvo&callback=initMap"></script>
