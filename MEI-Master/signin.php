@@ -42,7 +42,7 @@
                     <h3>Registrar Usuario</h3>
 
                     <div align="center">
-                    <img src="imgs\logo1.png" heigh="50%" width="50%">
+                    <img src="imgs\logo1.png" heigh="40%" width="40%">
                     </div>
 
                     <div class="input-field"> 
