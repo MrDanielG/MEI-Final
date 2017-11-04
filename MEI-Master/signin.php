@@ -36,7 +36,7 @@
         <div class="row">
         <div align="center" id="card" class="col s11 m8 l5">
         <div class="card white-1">
-        <div class="card-content">
+        <div class="card-content" style="padding-bottom:0">
 
                 <form method="post" action="#" onsubmit="if(confirmForm())return true;return false;">
                     <h3>Registrar usuario</h3>

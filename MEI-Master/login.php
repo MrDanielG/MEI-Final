@@ -43,7 +43,7 @@
 
                     <div class="card white-1">
 
-                        <div class="card-content">
+                        <div class="card-content" style="padding-bottom:0">
 
                             <form method="post">
 
