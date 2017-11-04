@@ -18,9 +18,9 @@
                     $univq = mysqli_query($con,"SELECT uni_foto,latitud,longitud FROM universidades WHERE nombre = '{$registro['NombreUni']}'");
                     $univ = mysqli_fetch_array($univq, MYSQLI_NUM);
                     echo '
-                    <div class="card horizontal">
-                        <div class="card-image reco_foto" data-content="'.$univ[0].'" style="width:200px;height:200px;overflow:hidden;background:url('.$univ[0].') no-repeat center center;background-size: auto 100%;"></div>
-                        <div class="card-stacked">
+                    <div class="card row">
+                        <div class="reco_foto col s12 m3" data-content="'.$univ[0].'" style="background:url('.$univ[0].') no-repeat center center;"></div>
+                        <div class="col s12 m9">
                             <div class="card-content">
                                 <span class="card-title reco_carrera">'.$registro['Nombre_Carrera'].'</span>
                                 <span class="reco_universidad">'.$registro['NombreUni'].'</span>

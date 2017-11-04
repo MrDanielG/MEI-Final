@@ -16,7 +16,7 @@
                 
                 $foto = mysqli_fetch_array($queryfoto, MYSQLI_NUM);
                 echo '
-                <div class="parallax-container" style="height: 400px">
+                <div class="parallax-container" style="height: 100vh">
                     <div class="parallax"><img src="'.$foto[0].'"></div>
                 </div>';
             ?>
@@ -30,7 +30,7 @@
                             echo '
                             <div class="card white-1">
                                 <div class="card-content">
-                                    <span class="card-title carrera">'.$registro['nombre'].'</span>
+                                    <span class="card-title carrera"><h3>'.$registro['nombre'].'</h3></span>
                                     <span class="carrera">'.$registro['NombreUni'].'</span><br>
                                     <span class="carrera">'.$registro['AreaNombre'].'</span>
                                     <h5>Descripción</h5>
@@ -51,8 +51,9 @@
         <?php include '../resourses/scripts.html'; ?>
         <script>
             $("body").css("height",document.body.scrollHeight-document.getElementById("container").scrollHeight);
+            $("#container").offset({top: 570+(-window.pageYOffset/2)});
             $(window).scroll(e => {
-                $("#container").offset({top: 470+(-window.pageYOffset/2)});
+                $("#container").offset({top: 570+(-window.pageYOffset/2)});
             });
         </script>
     </body>

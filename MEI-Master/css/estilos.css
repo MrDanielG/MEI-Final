@@ -21,3 +21,18 @@
 #div_menu {
 	width: 90%;
 }
+
+.reco_foto{
+	min-height:11.3rem !important;
+	background-size: auto 100% !important;
+}
+
+@media screen and (min-width: 300px) {
+	.reco_foto{
+		min-height:11.3rem !important;
+		background-size: 100% auto !important;
+	}
+	#div_menu {
+		width: 100%;
+	}
+}
