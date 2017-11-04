@@ -45,7 +45,7 @@ public class login_fragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_login,container,false);
 
         GlobalVars globalVars = new GlobalVars();
-        String PagMadre = globalVars.urlMEIMaster();
+        String PagMadre = globalVars.urlMEIMaster()+"login.php";
         final WebView MEIPage = (WebView) rootView.findViewById(R.id.webview);
         final ProgressBar barra = (ProgressBar) rootView.findViewById(R.id.progressBar);
         final EditText user = (EditText) rootView.findViewById(R.id.et_email);

@@ -19,7 +19,7 @@
                     $univ = mysqli_fetch_array($univq, MYSQLI_NUM);
                     echo '
                     <div class="card horizontal">
-                        <div class="card-image reco_foto" href="'.$univ[0].'" style="width:200px;height:200px;overflow:hidden;background:url('.$univ[0].') no-repeat center center;background-size: auto 100%;"></div>
+                        <div class="card-image reco_foto" data-content="'.$univ[0].'" style="width:200px;height:200px;overflow:hidden;background:url('.$univ[0].') no-repeat center center;background-size: auto 100%;"></div>
                         <div class="card-stacked">
                             <div class="card-content">
                                 <span class="card-title reco_carrera">'.$registro['Nombre_Carrera'].'</span>

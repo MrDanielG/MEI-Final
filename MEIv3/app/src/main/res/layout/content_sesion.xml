@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     android:background="@android:color/background_light">
 
+    <WebView
+        android:id="@+id/mei_sesion"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="60dp"
+        android:visibility="gone">
+
+    </WebView>
+
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
@@ -226,15 +235,6 @@
 
         </LinearLayout>
     </ScrollView>
-
-    <WebView
-        android:id="@+id/mei_sesion"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="60dp"
-        android:visibility="gone">
-
-    </WebView>
 
     <ScrollView
         android:id="@+id/sv_reco"

@@ -6,6 +6,6 @@ package com.example.ramir.meiv3;
 
 public class GlobalVars {
     public String urlMEIMaster(){
-        return "https://meimaster.000webhostapp.com/";
+        return "http://192.168.1.65/MEI-Final/MEI-Master/";
     }
 }

@@ -48,7 +48,7 @@ public class regis_fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View rootView = inflater.inflate(R.layout.fragment_regis,container,false);
         GlobalVars globalVars = new GlobalVars();
-        final String PagMadre = globalVars.urlMEIMaster()+"Registro/";
+        final String PagMadre = globalVars.urlMEIMaster()+"signin.php";
         final WebView MEIPage = (WebView) rootView.findViewById(R.id.webviewr);
         final EditText user = (EditText) rootView.findViewById(R.id.et_r_email);
         final EditText pass = (EditText) rootView.findViewById(R.id.et_r_pass);
@@ -145,15 +145,16 @@ public class regis_fragment extends Fragment {
                 if(error){
                     String nombre = name.getText().toString();
                     MEIPage.loadUrl("javascript:" +
-                            "    var x = document.getElementsByTagName('INPUT');" +
-                            "    var form = document.getElementsByTagName('form')[0];" +
+                            "    var x = document.getElementsByTagName('input');" +
+                            "    var form = document.getElementsByTagName('button')[0];" +
                             "    x[0].value='" + user.getText().toString() + "';" +
                             "    x[1].value='" + pass.getText().toString() + "';" +
-                            "    x[2].value='" + nombre + "';" +
-                            "    x[3].value='" + last.getText().toString() + "';" +
-                            "    x[4].value=" + edad.getText().toString() + ";" +
-                            "    x[5].value='" + valorEstado + "';" +
-                            "    form.submit();");
+                            "    x[2].value='" + pass2.getText().toString() + "';" +
+                            "    x[3].value='" + nombre + "';" +
+                            "    x[4].value='" + last.getText().toString() + "';" +
+                            "    x[5].value=" + edad.getText().toString() + ";" +
+                            "    x[6].value='" + valorEstado + "';" +
+                            "    $(form).click();");
                 }
             }
         });

@@ -69,6 +69,7 @@ public class SesionActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.e("pag",PagMadre);
         setContentView(R.layout.activity_sesion);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -212,7 +213,7 @@ public class SesionActivity extends AppCompatActivity
                                     "var foto = document.getElementsByClassName('reco_foto');" +
                                     "if(carrera.length){" +
                                     "for(var i = 0 ; i < carrera.length ; ++i)" +
-                                    "   window.HTMLOUT.recomienda(carrera[i].innerText,uni[i].innerText,info[i].href,maps[i].href, foto[i].href);" +
+                                    "   window.HTMLOUT.recomienda(carrera[i].innerText,uni[i].innerText,info[i].href, i , foto[i].dataset.content);" +
                                     "}else{" +
                                     "   window.HTMLOUT.empty();" +
                                     "}");
@@ -308,7 +309,7 @@ public class SesionActivity extends AppCompatActivity
                     intent.putExtra("lat",Double.parseDouble(msg[1]));
                     intent.putExtra("lon",Double.parseDouble(msg[2]));
                     startActivity(intent);
-                    mei.loadUrl(PagMadre+"mostrar_reco.php");
+                    mei.loadUrl(PagMadre+"recomendaciones.php");
                 } else if(Arrays.asList(msg).contains("perfil")){
                     sv_perfil.setVisibility(View.VISIBLE);
                 } else if(Arrays.asList(msg).contains("login")){
@@ -367,7 +368,7 @@ public class SesionActivity extends AppCompatActivity
         }
 
 
-        mei.loadUrl(PagMadre+"mei_general.html");
+        mei.loadUrl(PagMadre);
 
         String url = "http://i.imgur.com/bIRGzVO.jpg";
         View hView =  navigationView.getHeaderView(0);
@@ -475,7 +476,7 @@ public class SesionActivity extends AppCompatActivity
         }
 
         @JavascriptInterface
-        public void recomienda(final String Nombre, final String Uni, final String urlInfo,final String urlMaps, final String urlFoto) {
+        public void recomienda(final String Nombre, final String Uni, final String urlInfo,final int iMaps, final String urlFoto) {
             runOnUiThread(new Runnable() {
                 @RequiresApi(api = Build.VERSION_CODES.M)
                 @Override
@@ -578,7 +579,7 @@ public class SesionActivity extends AppCompatActivity
                     btMaps.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            mei.loadUrl(urlMaps);
+                            mei.loadUrl("javascript: $(\".reco_maps\").get("+iMaps+").click()");
                         }
                     });
 
@@ -803,19 +804,19 @@ public class SesionActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
             if (id == R.id.nav_inicio) {
-                mei.loadUrl(PagMadre + "mei_general.html");
+                mei.loadUrl(PagMadre);
                 setTitle("Inicio");
             } else if (id == R.id.nav_test) {
-                mei.loadUrl(PagMadre + "listaencuestas.php");
+                mei.loadUrl(PagMadre + "test.php");
                 setTitle("Test");
             } else if (id == R.id.nav_perfil) {
                 mei.loadUrl(PagMadre + "menu.php");
                 setTitle("Perfil");
             } else if (id == R.id.nav_recomendaciones) {
-                mei.loadUrl(PagMadre + "mostrar_reco.php");
+                mei.loadUrl(PagMadre + "recomendaciones.php");
                 setTitle("Recomendaciones");
             } else if (id == R.id.nav_cerrarc) {
-                mei.loadUrl(PagMadre + "cerrarsesion.php");
+                mei.loadUrl(PagMadre + "logout.php");
                 setTitle("Cerrando sesión...");
             }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -33,67 +33,66 @@
     </head>
     <body id="body_singin">
         <div class="container" align="center">
-        <div class="row">
-        <div align="center" id="card" class="col s11 m8 l5">
-        <div class="card white-1">
-        <div class="card-content" style="padding-bottom:0">
+            <div class="row">
+                <div align="center" id="card" class="col s11 m8 l5">
+                    <div class="card white-1">
+                        <div class="card-content" style="padding-bottom:0">
 
-                <form method="post" action="#" onsubmit="if(confirmForm())return true;return false;">
-                    <h3>Registrar usuario</h3>
+                            <form method="post" action="#" onsubmit="if(confirmForm())return true;return false;">
+                                <h3>Registrar usuario</h3>
 
-                    <div align="center">
-                    <img src="imgs\logo1.png" heigh="40%" width="40%">
+                                <div align="center">
+                                    <img src="imgs\logo1.png" heigh="40%" width="40%">
+                                </div>
+
+                                <div class="input-field"> 
+                                    <input class="validate" type="email" name="usr" id="input_usuario" autofocus autocomplete="off" required>
+                                    <label for="email">E-mail</label>
+                                </div>
+
+                                <div class="input-field">
+                                    <input class="validate" type="password" name="pass" id="input_pass" minlength="6" autocomplete="off" required>
+                                    <label for="password">Contraseña</label>
+                                </div>
+
+                                <div class="input-field">
+                                    <input class="validate" type="password" name="pass" id="input_pass2" minlength="6" autocomplete="off" required>
+                                    <label for="password">Confirmar contraseña</label>
+                                </div>
+
+                                <div class="input-field">
+                                    <input class="validate" type="text" name="nombre" id="input_nombre" class="input_nombre" autocomplete="off" required>
+                                    <label for="text">Nombre(s)</label>
+                                </div>
+
+                                <div class="input-field">
+                                    <input class="validate" type="text" name="apellido" id="input_last" autocomplete="off" required>
+                                    <label for="text">Apellido(s)</label>
+                                </div>
+
+                                <div class="input-field">
+                                    <input class="validate" type="number" name="edad" min="10" title="Necesitas más de 10 años para registrarte" id="input_edad" autocomplete="off" required>
+                                    <label for="number">Edad</label>
+                                </div>
+                                
+                                <div class="input-field">
+                                    <input class="validate" type="text" name="city" id="input_lugar" autocomplete="off" required>
+                                    <label for="number">Ciudad</label>
+                                </div>
+
+                                <button class="btn waves-effect waves-light" type="submit" name="sbmt"id="btn_submit" value="Iniciar">Registrarse
+                                    <i class="material-icons right">send</i>
+                                </button>
+
+                                <br><br>
+                            </form>
+                            <div class="card-action"  align="center">
+                                <a href="login.php">¿Ya tienes cuenta? Inicia sesión</a>
+                            </div>
+                        </div>
                     </div>
-
-                    <div class="input-field"> 
-                    <input class="validate" type="email" name="usr" id="input_usuario" autofocus autocomplete="off" required>
-                    <label for="email">E-mail</label>
-                    </div>
-
-                    <div class="input-field">
-                    <input class="validate" type="password" name="pass" id="input_pass" minlength="6" autocomplete="off" required>
-                    <label for="password">Contraseña</label>
-                    </div>
-
-                    <div class="input-field">
-                    <input class="validate" type="password" name="pass" id="input_pass2" minlength="6" autocomplete="off" required>
-                    <label for="password">Confirmar contraseña</label>
-                    </div>
-
-                    <div class="input-field">
-                    <input class="validate" type="text" name="nombre" id="input_nombre" class="input_nombre" autocomplete="off" required>
-                    <label for="text">Nombre(s)</label>
-                    </div>
-
-                    <div class="input-field">
-                    <input class="validate" type="text" name="apellido" id="input_last" autocomplete="off" required>
-                    <label for="text">Apellido(s)</label>
-                    </div>
-
-                    <div class="input-field">
-                    <input class="validate" type="number" name="edad" min="10" title="Necesitas más de 10 años para registrarte" id="input_edad" autocomplete="off" required>
-                    <label for="number">Edad</label>
-                    </div>
-                    
-                    <div class="input-field">
-                    <input class="validate" type="text" name="city" id="input_lugar" autocomplete="off" required>
-                    <label for="number">Ciudad</label>
-                    </div>
-
-                    <button class="btn waves-effect waves-light" type="submit" name="sbmt"id="btn_submit" value="Iniciar">Ingresar
-                    <i class="material-icons right">send</i>
-                    </button>
-
-                    <br><br>
-
-                </form>
-                <div class="card-action"  align="center">
-                    <a href="login.php">¿Ya tienes cuenta? Inicia sesión</a>
                 </div>
-        </div>
-        </div>
-        </div>
-        </div>
+            </div>
         </div>
 
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>

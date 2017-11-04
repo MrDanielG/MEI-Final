@@ -2,6 +2,9 @@
     <head>
         <title>Pagina principal | MEI</title>
         <?php include '../resourses/header.html'; ?>
+        <script type="text/javascript">
+            console.log("sesion|");
+        </script>
     </head>
     <body>
         <?php include '../resourses/menu.html'; ?>

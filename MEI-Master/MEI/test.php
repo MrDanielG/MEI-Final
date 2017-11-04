@@ -3,7 +3,7 @@
         <title>Test | MEI</title>
         <?php include '../resourses/header.html'; ?>
         <script type="text/javascript">
-            console.log("sesion|");
+            console.log("test|");
         </script>
     </head>
     <body>

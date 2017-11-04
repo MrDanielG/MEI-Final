@@ -28,7 +28,7 @@ import android.widget.RelativeLayout;
 public class LoginActivity extends AppCompatActivity {
 
     GlobalVars globalVars = new GlobalVars();
-    String PagMadre = globalVars.urlMEIMaster();
+    String PagMadre = globalVars.urlMEIMaster()+"login.php";
     private RelativeLayout rl;
     AppBarLayout appBarLayout;
     ImageView ivReconect;
