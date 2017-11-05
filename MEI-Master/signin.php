@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <?php
     if(isset($_POST["sbmt"])){
+        $id = sha1(time());
         $usuario = $_POST['usr'];
         $concat = "mei".$_POST['pass'];
         $pass = sha1($concat);
@@ -37,7 +38,6 @@
                 <div align="center" id="card" class="col s11 m8 l5">
                     <div class="card white-1">
                         <div class="card-content" style="padding-bottom:0">
-
                             <form method="post" action="#" onsubmit="if(confirmForm())return true;return false;">
                                 <h3>Registrar usuario</h3>
 
@@ -120,7 +120,7 @@
             if(isset($_POST["sbmt"])){
                 $consulta = mysqli_query($con,"SELECT * FROM `usuarios` WHERE `email` = '{$usuario}'");
                 if(isset($usuario)&&isset($pass)&& mysqli_num_rows($consulta)<1){
-                    $consulta = mysqli_query($con," INSERT INTO usuarios (email, pass, ciudad,`nombre(s)`,`apellido(s)`,edad) VALUES ('$usuario','$pass','$city','$nombre','$apellido','$edad') ");
+                    $consulta = mysqli_query($con," INSERT INTO usuarios (id,email, pass, ciudad,`nombre(s)`,`apellido(s)`,edad) VALUES ('$id','$usuario','$pass','$city','$nombre','$apellido','$edad') ");
     
                     echo '
                         <script type="text/javascript">
