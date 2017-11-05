@@ -312,6 +312,12 @@ public class SesionActivity extends AppCompatActivity
                     mei.loadUrl(PagMadre+"recomendaciones.php");
                 } else if(Arrays.asList(msg).contains("perfil")){
                     sv_perfil.setVisibility(View.VISIBLE);
+                    mei.loadUrl("javascript: var imgUrl = $('#profile-img').src;" +
+                                            "var name = $('#profile-nombre').text();" +
+                                            "var email = $('#profile-correo').text();" +
+                                            "var edad = $('#profile-edad').text();" +
+                                            "var city = $('#profile-ciudad').text();" +
+                                            "window.HTMLOUT.perfil(imgUrl,name,email,edad,city);");
                 } else if(Arrays.asList(msg).contains("login")){
                     Intent intent = new Intent(SesionActivity.this, LoginActivity.class);
                     startActivity(intent);
@@ -733,6 +739,12 @@ public class SesionActivity extends AppCompatActivity
                     tvResultado_detalles.setText(Html.fromHtml(html));
                 }
             });
+        }
+
+        @JavascriptInterface
+        public  void perfil(String url,String name, String correo, String edad, String ciudad){
+            Picasso.with(getBaseContext()).load(url).transform(new CircleTransform()).into(foto);
+
         }
     }
 
