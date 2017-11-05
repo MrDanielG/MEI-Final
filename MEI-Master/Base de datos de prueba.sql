@@ -1,16 +1,12 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.6
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Nov 03, 2017 at 08:02 PM
--- Server version: 10.1.20-MariaDB
--- PHP Version: 7.0.8
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 05-11-2017 a las 03:52:25
+-- Versión del servidor: 10.1.28-MariaDB
+-- Versión de PHP: 7.1.10
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
 
 --
 CREATE DATABASE `id1181196_mei`;
@@ -20,7 +16,7 @@ USE `id1181196_mei`;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `aplicacion_examen`
+-- Estructura de tabla para la tabla `aplicacion_examen`
 --
 
 CREATE TABLE `aplicacion_examen` (
@@ -32,7 +28,7 @@ CREATE TABLE `aplicacion_examen` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 --
--- Dumping data for table `aplicacion_examen`
+-- Volcado de datos para la tabla `aplicacion_examen`
 --
 
 INSERT INTO `aplicacion_examen` (`id`, `IdExamen`, `UsrEmail`, `fecha`, `resultado`) VALUES
@@ -80,7 +76,7 @@ INSERT INTO `aplicacion_examen` (`id`, `IdExamen`, `UsrEmail`, `fecha`, `resulta
 -- --------------------------------------------------------
 
 --
--- Table structure for table `areas`
+-- Estructura de tabla para la tabla `areas`
 --
 
 CREATE TABLE `areas` (
@@ -89,7 +85,7 @@ CREATE TABLE `areas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 --
--- Dumping data for table `areas`
+-- Volcado de datos para la tabla `areas`
 --
 
 INSERT INTO `areas` (`nombre`, `descripcion`) VALUES
@@ -101,7 +97,7 @@ INSERT INTO `areas` (`nombre`, `descripcion`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `carreras`
+-- Estructura de tabla para la tabla `carreras`
 --
 
 CREATE TABLE `carreras` (
@@ -115,11 +111,11 @@ CREATE TABLE `carreras` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 --
--- Dumping data for table `carreras`
+-- Volcado de datos para la tabla `carreras`
 --
 
 INSERT INTO `carreras` (`AreaNombre`, `NombreUni`, `nombre`, `descripcion`, `planestudios`, `intercambio`, `perfilegreso`) VALUES
-('Humanidades', 'Universidad Nacional Autónoma de México', 'Cinematografía (UNAM)', 'La licenciatura de Cinematografía de la UNAM se imparte en el Centro Universitario de Estudios Cinematográficos (CUEC) ubicado en el Circuito Mario de la Cueva s/n en Ciudad Universitaria, CDMX. El CUEC ofrece la infraestructura apropiada para que los alumnos se puedan desenvolver adecuadamente, en estos se incluyen: biblioteca, videoteca, sets, sala de exhibición y postproducción, cubículos de edición, imagen y sonido.\r\nDentro de esta carrera se forman los profesionales que se encargan de desarrollar proyecto cinematográficos, como de animación, ficción o documentales. En dichos proyectos se plasman sus conocimientos y sensibilidad. Los alumnos que ingresan pueden escoger entre 9 campos de conocimiento: animación, ficción y animación; guión, montaje, dirección de fotografía y de arte, producción, y diseño de sonido.<ul>\r\n<li>Duración: 8 semetres.</li><li>Servicio social: dura un periodo no menor a 6 meses y no mayor a 2 años y puede iniciarse al contar con 70% de los créditos totales.</li><li>Titulación: El alumno tiene la opción de titularse mediante una tesis fílmica (proyecto de cortometraje), tesis escrita o informe académico de experiencia profesional.</li>\r\n</ul>', 'La licenciatura de Cinematografía consta de 8 semestres, con un total de 352 a 356 créditos, el total de créditos dependerá del campo de conocimientos que escoja el alumno durante el desarrollo de la carrera. La asignaturas se dividen en: obligatorias (34 con 244 créditos), obligatorias de elección (de 15 a 20 con 100 a 120 créditos) y optativas (2 a 5 con 12 a 30 créditos).<br><br>\r\nLa carrerar consta de dos etapas de formación:\r\n<ul>\r\n<li> Formación básica: dentro de esta etapa el alumno obtiene conocimientos básicos de cinematografía profesional, además de una concepción teórica, artística y técnica sobre los procesos de la creación cinematográfica. Tiene una duración de 4 semestres y se compone en su mayoría de asignaturas obligatorias, pero también tiene asignaturas obligatorias de elección.</li>\r\n<li>Formación de profundización: el principal objetivo de esta etapa es capacitar a los alumnos para ejercer su profesión, además de darles fundamentos para cursar un\r\nposgrado. Tiene una duración de 4 semestres y se compone en su mayoría de asignaturas obligatorias de elección y en menor medida de asignaturas obligatorias y optativas.</li>\r\n</ul>\r\n\r\nLos conocimientos que el alumno obtendrá al terminar esta licenciatura son altamente variados, sin embargo dentro de ellos podemos mencionar: realización de cine de animación, realización de cine documental, realización de cine de ficción, desarrollo de un guión, dirección de fotografía, producción, dirección de arte y diseño de sonido.<br><br>\r\nPara saber más sobre el plan de estudios de la carrera de Cinematografía de la UNAM te sugerimos visitar el sitio:\r\n<a href=\"http://oferta.unam.mx/carreras/98/cinematografia\" target=\"_blank\">Oferta</a>', 'El alumno podrá realizar un programa de intercambio en cualquiera de las escuelas del Centre International de Liaison des Ecoles de Cinéma et de Télévision (CILET), en el cual, se encuentran un total de 131 escuelas de cine de 55 países de todos los continentes. Como si no fuera suficiente, la UNAM también le da la oportunidad a sus alumnos de realizar un programa con la Federación de las Escuelas de la Imagen y el Sonido de América Latina (FEISAL), la cual aglutina a más de 30 escuelas de cine en Latinoamérica.<br><br>Además, la UNAM posee varias opciones de estudio fuera de la propia escuela, en las cuales se incluyen varios institutos, centros y otras universidades, como: Centro de Capacitación Cinematográfica (Conaculta/SEP), Centro de Estudios Cinematográficos (plantel Coyoacán), Asociación Mexicana de Cineastas Independientes (AMCI), Universidad Iberoamericana,, Universidad Autónoma de Guadalajara (Zapopan, Jalisco) y el Centro de Estudios Cinematográficos (plantel Guadalajara, Jalisco).<br><br>', '\"Al finalizar sus estudios el alumno habrá obtenido.<br><ul>\r\n<h3>Conocimiento para:</h3>\r\n<li>Clasificar y criticar las teorías, métodos, escuelas y técnicas de la cinematografía nacional y mundial.</li>\r\n<li>Interpretar con lenguaje cinematográfico las artes narrativas y dramáticas.</li>\r\n<li>Argumentar, a través de las producciones cinematográficas, sobre la situación económica, social, política y cultural de México y el mundo.</li><br><h3>Habilidades para la creación de cinematografía:</h3>\r\n<li>Convertir ideas y conceptos en elementos concretos, visuales y sonoros.</li>\r\n<li>Aplicar instrumentos tecnológicos en la realización cinematográfica.</li>\r\n<li>Adaptarse visual y auditivamente a las nuevas tecnologías videocinematográficas.</li><h3>Actitudes de:</h3><li>Compromiso con la propia expresión artística y los valores estéticos de la cinematografía, así como con las problemáticas sociales más cercanas.</li>\r\n<li>Reflexión crítica sobre su trabajo y la producción cinematográfica en general.</li>\r\n<li>Templanza y racionalidad ante las presiones externas a la creación cinematográfica.</li>\r\n</ul>'),
+('Humanidades', 'Universidad Nacional Autónoma de México', 'Cinematografía (UNAM)', 'La licenciatura de Cinematografía de la UNAM se imparte en el Centro Universitario de Estudios Cinematográficos (CUEC) ubicado en el Circuito Mario de la Cueva s/n en Ciudad Universitaria, CDMX. El CUEC ofrece la infraestructura apropiada para que los alumnos se puedan desenvolver adecuadamente, en estos se incluyen: biblioteca, videoteca, sets, sala de exhibición y postproducción, cubículos de edición, imagen y sonido.\r\nDentro de esta carrera se forman los profesionales que se encargan de desarrollar proyecto cinematográficos, como de animación, ficción o documentales. En dichos proyectos se plasman sus conocimientos y sensibilidad. Los alumnos que ingresan pueden escoger entre 9 campos de conocimiento: animación, ficción y animación; guión, montaje, dirección de fotografía y de arte, producción, y diseño de sonido.<ul>\r\n<li>Duración: 8 semetres.</li><li>Servicio social: dura un periodo no menor a 6 meses y no mayor a 2 años y puede iniciarse al contar con 70% de los créditos totales.</li><li>Titulación: El alumno tiene la opción de titularse mediante una tesis fílmica (proyecto de cortometraje), tesis escrita o informe académico de experiencia profesional.</li>\r\n</ul>', 'La licenciatura de Cinematografía consta de 8 semestres, con un total de 352 a 356 créditos, el total de créditos dependerá del campo de conocimientos que escoja el alumno durante el desarrollo de la carrera. La asignaturas se dividen en: obligatorias (34 con 244 créditos), obligatorias de elección (de 15 a 20 con 100 a 120 créditos) y optativas (2 a 5 con 12 a 30 créditos).<br><br>\r\nLa carrerar consta de dos etapas de formación:\r\n<ul>\r\n<li> Formación básica: dentro de esta etapa el alumno obtiene conocimientos básicos de cinematografía profesional, además de una concepción teórica, artística y técnica sobre los procesos de la creación cinematográfica. Tiene una duración de 4 semestres y se compone en su mayoría de asignaturas obligatorias, pero también tiene asignaturas obligatorias de elección.</li>\r\n<li>Formación de profundización: el principal objetivo de esta etapa es capacitar a los alumnos para ejercer su profesión, además de darles fundamentos para cursar un\r\nposgrado. Tiene una duración de 4 semestres y se compone en su mayoría de asignaturas obligatorias de elección y en menor medida de asignaturas obligatorias y optativas.</li>\r\n</ul>\r\n\r\nLos conocimientos que el alumno obtendrá al terminar esta licenciatura son altamente variados, sin embargo dentro de ellos podemos mencionar: realización de cine de animación, realización de cine documental, realización de cine de ficción, desarrollo de un guión, dirección de fotografía, producción, dirección de arte y diseño de sonido.<br><br>\r\nPara saber más sobre el plan de estudios de la carrera de Cinematografía de la UNAM te sugerimos visitar el sitio:\r\n<a href=\"http://oferta.unam.mx/carreras/98/cinematografia\" target=\"_blank\">Oferta</a>', 'El alumno podrá realizar un programa de intercambio en cualquiera de las escuelas del Centre International de Liaison des Ecoles de Cinéma et de Télévision (CILET), en el cual, se encuentran un total de 131 escuelas de cine de 55 países de todos los continentes. Como si no fuera suficiente, la UNAM también le da la oportunidad a sus alumnos de realizar un programa con la Federación de las Escuelas de la Imagen y el Sonido de América Latina (FEISAL), la cual aglutina a más de 30 escuelas de cine en Latinoamérica.<br><br>Además, la UNAM posee varias opciones de estudio fuera de la propia escuela, en las cuales se incluyen varios institutos, centros y otras universidades, como: Centro de Capacitación Cinematográfica (Conaculta/SEP), Centro de Estudios Cinematográficos (plantel Coyoacán), Asociación Mexicana de Cineastas Independientes (AMCI), Universidad Iberoamericana,, Universidad Autónoma de Guadalajara (Zapopan, Jalisco) y el Centro de Estudios Cinematográficos (plantel Guadalajara, Jalisco).<br><br>', '\"Al finalizar sus estudios el alumno habrá obtenido.<br><ul>\r\n<h6>Conocimiento para:</h6>\r\n<li>Clasificar y criticar las teorías, métodos, escuelas y técnicas de la cinematografía nacional y mundial.</li>\r\n<li>Interpretar con lenguaje cinematográfico las artes narrativas y dramáticas.</li>\r\n<li>Argumentar, a través de las producciones cinematográficas, sobre la situación económica, social, política y cultural de México y el mundo.</li><br><h6>Habilidades para la creación de cinematografía:</h6>\r\n<li>Convertir ideas y conceptos en elementos concretos, visuales y sonoros.</li>\r\n<li>Aplicar instrumentos tecnológicos en la realización cinematográfica.</li>\r\n<li>Adaptarse visual y auditivamente a las nuevas tecnologías videocinematográficas.</li><h6>Actitudes de:</h6><li>Compromiso con la propia expresión artística y los valores estéticos de la cinematografía, así como con las problemáticas sociales más cercanas.</li>\r\n<li>Reflexión crítica sobre su trabajo y la producción cinematográfica en general.</li>\r\n<li>Templanza y racionalidad ante las presiones externas a la creación cinematográfica.</li>\r\n</ul>'),
 ('Sociales', 'El Colegio de México', 'Economía (COLMEX)', 'La licenciatura de Economía se imparte en el COLMEX y es de excelencia académica. Contando con egresados notables que se desarrollan en el ámbito público y privado del país.\r\n\r\n<ul>\r\n<li>Duración: 9 semestres.</li>\r\n\r\n<li>Servicio social: se lleva a cabo en un tiempo mayor a 6 meses, cumpliendo 480 horas.</li>\r\n\r\n<li>Titulación: El alumno tiene la opción de titularse mediante una tesis.</li>\r\n</ul>', 'El plan de estudios ofrece las siguientes características:<br><br>\r\n<ul>\r\n<li> Formación técnica de primer nivel.</li>\r\n<li>Fundamentos en ciencias sociales y humanidades.</li>\r\n<li>Análisis de la realidad política y económica contemporánea.</li>\r\n<li>Entrenamiento en la producción de conocimientos innovadores y relevantes.</li>\r\n<li>El programa tiene una duración de ocho semestres académicos más un semestre de servicio social. En los últimos semestres, el alumno puede realizar un intercambio académico en alguna de las universidades extranjeras con las que se tiene convenio.</li>\r\n</ul>', 'El alumno podrá realizar un programa de intercambio en cualquiera de las escuelas del Centre International de Liaison des Ecoles de Cinéma et de Télévision (CILET), en el cual, se encuentran un total de 131 escuelas de cine de 55 países de todos los continentes. Como si no fuera suficiente, la UNAM también le da la oportunidad a sus alumnos de realizar un programa con la Federación de las Escuelas de la Imagen y el Sonido de América Latina (FEISAL), la cual aglutina a más de 30 escuelas de cine en Latinoamérica.<br><br>\r\nPara saber más, te sugerimos visitar :\r\n<a href=\"http://oia.colmex.mx/index.php/el-colegio-de-mexico-y-el-mundo\" target=\"_blank\">Aquí</a>', 'Al finalizar sus estudios el alumno habrá obtenido.<br>\r\nLos estudiantes egresados de la Licenciatura en Economía serán profesionales con conocimientos en la teoría y el análisis económico, con capacidad de análisis crítico e independiente basado en el conocimiento de amplio espectro de las diferentes ramas de las ciencias sociales.<br>\r\nLos egresados estarán en capacidad de elaborar diagnósticos de situaciones y escenarios micro y macroeconómicos y de implementar políticas en el ámbito público y privado. Tendrán las habilidades y conocimientos necesarios para ocupar cargos de liderazgo en organismos públicos nacionales e internacionales, empresas y consultorías, así como en instituciones de investigación.<br>\r\nAsimismo, nuestro programa de Licenciatura en Economía brinda la preparación necesaria para que los egresados puedan continuar sus estudios de posgrado en las más prestigiosas universidades a nivel nacional e internacional.<br>'),
 ('Humanidades', 'Universidad Nacional Autónoma de México', 'Historia', 'La licenciatura de Historia de la UNAM se imparte en la Facultad de Filosofía y Letras ubicado en el Circuito Interior en Ciudad Universitaria, CDMX. Dentro de la Facultad los alumnos tienen acceso a la biblioteca \"\"Samuel Ramos\"\", salas de cómputo, mapoteca, laboratorios de cartografía, teatros y la librería \"\"Mascarones\"\", en la cual pueden encontrar libros y revistas editados por la Facultad.\r\nDe igual forma, se imparte en la Facultad de Estudios Superiores de Actlán ubicado en la Av. Alcanfores y San Juan Totoltepec s/n, Santa Cruz Acatlán, 53150 Naucalpan, CDMX. La facultad se conforma de 26 edificios y amplias áreas para actividades académicas, deportivas, recreativas y culturales, conformando más de 30 hectáreas.\r\n\"\"En el ciclo escolar 2013-2014 el total de aspirantes a ingresar a esta licenciatura fue de 1,987. De cada 4 estudiantes que demandaron la carrera ingresó 1. Del total de alumnos de primer ingreso 44% son mujeres y 56% hombres.\"\" (UNAM)\r\nDentro de esta carrera se forman los profesionales encargados de aplicar las herramientas conceptuales y técnicas, para investigar críticamente los hechos ocurridos en el pasado desde diversas perspectivas y reflexionar entorno a estos, relacionándolo con el presente. En otra parte, estudia las transformaciones de la sociedad, provocadas por un acontecimiento o proceso, acontecido en una época y lugar geográfico determinado.\r\n<ul>\r\n<li>Duración: 8 semetres.</li><li>Servicio social: dura un periodo no menor a 6 meses y no mayor a 2 años y puede iniciarse al contar con 70% de los créditos totales.</li><li>Titulación: El alumno puede titularse mediante tesis, tesina, informe académico de actividad profesional, informe académico por Servicio Social o informe académico por artículo académico, cualquiera que sea la opción elegida debe ser acompañada por una réplica oral./li>\r\n</ul>\r\n', 'La licenciatura de Historia tiene una duración de 8 semestres, con un total de créditos de 304. Posee 52 asignaturas: 26 son obligatorias (196 créditos) y 26 optativas (108 créditos). Las asignaturas desarrollan las siguientes áreas temáticas: Historiografía; Investigación, Docencia y Difusión; Teoría, Conocimiento Histórico.<br><br>\r\nLa carrera consta de varias etapas de formación:\r\n<ul>\r\n<li> Primera: en los primeros dos semestres se toman 5 asignaturas obligatorias y solamente una optativa, ya que se hace un énfasis en los conocimientos básicos que debe de poseer un historiador.</li>\r\n<li>Segunda: de tercer al sexto semestre se toman 7 asignaturas.</li>\r\n<li>Tercera: Mientras que los últimos dos semestres están conformados por seis materias cada uno, donde deberá cursar un seminario de investigación obligatorio, con opción temática. Para inscribirse al séptimo semestre se necesita aprobar un examen de comprensión de lectura de una lengua extranjera moderna, en el Departamento de Lenguas Extranjeras de la Facultad de Filosofía y Letras, o en el Centro de Enseñanza de Lenguas Extranjeras de la UNAM.</li>\r\n</ul>Nota: el programa académico varía según la facultad donde se desarrolle la carrera.\r\n', 'La Facultad de Filosofía y Letras de la UNAM le da la oportunidad a sus estudiantes de realizar un intercambio de movilidad estudiantil a más de 30 universidades de Estados Unidos, Canadá, América Latina y algunos países de Asia. Si el estudiante lo necesita, también puede aspirar a una beca.\r\nD0e igual forma, la Facultad de da la posibilidad como estudiante de hacer un intercambio de movilidad a nivel nacional, en 25 universidades al interior de la República Mexicana, entre ellas se encuentra el Instituto Politécnico Nacional, la Universidad Autónoma de México y el Colegio de\r\nMéxico. La convocatoria es publicada por la Oficina de Colaboración Interinstitucional, en la Gaceta UNAM.<br><br>Para saber más sobre los programas de Intercambio de la carrera de Historia de la UNAM te sugerimos visitar el sitio:\r\n<a href=\"\"http://www.global.unam.mx/\"\" target=\"\"_blank\"\">Aquí</a>', 'Al finalizar sus estudios el alumno .<br> \r\n\r\n<ul> \r\n<li>Recopilar, ordenar, sistematizar e interpretar los hechos humanos del pasado para interactuar eficazmente con egresados de otras disciplinas.</li> \r\n<li>Dar prioridad a tareas que favorezcan, preserven, refuercen y enriquezcan la identidad multicultural del país.</li> \r\n<li>Manejar aspectos conceptuales básicos de la historiografía y de la teoría de la historia para analizar las diversas formas del discurso histórico y su interpretación.</li> \r\n<li>Dominar los fundamentos metodológicos y didácticos para el ejercicio de la docencia.</li> \r\n<li>Aplicar los principios metodológicos y de manejo de fuentes en la investigación histórica.</li> \r\n<li>Enfrentar los problemas que se presenten en la vida profesional de manera crítica y creativa.</li> \r\n<li>Mantener una actitud de apertura y crítica hacia nuevas corrientes de interpretación histórica.</li> \r\n</ul>'),
 ('Humanidades', 'Universidad Nacional Autónoma de México', 'Letras Clásicas', 'La licenciatura de Letras clásicas de la UNAM se imparte en la Facultad de Filosofía y Letras ubicado en el Circuito Interior en Ciudad Universitaria, CDMX. Dentro de la Facultad los alumnos tienen acceso a la biblioteca \"\"Samuel Ramos\"\", salas de cómputo, mapoteca, laboratorios de cartografía, teatros y la librería \"\"Mascarones\"\", en la cual pueden encontrar libros y revistas editados por la Facultad. De igual forma, se imparte en la Facultad de Estudios Superiores de Actlán ubicado en la Av. \r\nAlcanfores y San Juan Totoltepec s/n, Santa Cruz Acatlán, 53150 Naucalpan, CDMX. La facultad se conforma de 26 edificios y amplias áreas para actividades académicas, deportivas, recreativas y culturales, conformando más de 30 hectáreas. \r\n\"\"En 2013-2014 el número de aspirantes a ingresar a esta licenciatura fue de 296. De cada 5 estudiantes que demandaron la carrera ingresó 1. Del total de alumnos de primer ingreso 58% son mujeres y 42% hombres.\"\" (UNAM) \r\nEn la carrera de Letras clásicas se desarrollan los profesionales que se dedican a estudiar los diversos campos culturales griegos y latinos en un contexto histórico-social. Como resultado, el egresado podrá analizar la influencia que han tenido estos factores dentro de la cultura occidental, en especial, la cultura mexicana\r\n<ul>\r\n<li>Duración: 8 semestres.</li>\r\n<li>Servicio social: se lleva a cabo en un tiempo mayor a 6 meses pero menor a 2 años, y puede iniciarse al contar con 70% de los créditos totales. Se puede llevar a cabo este requisito haciendo actividades de docencia, apoyo a investigación y edición de textos..</li>\r\n<li>Titulación: El alumno tiene la opción de titularse mediante una tesis, tesina, informe académico o traducción comentada, cualquiera que sea la opción elegida debe acompañarse con una réplica oral de la misma.</li>\r\n</ul>\r\n', 'La licenciatura en Letras clásicas consta de 6 semestres. Las materias se dividen en: obligatorias y optativas. Abarcando las áreas de conocimiento de Lengua, Literatura, Historia y Cultura. En todos los semestres de la carrera se imparten las asignaturas de Griego y Latín, ya que son consideradas conocimientos básicos para las Lenguas clásicas. La carrera consta de 3 niveles de formación:\r\n<ul>\r\n<li>Primer nivel: se lleva a cabo en los primeros 4 semestres y tiene como objetivo acercar al alumno a un conocimiento lingüístico, literario,teórico-metodológico e histórico de las letras clásicas>.</li>\r\n<li>Segundo nivel: se lleva a cabo en el quinto y sexto semestre. Tiene como objetivo completar la formación general en las cuatro áreas de conocimiento de la licenciatura.</li>\r\n<li> Tercer nivel: se lleva a cabo en el séptimo y octavo semestre. Tiene como objetivo especializar al alumno de acuerdo al campo de estudio que él escoja.</li>\r\n<li> La cuarta fase (doceavo y treceavo semestres) es la última fase, la cual le corresponde al an?o del Servicio Social. Esta fase da cumplimiento al 5to artículo constitucional. Esta fase es un seguimiento del internado médico, lo cual complementa las habilidades sociales del estudiante.</li>\r\n</ul>\r\nNota: el programa académico varía según la facultad donde se desarrolle la carrera. \r\nPara saber más sobre el plan de estudios de la carrera de Letras Clásicas de la UNAM te sugerimos visitar el sitio:\r\n<a href=http://oferta.unam.mx/carreras/30/letras-clasicas target=\"\"_blank\"\">Oferta</a>', 'La Facultad de Filosofía y Letras de la UNAM le da la oportunidad a sus estudiantes de realizar un intercambio de movilidad estudiantil a más de 30 universidades de Estados Unidos, Canadá, América Latina y algunos países de Asia. Si el estudiante lo necesita, también puede aspirar a una beca. De igual forma, la Facultad de da la posibilidad como estudiante de hacer un intercambio de movilidad a nivel nacional, en 25 universidades al interior de la República Mexicana, entre ellas se encuentra el Instituto Politécnico Nacional, la Universidad Autónoma de México y el Colegio de México. La convocatoria es publicada por la Oficina de Colaboración Interinstitucional, en la Gaceta UNAM.<br><br>\r\nPara saber más sobre los programas de Intercambio de la carrera de Letras Clásicas de la UNAM te \r\nsugerimos visitar el sitio: \r\n<a href=http://www.global.unam.mx/ target=\"\"_blank\"\">Aquí</a>', 'Al finalizar sus estudios el alumno habrá obtenido1: <br>\r\n<ul>\r\n<h3>Conocimientos:</h3>\r\n<li>De las lenguas y las literaturas griega y latina que lo capaciten para leer y analizar los textos de los autores clásicos, comprender su estructura gramatical, traducirlos y situarlos en el contexto de la historia literaria. </li>\r\n<li>De los principios básicos de la metodología de la investigación lingüística y literaria para realizar trabajos individuales o colectivos en el ámbito de las letras clásicas</li>\r\n<h3>Habilidades:</h3>\r\n<li>En el manejo de las técnicas, métodos y procedimientos didácticos requeridos para ejercer la docencia</li>\r\n<li>En el empleo de las técnicas de investigación necesarias para el análisis y la traducción de textos literarios, filosóficos y jurídicos, entre otros.</li>\r\n<h3>Actitudes:</h3>\r\n<li>Disposición favorable hacia la búsqueda independiente del conocimiento para enriquecerse como profesionista y fomentar el desarrollo de un pensamiento reflexivo, crítico y productivo mediante la docencia o la investigación. </li>\r\n</ul>'),
@@ -133,7 +129,7 @@ INSERT INTO `carreras` (`AreaNombre`, `NombreUni`, `nombre`, `descripcion`, `pla
 -- --------------------------------------------------------
 
 --
--- Table structure for table `examenes`
+-- Estructura de tabla para la tabla `examenes`
 --
 
 CREATE TABLE `examenes` (
@@ -144,7 +140,7 @@ CREATE TABLE `examenes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 --
--- Dumping data for table `examenes`
+-- Volcado de datos para la tabla `examenes`
 --
 
 INSERT INTO `examenes` (`id`, `nombre`, `numpreguntas`, `tipo`) VALUES
@@ -153,7 +149,7 @@ INSERT INTO `examenes` (`id`, `nombre`, `numpreguntas`, `tipo`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `exam_recomendacion`
+-- Estructura de tabla para la tabla `exam_recomendacion`
 --
 
 CREATE TABLE `exam_recomendacion` (
@@ -167,7 +163,7 @@ CREATE TABLE `exam_recomendacion` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Dumping data for table `exam_recomendacion`
+-- Volcado de datos para la tabla `exam_recomendacion`
 --
 
 INSERT INTO `exam_recomendacion` (`Id`, `UsrEmail`, `IdExamen`, `AreaNombre`, `NombreUni`, `Id_Aplicacion_Examen`, `Nombre_Carrera`) VALUES
@@ -195,7 +191,7 @@ INSERT INTO `exam_recomendacion` (`Id`, `UsrEmail`, `IdExamen`, `AreaNombre`, `N
 -- --------------------------------------------------------
 
 --
--- Table structure for table `universidades`
+-- Estructura de tabla para la tabla `universidades`
 --
 
 CREATE TABLE `universidades` (
@@ -205,27 +201,28 @@ CREATE TABLE `universidades` (
   `latitud` varchar(72) COLLATE latin1_spanish_ci NOT NULL,
   `longitud` varchar(72) COLLATE latin1_spanish_ci NOT NULL,
   `becas` mediumtext COLLATE latin1_spanish_ci NOT NULL,
-  `uni_foto` varchar(80) COLLATE latin1_spanish_ci DEFAULT NULL
+  `uni_foto` varchar(300) COLLATE latin1_spanish_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 --
--- Dumping data for table `universidades`
+-- Volcado de datos para la tabla `universidades`
 --
 
 INSERT INTO `universidades` (`nombre`, `descripcion`, `ciudad`, `latitud`, `longitud`, `becas`, `uni_foto`) VALUES
 ('Centro de Investigación y Docencia Económicas', 'El CIDE forma parte del Sistema de Centros Públicos de Investigación de CONACYT. El 95% de su planta docente cuenta con doctorado y el 74% es miembro del Sistema Nacional de Investigadores (SNI). Ofrece 3 programas académicos a nivel licenciatura.', 'Ciudad de México', '19.374624', '-99.264082', '<ul>\r\n<li>Beca de Manutención</li>\r\n<li>Beca por excelencia académica</li>\r\n</ul>', 'http://mapp.cide.edu/documents/93422/93785/CIDE-CIB.jpg?t=1474918790373'),
 ('El Colegio de México', 'Creado en 1940, puntera en las ciencias sociales y humanidades, según el ranking de Américaeconomía Intelligence, en 2016 es el único centro del país con una calidad docente del 100%. Cuenta con una matrícula de poco menos de 400 alumnos y un porcentaje de admisión del 11%. Ofrece 3 programas académicos a nivel licenciatura.', 'Ciudad de México', '19.303506', '-99.207867', '<ul>\r\n<li>Beca COLMEX</li>\r\n</ul>\r\n', 'http://www.educacionyculturaaz.com/wp-content/uploads/2015/08/colmex1.jpg'),
 ('Instituto Politécnico Nacional', 'El Instituto Politécnico Nacional (IPN), es una institución pública mexicana de investigación y educación en niveles medio superior, superior y posgrado; fundada en la Ciudad de México en 1936 durante el gobierno del presidente Lázaro Cárdenas del Río.\r\nEl IPN tiene como misión institucional contribuir al desarrollo económico y social de la nación, a través de la formación integral de personas competentes; de la investigación, el desarrollo tecnológico y la innovación; y tiene reconocimiento internacional por su calidad e impacto social. (IPN, Misión y VIsión, 2015)\r\nEl Instituto Politécnico Nacional es considerado una de las instituciones educativas más importantes de México y América Latina por su nivel académico, y su matrícula inscrita de más de 160.000 alumnos en sus 293 programas educativos impartidos en sus 82 unidades académicas. Es una de las principales instituciones mexicanas en la formación de técnicos y profesionales en los campos de la administración, la ciencia, la ingeniería y las nuevas tecnologías.', 'Ciudad de México', '19.497546', '-99.135349', '<ul>\r\n<li>Beca manutención IPN</li>\r\n<li>fundación bécalos alto rendimiento</li>\r\n<li>Beca institucional IPN</li>\r\n<li>Probems</li>\r\n<li>Universitarios Prepa-Sí</li>\r\n<li>Apoyo de trasporte</li>\r\n</ul>', 'http://chidoychale.mx/wp-content/uploads/2016/12/32607753.jpg'),
-('Universidad Autónoma de Nuevo León', 'La Universidad Autónoma de Nuevo León (UALN) entra en ranking de las mejores instituciones para estudiar en el área de biológicas en México, esto según la revista el universa (ElUniversal, 2016). Actualmente la universidad cuenta con alrededor de 183 mil estudiantes, que cursan 280 programas educativos en los niveles medio superior, superior y posgrado y que son atendidos por 6 mil 852 docentes.\r\nTiene presencia en todo el estado de Nuevo León, y entre sus sedes se destacan siete campus universitarios: Ciudad Universitaria, Ciencias de la Salud, Mederos, Marín, Ciencias Agropecuarias, Sabinas Hidalgo y Linares, con 26 facultades y 29 preparatorias.\r\nLa UANL tiene 38 centros de investigación, donde trabajan expertos investigadores, de los cuales 692 son reconocidos por el Sistema Nacional de Investigadores. Además de 84 bibliotecas en que se resguardan 2 millones 238 mil volúmenes de consulta. (UANL, 2016)', 'Monterrey', '25.728228', '-100.311993', '<ul>\r\n<li>Beca manutención UALN</li>\r\n<li>Beca fundación UALN</li>\r\n<li>Beca deportiva</li>\r\n<li>Beca de escasos recursos</li>\r\n<li>Beca por promedio académico</li>\r\n</ul>', 'http://ftsydh.uanl.mx/wp-content/uploads/2011/09/uanl-016.jpg'),
+('Universidad Autónoma de Nuevo León', 'La Universidad Autónoma de Nuevo León (UALN) entra en ranking de las mejores instituciones para estudiar en el área de biológicas en México, esto según la revista el universa (ElUniversal, 2016). Actualmente la universidad cuenta con alrededor de 183 mil estudiantes, que cursan 280 programas educativos en los niveles medio superior, superior y posgrado y que son atendidos por 6 mil 852 docentes.\r\nTiene presencia en todo el estado de Nuevo León, y entre sus sedes se destacan siete campus universitarios: Ciudad Universitaria, Ciencias de la Salud, Mederos, Marín, Ciencias Agropecuarias, Sabinas Hidalgo y Linares, con 26 facultades y 29 preparatorias.\r\nLa UANL tiene 38 centros de investigación, donde trabajan expertos investigadores, de los cuales 692 son reconocidos por el Sistema Nacional de Investigadores. Además de 84 bibliotecas en que se resguardan 2 millones 238 mil volúmenes de consulta. (UANL, 2016)', 'Monterrey', '25.728228', '-100.311993', '<ul>\r\n<li>Beca manutención UALN</li>\r\n<li>Beca fundación UALN</li>\r\n<li>Beca deportiva</li>\r\n<li>Beca de escasos recursos</li>\r\n<li>Beca por promedio académico</li>\r\n</ul>', 'http://www.uanl.mx/sites/default/files/1EXTRA%20Se%20llev%C3%B2%20acabo%20en%20la%20explanada%20de%20Rector%C3%ACa_0.jpg'),
 ('Universidad Nacional Autónoma de México', 'La Universidad Autónoma de México (UNAM) es la única universidad del país que aparece en el ranking de Times Higher Education 2016-2016 en la clasificación de Artes y Humanidades, apareciendo en el puesto 77 de un total de 100 universidades. (Times Higher Education, 2015-2016)\r\nLa UNAM imparte un total de 37 licenciaturas en el área de Humanidades y Artes. Dentro de la oferta educativa que proporciona la UNAM se encuentran carreras como: composición, diseño gráfico, filosofía, historia, letras clásicas, literatura dramática y teatro, piano, cinematografía, música y tecnología artística, entre muchas otras. \r\n', 'Ciudad de México', '19.323510', '-99.186789', '<ul>\r\n<li>Programa de apoyo nutricional</li>\r\n<li>Manutención UNAM</li>\r\n<li>Excelencia Bécalos</li>\r\n<li>Probemex</li>\r\n<li>Beca apoyo para trasporte “Tarjeta CDMX”</li>\r\n<li>Universitarios Prepa-Sí</li>\r\n<li>Programa Nacional de Becas (PRONABES)</li>\r\n<li>Programa de Fortalecimiento de Estudios de Licenciatura (PFEL)</li>\r\n<li>Programa México Nación Multicultural (para alumnos indígenas)</li>\r\n</ul>', 'https://www.siass.unam.mx/images/home_alumnos/siass_unam_1.jpg');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuarios`
+-- Estructura de tabla para la tabla `usuarios`
 --
 
 CREATE TABLE `usuarios` (
+  `id` varchar(40) COLLATE latin1_spanish_ci NOT NULL,
   `email` varchar(72) COLLATE latin1_spanish_ci NOT NULL,
   `pass` varchar(40) CHARACTER SET latin1 NOT NULL,
   `nombre(s)` varchar(72) CHARACTER SET latin1 NOT NULL,
@@ -237,28 +234,34 @@ CREATE TABLE `usuarios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 --
--- Dumping data for table `usuarios`
+-- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`email`, `pass`, `nombre(s)`, `apellido(s)`, `edad`, `ciudad`, `latitud`, `longitud`) VALUES
-('ale.xd@gmail.com', '45e21a218117679d7bf5bacae2a8e1b23935e792', 'Alexis', 'Carranza', 17, 'Zacatecas', '', ''),
-('gerardo.ayala.juarez@gmail.com', 'e6bd18a160b610e8699bed9834953a5a6d527340', 'Gerar', 'at', 19, 'Zacatecas ', '', ''),
-('gerardo@gmail.com', 'e73f648bfe090ce50ef6bb70cee66916848ab0f8', 'a', 'a', 180, 'Zacatecas', '', ''),
-('holi@holi.com', 'ef163fb6406c786402863dc6fb56472c53e85eda', 'Ramiro', 'Estrada', 12, 'Zacatecas', '', ''),
-('larraldeortizemmanuelalejandro@gmail.com', '4826690bf385080f1391e6e14fd9ca1c7f65bf56', 'ste', 'men', 10, 'Baja California Sur', '', ''),
-('luis@gmail.com', 'd59759e4f9ae16e9329c12339eab153029dfbfd3', 'Luis', 'Trejo', 18, 'zac', '', ''),
-('maquinadefuego2000@hitmail.com', '86d27ed8463dce13e0f767ea20aa03bca9844e57', 'Este ', 'Men', 69, 'Sonora', '', ''),
-('prueba@prue.com', 'ef163fb6406c786402863dc6fb56472c53e85eda', 'Ramiro', 'Estrada', 17, 'Zacatecas', '', ''),
-('prueba@prueba.com', 'ac1fdcdc0463af87ee924c6dc526c01039b2a630', 'Ramiro2', 'Estrada2', 12, 'Zacatecas', '', ''),
-('tuptm@gmail.com', 'dd3767ec503c35065a85355a10bee48f1ccc6f51', 'yo', 'pos yo', 1000, 'Zacatecas', '', ''),
-('xdxd@gmail.com', '9042f8f6be87187946920d9d03a2bb0226186549', 'Emmanuel', 'larralde', 17, 'Zacatecas', '', '');
+INSERT INTO `usuarios` (`id`, `email`, `pass`, `nombre(s)`, `apellido(s)`, `edad`, `ciudad`, `latitud`, `longitud`) VALUES
+('', 'aksjdhkasj@kajsd.com', '965e607e0dbc16ed2025d9d9ab7c5ea540640cab', 'dakjsdh', 'adkjsdh', 13, 'lsajdlaks', '', ''),
+('', 'ale.xd@gmail.com', '45e21a218117679d7bf5bacae2a8e1b23935e792', 'Alexis', 'Carranza', 17, 'Zacatecas', '', ''),
+('', 'asd@asd.com', '9416bf231f3c7bddf53a2b4a771dac2f5630df77', 'askjdh', 'askjdh', 11, 'ajsd', '', ''),
+('', 'asdasd1@laksjd.com', 'ef163fb6406c786402863dc6fb56472c53e85eda', 'juejue', 'aslkdjal', 10, 'aslkjdlaksdj', '', ''),
+('', 'gerardo.ayala.juarez@gmail.com', 'e6bd18a160b610e8699bed9834953a5a6d527340', 'Gerar', 'at', 19, 'Zacatecas ', '', ''),
+('', 'gerardo@gmail.com', 'e73f648bfe090ce50ef6bb70cee66916848ab0f8', 'a', 'a', 180, 'Zacatecas', '', ''),
+('', 'holi@holi.com', 'ef163fb6406c786402863dc6fb56472c53e85eda', 'Ramiro', 'Estrada', 12, 'Zacatecas', '', ''),
+('', 'holis@holis.com', 'ef163fb6406c786402863dc6fb56472c53e85eda', 'Jeje', 'laksjdla', 10, 'alkdsj', '', ''),
+('', 'larraldeortizemmanuelalejandro@gmail.com', '4826690bf385080f1391e6e14fd9ca1c7f65bf56', 'ste', 'men', 10, 'Baja California Sur', '', ''),
+('', 'luis@gmail.com', 'd59759e4f9ae16e9329c12339eab153029dfbfd3', 'Luis', 'Trejo', 18, 'zac', '', ''),
+('', 'maquinadefuego2000@hitmail.com', '86d27ed8463dce13e0f767ea20aa03bca9844e57', 'Este ', 'Men', 69, 'Sonora', '', ''),
+('1c387f26b3578306be91da572388cb0c708802ea', 'prue@prue.com', 'ef163fb6406c786402863dc6fb56472c53e85eda', 'Ramiro', 'Estrada García', 18, 'Zacatecas', '', ''),
+('prueba', 'prueba@prue.com', 'ef163fb6406c786402863dc6fb56472c53e85eda', 'Ramiro', 'Estrada', 17, 'Zacatecas', '', ''),
+('', 'prueba@prueba.com', 'ac1fdcdc0463af87ee924c6dc526c01039b2a630', 'Ramiro2', 'Estrada2', 12, 'Zacatecas', '', ''),
+('', 'ram@ram.com', 'ef163fb6406c786402863dc6fb56472c53e85eda', 'Ramiro', 'jsjsjans', 12, 'Aguascalientes', '', ''),
+('', 'tuptm@gmail.com', 'dd3767ec503c35065a85355a10bee48f1ccc6f51', 'yo', 'pos yo', 1000, 'Zacatecas', '', ''),
+('', 'xdxd@gmail.com', '9042f8f6be87187946920d9d03a2bb0226186549', 'Emmanuel', 'larralde', 17, 'Zacatecas', '', '');
 
 --
--- Indexes for dumped tables
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `aplicacion_examen`
+-- Indices de la tabla `aplicacion_examen`
 --
 ALTER TABLE `aplicacion_examen`
   ADD PRIMARY KEY (`id`),
@@ -266,13 +269,13 @@ ALTER TABLE `aplicacion_examen`
   ADD KEY `IdExamen` (`IdExamen`) USING BTREE;
 
 --
--- Indexes for table `areas`
+-- Indices de la tabla `areas`
 --
 ALTER TABLE `areas`
   ADD PRIMARY KEY (`nombre`);
 
 --
--- Indexes for table `carreras`
+-- Indices de la tabla `carreras`
 --
 ALTER TABLE `carreras`
   ADD PRIMARY KEY (`nombre`),
@@ -280,13 +283,13 @@ ALTER TABLE `carreras`
   ADD KEY `NombreUni` (`NombreUni`);
 
 --
--- Indexes for table `examenes`
+-- Indices de la tabla `examenes`
 --
 ALTER TABLE `examenes`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `exam_recomendacion`
+-- Indices de la tabla `exam_recomendacion`
 --
 ALTER TABLE `exam_recomendacion`
   ADD PRIMARY KEY (`Id`),
@@ -298,51 +301,53 @@ ALTER TABLE `exam_recomendacion`
   ADD KEY `exam_recomendacion_ibfk_3` (`Id_Aplicacion_Examen`);
 
 --
--- Indexes for table `universidades`
+-- Indices de la tabla `universidades`
 --
 ALTER TABLE `universidades`
   ADD PRIMARY KEY (`nombre`);
 
 --
--- Indexes for table `usuarios`
+-- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`email`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT for table `aplicacion_examen`
+-- AUTO_INCREMENT de la tabla `aplicacion_examen`
 --
 ALTER TABLE `aplicacion_examen`
   MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+
 --
--- AUTO_INCREMENT for table `exam_recomendacion`
+-- AUTO_INCREMENT de la tabla `exam_recomendacion`
 --
 ALTER TABLE `exam_recomendacion`
   MODIFY `Id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+
 --
--- Constraints for dumped tables
+-- Restricciones para tablas volcadas
 --
 
 --
--- Constraints for table `aplicacion_examen`
+-- Filtros para la tabla `aplicacion_examen`
 --
 ALTER TABLE `aplicacion_examen`
   ADD CONSTRAINT `aplicacion_examen_ibfk_1` FOREIGN KEY (`IdExamen`) REFERENCES `examenes` (`id`),
   ADD CONSTRAINT `aplicacion_examen_ibfk_2` FOREIGN KEY (`UsrEmail`) REFERENCES `usuarios` (`email`);
 
 --
--- Constraints for table `carreras`
+-- Filtros para la tabla `carreras`
 --
 ALTER TABLE `carreras`
   ADD CONSTRAINT `carreras_ibfk_1` FOREIGN KEY (`AreaNombre`) REFERENCES `areas` (`nombre`),
   ADD CONSTRAINT `carreras_ibfk_2` FOREIGN KEY (`NombreUni`) REFERENCES `universidades` (`nombre`);
 
 --
--- Constraints for table `exam_recomendacion`
+-- Filtros para la tabla `exam_recomendacion`
 --
 ALTER TABLE `exam_recomendacion`
   ADD CONSTRAINT `exam_recomendacion_ibfk_1` FOREIGN KEY (`UsrEmail`) REFERENCES `aplicacion_examen` (`UsrEmail`),
@@ -351,6 +356,7 @@ ALTER TABLE `exam_recomendacion`
   ADD CONSTRAINT `exam_recomendacion_ibfk_4` FOREIGN KEY (`AreaNombre`) REFERENCES `carreras` (`AreaNombre`),
   ADD CONSTRAINT `exam_recomendacion_ibfk_5` FOREIGN KEY (`NombreUni`) REFERENCES `carreras` (`NombreUni`),
   ADD CONSTRAINT `exam_recomendacion_ibfk_6` FOREIGN KEY (`Nombre_Carrera`) REFERENCES `carreras` (`nombre`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
