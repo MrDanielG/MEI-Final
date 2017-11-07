@@ -16,11 +16,71 @@
     </WebView>
 
     <RelativeLayout
+        android:id="@+id/rl_resultado_test"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="56dp"
+        android:visibility="gone">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:cardElevation="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Resultado:"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                <TextView
+                    android:id="@+id/id_resultado"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Resultado" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@android:color/darker_gray" />
+
+                <TextView
+                    android:id="@+id/id_resu_detalles"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Detalles" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <Button
+            android:id="@+id/bt_Recomendaciones"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/card_result"
+            android:layout_centerHorizontal="true"
+            android:text="Ir a recomendaciones" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="78dp"
-        android:visibility="visible">
+        android:layout_marginTop="56dp">
 
         <ProgressBar
             android:id="@+id/progressBar3"
@@ -99,10 +159,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:elevation="1dp"
+                        android:padding="6dp"
                         tools:targetApi="lollipop">
 
                         <TextView
-                            android:id="@+id/univ_sponsor"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -153,7 +213,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:elevation="1dp"
-                        tools:targetApi="lollipop">
+                        android:padding="6dp">
 
                         <TextView
                             android:id="@+id/univ_sponsor4"
@@ -171,15 +231,7 @@
                             android:layout_marginStart="5dp"
                             android:contentDescription="@string/contenido"
                             app:srcCompat="@drawable/ic_univ" />
-
                     </RelativeLayout>
-
-                    <WebView
-                        android:id="@+id/wb_univ_sem"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                    </WebView>
 
                 </LinearLayout>
 
@@ -204,6 +256,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:elevation="1dp"
+                        android:padding="6dp"
                         tools:targetApi="lollipop">
 
                         <TextView
@@ -240,15 +293,14 @@
         android:id="@+id/sv_reco"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="56dp"
         android:visibility="gone">
 
         <LinearLayout
             android:id="@+id/RecomLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:orientation="vertical"
-            android:paddingBottom="66dp">
+            android:orientation="vertical">
 
         </LinearLayout>
     </ScrollView>
@@ -257,15 +309,16 @@
         android:id="@+id/sv_test"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        android:padding="0dp"
         android:visibility="gone">
 
         <LinearLayout
             android:id="@+id/TestLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
             android:orientation="vertical"
-            android:paddingBottom="66dp">
+            android:paddingTop="8dp">
 
         </LinearLayout>
     </ScrollView>
@@ -321,5 +374,221 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title" />
 
     </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/sv_perfil"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="56dp"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/perfil_portada"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:contentDescription="@string/portada"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@color/colorPrimary"
+                    tools:layout_editor_absoluteY="0dp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentTop="true">
+
+                    <RelativeLayout
+                        android:id="@+id/relativeLayout2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:padding="16dp"
+                        app:layout_constraintRight_toRightOf="parent"
+                        tools:layout_editor_absoluteY="0dp">
+
+                        <ImageView
+                            android:id="@+id/perfil_foto"
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:layout_above="@+id/perfil_usuario"
+                            android:layout_alignParentStart="true"
+                            android:layout_marginBottom="16dp"
+                            android:contentDescription="@string/foto_de_perfil"
+                            app:srcCompat="@color/colorPrimaryDark" />
+
+                        <TextView
+                            android:id="@+id/perfil_usuario"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_above="@+id/perfil_correo"
+                            android:layout_alignParentStart="true"
+                            android:padding="2dp"
+                            android:paddingEnd="4dp"
+                            android:paddingStart="4dp"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                            android:textColor="#fff" />
+
+                        <TextView
+                            android:id="@+id/perfil_correo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentStart="true"
+                            android:padding="2dp"
+                            android:paddingEnd="4dp"
+                            android:paddingStart="4dp"
+                            android:textColor="#fff" />
+                    </RelativeLayout>
+
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/ly_perfil"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="500dp"
+                    android:background="#fff" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <ScrollView
+        android:id="@+id/sv_carrera"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="56dp"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/univ_foto"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:contentDescription="@string/universidad"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@color/colorPrimary"
+                    tools:layout_editor_absoluteY="0dp" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/id_carrera"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/carrera"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/id_univ"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/universidad"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                <TextView
+                    android:id="@+id/id_area"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Area"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@android:color/darker_gray" />
+
+                <TextView
+                    android:id="@+id/id_descrip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/descripcion"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/plan_de_estudios"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                <TextView
+                    android:id="@+id/id_plan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/plan_de_estudios"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/intercambios"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                <TextView
+                    android:id="@+id/id_intercambios"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/intercambios"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/perfil_de_egreso"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                <TextView
+                    android:id="@+id/id_perfil_egreso"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/perfil_de_egreso"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>

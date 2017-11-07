@@ -16,7 +16,6 @@ import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -46,6 +45,7 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
@@ -58,7 +58,7 @@ public class SesionActivity extends AppCompatActivity
     String PagMadre = globalVars.urlMEIMaster()+"MEI/";
     WebView mei;
     ImageView publicidad, portada, foto, univ_foto;
-    TextView tvUniv,tvCarrer,tvDesrip,tvPlan,tvInterc,tvPerfilE,tvArea, tvResultado,tvResultado_detalles;
+    TextView tvUniv,tvCarrer,tvDesrip,tvPlan,tvInterc,tvPerfilE,tvArea, tvResultado,tvResultado_detalles,tvNombreUsuario,tvCorreo;
     RelativeLayout rlempty, rloffline, rlResultados;
     LinearLayout lyreco, lytest, lytestvoca;
     ScrollView lyinicio,sv_reco,sv_test,sv_testvoca,sv_perfil,sv_carrera;
@@ -90,7 +90,8 @@ public class SesionActivity extends AppCompatActivity
         tvArea= (TextView) findViewById(R.id.id_area);
         tvResultado = (TextView) findViewById(R.id.id_resultado);
         tvResultado_detalles = (TextView) findViewById(R.id.id_resu_detalles);
-
+        tvNombreUsuario = (TextView) findViewById(R.id.perfil_usuario);
+        tvCorreo = (TextView) findViewById(R.id.perfil_correo);
 
         /*Scroll views*/
         lyinicio = (ScrollView) findViewById(R.id.InicioLayout);
@@ -248,7 +249,7 @@ public class SesionActivity extends AppCompatActivity
                         public void run() {
                             mei.loadUrl("javascript:" +
                                     "var info = document.getElementsByClassName('carrera');" +
-                                   // "window.HTMLOUT.carrerafoto(document.getElementById('carrera_foto').src);" +
+                                    //"window.HTMLOUT.carrerafoto(document.getElementById('carrera_foto').src);" +
                                     "for(var i = 0 ; i < info.length ; ++i){" +
                                     "   window.HTMLOUT.carrerainfo(info[i].innerText,i);" +
                                     "}");
@@ -312,11 +313,11 @@ public class SesionActivity extends AppCompatActivity
                     mei.loadUrl(PagMadre+"recomendaciones.php");
                 } else if(Arrays.asList(msg).contains("perfil")){
                     sv_perfil.setVisibility(View.VISIBLE);
-                    mei.loadUrl("javascript: var imgUrl = $('#profile-img').src;" +
-                                            "var name = $('#profile-nombre').text();" +
-                                            "var email = $('#profile-correo').text();" +
-                                            "var edad = $('#profile-edad').text();" +
-                                            "var city = $('#profile-ciudad').text();" +
+                    mei.loadUrl("javascript: var imgUrl = document.getElementById('profile-img').src;" +
+                                            "var name = document.getElementById('profile-nombre').innerText;" +
+                                            "var email = document.getElementById('profile-correo').innerText;" +
+                                            "var edad = document.getElementById('profile-edad').innerText;" +
+                                            "var city = document.getElementById('profile-ciudad').innerText;" +
                                             "window.HTMLOUT.perfil(imgUrl,name,email,edad,city);");
                 } else if(Arrays.asList(msg).contains("login")){
                     Intent intent = new Intent(SesionActivity.this, LoginActivity.class);
@@ -382,9 +383,6 @@ public class SesionActivity extends AppCompatActivity
         ImageView HeadfondoP = (ImageView) hView.findViewById(R.id.profile_bg);
         Picasso.with(getBaseContext()).load(url).transform(new CircleTransform()).into(imgView);
         Picasso.with(getBaseContext()).load("http://k31.kn3.net/taringa/F/0/4/A/4/1/Cutterofmambo/DD6.jpg").into(HeadfondoP);
-
-        Picasso.with(getBaseContext()).load(url).transform(new CircleTransform()).into(foto);
-        Picasso.with(getBaseContext()).load("http://k31.kn3.net/taringa/F/0/4/A/4/1/Cutterofmambo/DD6.jpg").into(portada);
     }
 
     private class JavaScriptInterface {
@@ -517,16 +515,6 @@ public class SesionActivity extends AppCompatActivity
                     TextView tvUni = new TextView(context);
                     tvUni.setText(Uni);
                     tvUni.setTextColor(Color.rgb(200,200,200));
-
-                    ColorStateList colorStateList = new ColorStateList(
-                            new int[][]{
-                                    new int[]{-android.R.attr.state_enabled}, //disabled
-                                    new int[]{android.R.attr.state_enabled} //enabled
-                            }, new int[] {
-                            Color.BLACK, //disabled
-                            Color.BLACK //enabled
-                    }
-                    );
 
                     Button btInfo = new Button(context);
                     btInfo.setText(R.string.uni_info);
@@ -742,9 +730,15 @@ public class SesionActivity extends AppCompatActivity
         }
 
         @JavascriptInterface
-        public  void perfil(String url,String name, String correo, String edad, String ciudad){
-            Picasso.with(getBaseContext()).load(url).transform(new CircleTransform()).into(foto);
-
+        public  void perfil(final String url, final String name, final String correo, final String edad, final String ciudad){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Picasso.with(getBaseContext()).load(url).transform(new CircleTransform()).into(foto);
+                    tvNombreUsuario.setText(name);
+                    tvCorreo.setText(correo);
+                }
+            });
         }
     }
 
@@ -817,12 +811,12 @@ public class SesionActivity extends AppCompatActivity
         int id = item.getItemId();
             if (id == R.id.nav_inicio) {
                 mei.loadUrl(PagMadre);
-                setTitle("Inicio");
+                setTitle("Página principal");
             } else if (id == R.id.nav_test) {
                 mei.loadUrl(PagMadre + "test.php");
                 setTitle("Test");
             } else if (id == R.id.nav_perfil) {
-                mei.loadUrl(PagMadre + "menu.php");
+                mei.loadUrl(PagMadre + "perfil.php");
                 setTitle("Perfil");
             } else if (id == R.id.nav_recomendaciones) {
                 mei.loadUrl(PagMadre + "recomendaciones.php");

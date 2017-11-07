@@ -15,6 +15,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -51,6 +52,7 @@ public class login_fragment extends Fragment {
         final EditText user = (EditText) rootView.findViewById(R.id.et_email);
         final EditText pass = (EditText) rootView.findViewById(R.id.et_pass); //Declaraciones
         Button login = (Button) rootView.findViewById(R.id.btn_login);
+        final LinearLayout linearLayout = (LinearLayout) rootView.findViewById(R.id.til);
 
         WebSettings webSettings = MEIPage.getSettings();
         webSettings.setJavaScriptEnabled(true); //Settings de MEIPage
@@ -88,7 +90,7 @@ public class login_fragment extends Fragment {
             @Override
             public void onPageFinished(final WebView view, String url) { //Cuando la pagina se cargo ejecuta esto
                 barra.setVisibility(View.GONE); //La barra se esconde
-
+                linearLayout.setVisibility(View.VISIBLE);
             }
 
         });

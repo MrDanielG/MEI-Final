@@ -395,10 +395,10 @@
                     android:id="@+id/perfil_portada"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
+                    android:contentDescription="@string/portada"
                     android:scaleType="centerCrop"
                     app:srcCompat="@color/colorPrimary"
-                    tools:layout_editor_absoluteY="0dp"
-                    android:contentDescription="@string/portada" />
+                    tools:layout_editor_absoluteY="0dp" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -423,8 +423,8 @@
                             android:layout_above="@+id/perfil_usuario"
                             android:layout_alignParentStart="true"
                             android:layout_marginBottom="16dp"
-                            app:srcCompat="@color/colorPrimaryDark"
-                            android:contentDescription="@string/foto_de_perfil" />
+                            android:contentDescription="@string/foto_de_perfil"
+                            app:srcCompat="@color/colorPrimaryDark" />
 
                         <TextView
                             android:id="@+id/perfil_usuario"
@@ -435,7 +435,6 @@
                             android:padding="2dp"
                             android:paddingEnd="4dp"
                             android:paddingStart="4dp"
-                            android:text="@string/nombre_de_usuario"
                             android:textAppearance="@style/TextAppearance.AppCompat.Large"
                             android:textColor="#fff" />
 
@@ -448,7 +447,6 @@
                             android:padding="2dp"
                             android:paddingEnd="4dp"
                             android:paddingStart="4dp"
-                            android:text="@string/correo_ejemplo_com"
                             android:textColor="#fff" />
                     </RelativeLayout>
 
