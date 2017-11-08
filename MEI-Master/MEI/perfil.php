@@ -8,7 +8,7 @@
     </head>
     <body>
         <?php include '../resourses/menu.html'; ?>
-        <div class="container" align = "center">
+        <div class="container" align = "center"><br>
         <?php 
             include '../conn.php';
             $ext = array(".jpg",".jpeg",".png",".gif");
@@ -28,7 +28,7 @@
             echo '
             <div class="carta" align="center">
             <div class="row">
-            <div class="col s12 m5">
+            <div class="col  s6 offset-s3">
               <div class="card-panel white"> ';
 
               if($fileext){
@@ -78,6 +78,7 @@
         <form enctype="multipart/form-data" action="" method="post" style="display:none">
             <input type="file" name="img" id="input-img">
         </form>
+        </div><br>
         <?php include '../resourses/footer.html'; ?>
         <?php include '../resourses/scripts.html';
             if(isset($_FILES["img"])){
