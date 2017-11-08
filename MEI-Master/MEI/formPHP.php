@@ -10,6 +10,7 @@
         <?php include '../resourses/menu.html'; ?>
         <div class="container">
             <div class="card">
+
                 <div class="card-content">
                     <?php
                         if(isset($_POST["submit"])){
@@ -47,6 +48,6 @@
             include '../resourses/footer.html';
             include '../resourses/scripts.html';
         ?>
-        
+
     </body>
 </html>
