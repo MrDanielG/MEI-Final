@@ -8,6 +8,7 @@
     </head>
     <body>
         <?php include '../resourses/menu.html'; ?>
+        <div class="container" align = "center">
         <?php 
             include '../conn.php';
             $ext = array(".jpg",".jpeg",".png",".gif");
@@ -23,18 +24,33 @@
                 }
             }
 
-            if($fileext){
-                echo '<img id="profile-img" src="../resourses/profile_pics/'.$usuario["id"].$fileext.'" alt="">';
+
+            echo '
+            <div class="carta" align="center">
+            <div class="row">
+            <div class="col s12 m5">
+              <div class="card-panel white"> ';
+
+              if($fileext){
+                echo '<img id="profile-img" class="circle responsive-img" src="../resourses/profile_pics/'.$usuario["id"].$fileext.'" alt=""><br><br>';
             }else{
-                echo '<img id="profile-img" src="../resourses/profile_pics/0.png" alt="">';
+                echo '<img id="profile-img" class="circle responsive-img" src="../resourses/profile_pics/0.png" alt=""><br><br>';
             }
 
+            
             echo '<br><span id="profile-nombre">'.$usuario["nombre(s)"]." ".$usuario["apellido(s)"].'</span><br>';
             echo '<span id="profile-correo">'.$usuario["email"].'</span><br>';
             echo '<span id="profile-edad">'.$usuario["edad"].'</span><br>';
-            echo '<span id="profile-ciudad">'.$usuario["ciudad"].'</span><br>';
+            echo '<span id="profile-ciudad">'.$usuario["ciudad"].'</span><br>
+
+              </div>
+            </div>
+          </div>
+          </div>
+
+          ';
             
-            echo '<span>Examenes aplicados</span><br>';
+            echo '<span><h2>Examenes aplicados</h2></span><br>';
 
             $query = "SELECT * FROM aplicacion_examen INNER JOIN examenes ON aplicacion_examen.IdExamen=examenes.id WHERE (UsrEmail = '".$usuario["email"]."')";
             $result = mysqli_query($con,$query);
