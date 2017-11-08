@@ -10,12 +10,14 @@
         <?php include '../resourses/menu.html'; ?>
         <div class="container">
             <?php
-                $query = "SELECT * FROM exam_recomendacion WHERE UsrEmail = '$user'";
-                $result = mysqli_query($con,$query);
+                $fechaq = mysqli_query($con,"SELECT id FROM aplicacion_examen ORDER BY id DESC LIMIT 1");
+                $fecha = mysqli_fetch_array($fechaq, MYSQLI_NUM);
 
-                $registro = mysqli_fetch_array($result, MYSQLI_ASSOC);
-                $univq = mysqli_query($con,"SELECT uni_foto,latitud,longitud FROM universidades WHERE nombre = '{$registro['NombreUni']}'");
-                while($univ = mysqli_fetch_array($univq, MYSQLI_NUM)){
+                $query = "SELECT * FROM exam_recomendacion WHERE UsrEmail = '$user' AND Id_Aplicacion_Examen = '{$fecha[0]}'";
+                $result = mysqli_query($con,$query);
+                while($registro = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+                  $univq = mysqli_query($con,"SELECT uni_foto,latitud,longitud FROM universidades WHERE nombre = '{$registro['NombreUni']}'");
+                  $univ = mysqli_fetch_array($univq, MYSQLI_NUM);
                   echo '
                   <div class="card row hoverable">
                       <div class="reco_foto col s12 m3" data-content="'.$univ[0].'" style="background:url('.$univ[0].') no-repeat center center;"></div>

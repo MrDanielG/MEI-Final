@@ -15,12 +15,12 @@
                 @mysqli_query($con,"SET NAMES 'utf8'");
 
                 $user = mysqli_real_escape_string($con,$_SESSION['user']);
-                $query = "SELECT nombre FROM examenes";
+                $query = "SELECT * FROM examenes";
                 $result = mysqli_query($con,$query);
 
 
                 while ($registro = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-                    echo "<a href='form.html' class='test'>".$registro['nombre']."</a>";
+                    echo "<a href='form.php' class='test'>".$registro['nombre']." con ".$registro['numpreguntas']." preguntas. Tipo: ".$registro['tipo']."</a>";
                 }
 
             ?>
