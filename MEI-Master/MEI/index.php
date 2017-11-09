@@ -8,7 +8,122 @@
     </head>
     <body>
         <?php include '../resourses/menu.html'; ?>
-        <div class="container">Aqui van a haber cosas shidoris</div>
+        <div class="slider">
+        <ul class="slides">
+          <li>
+            <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?auto=format&fit=crop&w=1082&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D">
+            <!-- random image -->
+            <div class="caption center-align">
+              <br>
+              <h3>¿No sabes que estudiar?</h3>
+              <h5 class="light grey-text text-lighten-3">M.E.I. es la solución</h5>
+            </div>
+          </li>
+          <li>
+            <img src="https://images.unsplash.com/photo-1498079022511-d15614cb1c02?auto=format&fit=crop&w=1350&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D">
+            <!-- random image -->
+            <div class="caption left-align">
+              <h3>Encuentra tu carrera ideal</h3>
+              <h5 class="light grey-text text-lighten-3">Todo conforme a tus gustos</h5>
+            </div>
+          </li>
+          <li>
+            <img src="https://orig00.deviantart.net/b927/f/2014/279/1/8/school_classroom__late_afternoon__by_enigma_xiii-d801u9q.png">
+            <!-- random image -->
+            <div class="caption right-align">
+              <h3>Las mejores universidades</h3>
+              <h5 class="light grey-text text-lighten-3">Cerca de ti</h5>
+            </div>
+          </li>
+          <li>
+            <img src="https://images.unsplash.com/photo-1472289065668-ce650ac443d2?auto=format&fit=crop&w=1350&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D">
+            <!-- random image -->
+            <div class="caption center-align">
+              <h3>Bienvenido</h3>
+              <i class="large material-icons">mood</i>
+            </div>
+          </li>
+        </ul>
+      </div>
+    
+      <br>
+      <br>
+    
+      <!-- CONTENIDO -->
+    
+      <div class="container">
+        <div class="row">
+          <div class="col s12 m6">
+    
+    
+            <div class="card grey lighten-4">
+              <div class="card-content black-text">
+                <span class="card-title">¿Qué es M.E.I.?</span>
+                <p class="" align="justify">M.E.I. es una plataforma web la cual ayuda a los estudiantes a elegír una carrera tomando en cuenta las habilidades
+                  y gustos del estudante, determinando que es lo mejor para el así como las diferentes universidades que se encuentran
+                  cenca de este.</p>
+              </div>
+            </div>
+          </div>
+    
+          <div class="col s12 m6" id="div_img">
+            <img src="../imgs/logo1.png" alt="Mei-Logo" id="img_inicio">
+          </div>
+        </div>
+      </div>
+    
+      <br>
+      <br>
+    
+      <div class="parallax-container">
+        <div class="parallax">
+          <img src="https://images.unsplash.com/photo-1488722796624-0aa6f1bb6399?auto=format&fit=crop&w=1350&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D">
+        </div>
+      </div>
+    
+      <br>
+      <br>
+    
+      <div class="container">
+        <div class="row">
+          <div class="col s12 m4">
+            <div class="card grey lighten-4" align="center">
+              <div class="card-content black-text">
+                <span class="card-title">Disponible en Android</span>
+                <br>
+                <i class="large material-icons">android</i>
+              </div>
+            </div>
+          </div>
+          <div class="col s12 m4">
+            <div class="card grey lighten-4" align="center">
+              <div class="card-content black-text">
+                <span class="card-title">Hecho para estudiantes</span>
+                <br>
+                <i class="large material-icons">school</i>
+              </div>
+            </div>
+          </div>
+          <div class="col s12 m4">
+            <div class="card grey lighten-4" align="center">
+              <div class="card-content black-text">
+                <span class="card-title"> Plataforma Web</span>
+                <br>
+                <i class="large material-icons">laptop_mac</i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <br>
+      <br>
+    
+      <div class="parallax-container">
+        <div class="parallax">
+          <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=1350&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D">
+        </div>
+      </div>
         <?php include '../resourses/footer.html'; ?>
         <?php include '../resourses/scripts.html'; ?>
         <script>
