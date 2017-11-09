@@ -18,8 +18,6 @@
                 echo '
                 <div class="parallax-container" style="height: 100vh">
                     <div class=""><img class="carrera_img" src="'.$foto[0].'" height="100%"></div>
-                <div class="parallax-container" style="height: 150vh">
-                    <div class="parallax"><img src="'.$foto[0].'"></div>
                 </div>';
             ?>
             <div id="container" style="display:block;">
