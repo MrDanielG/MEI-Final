@@ -45,7 +45,7 @@
                                     <img src="imgs\logo1.png" heigh="40%" width="40%">
                                 </div>
 
-                                <div class="input-field"> 
+                                <div class="input-field">
                                     <input class="validate" type="email" name="usr" id="input_usuario" autofocus autocomplete="off" required>
                                     <label for="email">E-mail</label>
                                 </div>
@@ -74,13 +74,13 @@
                                     <input class="validate" type="number" name="edad" min="10" title="Necesitas más de 10 años para registrarte" id="input_edad" autocomplete="off" required>
                                     <label for="number">Edad</label>
                                 </div>
-                                
+
                                 <div class="input-field">
                                     <input class="validate" type="text" name="city" id="input_lugar" autocomplete="off" required>
                                     <label for="number">Ciudad</label>
                                 </div>
 
-                                <button class="btn waves-effect waves-light" type="submit" name="sbmt"id="btn_submit" value="Iniciar">Registrarse
+                                <button class="btn waves-effect waves-light" type="submit" name="sbmt" id="btn_submit" value="Iniciar">Registrarse
                                     <i class="material-icons right">send</i>
                                 </button>
 
@@ -116,12 +116,12 @@
                 return false;
             }
         </script>
-        <?php 
+        <?php
             if(isset($_POST["sbmt"])){
                 $consulta = mysqli_query($con,"SELECT * FROM `usuarios` WHERE `email` = '{$usuario}'");
                 if(isset($usuario)&&isset($pass)&& mysqli_num_rows($consulta)<1){
                     $consulta = mysqli_query($con," INSERT INTO usuarios (id,email, pass, ciudad,`nombre(s)`,`apellido(s)`,edad) VALUES ('$id','$usuario','$pass','$city','$nombre','$apellido','$edad') ");
-    
+
                     echo '
                         <script type="text/javascript">
                             console.log("true|");

@@ -9,14 +9,14 @@
     <body>
         <?php include '../resourses/menu.html'; ?>
         <div class="container" align = "center"><br>
-        <?php 
+        <?php
             include '../conn.php';
             $ext = array(".jpg",".jpeg",".png",".gif");
             $fileext=NULL;
             $query = "SELECT * FROM usuarios WHERE (email = '".$_SESSION['user']."')";
             $result = mysqli_query($con,$query);
             $usuario = mysqli_fetch_array($result, MYSQLI_ASSOC);
-            
+
             foreach($ext as &$val){
                 if(file_exists("../resourses/profile_pics/".$usuario["id"].$val)){
                     $fileext = $val;
@@ -37,7 +37,7 @@
                 echo '<img id="profile-img" class="circle responsive-img" src="../resourses/profile_pics/0.png" alt=""><br><br>';
             }
 
-            
+
             echo '<br><span id="profile-nombre">'.$usuario["nombre(s)"]." ".$usuario["apellido(s)"].'</span><br>';
             echo '<span id="profile-correo">'.$usuario["email"].'</span><br>';
             echo '<span id="profile-edad">'.$usuario["edad"].'</span><br>';
@@ -49,7 +49,7 @@
           </div>
 
           ';
-            
+
             echo '<span><h2>Examenes aplicados</h2></span><br>';
 
             $query = "SELECT * FROM aplicacion_examen INNER JOIN examenes ON aplicacion_examen.IdExamen=examenes.id WHERE (UsrEmail = '".$usuario["email"]."')";
@@ -64,16 +64,18 @@
                         </tr>
                     </thead>";
             while ($examen = mysqli_fetch_array($result, MYSQLI_NUM)){
-                    echo 
+                    $date = new DateTime($examen[3]);
+                    $res = $date->format('d/m/Y');
+                    echo
                     "<tr>
-                        <td>".$examen[6]."</td>
-                        <td>".$examen[3]."</td>
-                        <td>".$examen[4]."</td>
+                        <td class='testName'>".$examen[6]."</td>
+                        <td class='testFecha'>".$res."</td>
+                        <td class='testResu'>".$examen[4]."</td>
                     </tr>";
             }
 
             echo '</table>';
-            
+
         ?>
         <form enctype="multipart/form-data" action="" method="post" style="display:none">
             <input type="file" name="img" id="input-img">
@@ -105,7 +107,7 @@
                 }
             }
         ?>
-        
+
         <script>
             $("#profile-img").click(e => {
                 $("#input-img").click();

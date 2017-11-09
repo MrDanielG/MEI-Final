@@ -453,6 +453,7 @@
                 </RelativeLayout>
             </RelativeLayout>
 
+
             <LinearLayout
                 android:id="@+id/ly_perfil"
                 android:layout_width="match_parent"
@@ -460,13 +461,69 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
-                <Space
+                <TextView
+                    android:id="@+id/textView20"
                     android:layout_width="match_parent"
-                    android:layout_height="500dp"
-                    android:background="#fff" />
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Test realizados:"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/tablaTest"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView19"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Test" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/tablaFecha"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView18"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Fecha" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/tablaResu"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView17"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Resultado" />
+                    </LinearLayout>
+
+                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>
+
     </ScrollView>
 
     <ScrollView
@@ -518,18 +575,18 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                 <TextView
+                    android:id="@+id/id_inst"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Institucion"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                <TextView
                     android:id="@+id/id_area"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Area"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginBottom="6dp"
-                    android:layout_marginTop="6dp"
-                    android:background="@android:color/darker_gray" />
 
                 <TextView
                     android:id="@+id/id_descrip"
@@ -556,18 +613,18 @@
                     android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/textView14"
+                    android:id="@+id/textView16"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:text="@string/intercambios"
+                    android:text="@string/becas"
                     android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                 <TextView
-                    android:id="@+id/id_intercambios"
+                    android:id="@+id/id_becas"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/intercambios"
+                    android:text="@string/becas"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     android:textSize="18sp" />
 
@@ -584,6 +641,22 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/perfil_de_egreso"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/intercambios"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                <TextView
+                    android:id="@+id/id_intercambios"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/intercambios"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     android:textSize="18sp" />
             </LinearLayout>

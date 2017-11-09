@@ -58,9 +58,9 @@ public class SesionActivity extends AppCompatActivity
     String PagMadre = globalVars.urlMEIMaster()+"MEI/";
     WebView mei;
     ImageView publicidad, portada, foto, univ_foto;
-    TextView tvUniv,tvCarrer,tvDesrip,tvPlan,tvInterc,tvPerfilE,tvArea, tvResultado,tvResultado_detalles,tvNombreUsuario,tvCorreo;
+    TextView tvUniv,tvCarrer,tvDesrip,tvPlan,tvInterc,tvPerfilE,tvArea, tvResultado,tvResultado_detalles,tvNombreUsuario,tvCorreo,tvBecas, tvInst;
     RelativeLayout rlempty, rloffline, rlResultados;
-    LinearLayout lyreco, lytest, lytestvoca;
+    LinearLayout lyreco, lytest, lytestvoca, lyPerfil, lyTablaTest, lyTablaFecha, lyTablaResu;
     ScrollView lyinicio,sv_reco,sv_test,sv_testvoca,sv_perfil,sv_carrera;
     ProgressBar PageLoad;
     Button redirect,btEnviar, btRecomendacion;
@@ -92,6 +92,8 @@ public class SesionActivity extends AppCompatActivity
         tvResultado_detalles = (TextView) findViewById(R.id.id_resu_detalles);
         tvNombreUsuario = (TextView) findViewById(R.id.perfil_usuario);
         tvCorreo = (TextView) findViewById(R.id.perfil_correo);
+        tvBecas = (TextView) findViewById(R.id.id_becas);
+        tvInst = (TextView) findViewById(R.id.id_inst);
 
         /*Scroll views*/
         lyinicio = (ScrollView) findViewById(R.id.InicioLayout);
@@ -115,6 +117,10 @@ public class SesionActivity extends AppCompatActivity
         lyreco = (LinearLayout) findViewById(R.id.RecomLayout);
         lytest = (LinearLayout) findViewById(R.id.TestLayout);
         lytestvoca = (LinearLayout) findViewById(R.id.ly_testvoca);
+        lyPerfil = (LinearLayout) findViewById(R.id.ly_perfil);
+        lyTablaFecha = (LinearLayout) findViewById(R.id.tablaFecha);
+        lyTablaResu = (LinearLayout) findViewById(R.id.tablaResu);
+        lyTablaTest = (LinearLayout) findViewById(R.id.tablaTest);
 
         /*Image views*/
         foto = (ImageView) findViewById(R.id.perfil_foto);
@@ -136,6 +142,9 @@ public class SesionActivity extends AppCompatActivity
                 lyreco.removeAllViews();
                 lytestvoca.removeAllViews();
                 lytest.removeAllViews();
+                lyTablaFecha.removeAllViews();
+                lyTablaResu.removeAllViews();
+                lyTablaTest.removeAllViews();
 
                 sv_testvoca.setVisibility(View.GONE);
                 sv_perfil.setVisibility(View.GONE);
@@ -249,7 +258,7 @@ public class SesionActivity extends AppCompatActivity
                         public void run() {
                             mei.loadUrl("javascript:" +
                                     "var info = document.getElementsByClassName('carrera');" +
-                                    //"window.HTMLOUT.carrerafoto(document.getElementById('carrera_foto').src);" +
+                                    "window.HTMLOUT.carrerafoto(document.getElementsByClassName('carrera_img')[0].src);" +
                                     "for(var i = 0 ; i < info.length ; ++i){" +
                                     "   window.HTMLOUT.carrerainfo(info[i].innerText,i);" +
                                     "}");
@@ -318,7 +327,13 @@ public class SesionActivity extends AppCompatActivity
                                             "var email = document.getElementById('profile-correo').innerText;" +
                                             "var edad = document.getElementById('profile-edad').innerText;" +
                                             "var city = document.getElementById('profile-ciudad').innerText;" +
-                                            "window.HTMLOUT.perfil(imgUrl,name,email,edad,city);");
+                                            "window.HTMLOUT.perfil(imgUrl,name,email,edad,city);" +
+                                            "var test = document.getElementsByClassName('testName');" +
+                                            "var fecha = document.getElementsByClassName('testFecha');" +
+                                            "var resu = document.getElementsByClassName('testResu');" +
+                                            "for(var i = 0 ; i < test.length ; ++i){" +
+                                                "window.HTMLOUT.perfilTabla(test[i].innerText,fecha[i].innerText,resu[i].innerText);" +
+                                            "}");
                 } else if(Arrays.asList(msg).contains("login")){
                     Intent intent = new Intent(SesionActivity.this, LoginActivity.class);
                     startActivity(intent);
@@ -382,7 +397,6 @@ public class SesionActivity extends AppCompatActivity
         ImageView imgView = (ImageView) hView.findViewById(R.id.profile_image);
         ImageView HeadfondoP = (ImageView) hView.findViewById(R.id.profile_bg);
         Picasso.with(getBaseContext()).load(url).transform(new CircleTransform()).into(imgView);
-        Picasso.with(getBaseContext()).load("http://k31.kn3.net/taringa/F/0/4/A/4/1/Cutterofmambo/DD6.jpg").into(HeadfondoP);
     }
 
     private class JavaScriptInterface {
@@ -690,19 +704,24 @@ public class SesionActivity extends AppCompatActivity
                 public void run() {
                     switch (i) {
                         case 0:
-                            tvArea.setText(info);
+                            tvCarrer.setText(info);
                         case 1:
                             tvUniv.setText(info);
                         case 2:
-                            tvCarrer.setText(info);
+                            tvInst.setText(info);
                         case 3:
-                            tvDesrip.setText(info);
+                            tvArea.setText(info);
                         case 4:
-                            tvPlan.setText(info);
+                            tvDesrip.setText(info);
                         case 5:
-                            tvInterc.setText(info);
+                            tvPlan.setText(info);
                         case 6:
+                            tvBecas.setText(info);
+                        case 7:
                             tvPerfilE.setText(info);
+                        case 8:
+                            tvInterc.setText(info);
+
                     }
                 }
             });
@@ -737,6 +756,24 @@ public class SesionActivity extends AppCompatActivity
                     Picasso.with(getBaseContext()).load(url).transform(new CircleTransform()).into(foto);
                     tvNombreUsuario.setText(name);
                     tvCorreo.setText(correo);
+                }
+            });
+        }
+
+        @JavascriptInterface
+        public void perfilTabla(final String test, final String fecha, final String resu){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    TextView tvTest = new TextView(context);
+                    TextView tvFecha = new TextView(context);
+                    TextView tvResu = new TextView(context);
+                    tvTest.setText(test);
+                    tvFecha.setText("   "+fecha);
+                    tvResu.setText(resu);
+                    lyTablaTest.addView(tvTest);
+                    lyTablaFecha.addView(tvFecha);
+                    lyTablaResu.addView(tvResu);
                 }
             });
         }
