@@ -1,10 +1,11 @@
 <html>
     <head>
         <title>Recomendaciones | MEI</title>
-
+        
         <script>
             console.log("recomendaciones|");
         </script>
+        <?php include '../resourses/header.html'; ?>
 
         <link rel="stylesheet" type="text/css" href="../css/estilos.css">
         <!--Import Google Icon Font-->
@@ -21,6 +22,8 @@
         <script type="text/javascript" src="../js/materialize.js"></script>
     </head>
     <body>
+        
+        <?php include '../resourses/menu.html'; ?><br><br>
 
         <div class="container">
             <?php
@@ -84,5 +87,7 @@
                 });
             });
         </script>
+        <?php include '../resourses/footer.html'; ?>
+        <?php include '../resourses/scripts.html'; ?>
     </body>
 </html>

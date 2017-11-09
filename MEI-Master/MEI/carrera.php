@@ -16,7 +16,7 @@
                 
                 $foto = mysqli_fetch_array($queryfoto, MYSQLI_NUM);
                 echo '
-                <div class="parallax-container" style="height: 100vh">
+                <div class="parallax-container" style="height: 150vh">
                     <div class="parallax"><img src="'.$foto[0].'"></div>
                 </div>';
             ?>
