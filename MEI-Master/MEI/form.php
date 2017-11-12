@@ -39,20 +39,20 @@
             </div><hr />
 
             <div align="center" class="pregs">
-                <b class="preg">Al ver una pintura ¿te interesa conocer las técnicas que se emplearon para hacerla?</b><br />  
+                <b class="preg">Al ver una pintura ¿te interesa conocer las técnicas que se emplearon para hacerla?</b><br />
                 <input type="radio" id="op15" name="humanidades_artes[1]" value="-0.5">
                 <label class="option" for="op15">No me interesa</label>
                 <input type="radio" id="op16" name="humanidades_artes[1]" value="0.5">
-                <label class="option" for="op16">Me interesa</label>   
+                <label class="option" for="op16">Me interesa</label>
             </div><hr />
 
 
             <div align="center" class="pregs">
-                <b class="preg">¿Te gustaría armar un pequeño aparato electrónico?</b><br />    
+                <b class="preg">¿Te gustaría armar un pequeño aparato electrónico?</b><br />
                 <input type="radio" id="op17" name="ingenierias[0]" value="-1">
                 <label class="option" for="op17">No me interesa</label>
                 <input type="radio" id="op18" name="ingenierias[0]" value="1">
-                <label class="option" for="op18">Me interesa</label>   
+                <label class="option" for="op18">Me interesa</label>
             </div><hr />
 
 
@@ -68,8 +68,8 @@
                 <b class="preg">¿Te ha llamado la atención aprender a tocar un instrumento musical?</b><br />
                 <input type="radio" id="op111" name="humanidades_artes[2]" value="-0.5">
                 <label class="option" for="op111">No me interesa</label>
-                <input type="radio" id="op112" name="humanidades_artes[2]" value="0.5">   
-                <label class="option" for="op112">Me interesa</label>             
+                <input type="radio" id="op112" name="humanidades_artes[2]" value="0.5">
+                <label class="option" for="op112">Me interesa</label>
             </div><hr />
 
             <div align="center" class="pregs">
@@ -77,7 +77,7 @@
                 <input type="radio" id="op113" name="humanidades_artes[3]" value="-0.5">
                 <label class="option" for="op113">No me interesa</label>
                 <input type="radio" id="op114" name="humanidades_artes[3]" value="0.5">
-                <label class="option" for="op114">Me interesa</label>        
+                <label class="option" for="op114">Me interesa</label>
             </div><hr />
 
             <div align="center" class="pregs">
@@ -105,7 +105,7 @@
             </div><hr />
 
             <div align="center" class="pregs">
-                <b class="preg">¿Te interesaría investigar una solución para disminuir la contaminación del aire?</b><br />    
+                <b class="preg">¿Te interesaría investigar una solución para disminuir la contaminación del aire?</b><br />
                 <input type="radio" id="op121" name="biologicas[2]" value="-1">
                 <label class="option" for="op121">No me interesa</label>
                 <input type="radio" id="op122" name="biologicas[2]" value="1">
@@ -113,7 +113,7 @@
             </div><hr />
 
             <div align="center" class="pregs">
-                <b class="preg">Al ver el interior del cofre de un auto ¿te llaman la atención sus componentes y funcionamiento?</b><br />        
+                <b class="preg">Al ver el interior del cofre de un auto ¿te llaman la atención sus componentes y funcionamiento?</b><br />
                 <input type="radio" id="op123" name="ingenierias[2]" value="-1">
                 <label class="option" for="op123">No me interesa</label>
                 <input type="radio" id="op124" name="ingenierias[2]" value="1">
@@ -146,10 +146,10 @@
 
             <div align="center" class="pregs">
                 <b class="preg">¿Te gustaría ser el lider de una empresa?</b><br />
-                <input type="radio" id="op131" name="sociales[3]" value="-1">
-                <label class="option" for="op131">No me interesa</label>
-                <input type="radio" id="op131" name="sociales[3]" value="1">
-                <label class="option" for="op131">Me interesa</label>
+                <input type="radio" id="op1311" name="sociales[3]" value="-1">
+                <label class="option" for="op1311">No me interesa</label>
+                <input type="radio" id="op1312" name="sociales[3]" value="1">
+                <label class="option" for="op1312">Me interesa</label>
             </div><hr />
 
             <div align="center" class="pregs">
@@ -161,7 +161,7 @@
             </div><hr />
 
             <div align="center" class="pregs">
-                <b class="preg">¿Te es interesante estudiar las causas y efectos de los transtornos o enfermedades emocionales?</b><br />    
+                <b class="preg">¿Te es interesante estudiar las causas y efectos de los transtornos o enfermedades emocionales?</b><br />
                 <input type="radio" id="op134" name="humanidades_artes[6]" value="-0.5">
                 <label class="option" for="op134">No me interesa</label>
                 <input type="radio" id="op135" name="humanidades_artes[6]" value="0.5">
@@ -170,11 +170,11 @@
 
             <div align="center" class="pregs">
                 <b class="preg">¿Te gustaría diseñar la publicidad para una gran empresa?</b><br />
-                
+
                 <input type="radio" id="op136" name="humanidades_artes[7]" value="-0.5">
                 <label class="option" for="op136">No me interesa</label>
                 <input type="radio" id="op137" name="humanidades_artes[7]" value="0.5">
-                
+
                 <label class="option" for="op137">Me interesa</label>
             </div><hr />
 
@@ -183,108 +183,108 @@
                 <input type="radio" id="op138" name="biologicas[3]" value="-1">
                 <label class="option" for="op138">No me interesa</label>
                 <input type="radio" id="op139" name="biologicas[3]" value="1">
-                
+
                 <label class="option" for="op139">Me interesa</label>
-                
+
             </div><hr />
 
             <div align="center" class="pregs">
                 <b class="preg">¿Te gustaría aprender y estudiar otros idiomas para hablarlos casi perfectamente?</b><br />
-                
+
                 <input type="radio" id="op140" name="humanidades_artes[8]" value="-0.5">
                 <label class="option" for="op140">No me interesa</label>
                 <input type="radio" id="op141" name="humanidades_artes[8]" value="0.5">
-                
+
                 <label class="option" for="op141">Me interesa</label>
             </div><hr />
 
             <div align="center" class="pregs">
                 <b class="preg">¿Aceptarías supervisar las ventas de un centro comercial?</b><br />
-                
+
                 <input type="radio" id="op142" name="sociales[4]" value="-1">
                 <label class="option" for="op142">No me interesa</label>
                 <input type="radio" id="op143" name="sociales[4]" value="1">
-                
+
                 <label class="option" for="op143">Me interesa</label>
             </div><hr />
 
             <div align="center" class="pregs">
                 <b class="preg">¿Te gustaría componer la música para una película?</b><br />
-                
+
                 <input type="radio" id="op144" name="humanidades_artes[9]" value="-0.5">
                 <label class="option" for="op144">No me interesa</label>
                 <input type="radio" id="op145" name="humanidades_artes[9]" value="0.5">
-                
+
                 <label class="option" for="op145">Me interesa</label>
             </div><hr />
 
             <div align="center" class="pregs">
                 <b class="preg">¿Te llama la atención el estudio de nuevas curas para las enfermedades?</b><br />
-                
+
                 <input type="radio" id="op146" name="biologicas[4]" value="-1">
                 <label class="option" for="op146">No me interesa</label>
                 <input type="radio" id="op147" name="biologicas[4]" value="1">
-                
+
                 <label class="option" for="op147">Me interesa</label>
             </div><hr />
 
             <div align="center" class="pregs">
                 <b class="preg">¿Te gustaría hacer proyectos de extracción minera?</b><br />
-                
+
                 <input type="radio" id="op148" name="ingenierias[4]" value="-1">
                 <label class="option" for="op148">No me interesa</label>
                 <input type="radio" id="op149" name="ingenierias[4]" value="1">
-                
+
                 <label class="option" for="op149">Me interesa</label>
             </div><hr />
 
             <div align="center" class="pregs">
                 <b class="preg">¿Te gustaría estudiar el comportamiento de los animales que viven en el mar?</b><br />
-                
+
                 <input type="radio" id="op150" name="biologicas[5]" value="-1">
                 <label class="option" for="op150">No me interesa</label>
                 <input type="radio" id="op151" name="biologicas[5]" value="1">
-                
+
                 <label class="option" for="op151">Me interesa</label>
             </div><hr />
 
             <div align="center" class="pregs">
                 <b class="preg">¿Te gustaría elegir o diseñar los muebles interiores de una casa?</b><br />
-                
+
                 <input type="radio" id="op152" name="humanidades_artes[10]" value="-0.5">
                 <label class="option" for="op152">No me interesa</label>
                 <input type="radio" id="op153" name="humanidades_artes[10]" value="0.5">
-                
+
                 <label class="option" for="op153">Me interesa</label>
             </div><hr />
 
             <div align="center" class="pregs">
                 <b class="preg">Te gustaría conocer las diferentes religiones, así como sus fundamentos y darlas a conocer?</b><br />
-                
+
                 <input type="radio" id="op154" name="humanidades_artes[11]" value="-0.5">
                 <label class="option" for="op154">No me interesa</label>
                 <input type="radio" id="op155" name="humanidades_artes[11]" value="0.5">
-                
+
                 <label class="option" for="op155">Me interesa</label>
             </div><hr />
 
             <div align="center" class="pregs">
                 <b class="preg">¿Te gustaría crear una aplicación de organización para tu telefono celular?</b><br />
-                
+
                 <input type="radio" id="op156" name="ingenierias[5]" value="-1">
                 <label class="option" for="op156">No me interesa</label>
                 <input type="radio" id="op157" name="ingenierias[5]" value="1">
-                
+
                 <label class="option" for="op157">Me interesa</label>
             </div><hr />
 
             <div align="center" class="pregs">
                 <b class="preg">¿Te gustaría organizar una excursión grupal?</b><br />
-                
+
                 <input type="radio" id="op158" name="sociales[5]" value="-1">
                 <label class="option" for="op158">No me interesa</label>
                 <input type="radio" id="op159" name="sociales[5]" value="1">
-                
+
                 <label class="option" for="op159">Me interesa</label>
             </div><hr />
 

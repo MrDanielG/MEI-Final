@@ -31,10 +31,10 @@
             <div class="col  s6 offset-s3">
               <div class="card-panel white"> ';
 
-              if($fileext){
-                echo '<img id="profile-img" class="circle responsive-img" src="../resourses/profile_pics/'.$usuario["id"].$fileext.'" alt=""><br><br>';
+            if($fileext){
+                echo '<div id="profile-img" class="circle responsive-img" style="background-image: url(../resourses/profile_pics/'.$usuario["id"].$fileext.'); width: 20vw;height: 20vw;background-size:cover;background-position:center;"></div><br><br>';
             }else{
-                echo '<img id="profile-img" class="circle responsive-img" src="../resourses/profile_pics/0.png" alt=""><br><br>';
+                  echo '<div id="profile-img" class="circle responsive-img" style="background-image: url(../resourses/profile_pics/0.png); width:300px;height:300px;background-size:cover;background-position:center;"></div><br><br>';
             }
 
 
@@ -88,12 +88,8 @@
                 if($imageFileType == "jpg" || $imageFileType == "png" || $imageFileType == "jpeg" || $imageFileType == "gif"){
                     foreach($ext as &$val){
                         if(file_exists("../resourses/profile_pics/".$usuario["id"].$val)){
-                            $fileext = $val;
-                            break;
+                            unlink("../resourses/profile_pics/".$usuario["id"].$val);
                         }
-                    }
-                    if($fileext){
-                        unlink("../resourses/profile_pics/".$usuario["id"].$fileext);
                     }
                     if(move_uploaded_file($_FILES["img"]["tmp_name"], "../resourses/profile_pics/".$usuario["id"].".".$imageFileType)){
                         echo "<script> Materialize.toast('Se ha actualizado la imagen', 3000, 'rounded');
