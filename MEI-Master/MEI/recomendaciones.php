@@ -13,6 +13,7 @@
               <div class="card-content">
                 <input type="checkbox" name="republica" checked="true" id="republicaCB"><label for="republicaCB">Toda la república mexicana</label>
                 <div id="rangeRecoC" class="range-field">Rango (km.) <input type="range" id="rangeReco" value="10" min="10" max="200"></div>
+                *Se necesita tener acceso a la ubicación para usar esta herramienta.
               </div>
             </div>
             <div id="recoContainer">
@@ -38,16 +39,17 @@
                         $("#recoContainer").html(data);
                       }});
             });
-            $("#rangeRecoC").css("visibility","hidden");
+            $("#rangeRecoC").animate({height:"0px",opacity:"0"});
             $("#republicaCB").click(e=>{
               if(e.target.checked){
-                $("#rangeRecoC").css("visibility","hidden");
+                $("#rangeRecoC").animate({height:"0px",opacity:"0"});
                 $.ajax({url:"ajax/ajaxReco.php",
                         success: function(data){
                           $("#recoContainer").html(data);
                         }});
               }else {
-                $("#rangeRecoC").css("visibility","visible");
+                $("#rangeRecoC").animate({height:"55px",opacity:"1"});
+                localPerm();
               }
             });
 
@@ -76,20 +78,24 @@
                         marker.setPosition(new google.maps.LatLng(lati, long));
                     },
                 });
-                if (navigator.geolocation) {
-                  navigator.geolocation.getCurrentPosition(function(position) {
-                    pos = {
-                      lat: position.coords.latitude,
-                      lng: position.coords.longitude
-                    };
-                  }, function() {
-                    handleLocationError(true, infoWindow, map.getCenter());
-                  });
-                } else {
-                  // Browser doesn't support Geolocation
-                  handleLocationError(false, infoWindow, map.getCenter());
-                }
+                localPerm();
             });
+
+            function localPerm(){
+              if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                  pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                  };
+                }, function() {
+                  handleLocationError(true, infoWindow, map.getCenter());
+                });
+              } else {
+                // Browser doesn't support Geolocation
+                handleLocationError(false, infoWindow, map.getCenter());
+              }
+            }
         </script>
     </body>
 </html>
