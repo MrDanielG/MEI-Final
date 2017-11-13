@@ -28,7 +28,7 @@
                       <span class="carrera">'.$uni['name'].'</span>
                   </div>
                   <div class="card-action">
-                      <a href="carrera.php?carrera='.$registro["Nombre_Carrera"].'&uni='.$registro["NombreUni"].'" class="reco_info">Información de la carrera</a>
+                      <a href="carrera.php?carrera='.$registro["Nombre_Carrera"].'&uni='.$registro["NombreUni"].'" class="reco_info">Información</a>
                       <a class="modal-trigger reco_maps" onclick="lati = '.$univ[1].', long= '.$univ[2].';" href="#map-modal">Ubicación</a>
                   </div>
               </div>
@@ -52,7 +52,7 @@
                     <span class="carrera">'.$uni['name'].'</span>
                 </div>
                 <div class="card-action">
-                    <a href="carrera.php?carrera='.$registro["Nombre_Carrera"].'&uni='.$registro["NombreUni"].'" class="reco_info">Información de la carrera</a>
+                    <a href="carrera.php?carrera='.$registro["Nombre_Carrera"].'&uni='.$registro["NombreUni"].'" class="reco_info">Información</a>
                     <a class="modal-trigger reco_maps" onclick="lati = '.$univ[1].', long= '.$univ[2].';" href="#map-modal">Ubicación</a>
                 </div>
             </div>

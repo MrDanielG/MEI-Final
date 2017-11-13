@@ -220,7 +220,8 @@ public class SesionActivity extends AppCompatActivity
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            mei.loadUrl("javascript:" +
+                            mei.loadUrl("javascript:window.onload = rec;" +
+                                    "function rec(){" +
                                     "var carrera = document.getElementsByClassName('reco_carrera');" +
                                     "var uni = document.getElementsByClassName('reco_universidad');" +
                                     "var info = document.getElementsByClassName('reco_info');" +
@@ -231,9 +232,9 @@ public class SesionActivity extends AppCompatActivity
                                     "   window.HTMLOUT.recomienda(carrera[i].innerText,uni[i].innerText,info[i].href, i , foto[i].dataset.content);" +
                                     "}else{" +
                                     "   window.HTMLOUT.empty();" +
-                                    "}");
+                                    "}}");
                         }
-                    }, 200);
+                    }, 0);
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -547,15 +548,13 @@ public class SesionActivity extends AppCompatActivity
                     tvUni.setText(Uni);
                     tvUni.setTextColor(Color.rgb(200,200,200));
 
-                    Button btInfo = new Button(context);
+                    TextView btInfo = new TextView(context);
                     btInfo.setText(R.string.uni_info);
-                    btInfo.setTextColor(Color.WHITE);
-                    btInfo.getBackground().setColorFilter(0xFFEE0000, PorterDuff.Mode.SRC);
+                    btInfo.setTextColor(Color.RED);
 
-                    Button btMaps = new Button(context);
+                    TextView btMaps = new TextView(context);
                     btMaps.setText(R.string.uni_place);
-                    btMaps.setTextColor(Color.WHITE);
-                    btMaps.getBackground().setColorFilter(0xFFEE0000, PorterDuff.Mode.SRC);
+                    btMaps.setTextColor(Color.RED);
 
                     RelativeLayout rlUni = new RelativeLayout(context);
                     int dp16 = (int)(16 * density);
@@ -565,16 +564,27 @@ public class SesionActivity extends AppCompatActivity
                     RelativeLayout rlName = new RelativeLayout(context);
                     rlName.setPadding(dp16,dp24,dp16,0);
 
+                    LinearLayout actions = new LinearLayout(context);
+                    actions.setOrientation(LinearLayout.HORIZONTAL);
+                    actions.setPadding(dp16, 0, dp16, dp16);
+
                     rlEscuela.addView(ivescuela);
                     rlName.addView(tvName);
                     rlUni.addView(tvUni);
                     cvLinLy.addView(rlEscuela);
                     cvLinLy.addView(rlName);
                     cvLinLy.addView(rlUni);
-                    cvLinLy.addView(btInfo);
-                    cvLinLy.addView(btMaps);
+                    actions.addView(btInfo);
+                    actions.addView(btMaps);
+                    cvLinLy.addView(actions);
                     cardView.addView(cvLinLy);
                     lyreco.addView(cardView, layoutParams);
+
+                    LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                    llp.setMargins(dp24, 0, 0, 0); // llp.setMargins(left, top, right, bottom);
+                    btMaps.setLayoutParams(llp);
+                    btMaps.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
+                    btInfo.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
 
                     RelativeLayout.LayoutParams paramsIVe = (RelativeLayout.LayoutParams)ivescuela.getLayoutParams();
                     paramsIVe.setMargins(0,0,0,0);

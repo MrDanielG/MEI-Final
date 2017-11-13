@@ -143,8 +143,8 @@
     <string name="intercambios">Intercambios</string>
     <string name="perfil_de_egreso">Perfil de egreso</string>
     <string name="valid_email_pattern">^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$</string>
-    <string name="uni_info">Información</string>
-    <string name="uni_place">Ubicación</string>
+    <string name="uni_info">INFORMACIÓN</string>
+    <string name="uni_place">UBICACIÓN</string>
     <string name="iniciar_sesion">Iniciar Sesion</string>
     <string name="registrarse">registrarse</string>
     <string name="offline">Offline</string>
