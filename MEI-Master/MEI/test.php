@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Test | MEI</title>
+        <title>Test</title>
         <?php include '../resourses/header.html'; ?>
         <script type="text/javascript">
             console.log("test|");

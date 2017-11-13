@@ -1,7 +1,7 @@
 <html>
     <head>
         <title>Recomendaciones | MEI</title>
-        
+
         <script>
             console.log("recomendaciones|");
         </script>
@@ -22,7 +22,7 @@
         <script type="text/javascript" src="../js/materialize.js"></script>
     </head>
     <body>
-        
+
         <?php include '../resourses/menu.html'; ?><br><br>
 
         <div class="container">
@@ -30,17 +30,18 @@
                 include '../conn.php';
                 $query = "SELECT * FROM carreras";
                 $result = mysqli_query($con,$query);
-
                 while($registro = mysqli_fetch_array($result, MYSQLI_ASSOC)){
                   $univq = mysqli_query($con,"SELECT uni_foto,latitud,longitud FROM universidades WHERE nombre = '{$registro['NombreUni']}'");
                   $univ = mysqli_fetch_array($univq, MYSQLI_NUM);
+                  $uni = mysqli_fetch_array(mysqli_query($con,"SELECT * FROM universidades INNER JOIN institucion ON institucion.id = universidades.idInstitutucion WHERE nombre =  '".$registro['NombreUni']."'"), MYSQLI_ASSOC);
                   echo '
-                  <div class="card row">
+                  <div class="card row hoverable">
                       <div class="reco_foto col s12 m3" data-content="'.$univ[0].'" style="background:url('.$univ[0].') no-repeat center center;"></div>
                       <div class="col s12 m9">
                           <div class="card-content">
                               <span class="card-title reco_carrera">'.$registro['nombre'].'</span>
-                              <span class="reco_universidad">'.$registro['NombreUni'].'</span>
+                              <span class="reco_universidad">'.$registro['NombreUni'].'</span><br>
+                              <span class="carrera">'.$uni['name'].'</span>
                           </div>
                           <div class="card-action">
                               <a href="carrera.php?carrera='.$registro["nombre"].'&uni='.$registro["NombreUni"].'" class="reco_info">Información de la carrera</a>
@@ -48,7 +49,7 @@
                           </div>
                       </div>
                   </div>';
-              }
+                }
 
             ?>
         </div>

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Test</title>
+    <title>Test Vocaional 1</title>
     <script type="text/javascript">
   		console.log("testvoca|");
     </script>

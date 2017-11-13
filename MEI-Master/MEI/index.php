@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Pagina principal | MEI</title>
+        <title>Página principal</title>
         <?php include '../resourses/header.html'; ?>
         <script type="text/javascript">
             console.log("sesion|");
@@ -45,17 +45,17 @@
           </li>
         </ul>
       </div>
-    
+
       <br>
       <br>
-    
+
       <!-- CONTENIDO -->
-    
+
       <div class="container">
         <div class="row">
           <div class="col s12 m6">
-    
-    
+
+
             <div class="card grey lighten-4">
               <div class="card-content black-text">
                 <span class="card-title">¿Qué es M.E.I.?</span>
@@ -65,25 +65,25 @@
               </div>
             </div>
           </div>
-    
+
           <div class="col s12 m6" id="div_img">
             <img src="../imgs/logo1.png" alt="Mei-Logo" id="img_inicio">
           </div>
         </div>
       </div>
-    
+
       <br>
       <br>
-    
+
       <div class="parallax-container">
         <div class="parallax">
           <img src="https://images.unsplash.com/photo-1488722796624-0aa6f1bb6399?auto=format&fit=crop&w=1350&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D">
         </div>
       </div>
-    
+
       <br>
       <br>
-    
+
       <div class="container">
         <div class="row">
           <div class="col s12 m4">
@@ -115,10 +115,10 @@
           </div>
         </div>
       </div>
-    
+
       <br>
       <br>
-    
+
       <div class="parallax-container">
         <div class="parallax">
           <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=1350&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D">

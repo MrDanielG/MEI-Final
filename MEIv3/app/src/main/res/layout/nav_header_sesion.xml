@@ -36,11 +36,18 @@
             android:elevation="10dp" />
 
         <TextView
+            android:id="@+id/tvName"
             android:layout_width="match_parent"
             android:layout_height="21dp"
             android:paddingTop="4dp"
-            android:text="Nombre de usuario"
+            android:text="@string/nombre_de_usuario"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+        <TextView
+            android:id="@+id/tvEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/correo_ejemplo_com" />
 
     </LinearLayout>
 </RelativeLayout>

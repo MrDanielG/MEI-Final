@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Perfil | MEI</title>
+        <title>Perfil</title>
         <?php include '../resourses/header.html'; ?>
         <script type="text/javascript">
             console.log("perfil|");
@@ -32,15 +32,15 @@
               <div class="card-panel white"> ';
 
             if($fileext){
-                echo '<div id="profile-img" class="circle responsive-img" style="background-image: url(../resourses/profile_pics/'.$usuario["id"].$fileext.'); width: 20vw;height: 20vw;background-size:cover;background-position:center;"></div><br><br>';
+                echo '<div id="profile-img" class="circle responsive-img tooltipped" data-position="bottom" data-delay="50" data-tooltip="Has click para cambiar la imagen" style="background-image: url(../resourses/profile_pics/'.$usuario["id"].$fileext.'); width: 20vw;height: 20vw;background-size:cover;background-position:center;"></div><br><br>';
             }else{
-                  echo '<div id="profile-img" class="circle responsive-img" style="background-image: url(../resourses/profile_pics/0.png); width:300px;height:300px;background-size:cover;background-position:center;"></div><br><br>';
+                  echo '<div id="profile-img" class="circle responsive-img tooltipped" data-position="bottom" data-delay="50" data-tooltip="Has click para cambiar la imagen" style="background-image: url(../resourses/profile_pics/0.png); width:300px;height:300px;background-size:cover;background-position:center;"></div><br><br>';
             }
 
 
             echo '<br><span id="profile-nombre">'.$usuario["nombre(s)"]." ".$usuario["apellido(s)"].'</span><br>';
             echo '<span id="profile-correo">'.$usuario["email"].'</span><br>';
-            echo '<span id="profile-edad">'.$usuario["edad"].'</span><br>';
+            echo '<span id="profile-edad">'.$usuario["edad"].' años</span><br>';
             echo '<span id="profile-ciudad">'.$usuario["ciudad"].'</span><br>
 
               </div>
@@ -50,7 +50,7 @@
 
           ';
 
-            echo '<span><h2>Examenes aplicados</h2></span><br>';
+            echo '<span><h3>Examenes aplicados</h3></span><br>';
 
             $query = "SELECT * FROM aplicacion_examen INNER JOIN examenes ON aplicacion_examen.IdExamen=examenes.id WHERE (UsrEmail = '".$usuario["email"]."')";
             $result = mysqli_query($con,$query);

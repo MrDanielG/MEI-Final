@@ -200,7 +200,12 @@ public class SesionActivity extends AppCompatActivity
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            mei.loadUrl("javascript:window.HTMLOUT.publicidad(document.getElementById(\"publicidad\").style.backgroundImage);");
+                            mei.loadUrl("javascript:" +
+                                    "   var el = document.getElementById('dataUser');" +
+                                    "   var img = el.dataset.picture;" +
+                                    "   var name = el.dataset.name;" +
+                                    "   var email = el.dataset.email;" +
+                                    "   window.HTMLOUT.navbar(img,name,email);");
                         }
                     }, 200);
 
@@ -322,7 +327,7 @@ public class SesionActivity extends AppCompatActivity
                     mei.loadUrl(PagMadre+"recomendaciones.php");
                 } else if(Arrays.asList(msg).contains("perfil")){
                     sv_perfil.setVisibility(View.VISIBLE);
-                    mei.loadUrl("javascript: var imgUrl = document.getElementById('profile-img').src;" +
+                    mei.loadUrl("javascript: var imgUrl = document.getElementById('dataUser').dataset.picture;" +
                                             "var name = document.getElementById('profile-nombre').innerText;" +
                                             "var email = document.getElementById('profile-correo').innerText;" +
                                             "var edad = document.getElementById('profile-edad').innerText;" +
@@ -391,12 +396,6 @@ public class SesionActivity extends AppCompatActivity
 
 
         mei.loadUrl(PagMadre);
-
-        String url = "http://i.imgur.com/bIRGzVO.jpg";
-        View hView =  navigationView.getHeaderView(0);
-        ImageView imgView = (ImageView) hView.findViewById(R.id.profile_image);
-        ImageView HeadfondoP = (ImageView) hView.findViewById(R.id.profile_bg);
-        Picasso.with(getBaseContext()).load(url).transform(new CircleTransform()).into(imgView);
     }
 
     private class JavaScriptInterface {
@@ -404,6 +403,24 @@ public class SesionActivity extends AppCompatActivity
 
         JavaScriptInterface(Context c) {
             context = c;
+        }
+
+        @JavascriptInterface
+        public void navbar(final String img, final String name, final String email){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+                    View hView =  navigationView.getHeaderView(0);
+                    ImageView imgView = (ImageView) hView.findViewById(R.id.profile_image);
+                    TextView textViewName = (TextView) hView.findViewById(R.id.tvName);
+                    TextView textViewEmail = (TextView) hView.findViewById(R.id.tvEmail);
+                    Picasso.with(getBaseContext()).load(PagMadre+"../resourses/profile_pics/"+img).transform(new CircleTransform()).into(imgView);
+
+                    textViewName.setText(name);
+                    textViewEmail.setText(email);
+                }
+            });
         }
 
         @JavascriptInterface
@@ -753,7 +770,7 @@ public class SesionActivity extends AppCompatActivity
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Picasso.with(getBaseContext()).load(url).transform(new CircleTransform()).into(foto);
+                    Picasso.with(getBaseContext()).load(PagMadre+"../resourses/profile_pics/"+url).transform(new CircleTransform()).into(foto);
                     tvNombreUsuario.setText(name);
                     tvCorreo.setText(correo);
                 }
