@@ -76,8 +76,42 @@
                                 </div>
 
                                 <div class="input-field">
-                                    <input class="validate" type="text" name="city" id="input_lugar" autocomplete="off" required>
-                                    <label for="number">Ciudad</label>
+                                    <select class="validate" id="input_lugar" name="city" required>
+                                      <option disabled selected>Ciudad</option>
+                                      <option>Aguascalientes</option>
+                                      <option>Baja California</option>
+                                      <option>Baja California Sur</option>
+                                      <option>Campeche</option>
+                                      <option>Coahuila</option>
+                                      <option>Colima</option>
+                                      <option>Chiapas</option>
+                                      <option>Chihuahua</option>
+                                      <option>Ciudad de México</option>
+                                      <option>Estado de México</option>
+                                      <option>Durango</option>
+                                      <option>Guanajuato</option>
+                                      <option>Guerrero</option>
+                                      <option>Hidalgo</option>
+                                      <option>Jalisco</option>
+                                      <option>México</option>
+                                      <option>Michoacán</option>
+                                      <option>Morelos</option>
+                                      <option>Nayarit</option>
+                                      <option>Nuevo León</option>
+                                      <option>Oaxaca</option>
+                                      <option>Puebla</option>
+                                      <option>Querétaro</option>
+                                      <option>Quintana Roo</option>
+                                      <option>San Luis Potosí</option>
+                                      <option>Sinaloa</option>
+                                      <option>Sonora</option>
+                                      <option>Tabasco</option>
+                                      <option>Tamaulipas</option>
+                                      <option>Tlaxcala</option>
+                                      <option>Veracruz</option>
+                                      <option>Yucatán</option>
+                                      <option>Zacatecas</option>
+                                    </select>
                                 </div>
 
                                 <button class="btn waves-effect waves-light" type="submit" name="sbmt" id="btn_submit" value="Iniciar">Registrarse
@@ -99,7 +133,8 @@
         <script type="text/javascript" src="js/materialize.min.js"></script>
         <script>
         $(document).ready(function() {
-        Materialize.updateTextFields();
+          $("select").material_select();
+          Materialize.updateTextFields();
         });
         </script>
         <script>

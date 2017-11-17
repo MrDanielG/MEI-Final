@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title><?php echo $_GET["carrera"] ?> | MEI</title>
+        <title><?php echo $_GET["carrera"] ?></title>
         <?php include '../resourses/header.html'; ?>
         <script type="text/javascript">
             console.log("carrera|");
@@ -31,7 +31,7 @@
                             echo '
                             <div class="card white-1">
                                 <div class="card-content">
-                                    <span class="card-title carrera"><h3>'.$registro['nombre'].'</h3></span>
+                                    <span><h3 class="card-title carrera">'.$registro['nombre'].'</h3></span>
                                     <span class="carrera">'.$registro['NombreUni'].'</span><br>
                                     <span class="carrera">'.$uni['name'].'</span><br>
                                     <span class="carrera">'.$registro['AreaNombre'].'</span>

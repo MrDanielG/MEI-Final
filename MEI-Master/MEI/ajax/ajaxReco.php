@@ -53,7 +53,7 @@
                 </div>
                 <div class="card-action">
                     <a href="carrera.php?carrera='.$registro["Nombre_Carrera"].'&uni='.$registro["NombreUni"].'" class="reco_info">Información</a>
-                    <a class="modal-trigger reco_maps" onclick="lati = '.$univ[1].', long= '.$univ[2].';" href="#map-modal">Ubicación</a>
+                    <a class="modal-trigger reco_maps" data-lat="'.$univ[1].'" data-lng="'.$univ[2].'" onclick="lati = '.$univ[1].', long= '.$univ[2].';" href="#map-modal">Ubicación</a>
                 </div>
             </div>
         </div>';
@@ -61,8 +61,8 @@
     }
     function distancia($latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo, $earthRadius = 6371000){
       // convert from degrees to radians
-      $latFrom = deg2rad($latitudeFrom);
-      $lonFrom = deg2rad($longitudeFrom);
+      $latFrom = deg2rad(floatval($latitudeFrom));
+      $lonFrom = deg2rad(floatval($longitudeFrom));
       $latTo = deg2rad($latitudeTo);
       $lonTo = deg2rad($longitudeTo);
 

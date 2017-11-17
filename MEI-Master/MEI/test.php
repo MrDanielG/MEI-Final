@@ -57,20 +57,16 @@
                 $query = "SELECT * FROM examenes";
                 $result = mysqli_query($con,$query);
 
-
-                while ($registro = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-
-                    echo '
-                    <div class="collection with-header">
+                echo '
+                  <div class="collection with-header">
                     <li class="collection-header"><h4>Tests</h4></li>';
+                while ($registro = mysqli_fetch_array($result, MYSQLI_ASSOC)){
                     echo "<a href='form.php' class='test collection-item'>" .$registro['nombre']." con ".$registro['numpreguntas']." preguntas. Tipo: ".$registro['tipo']."</a>";
-                    echo '
-                    <a href="#!" class="collection-item">Test 2</a>
-                    <a href="#!" class="collection-item">Test 3</a>
-                  </div>
-
-                    ';
                 }
+                echo '
+                    <a href="#!" class="collection-item test">Test 2</a>
+                    <a href="#!" class="collection-item test">Test 3</a>
+                  </div>';
 
             ?>
         </div>

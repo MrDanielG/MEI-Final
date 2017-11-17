@@ -6,7 +6,13 @@
     android:layout_height="match_parent"
     tools:context="com.example.ramir.meiv3.SesionActivity">
 
+    <include
+        layout="@layout/content_sesion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/ActionBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
@@ -18,8 +24,18 @@
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-    </android.support.design.widget.AppBarLayout>
+        <SeekBar
+            android:id="@+id/rangeSeekBar"
+            style="@android:style/Widget.Material.SeekBar.Discrete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/holo_red_light"
+            android:max="380"
+            android:padding="16dp"
+            android:progress="5"
+            android:visibility="gone" />
 
-    <include layout="@layout/content_sesion" />
+    </android.support.design.widget.AppBarLayout>
 
 </android.support.design.widget.CoordinatorLayout>

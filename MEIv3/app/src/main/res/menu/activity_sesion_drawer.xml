@@ -26,6 +26,10 @@
         android:id="@+id/config"
         android:checkableBehavior="none">
         <item
+            android:id="@+id/nav_contacto"
+            android:icon="@drawable/ic_contact"
+            android:title="Contacto" />
+        <item
             android:id="@+id/nav_cerrarc"
             android:icon="@android:drawable/ic_menu_close_clear_cancel"
             android:title="Cerrar sesión" />

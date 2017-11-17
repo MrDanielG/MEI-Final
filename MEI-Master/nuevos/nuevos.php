@@ -50,6 +50,7 @@
         <div class="container">
             <div class="card">
                 <div class="card-content">
+                    <a class="btn" href="../MEI/todas.php">Todas las carreras agregadas (Con vista previa del resultado final)</a>
                     <form method="post">
                         Nombre de la carrera (Licenciatura en Biología, Ingeniería en Alimentos). Que no se repitan las carreras de la misma universidad:
                         <input type="text" name="carrera" id="name" required>
@@ -58,7 +59,7 @@
                         </div><br><br>
                         Nombre de la unidad/facultad/centro universitario/otros (Centro Universitario de Ciencias Exactas e ingenierías, Facultad de Medicina): <br>
                         <input type="text" name="unidad" id="unid" required>
-                        <div class="coincidenciasUnid" style="border: 2px solid red">   
+                        <div class="coincidenciasUnid" style="border: 2px solid red">
 
                         </div><br><br>
                         Coordenadas de la unidad/facultad/centro universitario/otros (22.918273, -122.1827): <br><br>
@@ -69,7 +70,7 @@
                         <div class="coincidenciasInst" style="border: 2px solid red" required>
 
                         </div><br><br>
-                        Link de imagen de la unidad/facultad/centro universitario/otros (al menos resolucion 720p):
+                        Link de imagen de las instalaciones de la unidad/facultad/centro universitario/otros (al menos resolucion 720p):
                         <input type="url" name="img" id="" required>
                         Ciudad de la la unidad/facultad/centro universitario/otros (Ciudad de México, Zacatecas):
                         <input type="text" name="ciudad" id="" required>
@@ -86,14 +87,31 @@
                         </select>
                         Palabras clave de la carrera (separadas por comas y sin espacios):
                         <textarea name="keywords" id="" cols="30" rows="20" required></textarea>
+                        Los siguientes son compatibles con etiquetas HTML (ejemplo añadir links con &lt;a href="">&lt;/a>)<br>
                         Descripcion de la carrera:
-                        <textarea name="carreraDesc" id="" cols="30" rows="20" required></textarea>
+                        <textarea name="carreraDesc" class="carreraDesc" cols="30" rows="20" required></textarea>
+                        Vista previa
+                        <div class="carreraDesc" style="border: 2px solid red" required>
+
+                        </div>
                         Plan de estudios:
-                        <textarea name="plan_estudios" id="" cols="30" rows="20" required></textarea>
+                        <textarea name="plan_estudios" class="plan_estudios" cols="30" rows="20" required></textarea>
+                        Vista previa
+                        <div class="plan_estudios" style="border: 2px solid red" required>
+
+                        </div>
                         Intercambio:
-                        <textarea name="intercambio" id="" cols="30" rows="20" required></textarea>
+                        <textarea name="intercambio" class="intercambio" cols="30" rows="20" required></textarea>
+                        Vista previa
+                        <div class="intercambio" style="border: 2px solid red" required>
+
+                        </div>
                         Perfil de egreso:
-                        <textarea name="perfEgreso" id="" cols="30" rows="20" required></textarea>
+                        <textarea name="perfEgreso" class="perfEgreso" cols="30" rows="20" required></textarea>
+                        Vista previa
+                        <div class="perfEgreso" style="border: 2px solid red" required>
+
+                        </div>
                         <input type="submit" name="smt" class="btn">
                     </form>
                 </div>
@@ -103,6 +121,18 @@
     <script src="../js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="../js/materialize.js"></script>
     <script>
+        $(".carreraDesc").keyup(e=>{
+          $($(".carreraDesc").get(1)).html($($(".carreraDesc").get(0)).val());
+        });
+        $(".plan_estudios").keyup(e=>{
+          $($(".plan_estudios").get(1)).html($($(".plan_estudios").get(0)).val());
+        });
+        $(".intercambio").keyup(e=>{
+          $($(".intercambio").get(1)).html($($(".intercambio").get(0)).val());
+        });
+        $(".perfEgreso").keyup(e=>{
+          $($(".perfEgreso").get(1)).html($($(".perfEgreso").get(0)).val());
+        });
         $(document).ready(function() {
             $('select').material_select();
         });
@@ -168,5 +198,6 @@
                 $(".coincidenciasInst").html(r);
             }});
         });
+        $("img").remove();
     </script>
 </html>

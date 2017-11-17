@@ -43,7 +43,7 @@ public class regis_fragment extends Fragment {
     }
 
     boolean estadoErr;
-    String valorEstado;
+    int valorEstado;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View rootView = inflater.inflate(R.layout.fragment_regis,container,false);
@@ -62,7 +62,7 @@ public class regis_fragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 estadoErr=false;
-                valorEstado = adapterView.getItemAtPosition(i).toString();
+                valorEstado = i;
             }
 
             @Override
@@ -146,6 +146,7 @@ public class regis_fragment extends Fragment {
                     String nombre = name.getText().toString();
                     MEIPage.loadUrl("javascript:" +
                             "    var x = document.getElementsByTagName('input');" +
+                            "    var op =  document.getElementsByTagName('option');" +
                             "    var form = document.getElementsByTagName('button')[0];" +
                             "    x[0].value='" + user.getText().toString() + "';" +
                             "    x[1].value='" + pass.getText().toString() + "';" +
@@ -153,7 +154,7 @@ public class regis_fragment extends Fragment {
                             "    x[3].value='" + nombre + "';" +
                             "    x[4].value='" + last.getText().toString() + "';" +
                             "    x[5].value=" + edad.getText().toString() + ";" +
-                            "    x[6].value='" + valorEstado + "';" +
+                            "    op[" + (valorEstado + 1) + "].selected = true;" +
                             "    $(form).click();");
                 }
             }

@@ -6,15 +6,6 @@
     android:layout_height="match_parent"
     android:background="@android:color/background_light">
 
-    <WebView
-        android:id="@+id/mei_sesion"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="60dp"
-        android:visibility="gone">
-
-    </WebView>
-
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
@@ -298,7 +289,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="56dp"
-        android:background="@android:color/white"
         android:visibility="gone">
 
         <LinearLayout
@@ -308,6 +298,7 @@
             android:orientation="vertical">
 
         </LinearLayout>
+
     </ScrollView>
 
     <ScrollView
@@ -406,7 +397,7 @@
                     android:layout_height="200dp"
                     android:contentDescription="@string/portada"
                     android:scaleType="centerCrop"
-                    app:srcCompat="@color/colorPrimary"
+                    app:srcCompat="@color/red"
                     tools:layout_editor_absoluteY="0dp" />
 
                 <RelativeLayout
@@ -467,68 +458,51 @@
                 android:id="@+id/ly_perfil"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="16dp">
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView20"
+                <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Test realizados:"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Title" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:layout_margin="10dp"
+                    android:elevation="4dp"
+                    app:cardCornerRadius="4dp">
 
                     <LinearLayout
-                        android:id="@+id/tablaTest"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/textView19"
+                            android:id="@+id/textView20"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
                             android:layout_weight="1"
-                            android:text="Test" />
-                    </LinearLayout>
+                            android:text="Test realizados:"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
-                    <LinearLayout
-                        android:id="@+id/tablaFecha"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/textView18"
+                        <TableLayout
+                            android:id="@+id/tablaTest"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Fecha" />
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <TableRow
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                            </TableRow>
+
+                        </TableLayout>
+
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/tablaResu"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                </android.support.v7.widget.CardView>
 
-                        <TextView
-                            android:id="@+id/textView17"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Resultado" />
-                    </LinearLayout>
-
-                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>
@@ -539,7 +513,6 @@
         android:id="@+id/sv_carrera"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="56dp"
         android:background="@android:color/white"
         android:visibility="gone">
 
@@ -555,11 +528,23 @@
                 <ImageView
                     android:id="@+id/univ_foto"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="250dp"
                     android:contentDescription="@string/universidad"
                     android:scaleType="centerCrop"
                     app:srcCompat="@color/colorPrimary"
                     tools:layout_editor_absoluteY="0dp" />
+
+                <TextView
+                    android:id="@+id/id_carrera"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:padding="16dp"
+                    android:text="@string/carrera"
+                    android:textColor="@android:color/white"
+                    android:textSize="24sp"
+                    android:visibility="gone" />
 
             </RelativeLayout>
 
@@ -568,14 +553,6 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:padding="16dp">
-
-                <TextView
-                    android:id="@+id/id_carrera"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/carrera"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                    android:textSize="24sp" />
 
                 <TextView
                     android:id="@+id/id_univ"
@@ -591,20 +568,28 @@
                     android:text="Institucion"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray" />
+
                 <TextView
                     android:id="@+id/id_area"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Area"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/id_descrip"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:lineSpacingMultiplier="1.25"
                     android:text="@string/descripcion"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/textView13"
@@ -618,9 +603,10 @@
                     android:id="@+id/id_plan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:lineSpacingMultiplier="1.25"
                     android:text="@string/plan_de_estudios"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/textView16"
@@ -634,9 +620,10 @@
                     android:id="@+id/id_becas"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:lineSpacingMultiplier="1.25"
                     android:text="@string/becas"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/textView15"
@@ -650,9 +637,10 @@
                     android:id="@+id/id_perfil_egreso"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:lineSpacingMultiplier="1.25"
                     android:text="@string/perfil_de_egreso"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/textView14"
@@ -666,12 +654,23 @@
                     android:id="@+id/id_intercambios"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:lineSpacingMultiplier="1.25"
                     android:text="@string/intercambios"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
             </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
+
+    <WebView
+        android:id="@+id/mei_sesion"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/rl_resultado_test"
+        android:visibility="gone">
+
+    </WebView>
 
 </RelativeLayout>

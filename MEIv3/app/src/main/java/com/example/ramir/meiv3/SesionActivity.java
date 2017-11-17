@@ -1,7 +1,10 @@
 package com.example.ramir.meiv3;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
@@ -9,23 +12,34 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.Manifest;
 import android.os.Handler;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.ConsoleMessage;
@@ -44,27 +58,41 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.SeekBar;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
 import java.util.Arrays;
+import java.util.zip.Inflater;
 
 public class SesionActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
     GlobalVars globalVars = new GlobalVars();
     String PagMadre = globalVars.urlMEIMaster()+"MEI/";
+    AppBarLayout appBarLayout;
     WebView mei;
     ImageView publicidad, portada, foto, univ_foto;
     TextView tvUniv,tvCarrer,tvDesrip,tvPlan,tvInterc,tvPerfilE,tvArea, tvResultado,tvResultado_detalles,tvNombreUsuario,tvCorreo,tvBecas, tvInst;
     RelativeLayout rlempty, rloffline, rlResultados;
-    LinearLayout lyreco, lytest, lytestvoca, lyPerfil, lyTablaTest, lyTablaFecha, lyTablaResu;
+    LinearLayout lyreco, lytest, lytestvoca, lyPerfil;
+    TableLayout lyTablaTest;
     ScrollView lyinicio,sv_reco,sv_test,sv_testvoca,sv_perfil,sv_carrera;
     ProgressBar PageLoad;
     Button redirect,btEnviar, btRecomendacion;
     Integer num_radio=0, Rbindex=0;
+    MenuItem rangoMenu;
+    SeekBar rangeSeekBar;
+    Double lat,lng;
+    int seekBarValue;
+    LocationManager locationManager;
+    Criteria criteria;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +102,76 @@ public class SesionActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        setTitle("Inicio");
+        appBarLayout = (AppBarLayout) findViewById(R.id.ActionBar);
+        rangeSeekBar = (SeekBar) findViewById(R.id.rangeSeekBar);
+
+        if (checkLocationPermission()) {
+            if (ContextCompat.checkSelfPermission(SesionActivity.this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED) {
+
+                Location location = null;
+                if (locationManager != null) {
+                    location = locationManager.getLastKnownLocation(locationManager
+                            .getBestProvider(criteria, false));
+                    lat = location.getLatitude();
+                    lng = location.getLongitude();
+                }
+            }
+        }
+
+        locationManager = (LocationManager)
+                getSystemService(Context.LOCATION_SERVICE);
+        criteria = new Criteria();
+
+        checkLocationPermission();
+
+        rangeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                //mei.loadUrl("javascript:$('#rangeReco').val("+(i+10)+");");
+                seekBarValue = i;
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+
+            @SuppressLint("MissingPermission")
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                Location location = null;
+                lyreco.removeAllViews();
+
+                if (locationManager != null) {
+                    location = locationManager.getLastKnownLocation(locationManager
+                            .getBestProvider(criteria, false));
+                    lat = location.getLatitude();
+                    lng = location.getLongitude();
+
+                    Log.e("Loc",lat.toString()+" - "+lng.toString()+" - "+String.valueOf((seekBarValue)));
+
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            lyreco.removeAllViews();
+                            mei.loadUrl("javascript:ajaxReco(" + lat + "," + lng + "," + (seekBarValue + 10) + ");" +
+                                    "var carrera = document.getElementsByClassName('reco_carrera');" +
+                                    "var uni = document.getElementsByClassName('reco_universidad');" +
+                                    "var info = document.getElementsByClassName('reco_info');" +
+                                    "var maps = document.getElementsByClassName('reco_maps');" +
+                                    "var foto = document.getElementsByClassName('reco_foto');" +
+                                    "if(carrera.length){" +
+                                    "for(var i = 0 ; i < carrera.length ; ++i)" +
+                                    "   window.HTMLOUT.recomienda(carrera[i].innerText,uni[i].innerText,info[i].href, i , foto[i].dataset.content);" +
+                                    "}else{" +
+                                    "   window.HTMLOUT.empty();" +
+                                    "}");
+                        }
+                    },200);
+                }
+            }
+        });
 
         /*Web views*/
         mei = (WebView) findViewById(R.id.mei_sesion);
@@ -118,9 +215,6 @@ public class SesionActivity extends AppCompatActivity
         lytest = (LinearLayout) findViewById(R.id.TestLayout);
         lytestvoca = (LinearLayout) findViewById(R.id.ly_testvoca);
         lyPerfil = (LinearLayout) findViewById(R.id.ly_perfil);
-        lyTablaFecha = (LinearLayout) findViewById(R.id.tablaFecha);
-        lyTablaResu = (LinearLayout) findViewById(R.id.tablaResu);
-        lyTablaTest = (LinearLayout) findViewById(R.id.tablaTest);
 
         /*Image views*/
         foto = (ImageView) findViewById(R.id.perfil_foto);
@@ -133,6 +227,8 @@ public class SesionActivity extends AppCompatActivity
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
 
+        lyTablaTest = (TableLayout) findViewById(R.id.tablaTest);
+
         /*---------------------------------Web view Client----------------------------------*/
         mei.setWebViewClient(new WebViewClient(){
             @Override
@@ -142,9 +238,14 @@ public class SesionActivity extends AppCompatActivity
                 lyreco.removeAllViews();
                 lytestvoca.removeAllViews();
                 lytest.removeAllViews();
-                lyTablaFecha.removeAllViews();
-                lyTablaResu.removeAllViews();
                 lyTablaTest.removeAllViews();
+
+                rangeSeekBar.setVisibility(View.GONE);
+                rangeSeekBar.setMax(0);
+                rangeSeekBar.setMax(400);
+                rangeSeekBar.setProgress(0);
+                lyreco.setPadding(0,0,0,0);
+                rangoMenu.setVisible(false);
 
                 sv_testvoca.setVisibility(View.GONE);
                 sv_perfil.setVisibility(View.GONE);
@@ -158,6 +259,9 @@ public class SesionActivity extends AppCompatActivity
                 rlResultados.setVisibility(View.GONE);
 
                 PageLoad.setVisibility(View.VISIBLE);
+
+                appBarLayout.getBackground().setAlpha(255);
+
             }
 
             @Override
@@ -183,12 +287,19 @@ public class SesionActivity extends AppCompatActivity
             }
         });
 
+        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        //noinspection deprecation
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
 
         /*-----------------------------------Chrome client-----------------------------------*/
         mei.setWebChromeClient(new WebChromeClient(){ //ChromeClient para leer la consola de JS
 
             public boolean onConsoleMessage(ConsoleMessage cm) { //Listener
                 String[] msg = {};
+                Log.e("Line",String.valueOf(cm.lineNumber()));
                 try {
                     msg = cm.message().split("\\|"); //Guardo el mensaje en un array string
                 }catch (Exception e) {
@@ -220,6 +331,7 @@ public class SesionActivity extends AppCompatActivity
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
+                            rangoMenu.setVisible(true);
                             mei.loadUrl("javascript:window.onload = rec;" +
                                     "function rec(){" +
                                     "var carrera = document.getElementsByClassName('reco_carrera');" +
@@ -266,8 +378,9 @@ public class SesionActivity extends AppCompatActivity
                                     "var info = document.getElementsByClassName('carrera');" +
                                     "window.HTMLOUT.carrerafoto(document.getElementsByClassName('carrera_img')[0].src);" +
                                     "for(var i = 0 ; i < info.length ; ++i){" +
-                                    "   window.HTMLOUT.carrerainfo(info[i].innerText,i);" +
+                                    "   window.HTMLOUT.carrerainfo(info[i].innerHTML,i);" +
                                     "}");
+                            appBarLayout.getBackground().setAlpha(0);
                         }
                     }, 200);
 
@@ -337,6 +450,7 @@ public class SesionActivity extends AppCompatActivity
                                             "var test = document.getElementsByClassName('testName');" +
                                             "var fecha = document.getElementsByClassName('testFecha');" +
                                             "var resu = document.getElementsByClassName('testResu');" +
+                                            "window.HTMLOUT.perfilTabla('Nombre','Fecha','Resultado');" +
                                             "for(var i = 0 ; i < test.length ; ++i){" +
                                                 "window.HTMLOUT.perfilTabla(test[i].innerText,fecha[i].innerText,resu[i].innerText);" +
                                             "}");
@@ -367,13 +481,6 @@ public class SesionActivity extends AppCompatActivity
             }
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        //noinspection deprecation
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -391,6 +498,13 @@ public class SesionActivity extends AppCompatActivity
                 @Override
                 public void onScrollChange(View view, int i, int i1, int i2, int i3) {
                     univ_foto.setY(i1/2);
+                    if(i1<200)
+                        appBarLayout.getBackground().setAlpha(0);
+                    if(i1<=455&&i1>=200)
+                        appBarLayout.getBackground().setAlpha(i1-200);
+                    if(i1>455){
+                        appBarLayout.getBackground().setAlpha(255);
+                    }
                 }
             });
         }
@@ -463,7 +577,7 @@ public class SesionActivity extends AppCompatActivity
 
                     rlTest.setPadding(0,0,0,0);
 
-                    btTest.setPadding(dp20,dp20,dp20,dp20);
+                    btTest.setPadding(dp20,dp20,dp60,dp20);
 
                     RelativeLayout.LayoutParams paramsarrow = (RelativeLayout.LayoutParams) arrow.getLayoutParams();
                     paramsarrow.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
@@ -504,7 +618,7 @@ public class SesionActivity extends AppCompatActivity
                     redirect.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            mei.loadUrl(PagMadre+"listaencuestas.php");
+                            mei.loadUrl(PagMadre+"test.php");
                         }
                     });
                 }
@@ -514,16 +628,15 @@ public class SesionActivity extends AppCompatActivity
         @JavascriptInterface
         public void recomienda(final String Nombre, final String Uni, final String urlInfo,final int iMaps, final String urlFoto) {
             runOnUiThread(new Runnable() {
-                @RequiresApi(api = Build.VERSION_CODES.M)
                 @Override
                 public void run() {
 
                     float density = context.getResources().getDisplayMetrics().density;
 
                     CardView cardView =  new CardView(context);
-                    cardView.setElevation(4);
-                    cardView.setRadius(3);
-                    cardView.setBackgroundColor(Color.WHITE);
+                    cardView.setElevation((int)(3 * density));
+                    cardView.setRadius((int)(3 * density));
+                    cardView.setCardBackgroundColor(Color.WHITE);
                     cardView.setPadding(16,16,16,16);
 
                     LinearLayout cvLinLy = new LinearLayout(context);
@@ -731,24 +844,27 @@ public class SesionActivity extends AppCompatActivity
                 public void run() {
                     switch (i) {
                         case 0:
-                            tvCarrer.setText(info);
+                            tvCarrer.setText(Html.fromHtml(info));
                         case 1:
-                            tvUniv.setText(info);
+                            tvUniv.setText(Html.fromHtml(info));
                         case 2:
-                            tvInst.setText(info);
+                            tvInst.setText(Html.fromHtml(info));
                         case 3:
-                            tvArea.setText(info);
+                            tvArea.setText(Html.fromHtml(info));
                         case 4:
-                            tvDesrip.setText(info);
+                            tvDesrip.setText(Html.fromHtml(info));
                         case 5:
-                            tvPlan.setText(info);
+                            tvPlan.setText(Html.fromHtml(info));
+                            tvPlan.setMovementMethod(LinkMovementMethod.getInstance());
                         case 6:
-                            tvBecas.setText(info);
+                            tvBecas.setText(Html.fromHtml(info));
+                            tvBecas.setMovementMethod(LinkMovementMethod.getInstance());
                         case 7:
-                            tvPerfilE.setText(info);
+                            tvPerfilE.setText(Html.fromHtml(info));
+                            tvPerfilE.setMovementMethod(LinkMovementMethod.getInstance());
                         case 8:
-                            tvInterc.setText(info);
-
+                            tvInterc.setText(Html.fromHtml(info));
+                            tvInterc.setMovementMethod(LinkMovementMethod.getInstance());
                     }
                 }
             });
@@ -792,17 +908,96 @@ public class SesionActivity extends AppCompatActivity
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    float density = context.getResources().getDisplayMetrics().density;
                     TextView tvTest = new TextView(context);
                     TextView tvFecha = new TextView(context);
                     TextView tvResu = new TextView(context);
                     tvTest.setText(test);
-                    tvFecha.setText("   "+fecha);
+                    tvFecha.setText(fecha);
                     tvResu.setText(resu);
-                    lyTablaTest.addView(tvTest);
-                    lyTablaFecha.addView(tvFecha);
-                    lyTablaResu.addView(tvResu);
+                    tvFecha.setTextColor(Color.BLACK);
+                    tvResu.setTextColor(Color.BLACK);
+                    tvTest.setTextColor(Color.BLACK);
+
+                    TableRow.LayoutParams param = new TableRow.LayoutParams(
+                            TableRow.LayoutParams.WRAP_CONTENT,
+                            TableRow.LayoutParams.WRAP_CONTENT,1f);
+
+                    param.setMargins((int) (10 * density),(int) (16 * density),(int) (10 * density),(int) (16 * density));
+
+                    TableRow tableRow = new TableRow(context);
+                    tableRow.addView(tvTest,param);
+                    tableRow.addView(tvFecha,param);
+                    tableRow.addView(tvResu,param);
+                    lyTablaTest.addView(tableRow);
+
+                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+                    View view2 = new View(context);
+                    view2.setBackgroundResource(R.color.grey);
+                    int dp1 = (int) (1 * density);
+
+                    lyTablaTest.addView(view2, layoutParams);
+
+                    view2.getLayoutParams().height = dp1;
                 }
             });
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (!(grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    Toast.makeText(SesionActivity.this, "La localización no está activada", Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+
+        }
+    }
+
+    public boolean checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+                new AlertDialog.Builder(this)
+                        .setTitle("MEI")
+                        .setMessage("Se necesitan permisos de ubicación.")
+                        .setPositiveButton("De acuerdo", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //Prompt the user once explanation has been shown
+                                ActivityCompat.requestPermissions(SesionActivity.this,
+                                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                                        MY_PERMISSIONS_REQUEST_LOCATION);
+                            }
+                        })
+                        .create()
+                        .show();
+
+
+            } else {
+                // No explanation needed, we can request the permission.
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_LOCATION);
+            }
+            return false;
+        } else {
+            return true;
         }
     }
 
@@ -868,6 +1063,55 @@ public class SesionActivity extends AppCompatActivity
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.action_button_reco, menu);
+        rangoMenu = menu.getItem(0);
+        rangoMenu.setVisible(false);
+        return true;
+    }
+
+    @SuppressLint("MissingPermission")
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.rangoReco) {
+            if(rangeSeekBar.getVisibility()==View.VISIBLE) {
+                rangeSeekBar.setVisibility(View.GONE);
+                mei.loadUrl(PagMadre + "recomendaciones.php");
+                lyreco.setPadding(0,0,0,0);
+            }else{
+                float density = getBaseContext().getResources().getDisplayMetrics().density;
+                rangeSeekBar.setVisibility(View.VISIBLE);
+                Location location = null;
+                if (locationManager != null) {
+                    location = locationManager.getLastKnownLocation(locationManager
+                            .getBestProvider(criteria, false));
+                    lat = location.getLatitude();
+                    lng = location.getLongitude();
+
+                    Log.e("Loc", lat.toString() + " - " + lng.toString());
+                    mei.loadUrl("javascript:ajaxReco(" + lat + "," + lng + ",10);" +
+                            "var carrera = document.getElementsByClassName('reco_carrera');" +
+                            "var uni = document.getElementsByClassName('reco_universidad');" +
+                            "var info = document.getElementsByClassName('reco_info');" +
+                            "var maps = document.getElementsByClassName('reco_maps');" +
+                            "var foto = document.getElementsByClassName('reco_foto');" +
+                            "if(carrera.length){" +
+                            "for(var i = 0 ; i < carrera.length ; ++i)" +
+                            "   window.HTMLOUT.recomienda(carrera[i].innerText,uni[i].innerText,info[i].href, i , foto[i].dataset.content);" +
+                            "}else{" +
+                            "   window.HTMLOUT.empty();" +
+                            "}");
+                    lyreco.setPadding(0,(int)(density*50),0,0);
+                }
+            }
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -885,6 +1129,15 @@ public class SesionActivity extends AppCompatActivity
             } else if (id == R.id.nav_recomendaciones) {
                 mei.loadUrl(PagMadre + "recomendaciones.php");
                 setTitle("Recomendaciones");
+            } else if (id == R.id.nav_contacto) {
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("message/rfc822");
+                i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"ramiroestradag@gmail.com"});
+                try {
+                    startActivity(Intent.createChooser(i, "Enviar email..."));
+                } catch (android.content.ActivityNotFoundException ex) {
+                    Toast.makeText(SesionActivity.this, "Hubo un error al enviar al usar el servicio de email.", Toast.LENGTH_SHORT).show();
+                }
             } else if (id == R.id.nav_cerrarc) {
                 mei.loadUrl(PagMadre + "logout.php");
                 setTitle("Cerrando sesión...");
