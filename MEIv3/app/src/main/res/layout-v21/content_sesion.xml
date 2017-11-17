@@ -48,7 +48,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Resultado:"
+                    android:text="@string/resultado"
                     android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                 <TextView
@@ -56,7 +56,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Resultado" />
+                    android:text="@string/resultado" />
 
                 <View
                     android:layout_width="match_parent"
@@ -70,7 +70,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Detalles" />
+                    android:text="@string/detalles" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
@@ -80,47 +80,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/card_result"
             android:layout_centerHorizontal="true"
-            android:text="Ir a recomendaciones" />
+            android:text="@string/ir_a_recomendaciones" />
 
     </RelativeLayout>
-
-    <ScrollView
-        android:id="@+id/sv_testvoca"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="56dp"
-        android:background="@android:color/white"
-        android:visibility="gone">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:id="@+id/ly_testvoca"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp">
-
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/enviarbt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/colorPrimary"
-                android:padding="20dp"
-                android:text="@string/enviar"
-                android:textColor="@android:color/background_light"
-                tools:targetApi="lollipop" />
-
-        </LinearLayout>
-    </ScrollView>
 
     <ScrollView
         android:id="@+id/InicioLayout"
@@ -301,25 +263,6 @@
 
     </ScrollView>
 
-    <ScrollView
-        android:id="@+id/sv_test"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="50dp"
-        android:background="@android:color/white"
-        android:padding="0dp"
-        android:visibility="gone">
-
-        <LinearLayout
-            android:id="@+id/TestLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingTop="8dp">
-
-        </LinearLayout>
-    </ScrollView>
-
     <RelativeLayout
         android:id="@+id/rl_empty"
         android:layout_width="match_parent"
@@ -404,51 +347,41 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_alignParentBottom="true"
-                    android:layout_alignParentTop="true">
+                    android:layout_alignParentTop="true"
+                    android:padding="16dp">
 
-                    <RelativeLayout
-                        android:id="@+id/relativeLayout2"
+                    <ImageView
+                        android:id="@+id/perfil_foto"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:layout_above="@+id/perfil_usuario"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginBottom="16dp"
+                        android:contentDescription="@string/foto_de_perfil"
+                        app:srcCompat="@color/colorPrimaryDark" />
+
+                    <TextView
+                        android:id="@+id/perfil_usuario"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_above="@+id/perfil_correo"
                         android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:padding="16dp"
-                        app:layout_constraintRight_toRightOf="parent"
-                        tools:layout_editor_absoluteY="0dp">
+                        android:padding="2dp"
+                        android:paddingEnd="4dp"
+                        android:paddingStart="4dp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textColor="#fff" />
 
-                        <ImageView
-                            android:id="@+id/perfil_foto"
-                            android:layout_width="75dp"
-                            android:layout_height="75dp"
-                            android:layout_above="@+id/perfil_usuario"
-                            android:layout_alignParentStart="true"
-                            android:layout_marginBottom="16dp"
-                            android:contentDescription="@string/foto_de_perfil"
-                            app:srcCompat="@color/colorPrimaryDark" />
-
-                        <TextView
-                            android:id="@+id/perfil_usuario"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_above="@+id/perfil_correo"
-                            android:layout_alignParentStart="true"
-                            android:padding="2dp"
-                            android:paddingEnd="4dp"
-                            android:paddingStart="4dp"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                            android:textColor="#fff" />
-
-                        <TextView
-                            android:id="@+id/perfil_correo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:layout_alignParentStart="true"
-                            android:padding="2dp"
-                            android:paddingEnd="4dp"
-                            android:paddingStart="4dp"
-                            android:textColor="#fff" />
-                    </RelativeLayout>
+                    <TextView
+                        android:id="@+id/perfil_correo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentStart="true"
+                        android:padding="2dp"
+                        android:paddingEnd="4dp"
+                        android:paddingStart="4dp"
+                        android:textColor="#fff" />
 
                 </RelativeLayout>
             </RelativeLayout>
@@ -464,7 +397,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:elevation="4dp"
+                    android:elevation="8dp"
                     app:cardCornerRadius="4dp">
 
                     <LinearLayout
@@ -475,12 +408,12 @@
                         <TextView
                             android:id="@+id/textView20"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="0dp"
                             android:layout_marginEnd="10dp"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="10dp"
                             android:layout_weight="1"
-                            android:text="Test realizados:"
+                            android:text="@string/test_realizados"
                             android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                         <TableLayout
@@ -565,7 +498,7 @@
                     android:id="@+id/id_inst"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Institucion"
+                    android:text="@string/institucion"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                 <View
@@ -577,7 +510,7 @@
                     android:id="@+id/id_area"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Area"
+                    android:text="@string/area"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:visibility="gone" />
 
@@ -661,6 +594,84 @@
             </LinearLayout>
 
         </LinearLayout>
+    </ScrollView>
+
+    <ScrollView
+        android:id="@+id/sv_test"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        android:background="@android:color/white"
+        android:padding="0dp"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/TestLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="8dp">
+
+        </LinearLayout>
+    </ScrollView>
+
+    <ScrollView
+        android:id="@+id/sv_testvoca"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="56dp"
+        android:background="@android:color/white"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:id="@+id/prueba"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:elevation="8dp"
+                app:cardCornerRadius="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/ly_testvoca"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp">
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <Button
+                            android:id="@+id/enviarbt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_margin="8dp"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:text="@string/enviar"
+                            android:textColor="@android:color/background_light" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </RelativeLayout>
+
     </ScrollView>
 
     <WebView

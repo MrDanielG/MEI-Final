@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/holo_red_light"
-            android:max="380"
+            android:max="390"
             android:padding="16dp"
             android:progress="5"
             android:visibility="gone" />

@@ -290,13 +290,13 @@
 
             <div align="center" class="pregs">
                 <b class="preg">¿Que area te gusta mas?</b><br />
-                <input type="checkbox" name="ingenierias[6]" value="2" id="op160">
+                <input type="radio" name="ingenierias[6]" value="2" id="op160">
                 <label class="option" for="op160">Ingenierias</label>
-                <input type="checkbox" name="biologicas[6]" value="2" id="op161">
+                <input type="radio" name="biologicas[6]" value="2" id="op161">
                 <label class="option" for="op161">Biologicas</label>
-                <input type="checkbox" name="sociales[6]" value="2" id="op162">
+                <input type="radio" name="sociales[6]" value="2" id="op162">
                 <label class="option" for="op162">Sociales</label>
-                <input type="checkbox" name="humanidades_artes[12]" value="2" id="op163">
+                <input type="radio" name="humanidades_artes[12]" value="2" id="op163">
                 <label class="option" for="op163">Humanidades</label>
             </div><hr />
             <br><br>

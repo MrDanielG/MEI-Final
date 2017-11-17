@@ -89,6 +89,7 @@ public class SesionActivity extends AppCompatActivity
     Integer num_radio=0, Rbindex=0;
     MenuItem rangoMenu;
     SeekBar rangeSeekBar;
+    Boolean isRecomendacion = false, isCarrera=false;
     Double lat,lng;
     int seekBarValue;
     LocationManager locationManager;
@@ -131,6 +132,13 @@ public class SesionActivity extends AppCompatActivity
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 //mei.loadUrl("javascript:$('#rangeReco').val("+(i+10)+");");
                 seekBarValue = i;
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(isRecomendacion)setTitle(String.valueOf(seekBarValue+10)+" Km.");
+                    }
+                });
             }
 
             @Override
@@ -149,14 +157,14 @@ public class SesionActivity extends AppCompatActivity
                     lng = location.getLongitude();
 
                     Log.e("Loc",lat.toString()+" - "+lng.toString()+" - "+String.valueOf((seekBarValue)));
+                    mei.loadUrl("javascript:ajaxReco(" + lat + "," + lng + "," + (seekBarValue + 10) + ");");
 
                     final Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             lyreco.removeAllViews();
-                            mei.loadUrl("javascript:ajaxReco(" + lat + "," + lng + "," + (seekBarValue + 10) + ");" +
-                                    "var carrera = document.getElementsByClassName('reco_carrera');" +
+                            mei.loadUrl("javascript:var carrera = document.getElementsByClassName('reco_carrera');" +
                                     "var uni = document.getElementsByClassName('reco_universidad');" +
                                     "var info = document.getElementsByClassName('reco_info');" +
                                     "var maps = document.getElementsByClassName('reco_maps');" +
@@ -230,10 +238,14 @@ public class SesionActivity extends AppCompatActivity
         lyTablaTest = (TableLayout) findViewById(R.id.tablaTest);
 
         /*---------------------------------Web view Client----------------------------------*/
+
         mei.setWebViewClient(new WebViewClient(){
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
+
+                isRecomendacion=false;
+                isCarrera=false;
 
                 lyreco.removeAllViews();
                 lytestvoca.removeAllViews();
@@ -242,7 +254,7 @@ public class SesionActivity extends AppCompatActivity
 
                 rangeSeekBar.setVisibility(View.GONE);
                 rangeSeekBar.setMax(0);
-                rangeSeekBar.setMax(400);
+                rangeSeekBar.setMax(390);
                 rangeSeekBar.setProgress(0);
                 lyreco.setPadding(0,0,0,0);
                 rangoMenu.setVisible(false);
@@ -287,24 +299,18 @@ public class SesionActivity extends AppCompatActivity
             }
         });
 
-        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        //noinspection deprecation
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
         /*-----------------------------------Chrome client-----------------------------------*/
         mei.setWebChromeClient(new WebChromeClient(){ //ChromeClient para leer la consola de JS
 
             public boolean onConsoleMessage(ConsoleMessage cm) { //Listener
                 String[] msg = {};
-                Log.e("Line",String.valueOf(cm.lineNumber()));
+
                 try {
                     msg = cm.message().split("\\|"); //Guardo el mensaje en un array string
                 }catch (Exception e) {
                     Log.e("SesionConsole", e.toString());
                 }
+
                 Log.i("MensajeSesion", msg[0]);
                 if(Arrays.asList(msg).contains("sesion")) {
                     final Handler handler = new Handler();
@@ -328,6 +334,7 @@ public class SesionActivity extends AppCompatActivity
                     }, 300);
                 } else if(Arrays.asList(msg).contains("recomendaciones")) {
                     final Handler handler = new Handler();
+                    isRecomendacion = true;
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -347,6 +354,7 @@ public class SesionActivity extends AppCompatActivity
                                     "}}");
                         }
                     }, 0);
+
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -374,6 +382,7 @@ public class SesionActivity extends AppCompatActivity
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
+                            isCarrera = true;
                             mei.loadUrl("javascript:" +
                                     "var info = document.getElementsByClassName('carrera');" +
                                     "window.HTMLOUT.carrerafoto(document.getElementsByClassName('carrera_img')[0].src);" +
@@ -477,7 +486,7 @@ public class SesionActivity extends AppCompatActivity
         btRecomendacion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mei.loadUrl(PagMadre+"mostrar_reco.php");
+                mei.loadUrl(PagMadre+"recomendaciones.php");
             }
         });
 
@@ -498,17 +507,25 @@ public class SesionActivity extends AppCompatActivity
                 @Override
                 public void onScrollChange(View view, int i, int i1, int i2, int i3) {
                     univ_foto.setY(i1/2);
-                    if(i1<200)
-                        appBarLayout.getBackground().setAlpha(0);
-                    if(i1<=455&&i1>=200)
-                        appBarLayout.getBackground().setAlpha(i1-200);
-                    if(i1>455){
-                        appBarLayout.getBackground().setAlpha(255);
+                    if(isCarrera) {
+                        if (i1 < 200)
+                            appBarLayout.getBackground().setAlpha(0);
+                        if (i1 <= 455 && i1 >= 200)
+                            appBarLayout.getBackground().setAlpha(i1 - 200);
+                        if (i1 > 455) {
+                            appBarLayout.getBackground().setAlpha(255);
+                        }
                     }
                 }
             });
         }
 
+        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        //noinspection deprecation
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
 
         mei.loadUrl(PagMadre);
     }
@@ -613,14 +630,16 @@ public class SesionActivity extends AppCompatActivity
                 @RequiresApi(api = Build.VERSION_CODES.M)
                 @Override
                 public void run() {
-                    rlempty.setVisibility(View.VISIBLE);
+                    if(rangeSeekBar.getVisibility()==View.GONE){
+                        rlempty.setVisibility(View.VISIBLE);
 
-                    redirect.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            mei.loadUrl(PagMadre+"test.php");
-                        }
-                    });
+                        redirect.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mei.loadUrl(PagMadre+"test.php");
+                            }
+                        });
+                    }
                 }
             });
         }
@@ -750,13 +769,12 @@ public class SesionActivity extends AppCompatActivity
                             LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
                     View view2 = new View(context);
-                    view2.setBackgroundResource(R.color.grey);
                     float density = context.getResources().getDisplayMetrics().density;
-                    int dp1 = (int) (1 * density);
+                    int dp16 = (int) (16 * density);
 
                     lytestvoca.addView(view2, layoutParams);
 
-                    view2.getLayoutParams().height = dp1;
+                    view2.getLayoutParams().height = dp16;
 
                 }
             });
@@ -773,11 +791,19 @@ public class SesionActivity extends AppCompatActivity
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    float density = context.getResources().getDisplayMetrics().density;
+
+                    TableRow.LayoutParams param = new TableRow.LayoutParams(
+                            TableRow.LayoutParams.WRAP_CONTENT,
+                            TableRow.LayoutParams.WRAP_CONTENT,1f);
+
+                    param.setMargins((int) (10 * density),(int) (16 * density),(int) (10 * density),0);
+
                     TextView textView = new TextView(context);
                     textView.setText(pregunta);
                     textView.setTextColor(Color.BLACK);
-                    textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
-                    lytestvoca.addView(textView);
+                    textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                    lytestvoca.addView(textView, param);
                 }
             });
         }
@@ -815,8 +841,8 @@ public class SesionActivity extends AppCompatActivity
                                     new int[]{-android.R.attr.state_enabled}, //disabled
                                     new int[]{android.R.attr.state_enabled} //enabled
                             }, new int[] {
-                                    Color.BLACK, //disabled
-                                    Color.BLACK //enabled
+                                    Color.GRAY, //disabled
+                                    Color.DKGRAY //enabled
                             }
                     );
                     radioButton.setButtonTintList(colorStateList);
@@ -884,10 +910,7 @@ public class SesionActivity extends AppCompatActivity
         public void test_result_detalles(final String html){
             runOnUiThread(new Runnable() {
                 @Override
-                public void run() {
-                    //noinspection deprecation
-                    tvResultado_detalles.setText(Html.fromHtml(html));
-                }
+                public void run() {tvResultado_detalles.setText(Html.fromHtml(html));}
             });
         }
 
@@ -1084,27 +1107,40 @@ public class SesionActivity extends AppCompatActivity
             }else{
                 float density = getBaseContext().getResources().getDisplayMetrics().density;
                 rangeSeekBar.setVisibility(View.VISIBLE);
+
+                lyreco.setPadding(0,(int)(50*density),0,0);
+
                 Location location = null;
+                lyreco.removeAllViews();
+
                 if (locationManager != null) {
+                    setTitle("10 Km.");
                     location = locationManager.getLastKnownLocation(locationManager
                             .getBestProvider(criteria, false));
                     lat = location.getLatitude();
                     lng = location.getLongitude();
 
-                    Log.e("Loc", lat.toString() + " - " + lng.toString());
-                    mei.loadUrl("javascript:ajaxReco(" + lat + "," + lng + ",10);" +
-                            "var carrera = document.getElementsByClassName('reco_carrera');" +
-                            "var uni = document.getElementsByClassName('reco_universidad');" +
-                            "var info = document.getElementsByClassName('reco_info');" +
-                            "var maps = document.getElementsByClassName('reco_maps');" +
-                            "var foto = document.getElementsByClassName('reco_foto');" +
-                            "if(carrera.length){" +
-                            "for(var i = 0 ; i < carrera.length ; ++i)" +
-                            "   window.HTMLOUT.recomienda(carrera[i].innerText,uni[i].innerText,info[i].href, i , foto[i].dataset.content);" +
-                            "}else{" +
-                            "   window.HTMLOUT.empty();" +
-                            "}");
-                    lyreco.setPadding(0,(int)(density*50),0,0);
+                    Log.e("Loc",lat.toString()+" - "+lng.toString()+" - "+String.valueOf((seekBarValue)));
+                    mei.loadUrl("javascript:ajaxReco(" + lat + "," + lng + ",10);");
+
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            lyreco.removeAllViews();
+                            mei.loadUrl("javascript:var carrera = document.getElementsByClassName('reco_carrera');" +
+                                    "var uni = document.getElementsByClassName('reco_universidad');" +
+                                    "var info = document.getElementsByClassName('reco_info');" +
+                                    "var maps = document.getElementsByClassName('reco_maps');" +
+                                    "var foto = document.getElementsByClassName('reco_foto');" +
+                                    "if(carrera.length){" +
+                                    "for(var i = 0 ; i < carrera.length ; ++i)" +
+                                    "   window.HTMLOUT.recomienda(carrera[i].innerText,uni[i].innerText,info[i].href, i , foto[i].dataset.content);" +
+                                    "}else{" +
+                                    "   window.HTMLOUT.empty();" +
+                                    "}");
+                        }
+                    },200);
                 }
             }
             return true;

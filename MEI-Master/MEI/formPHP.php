@@ -2,7 +2,7 @@
     <head>
     <title>Resultados</title>
     <script>
-        console.log("recomendaciones|");
+        console.log("resultados|");
     </script>
     <?php include '../resourses/header.html'; ?>
     </head>
