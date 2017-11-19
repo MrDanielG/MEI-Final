@@ -2,7 +2,6 @@ package com.example.ramir.meiv3;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -132,8 +131,13 @@ public class regis_fragment extends Fragment {
                     last.setError("Ingrese apellidos.");
                     error = false;
                 }
-
-                if (Integer.parseInt(edad.getText().toString()) < 10) {
+                int edadV;
+                try {
+                    edadV = Integer.parseInt(edad.getText().toString());
+                }catch (Exception e){
+                    edadV = 9;
+                }
+                if (edadV < 10) {
                     edad.setError("Necesitas al menos 10 años para registrarte.");
                     error = false;
                 }
@@ -165,7 +169,7 @@ public class regis_fragment extends Fragment {
     }
 
     private boolean isValidPassword(String pass) {
-        return pass != null && pass.length() > 6;
+        return pass != null && pass.length() >= 6;
     }
 
     private boolean isValidEmail(String email) {

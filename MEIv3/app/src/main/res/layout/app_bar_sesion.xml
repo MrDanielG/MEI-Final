@@ -26,14 +26,18 @@
 
         <SeekBar
             android:id="@+id/rangeSeekBar"
-            style="@android:style/Widget.Material.SeekBar.Discrete"
+            style="@style/Widget.AppCompat.SeekBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/holo_red_light"
+            android:backgroundTint="@color/background"
             android:max="390"
             android:padding="16dp"
             android:progress="5"
+            android:progressBackgroundTint="@color/blue_grey"
+            android:progressTint="#FF5D5D"
+            android:thumbTint="#FFA65D"
             android:visibility="gone" />
 
     </android.support.design.widget.AppBarLayout>

@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/contentSession"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/background_light">
@@ -21,6 +22,30 @@
             android:visibility="invisible" />
 
     </RelativeLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeReco"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp">
+
+        <ScrollView
+            android:id="@+id/sv_reco"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:id="@+id/RecomLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+        </ScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <RelativeLayout
         android:id="@+id/rl_resultado_test"
@@ -99,23 +124,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:layout="@layout/fragment_inicio" />
-    </ScrollView>
-
-    <ScrollView
-        android:id="@+id/sv_reco"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="56dp"
-        android:visibility="gone">
-
-        <LinearLayout
-            android:id="@+id/RecomLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-        </LinearLayout>
-
     </ScrollView>
 
     <RelativeLayout
@@ -292,5 +300,16 @@
         android:visibility="gone">
 
     </WebView>
+
+    <ImageView
+        android:id="@+id/viewDiscover"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/rl_resultado_test"
+        android:layout_margin="14dp"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/ic_pin_range"
+        android:contentDescription="@string/todo" />
 
 </RelativeLayout>

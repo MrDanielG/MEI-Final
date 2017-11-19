@@ -25,7 +25,7 @@
                   <div class="card-content">
                       <span class="card-title reco_carrera">'.$registro['Nombre_Carrera'].'</span>
                       <span class="reco_universidad">'.$registro['NombreUni'].'</span><br>
-                      <span class="carrera">'.$uni['name'].'</span>
+                      <span class="reco_inst">'.$uni['name'].'</span>
                   </div>
                   <div class="card-action">
                       <a href="carrera.php?carrera='.$registro["Nombre_Carrera"].'&uni='.$registro["NombreUni"].'" class="reco_info">Información</a>
@@ -49,7 +49,7 @@
                 <div class="card-content">
                     <span class="card-title reco_carrera">'.$registro['Nombre_Carrera'].'</span>
                     <span class="reco_universidad">'.$registro['NombreUni'].'</span><br>
-                    <span class="carrera">'.$uni['name'].'</span>
+                    <span class="reco_inst">'.$uni['name'].'</span>
                 </div>
                 <div class="card-action">
                     <a href="carrera.php?carrera='.$registro["Nombre_Carrera"].'&uni='.$registro["NombreUni"].'" class="reco_info">Información</a>

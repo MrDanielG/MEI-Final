@@ -1,9 +1,8 @@
 package com.example.ramir.meiv3;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
@@ -12,25 +11,24 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
-import android.location.Criteria;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.Manifest;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
@@ -42,6 +40,8 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.webkit.ConsoleMessage;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
@@ -64,68 +64,86 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetView;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
 import java.util.Arrays;
-import java.util.zip.Inflater;
 
 public class SesionActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
-    GlobalVars globalVars = new GlobalVars();
-    String PagMadre = globalVars.urlMEIMaster()+"MEI/";
-    AppBarLayout appBarLayout;
-    WebView mei;
-    ImageView publicidad, portada, foto, univ_foto;
-    TextView tvUniv,tvCarrer,tvDesrip,tvPlan,tvInterc,tvPerfilE,tvArea, tvResultado,tvResultado_detalles,tvNombreUsuario,tvCorreo,tvBecas, tvInst;
-    RelativeLayout rlempty, rloffline, rlResultados;
-    LinearLayout lyreco, lytest, lytestvoca, lyPerfil;
-    TableLayout lyTablaTest;
-    ScrollView lyinicio,sv_reco,sv_test,sv_testvoca,sv_perfil,sv_carrera;
-    ProgressBar PageLoad;
-    Button redirect,btEnviar, btRecomendacion;
-    Integer num_radio=0, Rbindex=0;
-    MenuItem rangoMenu;
-    SeekBar rangeSeekBar;
-    Boolean isRecomendacion = false, isCarrera=false;
-    Double lat,lng;
-    int seekBarValue;
-    LocationManager locationManager;
-    Criteria criteria;
+    private String TAG = "SesionActivity";
+    private GlobalVars globalVars = new GlobalVars();
+    private String PagMadre = globalVars.urlMEIMaster()+"MEI/";
+    private AppBarLayout appBarLayout;
+    private WebView mei;
+    private ImageView publicidad, portada, foto, univ_foto;
+    private TextView tvUniv,tvCarrer,tvDesrip,tvPlan,tvInterc,tvPerfilE,tvArea, tvResultado,tvResultado_detalles,tvNombreUsuario,tvCorreo,tvBecas, tvInst;
+    private RelativeLayout rlempty, rloffline, rlResultados, rlContentSesion;
+    private LinearLayout lyreco;
+    private LinearLayout lytest;
+    private LinearLayout lytestvoca;
+    private TableLayout lyTablaTest;
+    private ScrollView lyinicio,sv_reco,sv_test,sv_testvoca,sv_perfil,sv_carrera;
+    private ProgressBar PageLoad;
+    private Button redirect;
+    private MenuItem rangoMenu;
+    private SeekBar rangeSeekBar;
+    private boolean isRecomendacion = false,mLocationPermissionGranted ,isCarrera=false, mFirstReco = true;
+    private double lat=0,lng=0;
+    private int seekBarValue, Rbindex=0;
+    private GoogleApiClient mGoogleApiClient;
+    private SwipeRefreshLayout swipeReco;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.e("pag",PagMadre);
+        Log.e(TAG,PagMadre);
         setContentView(R.layout.activity_sesion);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        appBarLayout = (AppBarLayout) findViewById(R.id.ActionBar);
-        rangeSeekBar = (SeekBar) findViewById(R.id.rangeSeekBar);
-
-        if (checkLocationPermission()) {
-            if (ContextCompat.checkSelfPermission(SesionActivity.this,
-                    Manifest.permission.ACCESS_FINE_LOCATION)
-                    == PackageManager.PERMISSION_GRANTED) {
-
-                Location location = null;
-                if (locationManager != null) {
-                    location = locationManager.getLastKnownLocation(locationManager
-                            .getBestProvider(criteria, false));
-                    lat = location.getLatitude();
-                    lng = location.getLongitude();
-                }
-            }
+        if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            lat = 1;
+            lng= 1 ;
         }
 
-        locationManager = (LocationManager)
-                getSystemService(Context.LOCATION_SERVICE);
-        criteria = new Criteria();
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, null)
+                .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
+                    @Override
+                    public void onConnected(@Nullable Bundle bundle) {
 
-        checkLocationPermission();
+                    }
+
+                    @Override
+                    public void onConnectionSuspended(int i) {
+
+                    }
+                })
+                .addApi(LocationServices.API)
+                .build();
+        mGoogleApiClient.connect();
+
+        appBarLayout = (AppBarLayout) findViewById(R.id.ActionBar);
+        rangeSeekBar = (SeekBar) findViewById(R.id.rangeSeekBar);
+        swipeReco = (SwipeRefreshLayout) findViewById(R.id.swipeReco);
+
+        swipeReco.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getRecomendationRange(4000);
+                collapse(findViewById(R.id.rangeSeekBar));
+                rlContentSesion.setPadding(0,0,0,0);
+                setTitle("Recomendaciones");
+            }
+        });
 
         rangeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -144,40 +162,11 @@ public class SesionActivity extends AppCompatActivity
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {}
 
-            @SuppressLint("MissingPermission")
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                Location location = null;
-                lyreco.removeAllViews();
-
-                if (locationManager != null) {
-                    location = locationManager.getLastKnownLocation(locationManager
-                            .getBestProvider(criteria, false));
-                    lat = location.getLatitude();
-                    lng = location.getLongitude();
-
-                    Log.e("Loc",lat.toString()+" - "+lng.toString()+" - "+String.valueOf((seekBarValue)));
-                    mei.loadUrl("javascript:ajaxReco(" + lat + "," + lng + "," + (seekBarValue + 10) + ");");
-
-                    final Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            lyreco.removeAllViews();
-                            mei.loadUrl("javascript:var carrera = document.getElementsByClassName('reco_carrera');" +
-                                    "var uni = document.getElementsByClassName('reco_universidad');" +
-                                    "var info = document.getElementsByClassName('reco_info');" +
-                                    "var maps = document.getElementsByClassName('reco_maps');" +
-                                    "var foto = document.getElementsByClassName('reco_foto');" +
-                                    "if(carrera.length){" +
-                                    "for(var i = 0 ; i < carrera.length ; ++i)" +
-                                    "   window.HTMLOUT.recomienda(carrera[i].innerText,uni[i].innerText,info[i].href, i , foto[i].dataset.content);" +
-                                    "}else{" +
-                                    "   window.HTMLOUT.empty();" +
-                                    "}");
-                        }
-                    },200);
-                }
+                PageLoad.setVisibility(View.VISIBLE);
+                getDeviceLocation();
+                getRecomendationRange(seekBarValue);
             }
         });
 
@@ -212,17 +201,17 @@ public class SesionActivity extends AppCompatActivity
         rlempty = (RelativeLayout) findViewById(R.id.rl_empty);
         rloffline = (RelativeLayout) findViewById(R.id.rl_offline);
         rlResultados = (RelativeLayout) findViewById(R.id.rl_resultado_test);
+        rlContentSesion = (RelativeLayout) findViewById(R.id.contentSession);
 
         /*Botones*/
         redirect = (Button) findViewById(R.id.btredirect);
-        btEnviar = (Button) findViewById(R.id.enviarbt);
-        btRecomendacion = (Button) findViewById(R.id.bt_Recomendaciones);
+        Button btEnviar = (Button) findViewById(R.id.enviarbt);
+        Button btRecomendacion = (Button) findViewById(R.id.bt_Recomendaciones);
 
         /*Linear Layouts*/
         lyreco = (LinearLayout) findViewById(R.id.RecomLayout);
         lytest = (LinearLayout) findViewById(R.id.TestLayout);
         lytestvoca = (LinearLayout) findViewById(R.id.ly_testvoca);
-        lyPerfil = (LinearLayout) findViewById(R.id.ly_perfil);
 
         /*Image views*/
         foto = (ImageView) findViewById(R.id.perfil_foto);
@@ -256,7 +245,8 @@ public class SesionActivity extends AppCompatActivity
                 rangeSeekBar.setMax(0);
                 rangeSeekBar.setMax(390);
                 rangeSeekBar.setProgress(0);
-                lyreco.setPadding(0,0,0,0);
+
+                rlContentSesion.setPadding(0,0,0,0);
                 rangoMenu.setVisible(false);
 
                 sv_testvoca.setVisibility(View.GONE);
@@ -280,7 +270,6 @@ public class SesionActivity extends AppCompatActivity
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
                 setTitle(mei.getTitle());
-                PageLoad.setVisibility(View.GONE);
                 sv_carrera.scrollTo(0,0);
             }
 
@@ -288,7 +277,7 @@ public class SesionActivity extends AppCompatActivity
             public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
                 super.onReceivedError(view, request, error);
                 rloffline.setVisibility(View.VISIBLE);
-                Log.e("MenError", error.toString());
+                Log.e(TAG, error.toString());
                 final Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
@@ -302,18 +291,19 @@ public class SesionActivity extends AppCompatActivity
         /*-----------------------------------Chrome client-----------------------------------*/
         mei.setWebChromeClient(new WebChromeClient(){ //ChromeClient para leer la consola de JS
 
-            public boolean onConsoleMessage(ConsoleMessage cm) { //Listener
+            public boolean onConsoleMessage(ConsoleMessage cm) {
                 String[] msg = {};
 
                 try {
                     msg = cm.message().split("\\|"); //Guardo el mensaje en un array string
                 }catch (Exception e) {
-                    Log.e("SesionConsole", e.toString());
+                    Log.e(TAG, e.toString());
                 }
 
-                Log.i("MensajeSesion", msg[0]);
+                Log.i(TAG, msg[0]);
                 if(Arrays.asList(msg).contains("sesion")) {
                     final Handler handler = new Handler();
+                    lyinicio.setVisibility(View.VISIBLE);
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -325,30 +315,31 @@ public class SesionActivity extends AppCompatActivity
                                     "   window.HTMLOUT.navbar(img,name,email);");
                         }
                     }, 200);
-
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            lyinicio.setVisibility(View.VISIBLE);
-                        }
-                    }, 300);
                 } else if(Arrays.asList(msg).contains("recomendaciones")) {
                     final Handler handler = new Handler();
                     isRecomendacion = true;
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
+                            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(SesionActivity.this);
+                            if(!preferences.getBoolean("RangeDiscovery", false)) {
+                                SharedPreferences.Editor editor = preferences.edit();
+                                editor.putBoolean("RangeDiscovery", true);
+                                editor.apply();
+                                TapTargetView.showFor(SesionActivity.this, TapTarget.forView(findViewById(R.id.viewDiscover), "Rango", "Puedes filtrar las carreras por la distancia entre tú y las universidades presionando el botón."));
+                            }
                             rangoMenu.setVisible(true);
                             mei.loadUrl("javascript:window.onload = rec;" +
                                     "function rec(){" +
                                     "var carrera = document.getElementsByClassName('reco_carrera');" +
                                     "var uni = document.getElementsByClassName('reco_universidad');" +
+                                    "var inst = document.getElementsByClassName('reco_inst');" +
                                     "var info = document.getElementsByClassName('reco_info');" +
                                     "var maps = document.getElementsByClassName('reco_maps');" +
                                     "var foto = document.getElementsByClassName('reco_foto');" +
                                     "if(carrera.length){" +
                                     "for(var i = 0 ; i < carrera.length ; ++i)" +
-                                    "   window.HTMLOUT.recomienda(carrera[i].innerText,uni[i].innerText,info[i].href, i , foto[i].dataset.content);" +
+                                    "   window.HTMLOUT.recomienda(carrera[i].innerText,uni[i].innerText,info[i].href, i , foto[i].dataset.content, inst[i].innerText);" +
                                     "}else{" +
                                     "   window.HTMLOUT.empty();" +
                                     "}}");
@@ -383,13 +374,13 @@ public class SesionActivity extends AppCompatActivity
                         @Override
                         public void run() {
                             isCarrera = true;
+                            appBarLayout.getBackground().setAlpha(0);
                             mei.loadUrl("javascript:" +
                                     "var info = document.getElementsByClassName('carrera');" +
                                     "window.HTMLOUT.carrerafoto(document.getElementsByClassName('carrera_img')[0].src);" +
                                     "for(var i = 0 ; i < info.length ; ++i){" +
                                     "   window.HTMLOUT.carrerainfo(info[i].innerHTML,i);" +
                                     "}");
-                            appBarLayout.getBackground().setAlpha(0);
                         }
                     }, 200);
 
@@ -424,7 +415,6 @@ public class SesionActivity extends AppCompatActivity
                             mei.loadUrl("javascript:" +
                                     "var pregdiv = document.getElementsByClassName('pregs');" +
                                     "var radioB = document.getElementsByClassName('option');" +
-                                    "window.HTMLOUT.numradio(radioB.length);" +
                                     "for(var i = 0 ; i < pregdiv.length ; ++i){" +
                                     "   window.HTMLOUT.pregunta(pregdiv[i].getElementsByClassName('preg')[0].innerText);" +
                                     "   window.HTMLOUT.radioGCreate();" +
@@ -547,6 +537,9 @@ public class SesionActivity extends AppCompatActivity
                     ImageView imgView = (ImageView) hView.findViewById(R.id.profile_image);
                     TextView textViewName = (TextView) hView.findViewById(R.id.tvName);
                     TextView textViewEmail = (TextView) hView.findViewById(R.id.tvEmail);
+
+                    Log.e(TAG, img);
+
                     Picasso.with(getBaseContext()).load(PagMadre+"../resourses/profile_pics/"+img).transform(new CircleTransform()).into(imgView);
 
                     textViewName.setText(name);
@@ -630,7 +623,7 @@ public class SesionActivity extends AppCompatActivity
                 @RequiresApi(api = Build.VERSION_CODES.M)
                 @Override
                 public void run() {
-                    if(rangeSeekBar.getVisibility()==View.GONE){
+                    if(rangeSeekBar.getVisibility() == View.GONE){
                         rlempty.setVisibility(View.VISIBLE);
 
                         redirect.setOnClickListener(new View.OnClickListener() {
@@ -645,11 +638,14 @@ public class SesionActivity extends AppCompatActivity
         }
 
         @JavascriptInterface
-        public void recomienda(final String Nombre, final String Uni, final String urlInfo,final int iMaps, final String urlFoto) {
+        public void recomienda(final String Nombre, final String Uni, final String urlInfo,final int iMaps, final String urlFoto, final String Inst) {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-
+                    if(mFirstReco){
+                        lyreco.removeAllViews();
+                        mFirstReco=false;
+                    }
                     float density = context.getResources().getDisplayMetrics().density;
 
                     CardView cardView =  new CardView(context);
@@ -680,6 +676,10 @@ public class SesionActivity extends AppCompatActivity
                     tvUni.setText(Uni);
                     tvUni.setTextColor(Color.rgb(200,200,200));
 
+                    TextView tvInst = new TextView(context);
+                    tvInst.setText(Inst);
+                    tvInst.setTextColor(Color.rgb(200,200,200));
+
                     TextView btInfo = new TextView(context);
                     btInfo.setText(R.string.uni_info);
                     btInfo.setTextColor(Color.RED);
@@ -688,9 +688,10 @@ public class SesionActivity extends AppCompatActivity
                     btMaps.setText(R.string.uni_place);
                     btMaps.setTextColor(Color.RED);
 
-                    RelativeLayout rlUni = new RelativeLayout(context);
+                    LinearLayout rlUni = new LinearLayout(context);
                     int dp16 = (int)(16 * density);
                     int dp24 = (int)(24 * density);
+                    rlUni.setOrientation(LinearLayout.VERTICAL);
                     rlUni.setPadding(dp16,0,dp16,dp16);
 
                     RelativeLayout rlName = new RelativeLayout(context);
@@ -703,6 +704,7 @@ public class SesionActivity extends AppCompatActivity
                     rlEscuela.addView(ivescuela);
                     rlName.addView(tvName);
                     rlUni.addView(tvUni);
+                    rlUni.addView(tvInst);
                     cvLinLy.addView(rlEscuela);
                     cvLinLy.addView(rlName);
                     cvLinLy.addView(rlUni);
@@ -753,6 +755,12 @@ public class SesionActivity extends AppCompatActivity
                     btInfo.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    setTitle(Nombre);
+                                }
+                            });
                             mei.loadUrl(urlInfo);
                         }
                     });
@@ -782,7 +790,6 @@ public class SesionActivity extends AppCompatActivity
 
         @JavascriptInterface
         public void numradio(Integer num) {
-            num_radio = num;
             Rbindex = 0;
         }
 
@@ -969,61 +976,6 @@ public class SesionActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_LOCATION: {
-                // If request is cancelled, the result arrays are empty.
-                if (!(grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    Toast.makeText(SesionActivity.this, "La localización no está activada", Toast.LENGTH_SHORT).show();
-                }
-                return;
-            }
-
-        }
-    }
-
-    public boolean checkLocationPermission() {
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.ACCESS_FINE_LOCATION)) {
-
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-                new AlertDialog.Builder(this)
-                        .setTitle("MEI")
-                        .setMessage("Se necesitan permisos de ubicación.")
-                        .setPositiveButton("De acuerdo", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                //Prompt the user once explanation has been shown
-                                ActivityCompat.requestPermissions(SesionActivity.this,
-                                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                                        MY_PERMISSIONS_REQUEST_LOCATION);
-                            }
-                        })
-                        .create()
-                        .show();
-
-
-            } else {
-                // No explanation needed, we can request the permission.
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_LOCATION);
-            }
-            return false;
-        } else {
-            return true;
-        }
-    }
-
     private class CircleTransform implements Transformation {
         @Override
         public Bitmap transform(Bitmap source) {
@@ -1060,6 +1012,20 @@ public class SesionActivity extends AppCompatActivity
     }
 
     @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case 99: {
+                // If request is cancelled, the result arrays are empty.
+                if ((grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    mLocationPermissionGranted=true;
+                }
+            }
+
+        }
+    }
+
+    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
             switch (keyCode) {
@@ -1086,6 +1052,32 @@ public class SesionActivity extends AppCompatActivity
         }
     }
 
+    private void getRecomendationRange(int range){
+        mei.loadUrl("javascript: ajaxReco(" + lat + "," + lng + ","+(range+10)+");");
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mFirstReco = true;
+                mei.loadUrl("javascript: var carrera = document.getElementsByClassName('reco_carrera');" +
+                        "var uni = document.getElementsByClassName('reco_universidad');" +
+                        "var inst = document.getElementsByClassName('reco_inst');" +
+                        "var info = document.getElementsByClassName('reco_info');" +
+                        "var maps = document.getElementsByClassName('reco_maps');" +
+                        "var foto = document.getElementsByClassName('reco_foto');" +
+                        "if(carrera.length){" +
+                        "   for(var i = 0 ; i < carrera.length ; ++i)" +
+                        "       window.HTMLOUT.recomienda(carrera[i].innerText,uni[i].innerText,info[i].href, i , foto[i].dataset.content, inst[i].innerText);" +
+                        "}else{" +
+                        "   window.HTMLOUT.empty();" +
+                        "}");
+
+                swipeReco.setRefreshing(false);
+            }
+        },150);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.action_button_reco, menu);
@@ -1094,61 +1086,55 @@ public class SesionActivity extends AppCompatActivity
         return true;
     }
 
-    @SuppressLint("MissingPermission")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         if (id == R.id.rangoReco) {
-            if(rangeSeekBar.getVisibility()==View.VISIBLE) {
-                rangeSeekBar.setVisibility(View.GONE);
-                mei.loadUrl(PagMadre + "recomendaciones.php");
-                lyreco.setPadding(0,0,0,0);
-            }else{
-                float density = getBaseContext().getResources().getDisplayMetrics().density;
-                rangeSeekBar.setVisibility(View.VISIBLE);
+            if((lat!=0&&lng!=0)||mLocationPermissionGranted) {
+                Log.e(TAG, String.valueOf(rangeSeekBar.getHeight()));
+                if (rangeSeekBar.getVisibility() == View.VISIBLE) {
+                    collapse(findViewById(R.id.rangeSeekBar));
 
-                lyreco.setPadding(0,(int)(50*density),0,0);
+                    getRecomendationRange(4000);
 
-                Location location = null;
-                lyreco.removeAllViews();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {setTitle("Recomendaciones");
+                        }
+                    });
+                    rlContentSesion.setPadding(0, 0, 0, 0);
+                } else {
+                    float density = getBaseContext().getResources().getDisplayMetrics().density;
 
-                if (locationManager != null) {
-                    setTitle("10 Km.");
-                    location = locationManager.getLastKnownLocation(locationManager
-                            .getBestProvider(criteria, false));
-                    lat = location.getLatitude();
-                    lng = location.getLongitude();
+                    expand(findViewById(R.id.rangeSeekBar));
 
-                    Log.e("Loc",lat.toString()+" - "+lng.toString()+" - "+String.valueOf((seekBarValue)));
-                    mei.loadUrl("javascript:ajaxReco(" + lat + "," + lng + ",10);");
+                    rangeSeekBar.setMax(0);
+                    rangeSeekBar.setMax(390);
+                    rangeSeekBar.setProgress(0);
 
-                    final Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
+                    rlContentSesion.setPadding(0, (int) (50 * density), 0, 0);
+
+                    getDeviceLocation();
+                    getRecomendationRange(0);
+                    runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            lyreco.removeAllViews();
-                            mei.loadUrl("javascript:var carrera = document.getElementsByClassName('reco_carrera');" +
-                                    "var uni = document.getElementsByClassName('reco_universidad');" +
-                                    "var info = document.getElementsByClassName('reco_info');" +
-                                    "var maps = document.getElementsByClassName('reco_maps');" +
-                                    "var foto = document.getElementsByClassName('reco_foto');" +
-                                    "if(carrera.length){" +
-                                    "for(var i = 0 ; i < carrera.length ; ++i)" +
-                                    "   window.HTMLOUT.recomienda(carrera[i].innerText,uni[i].innerText,info[i].href, i , foto[i].dataset.content);" +
-                                    "}else{" +
-                                    "   window.HTMLOUT.empty();" +
-                                    "}");
+                            setTitle("10 km.");
                         }
-                    },200);
+                    });
                 }
+            }else{
+                Snackbar.make( findViewById(android.R.id.content),"Se necesita tener acceso a la ubicación.",
+                        Snackbar.LENGTH_LONG).setAction("Dar permiso", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {getDeviceLocation();}
+                }).show();
             }
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
@@ -1181,5 +1167,83 @@ public class SesionActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void getDeviceLocation() {
+        if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            //noinspection deprecation
+            Location mLastKnownLocation = LocationServices.FusedLocationApi
+                    .getLastLocation(mGoogleApiClient);
+
+            if (mLastKnownLocation != null) {
+                lat = mLastKnownLocation.getLatitude();
+                lng = mLastKnownLocation.getLongitude();
+            }else{
+                Toast.makeText(getBaseContext(), "No se pudo obtener la ubicación.", Toast.LENGTH_SHORT).show();
+            }
+
+        } else {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    99);
+        }
+    }
+
+    public static void expand(final View v) {
+        v.measure(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        final int targetHeight = v.getMeasuredHeight();
+
+        // Older versions of android (pre API 21) cancel animations for views with a height of 0.
+        v.getLayoutParams().height = 1;
+        v.setVisibility(View.VISIBLE);
+
+        Animation a = new Animation() {
+            @Override
+            protected void applyTransformation(float interpolatedTime, android.view.animation.Transformation t) {
+                super.applyTransformation(interpolatedTime, t);
+                v.getLayoutParams().height = interpolatedTime == 1
+                        ? ViewGroup.LayoutParams.WRAP_CONTENT
+                        : (int)(targetHeight * interpolatedTime);
+                v.requestLayout();
+            }
+
+            @Override
+            public boolean willChangeBounds() {
+                return true;
+            }
+        };
+
+        // 1dp/ms
+        a.setDuration((int)(targetHeight / v.getContext().getResources().getDisplayMetrics().density));
+        v.startAnimation(a);
+    }
+
+    public static void collapse(final View v) {
+        final int initialHeight = v.getMeasuredHeight();
+
+        Animation a = new Animation()
+        {
+            @Override
+            protected void applyTransformation(float interpolatedTime, android.view.animation.Transformation t) {
+                if(interpolatedTime == 1){
+                    v.setVisibility(View.GONE);
+                }else{
+                    v.getLayoutParams().height = initialHeight - (int)(initialHeight * interpolatedTime);
+                    v.requestLayout();
+
+                }
+            }
+
+            @Override
+            public boolean willChangeBounds() {
+                return true;
+            }
+        };
+
+        // 1dp/ms
+        a.setDuration((int)(initialHeight / v.getContext().getResources().getDisplayMetrics().density));
+        v.startAnimation(a);
     }
 }

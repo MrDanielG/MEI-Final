@@ -40,10 +40,12 @@
                       }
                       if($fileext){
                           echo '<div class="circle responsive-img prf_pic" style="background-image: url(../resourses/profile_pics/'.$usuario["id"].$fileext.'); width:30px;height:30px;background-size:cover;background-position:center;position:absolute;top:28%;"></div>';
+                          echo "<span style='margin-left:40px' id='dataUser' data-email='".$usuario["email"]."' data-name='".$usuario["nombre(s)"]." ".$usuario["apellido(s)"]."' data-picture='".$usuario["id"].$fileext."'>".$usuario["nombre(s)"]." ".$usuario["apellido(s)"]."</span>";
                       }else{
                             echo '<div class="circle responsive-img prf_pic" style="background-image: url(../resourses/profile_pics/0.png); width:30px;height:30px;background-size:cover;background-position:center;position:absolute;top:28%;"></div>';
+                            echo "<span style='margin-left:40px' id='dataUser' data-email='".$usuario["email"]."' data-name='".$usuario["nombre(s)"]." ".$usuario["apellido(s)"]."' data-picture='0.png'>".$usuario["nombre(s)"]." ".$usuario["apellido(s)"]."</span>";
                       }
-                      echo "<span style='margin-left:40px' id='dataUser' data-email='".$usuario["email"]."' data-name='".$usuario["nombre(s)"]." ".$usuario["apellido(s)"]."' data-picture='".$usuario["id"].$fileext."'>".$usuario["nombre(s)"]." ".$usuario["apellido(s)"]; ?><i class="material-icons right">arrow_drop_down</i></a>
+                    ?><i class="material-icons right">arrow_drop_down</i></a>
                 </li>
             </ul>
             <ul class="side-nav" id="mobile-demo">

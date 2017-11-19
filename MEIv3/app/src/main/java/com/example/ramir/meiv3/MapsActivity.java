@@ -12,8 +12,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,14 +34,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
         Double lat = getIntent().getDoubleExtra("lat",0);
         Double lon = getIntent().getDoubleExtra("lon",0);
 
         // Add a marker in Sydney and move the camera
         LatLng Universidad = new LatLng(lat, lon);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Universidad , 16.0f));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Universidad , 16.0f));
-        mMap.addMarker(new MarkerOptions().position(Universidad).title("Universidad"));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Universidad , 16.0f));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Universidad , 16.0f));
+        googleMap.addMarker(new MarkerOptions().position(Universidad).title("Universidad"));
     }
 }

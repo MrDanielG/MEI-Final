@@ -11,8 +11,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -70,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                             wb.destroy();
                             animar(R.anim.carga_inicio);
                         }
-                    }, 700);
+                    }, 100);
                 }
 
                 sinError = true;
@@ -79,9 +77,10 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
                 super.onReceivedError(view, request, error);
-                    sinError = false;
-                    pbConnecting.setVisibility(View.GONE);
-                    ivReconect.setVisibility(View.VISIBLE);
+                sinError = false;
+                rl.setVisibility(View.GONE);
+                pbConnecting.setVisibility(View.GONE);
+                ivReconect.setVisibility(View.VISIBLE);
             }
         });
 
