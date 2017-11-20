@@ -51,9 +51,7 @@
             <?php
                 /*Conexión con la base de datos*/
                 include '../conn.php';
-                @mysqli_query($con,"SET NAMES 'utf8'");
 
-                $user = mysqli_real_escape_string($con,$_SESSION['user']);
                 $query = "SELECT * FROM examenes";
                 $result = mysqli_query($con,$query);
 
@@ -61,11 +59,9 @@
                   <div class="collection with-header">
                     <li class="collection-header"><h4>Tests</h4></li>';
                 while ($registro = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-                    echo "<a href='form.php' class='test collection-item'>" .$registro['nombre']." con ".$registro['numpreguntas']." preguntas. Tipo: ".$registro['tipo']."</a>";
+                    echo "<a href='".$registro['archivo']."' class='test collection-item'>" .$registro['nombre']." con ".$registro['numpreguntas']." preguntas. Tipo: ".$registro['tipo']."</a>";
                 }
                 echo '
-                    <a href="#!" class="collection-item test">Test 2</a>
-                    <a href="#!" class="collection-item test">Test 3</a>
                   </div>';
 
             ?>
