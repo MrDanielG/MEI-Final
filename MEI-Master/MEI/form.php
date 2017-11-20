@@ -4,9 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Test Vocaional 1</title>
-    <script type="text/javascript">
-  		console.log("testvoca|");
-    </script>
     <?php include '../resourses/header.html'; ?>
 
     <style>
@@ -309,6 +306,22 @@
     </div>
     <?php include '../resourses/footer.html';
           include "../resourses/scripts.html"; ?>
+
+    <script type="text/javascript">
+      if(window.HTMLOUT){
+        var pregdiv = document.getElementsByClassName('pregs');
+        var radioB = document.getElementsByClassName('option');
+        for(var i = 0 ; i < pregdiv.length ; ++i){
+           window.HTMLOUT.pregunta(pregdiv[i].getElementsByClassName('preg')[0].innerText);
+           window.HTMLOUT.radioGCreate();
+           var radioBs = pregdiv[i].getElementsByClassName('option');
+           for(var e = 0 ; e < radioBs.length ; ++e){
+               window.HTMLOUT.radioCreate(radioBs[e].innerText);
+           }
+           window.HTMLOUT.separador();
+        }
+      }
+    </script>
 </body>
 
 </html>

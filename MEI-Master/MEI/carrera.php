@@ -2,9 +2,6 @@
     <head>
         <title><?php echo $_GET["carrera"] ?></title>
         <?php include '../resourses/header.html'; ?>
-        <script type="text/javascript">
-            console.log("carrera|");
-        </script>
     </head>
     <body>
         <?php include '../resourses/menu.html'; ?>
@@ -69,6 +66,13 @@
                 $('#modalMobile').modal('open');
                 cardOffset=200;
                 $("#container").offset({top: cardOffset+(-window.pageYOffset/2)});
+            }
+            if(window.HTMLOUT){
+              var info = document.getElementsByClassName('carrera');
+              window.HTMLOUT.carrerafoto(document.getElementsByClassName('carrera_img')[0].src);
+              for(var i = 0 ; i < info.length ; ++i){
+                 window.HTMLOUT.carrerainfo(info[i].innerHTML,i);
+              }
             }
         </script>
     </body>

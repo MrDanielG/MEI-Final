@@ -8,6 +8,42 @@
     android:background="@android:color/background_light">
 
     <RelativeLayout
+        android:id="@+id/rl_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btredirect"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="11dp"
+            android:text="@string/aun_no_has_contestado_un_examen"
+            android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title" />
+
+        <Button
+            android:id="@+id/btredirect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/hacer_un_examen" />
+    </RelativeLayout>
+
+    <WebView
+        android:id="@+id/mei_sesion"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/rl_resultado_test"
+        android:visibility="gone">
+
+    </WebView>
+
+    <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -27,21 +63,36 @@
         android:id="@+id/swipeReco"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp">
+        android:layout_marginTop="49dp"
+        android:visibility="gone">
 
         <ScrollView
             android:id="@+id/sv_reco"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <LinearLayout
-                android:id="@+id/RecomLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/white"
                 android:orientation="vertical">
 
+                <ProgressBar
+                    android:id="@+id/recoLoad"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:indeterminate="true"
+                    android:visibility="visible" />
+
+                <LinearLayout
+                    android:id="@+id/RecomLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:orientation="vertical">
+
+                </LinearLayout>
             </LinearLayout>
 
         </ScrollView>
@@ -125,32 +176,6 @@
             android:layout_height="wrap_content"
             tools:layout="@layout/fragment_inicio" />
     </ScrollView>
-
-    <RelativeLayout
-        android:id="@+id/rl_empty"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/white"
-        android:visibility="gone">
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/btredirect"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="11dp"
-            android:text="@string/aun_no_has_contestado_un_examen"
-            android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title" />
-
-        <Button
-            android:id="@+id/btredirect"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:text="@string/hacer_un_examen" />
-    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/rl_offline"
@@ -290,16 +315,6 @@
         </RelativeLayout>
 
     </ScrollView>
-
-    <WebView
-        android:id="@+id/mei_sesion"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/rl_resultado_test"
-        android:visibility="gone">
-
-    </WebView>
 
     <ImageView
         android:id="@+id/viewDiscover"

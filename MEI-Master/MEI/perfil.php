@@ -111,6 +111,22 @@
             $("#input-img").change(e => {
                 $(e.target).parent().submit();
             });
+
+            if(window.HTMLOUT){
+              var imgUrl = document.getElementById('dataUser').dataset.picture;
+              var name = document.getElementById('profile-nombre').innerText;
+              var email = document.getElementById('profile-correo').innerText;
+              var edad = document.getElementById('profile-edad').innerText;
+              var city = document.getElementById('profile-ciudad').innerText;
+              window.HTMLOUT.perfil(imgUrl,name,email,edad,city);
+              var test = document.getElementsByClassName('testName');
+              var fecha = document.getElementsByClassName('testFecha');
+              var resu = document.getElementsByClassName('testResu');
+              window.HTMLOUT.perfilTabla('Nombre','Fecha','Resultado');
+              for(var i = 0 ; i < test.length ; ++i){
+                  window.HTMLOUT.perfilTabla(test[i].innerText,fecha[i].innerText,resu[i].innerText);
+              }
+            }
         </script>
     </body>
 </html>

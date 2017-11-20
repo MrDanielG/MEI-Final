@@ -71,8 +71,6 @@ import com.google.android.gms.location.LocationServices;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
-import java.util.Arrays;
-
 public class SesionActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -84,20 +82,19 @@ public class SesionActivity extends AppCompatActivity
     private ImageView publicidad, portada, foto, univ_foto;
     private TextView tvUniv,tvCarrer,tvDesrip,tvPlan,tvInterc,tvPerfilE,tvArea, tvResultado,tvResultado_detalles,tvNombreUsuario,tvCorreo,tvBecas, tvInst;
     private RelativeLayout rlempty, rloffline, rlResultados, rlContentSesion;
-    private LinearLayout lyreco;
-    private LinearLayout lytest;
-    private LinearLayout lytestvoca;
+    private LinearLayout lyreco,lytest,lytestvoca;
     private TableLayout lyTablaTest;
     private ScrollView lyinicio,sv_reco,sv_test,sv_testvoca,sv_perfil,sv_carrera;
-    private ProgressBar PageLoad;
+    private ProgressBar PageLoad, RecoLoad;
     private Button redirect;
     private MenuItem rangoMenu;
     private SeekBar rangeSeekBar;
-    private boolean isRecomendacion = false,mLocationPermissionGranted ,isCarrera=false, mFirstReco = true;
+    private boolean isRecomendacion = false ,isCarrera=false, mFirstReco = true;
     private double lat=0,lng=0;
     private int seekBarValue, Rbindex=0;
     private GoogleApiClient mGoogleApiClient;
     private SwipeRefreshLayout swipeReco;
+    private float density;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,12 +104,7 @@ public class SesionActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
-                android.Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-            lat = 1;
-            lng= 1 ;
-        }
+        density = this.getResources().getDisplayMetrics().density;
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this, null)
@@ -173,6 +165,7 @@ public class SesionActivity extends AppCompatActivity
         /*Web views*/
         mei = (WebView) findViewById(R.id.mei_sesion);
         PageLoad = (ProgressBar) findViewById(R.id.progressBar3);
+        RecoLoad = (ProgressBar) findViewById(R.id.recoLoad);
 
         /*Text views*/
         tvUniv= (TextView) findViewById(R.id.id_univ);
@@ -253,7 +246,7 @@ public class SesionActivity extends AppCompatActivity
                 sv_perfil.setVisibility(View.GONE);
                 sv_carrera.setVisibility(View.GONE);
                 lyinicio.setVisibility(View.GONE);
-                sv_reco.setVisibility(View.GONE);
+                swipeReco.setVisibility(View.GONE);
                 sv_test.setVisibility(View.GONE);
 
                 rlempty.setVisibility(View.GONE);
@@ -292,173 +285,7 @@ public class SesionActivity extends AppCompatActivity
         mei.setWebChromeClient(new WebChromeClient(){ //ChromeClient para leer la consola de JS
 
             public boolean onConsoleMessage(ConsoleMessage cm) {
-                String[] msg = {};
-
-                try {
-                    msg = cm.message().split("\\|"); //Guardo el mensaje en un array string
-                }catch (Exception e) {
-                    Log.e(TAG, e.toString());
-                }
-
-                Log.i(TAG, msg[0]);
-                if(Arrays.asList(msg).contains("sesion")) {
-                    final Handler handler = new Handler();
-                    lyinicio.setVisibility(View.VISIBLE);
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            mei.loadUrl("javascript:" +
-                                    "   var el = document.getElementById('dataUser');" +
-                                    "   var img = el.dataset.picture;" +
-                                    "   var name = el.dataset.name;" +
-                                    "   var email = el.dataset.email;" +
-                                    "   window.HTMLOUT.navbar(img,name,email);");
-                        }
-                    }, 200);
-                } else if(Arrays.asList(msg).contains("recomendaciones")) {
-                    final Handler handler = new Handler();
-                    isRecomendacion = true;
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(SesionActivity.this);
-                            if(!preferences.getBoolean("RangeDiscovery", false)) {
-                                SharedPreferences.Editor editor = preferences.edit();
-                                editor.putBoolean("RangeDiscovery", true);
-                                editor.apply();
-                                TapTargetView.showFor(SesionActivity.this, TapTarget.forView(findViewById(R.id.viewDiscover), "Rango", "Puedes filtrar las carreras por la distancia entre tú y las universidades presionando el botón."));
-                            }
-                            rangoMenu.setVisible(true);
-                            mei.loadUrl("javascript:window.onload = rec;" +
-                                    "function rec(){" +
-                                    "var carrera = document.getElementsByClassName('reco_carrera');" +
-                                    "var uni = document.getElementsByClassName('reco_universidad');" +
-                                    "var inst = document.getElementsByClassName('reco_inst');" +
-                                    "var info = document.getElementsByClassName('reco_info');" +
-                                    "var maps = document.getElementsByClassName('reco_maps');" +
-                                    "var foto = document.getElementsByClassName('reco_foto');" +
-                                    "if(carrera.length){" +
-                                    "for(var i = 0 ; i < carrera.length ; ++i)" +
-                                    "   window.HTMLOUT.recomienda(carrera[i].innerText,uni[i].innerText,info[i].href, i , foto[i].dataset.content, inst[i].innerText);" +
-                                    "}else{" +
-                                    "   window.HTMLOUT.empty();" +
-                                    "}}");
-                        }
-                    }, 0);
-
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            sv_reco.setVisibility(View.VISIBLE);
-                        }
-                    }, 300);
-                } else if(Arrays.asList(msg).contains("resultados")) {
-                    final Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            mei.loadUrl("javascript:" +
-                                    "window.HTMLOUT.test_result(document.getElementById('resu').innerText);" +
-                                    "window.HTMLOUT.test_result_detalles(document.getElementById('resu_info').innerHTML)");
-                        }
-                    }, 200);
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            rlResultados.setVisibility(View.VISIBLE);
-                        }
-                    }, 300);
-                } else if(Arrays.asList(msg).contains("carrera")) {
-                    final Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            isCarrera = true;
-                            appBarLayout.getBackground().setAlpha(0);
-                            mei.loadUrl("javascript:" +
-                                    "var info = document.getElementsByClassName('carrera');" +
-                                    "window.HTMLOUT.carrerafoto(document.getElementsByClassName('carrera_img')[0].src);" +
-                                    "for(var i = 0 ; i < info.length ; ++i){" +
-                                    "   window.HTMLOUT.carrerainfo(info[i].innerHTML,i);" +
-                                    "}");
-                        }
-                    }, 200);
-
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            sv_carrera.setVisibility(View.VISIBLE);
-                        }
-                    }, 400);
-                } else if(Arrays.asList(msg).contains("test")) {
-                    final Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            mei.loadUrl("javascript:" +
-                                    "var tests = document.getElementsByClassName('test');" +
-                                    "for(var i = 0 ; i < tests.length ; ++i)" +
-                                    "   window.HTMLOUT.test(tests[i].innerText,tests[i].href);");
-                        }
-                    }, 200);
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            sv_test.setVisibility(View.VISIBLE);
-                        }
-                    }, 300);
-                } else if(Arrays.asList(msg).contains("testvoca")) {
-                    final Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            mei.loadUrl("javascript:" +
-                                    "var pregdiv = document.getElementsByClassName('pregs');" +
-                                    "var radioB = document.getElementsByClassName('option');" +
-                                    "for(var i = 0 ; i < pregdiv.length ; ++i){" +
-                                    "   window.HTMLOUT.pregunta(pregdiv[i].getElementsByClassName('preg')[0].innerText);" +
-                                    "   window.HTMLOUT.radioGCreate();" +
-                                    "   var radioBs = pregdiv[i].getElementsByClassName('option');" +
-                                    "   for(var e = 0 ; e < radioBs.length ; ++e){" +
-                                    "       window.HTMLOUT.radioCreate(radioBs[e].innerText);" +
-                                    "   }" +
-                                    "   window.HTMLOUT.separador();" +
-                                    "}");
-                        }
-                    }, 200);
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            sv_testvoca.setVisibility(View.VISIBLE);
-                        }
-                    }, 300);
-                } else if(Arrays.asList(msg).contains("mapa")){
-                    Intent intent = new Intent(SesionActivity.this, MapsActivity.class);
-                    intent.putExtra("lat",Double.parseDouble(msg[1]));
-                    intent.putExtra("lon",Double.parseDouble(msg[2]));
-                    startActivity(intent);
-                    mei.loadUrl(PagMadre+"recomendaciones.php");
-                } else if(Arrays.asList(msg).contains("perfil")){
-                    sv_perfil.setVisibility(View.VISIBLE);
-                    mei.loadUrl("javascript: var imgUrl = document.getElementById('dataUser').dataset.picture;" +
-                                            "var name = document.getElementById('profile-nombre').innerText;" +
-                                            "var email = document.getElementById('profile-correo').innerText;" +
-                                            "var edad = document.getElementById('profile-edad').innerText;" +
-                                            "var city = document.getElementById('profile-ciudad').innerText;" +
-                                            "window.HTMLOUT.perfil(imgUrl,name,email,edad,city);" +
-                                            "var test = document.getElementsByClassName('testName');" +
-                                            "var fecha = document.getElementsByClassName('testFecha');" +
-                                            "var resu = document.getElementsByClassName('testResu');" +
-                                            "window.HTMLOUT.perfilTabla('Nombre','Fecha','Resultado');" +
-                                            "for(var i = 0 ; i < test.length ; ++i){" +
-                                                "window.HTMLOUT.perfilTabla(test[i].innerText,fecha[i].innerText,resu[i].innerText);" +
-                                            "}");
-                } else if(Arrays.asList(msg).contains("login")){
-                    Intent intent = new Intent(SesionActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                    SesionActivity.this.finish();
-                }
-
+                Log.i(TAG, cm.message());
                 return true;
             }
 
@@ -532,6 +359,7 @@ public class SesionActivity extends AppCompatActivity
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    lyinicio.setVisibility(View.VISIBLE);
                     NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
                     View hView =  navigationView.getHeaderView(0);
                     ImageView imgView = (ImageView) hView.findViewById(R.id.profile_image);
@@ -549,10 +377,39 @@ public class SesionActivity extends AppCompatActivity
         }
 
         @JavascriptInterface
+        public void isReco(){
+            isRecomendacion = true;
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(SesionActivity.this);
+                    if(!preferences.getBoolean("RangeDiscovery", false)) {
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putBoolean("RangeDiscovery", true);
+                        editor.apply();
+                        TapTargetView.showFor(SesionActivity.this, TapTarget.forView(findViewById(R.id.viewDiscover), "Rango", "Puedes filtrar las carreras por la distancia entre tú y las universidades presionando el botón."));
+                    }
+                    rangoMenu.setVisible(true);
+                    swipeReco.setVisibility(View.VISIBLE);
+                    RecoLoad.setVisibility(View.INVISIBLE);
+                }
+            });
+        }
+
+        @JavascriptInterface
+        public void loadMap(double latMap, double lngMap) {
+            Intent intent = new Intent(SesionActivity.this, MapsActivity.class);
+            intent.putExtra("lat", latMap);
+            intent.putExtra("lon", lngMap);
+            startActivity(intent);
+        }
+
+        @JavascriptInterface
         public void test(final String nombre, final String urlTest) {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    sv_test.setVisibility(View.VISIBLE);
                     Button btTest = new Button(context);
                     btTest.setGravity(3);
 
@@ -565,7 +422,6 @@ public class SesionActivity extends AppCompatActivity
 
                     RelativeLayout rlTest = new RelativeLayout(context);
 
-                    float density = context.getResources().getDisplayMetrics().density;
                     int dp_10 = (int)(-10 * density);
                     int dp_8 = (int)(-8 * density);
 
@@ -632,6 +488,9 @@ public class SesionActivity extends AppCompatActivity
                                 mei.loadUrl(PagMadre+"test.php");
                             }
                         });
+                    }else{
+                        lyreco.removeAllViews();
+                        lyreco.getLayoutParams().height = (int)(density*30);
                     }
                 }
             });
@@ -646,13 +505,12 @@ public class SesionActivity extends AppCompatActivity
                         lyreco.removeAllViews();
                         mFirstReco=false;
                     }
-                    float density = context.getResources().getDisplayMetrics().density;
 
                     CardView cardView =  new CardView(context);
                     cardView.setElevation((int)(3 * density));
                     cardView.setRadius((int)(3 * density));
                     cardView.setCardBackgroundColor(Color.WHITE);
-                    cardView.setPadding(16,16,16,16);
+                    cardView.setPadding(16, 16, 16, 16);
 
                     LinearLayout cvLinLy = new LinearLayout(context);
                     cvLinLy.setOrientation(LinearLayout.VERTICAL);
@@ -663,7 +521,11 @@ public class SesionActivity extends AppCompatActivity
                     LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                             LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-                    layoutParams.setMargins(22,22,22,22);
+                    if(mFirstReco) {
+                        layoutParams.setMargins(22,0,22,22);
+                    }else {
+                        layoutParams.setMargins(22,22,22,22);
+                    }
 
                     TextView tvName = new TextView(context);
                     tvName.setTextSize(TypedValue.COMPLEX_UNIT_SP,24);
@@ -682,11 +544,11 @@ public class SesionActivity extends AppCompatActivity
 
                     TextView btInfo = new TextView(context);
                     btInfo.setText(R.string.uni_info);
-                    btInfo.setTextColor(Color.RED);
+                    btInfo.setTextColor(Color.parseColor("#ffab40"));
 
                     TextView btMaps = new TextView(context);
                     btMaps.setText(R.string.uni_place);
-                    btMaps.setTextColor(Color.RED);
+                    btMaps.setTextColor(Color.parseColor("#ffab40"));
 
                     LinearLayout rlUni = new LinearLayout(context);
                     int dp16 = (int)(16 * density);
@@ -777,7 +639,6 @@ public class SesionActivity extends AppCompatActivity
                             LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
                     View view2 = new View(context);
-                    float density = context.getResources().getDisplayMetrics().density;
                     int dp16 = (int) (16 * density);
 
                     lytestvoca.addView(view2, layoutParams);
@@ -798,8 +659,7 @@ public class SesionActivity extends AppCompatActivity
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    float density = context.getResources().getDisplayMetrics().density;
-
+                    sv_testvoca.setVisibility(View.VISIBLE);
                     TableRow.LayoutParams param = new TableRow.LayoutParams(
                             TableRow.LayoutParams.WRAP_CONTENT,
                             TableRow.LayoutParams.WRAP_CONTENT,1f);
@@ -875,6 +735,10 @@ public class SesionActivity extends AppCompatActivity
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    sv_carrera.setVisibility(View.VISIBLE);
+                    appBarLayout.getBackground().setAlpha(0);
+                    isCarrera=true;
+
                     switch (i) {
                         case 0:
                             tvCarrer.setText(Html.fromHtml(info));
@@ -908,6 +772,7 @@ public class SesionActivity extends AppCompatActivity
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    rlResultados.setVisibility(View.VISIBLE);
                     tvResultado.setText(resultado);
                 }
             });
@@ -926,6 +791,7 @@ public class SesionActivity extends AppCompatActivity
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    sv_perfil.setVisibility(View.VISIBLE);
                     Picasso.with(getBaseContext()).load(PagMadre+"../resourses/profile_pics/"+url).transform(new CircleTransform()).into(foto);
                     tvNombreUsuario.setText(name);
                     tvCorreo.setText(correo);
@@ -938,7 +804,6 @@ public class SesionActivity extends AppCompatActivity
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    float density = context.getResources().getDisplayMetrics().density;
                     TextView tvTest = new TextView(context);
                     TextView tvFecha = new TextView(context);
                     TextView tvResu = new TextView(context);
@@ -1016,9 +881,9 @@ public class SesionActivity extends AppCompatActivity
         switch (requestCode) {
             case 99: {
                 // If request is cancelled, the result arrays are empty.
-                if ((grantResults.length > 0
+                if (!(grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    mLocationPermissionGranted=true;
+
                 }
             }
 
@@ -1053,29 +918,10 @@ public class SesionActivity extends AppCompatActivity
     }
 
     private void getRecomendationRange(int range){
+        RecoLoad.setVisibility(View.VISIBLE);
         mei.loadUrl("javascript: ajaxReco(" + lat + "," + lng + ","+(range+10)+");");
-
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mFirstReco = true;
-                mei.loadUrl("javascript: var carrera = document.getElementsByClassName('reco_carrera');" +
-                        "var uni = document.getElementsByClassName('reco_universidad');" +
-                        "var inst = document.getElementsByClassName('reco_inst');" +
-                        "var info = document.getElementsByClassName('reco_info');" +
-                        "var maps = document.getElementsByClassName('reco_maps');" +
-                        "var foto = document.getElementsByClassName('reco_foto');" +
-                        "if(carrera.length){" +
-                        "   for(var i = 0 ; i < carrera.length ; ++i)" +
-                        "       window.HTMLOUT.recomienda(carrera[i].innerText,uni[i].innerText,info[i].href, i , foto[i].dataset.content, inst[i].innerText);" +
-                        "}else{" +
-                        "   window.HTMLOUT.empty();" +
-                        "}");
-
-                swipeReco.setRefreshing(false);
-            }
-        },150);
+        mFirstReco = true;
+        swipeReco.setRefreshing(false);
     }
 
     @Override
@@ -1090,8 +936,9 @@ public class SesionActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.rangoReco) {
-            if((lat!=0&&lng!=0)||mLocationPermissionGranted) {
-                Log.e(TAG, String.valueOf(rangeSeekBar.getHeight()));
+            if(ContextCompat.checkSelfPermission(this.getApplicationContext(),
+                    android.Manifest.permission.ACCESS_FINE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED) {
                 if (rangeSeekBar.getVisibility() == View.VISIBLE) {
                     collapse(findViewById(R.id.rangeSeekBar));
 
@@ -1162,7 +1009,13 @@ public class SesionActivity extends AppCompatActivity
                 }
             } else if (id == R.id.nav_cerrarc) {
                 mei.loadUrl(PagMadre + "logout.php");
-                setTitle("Cerrando sesión...");
+                SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(SesionActivity.this).edit();
+                editor.clear();
+                editor.apply();
+
+                Intent intent = new Intent(SesionActivity.this, LoginActivity.class);
+                startActivity(intent);
+                SesionActivity.this.finish();
             }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

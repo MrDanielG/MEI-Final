@@ -2,9 +2,6 @@
     <head>
         <title>Test</title>
         <?php include '../resourses/header.html'; ?>
-        <script type="text/javascript">
-            console.log("test|");
-        </script>
     </head>
     <body>
         <?php include '../resourses/menu.html'; ?>
@@ -56,17 +53,24 @@
                 $result = mysqli_query($con,$query);
 
                 echo '
-                  <div class="collection with-header">
+                  <ul class="collection with-header">
                     <li class="collection-header"><h4>Tests</h4></li>';
                 while ($registro = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-                    echo "<a href='".$registro['archivo']."' class='test collection-item'>" .$registro['nombre']." con ".$registro['numpreguntas']." preguntas. Tipo: ".$registro['tipo']."</a>";
+                    echo "<li><a href='".$registro['archivo']."' class='test collection-item waves-effect waves-dark'>" .$registro['nombre']." con ".$registro['numpreguntas']." preguntas. Tipo: ".$registro['tipo']."</a></li>";
                 }
                 echo '
-                  </div>';
+                  </ul>';
 
             ?>
         </div>
         <?php include '../resourses/footer.html'; ?>
         <?php include '../resourses/scripts.html'; ?>
+        <script type="text/javascript">
+          if(window.HTMLOUT){
+            var tests = document.getElementsByClassName('test');
+            for(var i = 0 ; i < tests.length ; ++i)
+               window.HTMLOUT.test(tests[i].innerText,tests[i].href);
+          }
+        </script>
     </body>
 </html>

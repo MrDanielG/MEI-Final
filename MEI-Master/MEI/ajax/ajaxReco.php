@@ -37,7 +37,7 @@
               </div>
               <div class="card-action">
                   <a href="carrera.php?carrera='.$registro["Nombre_Carrera"].'&uni='.$registro["NombreUni"].'" class="reco_info">Información</a>
-                  <a class="modal-trigger reco_maps" onclick="lati = '.$univ[1].', long= '.$univ[2].';" href="#map-modal">Ubicación</a>
+                  <a class="modal-trigger reco_maps" onclick="if(window.HTMLOUT){window.HTMLOUT.loadMap('.$univ[1].','.$univ[2].');}else{modalMap('.$univ[1].','.$univ[2].');}" href="#map-modal">Ubicación</a>
               </div>
           </div>
       </div>';
@@ -57,3 +57,21 @@
       return $angle * $earthRadius;
     }
 ?>
+
+<script type="text/javascript">
+  if(window.HTMLOUT){
+    var carrera = document.getElementsByClassName('reco_carrera');
+    var uni = document.getElementsByClassName('reco_universidad');
+    var inst = document.getElementsByClassName('reco_inst');
+    var info = document.getElementsByClassName('reco_info');
+    var maps = document.getElementsByClassName('reco_maps');
+    var foto = document.getElementsByClassName('reco_foto');
+    window.HTMLOUT.isReco();
+    if(carrera.length){
+      for(var i = 0 ; i < carrera.length ; ++i)
+        window.HTMLOUT.recomienda(carrera[i].innerText,uni[i].innerText,info[i].href, i , foto[i].dataset.content, inst[i].innerText);
+    }else{
+      window.HTMLOUT.empty();
+    }
+  }
+</script>

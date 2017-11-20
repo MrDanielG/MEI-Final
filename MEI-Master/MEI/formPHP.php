@@ -1,9 +1,6 @@
 <html>
     <head>
     <title>Resultados</title>
-    <script>
-        console.log("resultados|");
-    </script>
     <?php include '../resourses/header.html'; ?>
     </head>
     <body>
@@ -48,6 +45,11 @@
             include '../resourses/footer.html';
             include '../resourses/scripts.html';
         ?>
-
+        <script type="text/javascript">
+          if(window.HTMLOUT){
+            window.HTMLOUT.test_result(document.getElementById('resu').innerText);
+            window.HTMLOUT.test_result_detalles(document.getElementById('resu_info').innerHTML);
+          }
+        </script>
     </body>
 </html>

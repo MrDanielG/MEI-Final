@@ -2,9 +2,6 @@
     <head>
         <title>Página principal</title>
         <?php include '../resourses/header.html'; ?>
-        <script type="text/javascript">
-            console.log("sesion|");
-        </script>
     </head>
     <body>
         <?php include '../resourses/menu.html'; ?>
@@ -132,6 +129,14 @@
             if(jQuery.browser.mobile){
                 console.log("Es mobil");
                 $('#modalMobile').modal('open');
+            }
+
+            if(window.HTMLOUT){
+              var el = document.getElementById('dataUser');
+                 var img = el.dataset.picture;
+                 var name = el.dataset.name;
+                 var email = el.dataset.email;
+                 window.HTMLOUT.navbar(img,name,email);
             }
         </script>
     </body>
