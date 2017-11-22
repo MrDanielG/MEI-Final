@@ -233,6 +233,8 @@ public class SesionActivity extends AppCompatActivity
 
         mei.addJavascriptInterface(new JavaScriptInterface(getApplicationContext()), "HTMLOUT");
 
+        mei.addJavascriptInterface(new JavaScriptInterfaceKotlin(getApplicationContext()), "KOTLIN");
+
         btEnviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -567,27 +569,6 @@ public class SesionActivity extends AppCompatActivity
             }
         }
 
-        @JavascriptInterface
-        public void navbar(final String img, final String name, final String email){
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    lyinicio.setVisibility(View.VISIBLE);
-                    NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-                    View hView =  navigationView.getHeaderView(0);
-                    ImageView imgView = (ImageView) hView.findViewById(R.id.profile_image);
-                    TextView textViewName = (TextView) hView.findViewById(R.id.tvName);
-                    TextView textViewEmail = (TextView) hView.findViewById(R.id.tvEmail);
-
-                    Log.e(TAG, img);
-
-                    Picasso.with(getBaseContext()).load(PagMadre+"../resourses/profile_pics/"+img).transform(new CircleTransform()).into(imgView);
-
-                    textViewName.setText(name);
-                    textViewEmail.setText(email);
-                }
-            });
-        }
 
         @JavascriptInterface
         public void isReco(){
@@ -684,13 +665,6 @@ public class SesionActivity extends AppCompatActivity
                     Picasso.with(getBaseContext()).load(url).into(publicidad);
                 }
             });
-        }
-
-        @JavascriptInterface
-        public void logout(){
-            Intent intent = new Intent(SesionActivity.this, LoginActivity.class);
-            startActivity(intent);
-            SesionActivity.this.finish();
         }
 
         @JavascriptInterface
@@ -1048,6 +1022,42 @@ public class SesionActivity extends AppCompatActivity
                     view2.getLayoutParams().height = dp1;
                 }
             });
+        }
+    }
+
+    private class JavaScriptInterfaceKotlin{
+        Context context;
+        JavaScriptInterfaceKotlin(Context c){
+            context = c;
+        }
+
+        @JavascriptInterface
+        public void navbar(final String img, final String name, final String email){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    lyinicio.setVisibility(View.VISIBLE);
+                    NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+                    View hView =  navigationView.getHeaderView(0);
+                    ImageView imgView = (ImageView) hView.findViewById(R.id.profile_image);
+                    TextView textViewName = (TextView) hView.findViewById(R.id.tvName);
+                    TextView textViewEmail = (TextView) hView.findViewById(R.id.tvEmail);
+
+                    Log.e(TAG, img);
+
+                    Picasso.with(getBaseContext()).load(PagMadre+"../resourses/profile_pics/"+img).transform(new CircleTransform()).into(imgView);
+
+                    textViewName.setText(name);
+                    textViewEmail.setText(email);
+                }
+            });
+        }
+
+        @JavascriptInterface
+        public void logout(){
+            Intent intent = new Intent(SesionActivity.this, LoginActivity.class);
+            startActivity(intent);
+            SesionActivity.this.finish();
         }
     }
 

@@ -83,8 +83,8 @@
 
       //TODO: Ver la forma de que estas partes sean privadas
       if(JSI){
-        doFunc(JSI.logout);
-        doFunc(JSI.pageLoaded(1));
+        try{doFunc(JSI.logout());}catch(e){}
+        try{doFunc(JSI.pageLoaded(1));}catch(e){}
       }
     </script>
     <?php

@@ -6,6 +6,8 @@ function doFunc(func){
   try {
     func();
   } catch (e) {
-
+    console.log(e);
+  } finally {
+    
   }
 }

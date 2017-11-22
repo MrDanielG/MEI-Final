@@ -71,7 +71,7 @@ public class login_fragment extends Fragment {
         webSettings.setJavaScriptEnabled(true); //Settings de MEIPage
         webSettings.setDomStorageEnabled(true);
 
-        MEIPage.addJavascriptInterface(new JavaScriptInterface(getContext()), "LOGIN");
+        MEIPage.addJavascriptInterface(new JavaScriptInterface(getContext()), "KOTLIN");
 
         MEIPage.setWebViewClient(new WebViewClient() {//Cliente para funciones del WebView
 
@@ -134,16 +134,18 @@ public class login_fragment extends Fragment {
         }
 
         @JavascriptInterface
-        public void isLogged(){
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    user.setText("");
-                    pass.setText("");
-                    startActivity(new Intent(getActivity(), SesionActivity.class));
-                    getActivity().finish();
-                }
-            });
+        public void pageLoaded(int i){
+            if(i == 2){
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        user.setText("");
+                        pass.setText("");
+                        startActivity(new Intent(getActivity(), SesionActivity.class));
+                        getActivity().finish();
+                    }
+                });
+            }
         }
 
         @JavascriptInterface
