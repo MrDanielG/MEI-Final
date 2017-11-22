@@ -1,12 +1,12 @@
 package com.example.ramir.meiv3;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.ConsoleMessage;
-import android.webkit.WebChromeClient;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -18,7 +18,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -28,6 +27,13 @@ import java.util.regex.Pattern;
 
 public class regis_fragment extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
+    boolean estadoErr;
+    int valorEstado;
+    String PagMadre = new GlobalVars().urlMEIMaster()+"signin.php";
+    WebView MEIPage;
+    EditText user, pass, pass2, name, last, edad;
+    Spinner lugar;
+    Button registro;
 
     public static regis_fragment newInstance(int sectionNumber){
         regis_fragment fragment = new regis_fragment();
@@ -37,26 +43,19 @@ public class regis_fragment extends Fragment {
         return fragment;
     }
 
-    public regis_fragment(){
-
-    }
-
-    boolean estadoErr;
-    int valorEstado;
-
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View rootView = inflater.inflate(R.layout.fragment_regis,container,false);
-        GlobalVars globalVars = new GlobalVars();
-        final String PagMadre = globalVars.urlMEIMaster()+"signin.php";
-        final WebView MEIPage = (WebView) rootView.findViewById(R.id.webviewr);
-        final EditText user = (EditText) rootView.findViewById(R.id.et_r_email);
-        final EditText pass = (EditText) rootView.findViewById(R.id.et_r_pass);
-        final EditText pass2 = (EditText) rootView.findViewById(R.id.et_r_pass2);
-        final EditText name = (EditText) rootView.findViewById(R.id.et_r_nombre);
-        final EditText last = (EditText) rootView.findViewById(R.id.et_r_last);
-        final EditText edad = (EditText) rootView.findViewById(R.id.et_r_edad);
-        final Spinner lugar = (Spinner) rootView.findViewById(R.id.et_r_lugar);
-        Button registro = (Button) rootView.findViewById(R.id.btn_registro);
+
+        MEIPage = (WebView) rootView.findViewById(R.id.webviewr);
+        user = (EditText) rootView.findViewById(R.id.et_r_email);
+        pass = (EditText) rootView.findViewById(R.id.et_r_pass);
+        pass2 = (EditText) rootView.findViewById(R.id.et_r_pass2);
+        name = (EditText) rootView.findViewById(R.id.et_r_nombre);
+        last = (EditText) rootView.findViewById(R.id.et_r_last);
+        edad = (EditText) rootView.findViewById(R.id.et_r_edad);
+        lugar = (Spinner) rootView.findViewById(R.id.et_r_lugar);
+        registro = (Button) rootView.findViewById(R.id.btn_registro);
+
         lugar.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -79,30 +78,9 @@ public class regis_fragment extends Fragment {
         webSettings.setJavaScriptEnabled(true); //Settings de MEIPage
         webSettings.setDomStorageEnabled(true);
 
+        MEIPage.addJavascriptInterface(new JavaScriptInterfaceRegis(getContext()), "REGIS");
+
         MEIPage.setWebViewClient(new WebViewClient() {});
-
-        MEIPage.setWebChromeClient(new WebChromeClient(){ //ChromeClient para leer la consola de JS
-
-            public boolean onConsoleMessage(ConsoleMessage cm) { //Listener
-                String[] msg = cm.message().split("\\|"); //Guardo el mensaje en un array string
-
-                if(Arrays.asList(msg).contains("true")) {
-                    Toast.makeText(getContext(),"Se ha registrado exitosamente.", Toast.LENGTH_SHORT).show();
-                    name.setText("");
-                    last.setText("");
-                    user.setText("");
-                    pass.setText("");
-                    pass2.setText("");
-                    edad.setText("0");
-                }else if(Arrays.asList(msg).contains("false")){
-                    Toast.makeText(getContext(),"Algo salió mal, intentelo de nuevo.", Toast.LENGTH_SHORT).show();
-                }
-                MEIPage.loadUrl(PagMadre);
-                return true;
-            }
-
-        });
-
 
         registro.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -178,5 +156,39 @@ public class regis_fragment extends Fragment {
         Pattern pattern = Pattern.compile(EMAIL_PATTERN);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
+    }
+
+    public class JavaScriptInterfaceRegis{
+        Context context;
+
+        JavaScriptInterfaceRegis(Context c){
+            context = c;
+        }
+
+        @JavascriptInterface
+        public void isRegis(){
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(getContext(),"Se ha registrado exitosamente.", Toast.LENGTH_SHORT).show();
+                    name.setText("");
+                    last.setText("");
+                    user.setText("");
+                    pass.setText("");
+                    pass2.setText("");
+                    edad.setText("10");
+                }
+            });
+        }
+
+        @JavascriptInterface
+        public void errorRegis(){
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(getContext(),"Algo salió mal, es posible que el correo ya esté siendo utilizado.", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 }

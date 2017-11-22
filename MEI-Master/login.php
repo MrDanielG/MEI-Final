@@ -9,7 +9,7 @@
     if(isset($_POST['usr'])&&isset($_POST['pass'])){
         $usr = $_POST['usr'];
         $pass = sha1("mei".$_POST['pass']);
-    
+
         $consulta = mysqli_query($con, "SELECT * FROM `usuarios` WHERE email='{$usr}' AND pass='{$pass}';");
     }
 ?>
@@ -17,9 +17,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<script type="text/javascript">
-		console.log('login|');
-	</script>
 	<meta charset="UTF-8">
 	<!--Estilos-->
     <link rel="stylesheet" type="text/css" href="css/estilos_login.css">
@@ -34,7 +31,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Iniciar sesión</title>
 </head>
-<body id="body_login"> 
+<body id="body_login">
 	<div class="container" align="center">
         <div class="row">
             <div align="center" id="card" class="col s11 m8 l5">
@@ -47,7 +44,7 @@
                                 <img src="imgs\logo1.png" heigh="40%" width="40%">
                             </div>
 
-                            <div class="input-field">  
+                            <div class="input-field">
                                 <input class="validate" data-error="Inserta Correo Valido" type="email" name="usr" id="input_usuario" autofocus  autocomplete="off" required><br>
                                 <label for="email">E-mail</label>
                             </div>
@@ -67,22 +64,28 @@
                                 <a href="signin.php">¿No tienes cuenta? Registrate</a>
                             </div>
                         </form>
-                    </div>    
-                </div>    
-            </div>        
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="js/JSI.js"></script>
     <script>
       $(document).ready(function() {
-     Materialize.updateTextFields();
-     });
-    </script>
-    <script>
-         $('#textarea1').val('New Text');
-        $('#textarea1').trigger('autoresize');
+        Materialize.updateTextFields();
+      });
+      $('#textarea1').val('New Text');
+      $('#textarea1').trigger('autoresize');
+
+
+      //TODO: Ver la forma de que estas partes sean privadas
+      if(JSI){
+        doFunc(JSI.logout);
+        doFunc(JSI.pageLoaded(1));
+      }
     </script>
     <?php
         if(isset($consulta)){
@@ -90,13 +93,13 @@
                 $_SESSION['user'] = $usr;
                 echo '
                     <script type="text/javascript">
-                        console.log("true|{$usr}|{$pass}");
                         window.location="MEI/index.php";
                     </script>';
             }else{
                 echo '
                     <script type="text/javascript">
-                        console.log("false|");
+                        if(JSI)
+                          JSI.loginError();
                         Materialize.toast("No se pudo iniciar sesión", 3000, "rounded");
                         $("#input_usuario").val("'.$usr.'");
                     </script>';

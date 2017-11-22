@@ -1,9 +1,9 @@
 package com.example.ramir.meiv3;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.AnimRes;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -19,24 +19,27 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 public class LoginActivity extends AppCompatActivity {
 
-    GlobalVars globalVars = new GlobalVars();
-    String PagMadre = globalVars.urlMEIMaster()+"login.php";
+    private String PagMadre = (new GlobalVars().urlMEIMaster())+"login.php";
     private RelativeLayout rl;
-    AppBarLayout appBarLayout;
-    ImageView ivReconect;
-    ProgressBar pbConnecting;
+    private AppBarLayout appBarLayout;
+    private ImageView ivReconect;
+    private ProgressBar pbConnecting;
+    private CoordinatorLayout mainLy;
     boolean sinError=true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -48,6 +51,16 @@ public class LoginActivity extends AppCompatActivity {
         appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
         pbConnecting = (ProgressBar) findViewById(R.id.progressBar2);
         ivReconect = (ImageView) findViewById(R.id.ivDisconnect);
+        mainLy = (CoordinatorLayout) findViewById(R.id.main_content);
+
+        final FrameLayout frameLayout = new FrameLayout(getBaseContext());
+        frameLayout.setId(View.generateViewId());
+
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+
+        getSupportFragmentManager().beginTransaction().add(frameLayout.getId(), new loading_fragment()).commit();
+
+        mainLy.addView(frameLayout,layoutParams);
 
         WebSettings webSettings = wb.getSettings();
         webSettings.setJavaScriptEnabled(true); //Settings de MEIPage
@@ -60,15 +73,9 @@ public class LoginActivity extends AppCompatActivity {
                 super.onPageFinished(view, url);
                 if(sinError) {
                     appBarLayout.setVisibility(View.VISIBLE);
-                    final Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            rl.setVisibility(View.GONE);
-                            wb.destroy();
-                            animar(R.anim.carga_inicio);
-                        }
-                    }, 100);
+                    wb.destroy();
+                    animar(R.anim.carga_inicio, frameLayout);
+                    frameLayout.setVisibility(View.GONE);
                 }
 
                 sinError = true;
@@ -78,15 +85,11 @@ public class LoginActivity extends AppCompatActivity {
             public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
                 super.onReceivedError(view, request, error);
                 sinError = false;
-                rl.setVisibility(View.GONE);
-                pbConnecting.setVisibility(View.GONE);
-                ivReconect.setVisibility(View.VISIBLE);
             }
         });
 
         wb.loadUrl(PagMadre);
 
-        // Set up the ViewPager with the sections adapter.
         ViewPager mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
@@ -96,9 +99,9 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    public void animar(@AnimRes int id){
+    public void animar(@AnimRes int id, FrameLayout Fl){
         Animation animation = AnimationUtils.loadAnimation(getApplicationContext(),id);
-        rl.startAnimation(animation);
+        Fl.startAnimation(animation);
     }
 
     private class SectionsPagerAdapter extends FragmentPagerAdapter {
@@ -122,7 +125,6 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
             return 2;
         }
 

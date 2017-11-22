@@ -2,24 +2,84 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/contentSession"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/background_light">
+    android:background="@android:color/background_light"
+    tools:context="com.example.ramir.meiv3.SesionActivity">
 
     <WebView
         android:id="@+id/mei_sesion"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/rl_resultado_test"
         android:visibility="gone">
 
     </WebView>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="72dp"
+        android:background="@android:color/white"
+        android:visibility="visible">
+
+        <ProgressBar
+            android:id="@+id/progressBar3"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="invisible" />
+
+    </RelativeLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeReco"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="49dp"
+        android:visibility="gone">
+
+        <ScrollView
+            android:id="@+id/sv_reco"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ProgressBar
+                    android:id="@+id/recoLoad"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:indeterminate="true"
+                    android:visibility="visible" />
+
+                <LinearLayout
+                    android:id="@+id/RecomLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </ScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <RelativeLayout
         android:id="@+id/rl_resultado_test"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="56dp"
+        android:background="@android:color/white"
         android:visibility="gone">
 
         <android.support.v7.widget.CardView
@@ -40,7 +100,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Resultado:"
+                    android:text="@string/resultado"
                     android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                 <TextView
@@ -48,7 +108,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Resultado" />
+                    android:text="@string/resultado" />
 
                 <View
                     android:layout_width="match_parent"
@@ -62,7 +122,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Detalles" />
+                    android:text="@string/detalles" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
@@ -72,237 +132,91 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/card_result"
             android:layout_centerHorizontal="true"
-            android:text="Ir a recomendaciones" />
+            android:text="@string/ir_a_recomendaciones" />
 
     </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="56dp">
-
-        <ProgressBar
-            android:id="@+id/progressBar3"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="invisible" />
-
-    </RelativeLayout>
-
-    <ScrollView
-        android:id="@+id/sv_testvoca"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="56dp"
-        android:visibility="gone">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:id="@+id/ly_testvoca"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp">
-
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/enviarbt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/colorPrimary"
-                android:padding="20dp"
-                android:text="@string/enviar"
-                android:textColor="@android:color/background_light"
-                tools:targetApi="lollipop" />
-
-        </LinearLayout>
-    </ScrollView>
 
     <ScrollView
         android:id="@+id/InicioLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="56dp"
+        android:background="@android:color/white"
         android:visibility="gone">
 
-        <LinearLayout
+
+        <fragment
+            android:id="@+id/fragment3"
+            android:name="com.example.ramir.meiv3.inicio_fragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="5dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                app:cardElevation="2dp"
-                app:contentPadding="5dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:elevation="1dp"
-                        android:padding="6dp"
-                        tools:targetApi="lollipop">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="5dp"
-                            android:layout_toEndOf="@+id/imageView"
-                            android:text="@string/patrocinador" />
-
-                        <ImageView
-                            android:id="@+id/imageView"
-                            android:layout_width="20dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:contentDescription="@string/contenido"
-                            app:srcCompat="@drawable/ic_info" />
-                    </RelativeLayout>
-
-                    <ImageView
-                        android:id="@+id/publicidad"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:adjustViewBounds="true"
-                        android:contentDescription="@string/sponsor1"
-                        android:maxHeight="200dp"
-                        android:scaleType="fitCenter"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </LinearLayout>
-
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                app:cardElevation="2dp"
-                app:contentPadding="5dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:elevation="1dp"
-                        android:padding="6dp">
-
-                        <TextView
-                            android:id="@+id/univ_sponsor4"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="5dp"
-                            android:layout_toEndOf="@+id/imageView6"
-                            android:text="@string/universidad_de_la_semana" />
-
-                        <ImageView
-                            android:id="@+id/imageView6"
-                            android:layout_width="20dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:contentDescription="@string/contenido"
-                            app:srcCompat="@drawable/ic_univ" />
-                    </RelativeLayout>
-
-                </LinearLayout>
-
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                app:cardElevation="2dp"
-                app:contentPadding="5dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:elevation="1dp"
-                        android:padding="6dp"
-                        tools:targetApi="lollipop">
-
-                        <TextView
-                            android:id="@+id/univ_sponsor5"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="5dp"
-                            android:layout_toEndOf="@+id/imageView5"
-                            android:text="@string/tendencias" />
-
-                        <ImageView
-                            android:id="@+id/imageView5"
-                            android:layout_width="20dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:contentDescription="@string/contenido"
-                            app:srcCompat="@drawable/ic_trending_up_black_24dp" />
-                    </RelativeLayout>
-
-                    <WebView
-                        android:id="@+id/wb_trend"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                </LinearLayout>
-
-            </android.support.v7.widget.CardView>
-
-        </LinearLayout>
+            tools:layout="@layout/fragment_inicio" />
     </ScrollView>
 
+    <RelativeLayout
+        android:id="@+id/rl_offline"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="56dp"
+        android:background="@android:color/white"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="50dp"
+            android:layout_height="75dp"
+            android:layout_below="@+id/textView"
+            android:layout_centerHorizontal="true"
+            android:alpha=".5"
+            android:contentDescription="@string/contenido"
+            app:srcCompat="@drawable/ic_offline" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="100dp"
+            android:alpha=".5"
+            android:text="@string/no_hay_conexion_a_internet"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+    </RelativeLayout>
+
     <ScrollView
-        android:id="@+id/sv_reco"
+        android:id="@+id/sv_perfil"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="56dp"
+        android:background="@android:color/white"
         android:visibility="gone">
 
-        <LinearLayout
-            android:id="@+id/RecomLayout"
+
+        <fragment
+            android:id="@+id/fragment"
+            android:name="com.example.ramir.meiv3.perfil_fragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            tools:layout="@layout/fragment_perfil" />
+    </ScrollView>
 
-        </LinearLayout>
+    <ScrollView
+        android:id="@+id/sv_carrera"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:visibility="gone">
+
+
+        <fragment
+            android:id="@+id/fragment2"
+            android:name="com.example.ramir.meiv3.carrera_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout="@layout/fragment_carrera" />
     </ScrollView>
 
     <ScrollView
@@ -310,6 +224,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="50dp"
+        android:background="@android:color/white"
         android:padding="0dp"
         android:visibility="gone">
 
@@ -323,345 +238,74 @@
         </LinearLayout>
     </ScrollView>
 
-    <RelativeLayout
-        android:id="@+id/rl_empty"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/btredirect"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="11dp"
-            android:text="@string/aun_no_has_contestado_un_examen"
-            android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title" />
-
-        <Button
-            android:id="@+id/btredirect"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:text="@string/hacer_un_examen" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/rl_offline"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:visibility="gone">
-
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="56dp"
-            android:contentDescription="@string/contenido"
-            app:srcCompat="@drawable/ic_offline" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/imageView3"
-            android:layout_centerHorizontal="true"
-            android:text="@string/no_hay_conexion_a_internet"
-            android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title" />
-
-    </RelativeLayout>
-
     <ScrollView
-        android:id="@+id/sv_perfil"
+        android:id="@+id/sv_testvoca"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="56dp"
+        android:background="@android:color/white"
         android:visibility="gone">
 
-        <LinearLayout
+        <RelativeLayout
+            android:id="@+id/prueba"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
-            <RelativeLayout
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/perfil_portada"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:contentDescription="@string/portada"
-                    android:scaleType="centerCrop"
-                    app:srcCompat="@color/colorPrimary"
-                    tools:layout_editor_absoluteY="0dp" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentTop="true">
-
-                    <RelativeLayout
-                        android:id="@+id/relativeLayout2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:padding="16dp"
-                        app:layout_constraintRight_toRightOf="parent"
-                        tools:layout_editor_absoluteY="0dp">
-
-                        <ImageView
-                            android:id="@+id/perfil_foto"
-                            android:layout_width="75dp"
-                            android:layout_height="75dp"
-                            android:layout_above="@+id/perfil_usuario"
-                            android:layout_alignParentStart="true"
-                            android:layout_marginBottom="16dp"
-                            android:contentDescription="@string/foto_de_perfil"
-                            app:srcCompat="@color/colorPrimaryDark" />
-
-                        <TextView
-                            android:id="@+id/perfil_usuario"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_above="@+id/perfil_correo"
-                            android:layout_alignParentStart="true"
-                            android:padding="2dp"
-                            android:paddingEnd="4dp"
-                            android:paddingStart="4dp"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                            android:textColor="#fff" />
-
-                        <TextView
-                            android:id="@+id/perfil_correo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:layout_alignParentStart="true"
-                            android:padding="2dp"
-                            android:paddingEnd="4dp"
-                            android:paddingStart="4dp"
-                            android:textColor="#fff" />
-                    </RelativeLayout>
-
-                </RelativeLayout>
-            </RelativeLayout>
-
-
-            <LinearLayout
-                android:id="@+id/ly_perfil"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <TextView
-                    android:id="@+id/textView20"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Test realizados:"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:elevation="8dp"
+                app:cardCornerRadius="4dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
                     <LinearLayout
-                        android:id="@+id/tablaTest"
+                        android:id="@+id/ly_testvoca"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp">
 
-                        <TextView
-                            android:id="@+id/textView19"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Test" />
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/tablaFecha"
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:layout_height="match_parent">
 
-                        <TextView
-                            android:id="@+id/textView18"
-                            android:layout_width="match_parent"
+                        <Button
+                            android:id="@+id/enviarbt"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Fecha" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/tablaResu"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/textView17"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Resultado" />
-                    </LinearLayout>
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_margin="8dp"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:text="@string/enviar"
+                            android:textColor="@android:color/background_light" />
+                    </RelativeLayout>
 
                 </LinearLayout>
-            </LinearLayout>
 
-        </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+        </RelativeLayout>
 
     </ScrollView>
 
-    <ScrollView
-        android:id="@+id/sv_carrera"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="56dp"
-        android:visibility="gone">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/univ_foto"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:contentDescription="@string/universidad"
-                    android:scaleType="centerCrop"
-                    app:srcCompat="@color/colorPrimary"
-                    tools:layout_editor_absoluteY="0dp" />
-
-            </RelativeLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <TextView
-                    android:id="@+id/id_carrera"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/carrera"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                    android:textSize="24sp" />
-
-                <TextView
-                    android:id="@+id/id_univ"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/universidad"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-
-                <TextView
-                    android:id="@+id/id_inst"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Institucion"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-
-                <TextView
-                    android:id="@+id/id_area"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Area"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-
-                <TextView
-                    android:id="@+id/id_descrip"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/descripcion"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/textView13"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:text="@string/plan_de_estudios"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Title" />
-
-                <TextView
-                    android:id="@+id/id_plan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/plan_de_estudios"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/textView16"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:text="@string/becas"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Title" />
-
-                <TextView
-                    android:id="@+id/id_becas"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/becas"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/textView15"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:text="@string/perfil_de_egreso"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Title" />
-
-                <TextView
-                    android:id="@+id/id_perfil_egreso"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/perfil_de_egreso"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/textView14"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:text="@string/intercambios"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Title" />
-
-                <TextView
-                    android:id="@+id/id_intercambios"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/intercambios"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textSize="18sp" />
-            </LinearLayout>
-
-        </LinearLayout>
-    </ScrollView>
+    <ImageView
+        android:id="@+id/viewDiscover"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/rl_resultado_test"
+        android:layout_margin="14dp"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/ic_pin_range"
+        android:contentDescription="@string/todo" />
 
 </RelativeLayout>

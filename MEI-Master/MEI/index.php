@@ -130,13 +130,15 @@
                 console.log("Es mobil");
                 $('#modalMobile').modal('open');
             }
-
-            if(window.HTMLOUT){
+            //Funciones que se ejecutan en Android
+            //TODO: Ver la forma de ocular estas funciones del acceso abierto
+            if(JSI){
+              doFunc(JSI.pageLoaded(2));
               var el = document.getElementById('dataUser');
-                 var img = el.dataset.picture;
-                 var name = el.dataset.name;
-                 var email = el.dataset.email;
-                 window.HTMLOUT.navbar(img,name,email);
+              var img = el.dataset.picture;
+              var name = el.dataset.name;
+              var email = el.dataset.email;
+              doFunc(JSI.navbar(img,name,email));
             }
         </script>
     </body>

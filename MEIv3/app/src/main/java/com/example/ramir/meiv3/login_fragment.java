@@ -1,5 +1,6 @@
 package com.example.ramir.meiv3;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -9,17 +10,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.ConsoleMessage;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import java.util.Arrays;
+import com.squareup.picasso.Picasso;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,6 +33,13 @@ import java.util.regex.Pattern;
 
 public class login_fragment extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
+    private String TAG = "Login Activity";
+    private String PagMadre = new GlobalVars().urlMEIMaster()+"login.php";
+    private WebView MEIPage;
+    private ProgressBar barra;
+    private EditText user,pass;
+    private LinearLayout linearLayout;
+    private ImageView logo;
 
     public static login_fragment newInstance(int sectionNumber){
         login_fragment fragment = new login_fragment();
@@ -38,47 +49,29 @@ public class login_fragment extends Fragment {
         return fragment;
     }
 
-    public login_fragment(){
-
-    }
-
-    public View onCreateView(final LayoutInflater inflater,final ViewGroup container, Bundle savedInstanceState){
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState){
         View rootView = inflater.inflate(R.layout.fragment_login,container,false);
 
-        GlobalVars globalVars = new GlobalVars();
-        String PagMadre = globalVars.urlMEIMaster()+"login.php";
-        final WebView MEIPage = (WebView) rootView.findViewById(R.id.webview);
-        final ProgressBar barra = (ProgressBar) rootView.findViewById(R.id.progressBar);
-        final EditText user = (EditText) rootView.findViewById(R.id.et_email);
-        final EditText pass = (EditText) rootView.findViewById(R.id.et_pass); //Declaraciones
+        MEIPage = (WebView) rootView.findViewById(R.id.webview);
+        barra = (ProgressBar) rootView.findViewById(R.id.progressBar);
+        user = (EditText) rootView.findViewById(R.id.et_email);
+        pass = (EditText) rootView.findViewById(R.id.et_pass); //Declaraciones
         Button login = (Button) rootView.findViewById(R.id.btn_login);
-        final LinearLayout linearLayout = (LinearLayout) rootView.findViewById(R.id.til);
+        linearLayout = (LinearLayout) rootView.findViewById(R.id.til);
+        logo = (ImageView) rootView.findViewById(R.id.logoView);
+
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Picasso.with(getContext()).load(PagMadre+"/../imgs/logo1.png").into(logo);
+            }
+        });
 
         WebSettings webSettings = MEIPage.getSettings();
         webSettings.setJavaScriptEnabled(true); //Settings de MEIPage
         webSettings.setDomStorageEnabled(true);
 
-        MEIPage.setWebChromeClient(new WebChromeClient(){ //ChromeClient para leer la consola de JS
-
-            public boolean onConsoleMessage(ConsoleMessage cm) { //Listener
-                String[] msg = cm.message().split("\\|"); //Guardo el mensaje en un array string
-                Log.i("Mensaje", msg[0]); //Imprimo el mensaje en consola de Android Studio para debugeo
-
-                if(Arrays.asList(msg).contains("sesion")) {
-                    Log.i("Mensaje","Sesion start");
-                    user.setText("");
-                    pass.setText("");
-                    Intent intent = new Intent(getActivity(), SesionActivity.class);
-                    startActivity(intent);
-                    getActivity().finish();
-                }else if(Arrays.asList(msg).contains("false")){
-                    Toast.makeText(getContext(),"Correo electrónico o contraseña incorrectos, por favor, intentelo de nuevo.", Toast.LENGTH_SHORT).show();
-                    pass.setText("");
-                }
-                return true;
-            }
-
-        });
+        MEIPage.addJavascriptInterface(new JavaScriptInterface(getContext()), "LOGIN");
 
         MEIPage.setWebViewClient(new WebViewClient() {//Cliente para funciones del WebView
 
@@ -94,7 +87,14 @@ public class login_fragment extends Fragment {
             }
 
         });
+        MEIPage.setWebChromeClient(new WebChromeClient(){ //ChromeClient para leer la consola de JS
 
+            public boolean onConsoleMessage(ConsoleMessage cm) {
+                Log.i(TAG, cm.message());
+                return true;
+            }
+
+        });
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,10 +115,9 @@ public class login_fragment extends Fragment {
                     MEIPage.loadUrl("javascript:" +
                             "var usr = document.getElementById('input_usuario');" +
                             "var pass = document.getElementById('input_pass');" +
-                            "var form = document.getElementsByTagName('form')[0];" +
                             "usr.value='" + user.getText().toString() + "';" +
                             "pass.value='" + pass.getText().toString() + "';" +
-                            "form.submit();");
+                            "$('#btn_submit').click();");
                 }
             }
         });
@@ -127,7 +126,32 @@ public class login_fragment extends Fragment {
         return rootView;
     }
 
+    private class JavaScriptInterface{
+        Context context;
 
+        JavaScriptInterface(Context c) {
+            context = c;
+        }
+
+        @JavascriptInterface
+        public void isLogged(){
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    user.setText("");
+                    pass.setText("");
+                    startActivity(new Intent(getActivity(), SesionActivity.class));
+                    getActivity().finish();
+                }
+            });
+        }
+
+        @JavascriptInterface
+        public void loginError(){
+            Toast.makeText(getContext(),"Correo electrónico o contraseña incorrectos, por favor, intentelo de nuevo.", Toast.LENGTH_SHORT).show();
+            pass.setText("");
+        }
+    }
 
     private boolean isValidPassword(String pass) {
         return pass != null && pass.length() > 6;

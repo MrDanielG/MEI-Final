@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     android:padding="0dp"
-    tools:context="com.example.ramir.meiv3.LoginActivity$PlaceholderFragment">
+    tools:context="com.example.ramir.meiv3.LoginActivity">
 
     <WebView
         android:id="@+id/webviewr"

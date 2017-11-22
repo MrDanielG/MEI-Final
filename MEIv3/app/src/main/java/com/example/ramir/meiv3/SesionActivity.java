@@ -19,7 +19,6 @@ import android.preference.PreferenceManager;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -74,19 +73,17 @@ import com.squareup.picasso.Transformation;
 public class SesionActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private String TAG = "SesionActivity";
-    private GlobalVars globalVars = new GlobalVars();
-    private String PagMadre = globalVars.urlMEIMaster()+"MEI/";
+    private String TAG = "Sesion Activity";
+    private String PagMadre = new GlobalVars().urlMEIMaster()+"MEI/";
     private AppBarLayout appBarLayout;
     private WebView mei;
-    private ImageView publicidad, portada, foto, univ_foto;
+    private ImageView publicidad, foto, univ_foto;
     private TextView tvUniv,tvCarrer,tvDesrip,tvPlan,tvInterc,tvPerfilE,tvArea, tvResultado,tvResultado_detalles,tvNombreUsuario,tvCorreo,tvBecas, tvInst;
-    private RelativeLayout rlempty, rloffline, rlResultados, rlContentSesion;
+    private RelativeLayout rloffline, rlResultados, rlContentSesion;
     private LinearLayout lyreco,lytest,lytestvoca;
     private TableLayout lyTablaTest;
-    private ScrollView lyinicio,sv_reco,sv_test,sv_testvoca,sv_perfil,sv_carrera;
+    private ScrollView lyinicio,sv_test,sv_testvoca,sv_perfil,sv_carrera;
     private ProgressBar PageLoad, RecoLoad;
-    private Button redirect;
     private MenuItem rangoMenu;
     private SeekBar rangeSeekBar;
     private boolean isRecomendacion = false ,isCarrera=false, mFirstReco = true;
@@ -104,63 +101,11 @@ public class SesionActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        density = this.getResources().getDisplayMetrics().density;
-
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this, null)
-                .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
-                    @Override
-                    public void onConnected(@Nullable Bundle bundle) {
-
-                    }
-
-                    @Override
-                    public void onConnectionSuspended(int i) {
-
-                    }
-                })
-                .addApi(LocationServices.API)
-                .build();
-        mGoogleApiClient.connect();
-
         appBarLayout = (AppBarLayout) findViewById(R.id.ActionBar);
         rangeSeekBar = (SeekBar) findViewById(R.id.rangeSeekBar);
         swipeReco = (SwipeRefreshLayout) findViewById(R.id.swipeReco);
 
-        swipeReco.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                getRecomendationRange(4000);
-                collapse(findViewById(R.id.rangeSeekBar));
-                rlContentSesion.setPadding(0,0,0,0);
-                setTitle("Recomendaciones");
-            }
-        });
-
-        rangeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                //mei.loadUrl("javascript:$('#rangeReco').val("+(i+10)+");");
-                seekBarValue = i;
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if(isRecomendacion)setTitle(String.valueOf(seekBarValue+10)+" Km.");
-                    }
-                });
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {}
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                PageLoad.setVisibility(View.VISIBLE);
-                getDeviceLocation();
-                getRecomendationRange(seekBarValue);
-            }
-        });
+        density = this.getResources().getDisplayMetrics().density;
 
         /*Web views*/
         mei = (WebView) findViewById(R.id.mei_sesion);
@@ -184,20 +129,17 @@ public class SesionActivity extends AppCompatActivity
 
         /*Scroll views*/
         lyinicio = (ScrollView) findViewById(R.id.InicioLayout);
-        sv_reco = (ScrollView) findViewById(R.id.sv_reco);
         sv_testvoca =(ScrollView) findViewById(R.id.sv_testvoca);
         sv_test = (ScrollView) findViewById(R.id.sv_test);
         sv_perfil = (ScrollView) findViewById(R.id.sv_perfil);
         sv_carrera = (ScrollView) findViewById(R.id.sv_carrera);
 
         /*Relative layouts*/
-        rlempty = (RelativeLayout) findViewById(R.id.rl_empty);
         rloffline = (RelativeLayout) findViewById(R.id.rl_offline);
         rlResultados = (RelativeLayout) findViewById(R.id.rl_resultado_test);
         rlContentSesion = (RelativeLayout) findViewById(R.id.contentSession);
 
         /*Botones*/
-        redirect = (Button) findViewById(R.id.btredirect);
         Button btEnviar = (Button) findViewById(R.id.enviarbt);
         Button btRecomendacion = (Button) findViewById(R.id.bt_Recomendaciones);
 
@@ -208,7 +150,6 @@ public class SesionActivity extends AppCompatActivity
 
         /*Image views*/
         foto = (ImageView) findViewById(R.id.perfil_foto);
-        portada = (ImageView) findViewById(R.id.perfil_portada);
         publicidad = (ImageView) findViewById(R.id.publicidad);
         univ_foto = (ImageView) findViewById(R.id.univ_foto);
 
@@ -249,7 +190,6 @@ public class SesionActivity extends AppCompatActivity
                 swipeReco.setVisibility(View.GONE);
                 sv_test.setVisibility(View.GONE);
 
-                rlempty.setVisibility(View.GONE);
                 rloffline.setVisibility(View.GONE);
                 rlResultados.setVisibility(View.GONE);
 
@@ -311,15 +251,6 @@ public class SesionActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            sv_perfil.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-                @Override
-                public void onScrollChange(View view, int i, int i1, int i2, int i3) {
-                    portada.setY(i1/2);
-                }
-            });
-        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             sv_carrera.setOnScrollChangeListener(new View.OnScrollChangeListener() {
                 @Override
                 public void onScrollChange(View view, int i, int i1, int i2, int i3) {
@@ -335,6 +266,60 @@ public class SesionActivity extends AppCompatActivity
                     }
                 }
             });
+
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .enableAutoManage(this, null)
+                    .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
+                        @Override
+                        public void onConnected(@Nullable Bundle bundle) {
+
+                        }
+
+                        @Override
+                        public void onConnectionSuspended(int i) {
+
+                        }
+                    })
+                    .addApi(LocationServices.API)
+                    .build();
+            mGoogleApiClient.connect();
+
+
+
+            swipeReco.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    getRecomendationRange(4000);
+                    collapse(findViewById(R.id.rangeSeekBar));
+                    rlContentSesion.setPadding(0,0,0,0);
+                    setTitle("Recomendaciones");
+                    }
+            });
+
+            rangeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                    //mei.loadUrl("javascript:$('#rangeReco').val("+(i+10)+");");
+                    seekBarValue = i;
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(isRecomendacion)setTitle(String.valueOf(seekBarValue+10)+" Km.");
+                        }
+                    });
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {}
+
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+                    PageLoad.setVisibility(View.VISIBLE);
+                    getDeviceLocation();
+                    getRecomendationRange(seekBarValue);
+                }
+            });
         }
 
         final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -347,11 +332,239 @@ public class SesionActivity extends AppCompatActivity
         mei.loadUrl(PagMadre);
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case 99: {
+                //noinspection StatementWithEmptyBody
+                if (!(grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    //TODO: si se rechazan los permisos de localizacion
+                }
+            }
+
+        }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (event.getAction() == KeyEvent.ACTION_DOWN) {
+            switch (keyCode) {
+                case KeyEvent.KEYCODE_BACK:
+                    if (mei.canGoBack()) {
+                        mei.goBack();
+                    } else {
+                        finish();
+                    }
+                    return true;
+            }
+
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    private void getRecomendationRange(int range){
+        RecoLoad.setVisibility(View.VISIBLE);
+        mei.loadUrl("javascript: ajaxReco(" + lat + "," + lng + ","+(range+10)+");");
+        mFirstReco = true;
+        swipeReco.setRefreshing(false);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.action_button_reco, menu);
+        rangoMenu = menu.getItem(0);
+        rangoMenu.setVisible(false);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.rangoReco) {
+            if(ContextCompat.checkSelfPermission(this.getApplicationContext(),
+                    android.Manifest.permission.ACCESS_FINE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED) {
+                if (rangeSeekBar.getVisibility() == View.VISIBLE) {
+                    collapse(findViewById(R.id.rangeSeekBar));
+
+                    getRecomendationRange(4000);
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {setTitle("Recomendaciones");
+                        }
+                    });
+                    rlContentSesion.setPadding(0, 0, 0, 0);
+                } else {
+                    float density = getBaseContext().getResources().getDisplayMetrics().density;
+
+                    expand(findViewById(R.id.rangeSeekBar));
+
+                    rangeSeekBar.setMax(0);
+                    rangeSeekBar.setMax(390);
+                    rangeSeekBar.setProgress(0);
+
+                    rlContentSesion.setPadding(0, (int) (50 * density), 0, 0);
+
+                    getDeviceLocation();
+                    getRecomendationRange(0);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            setTitle("10 km.");
+                        }
+                    });
+                }
+            }else{
+                Snackbar.make( findViewById(android.R.id.content),"Se necesita tener acceso a la ubicación.",
+                        Snackbar.LENGTH_LONG).setAction("Dar permiso", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {getDeviceLocation();}
+                }).show();
+            }
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+        if (id == R.id.nav_inicio) {
+            mei.loadUrl(PagMadre);
+            setTitle("Página principal");
+        } else if (id == R.id.nav_test) {
+            mei.loadUrl(PagMadre + "test.php");
+            setTitle("Test");
+        } else if (id == R.id.nav_perfil) {
+            mei.loadUrl(PagMadre + "perfil.php");
+            setTitle("Perfil");
+        } else if (id == R.id.nav_recomendaciones) {
+            mei.loadUrl(PagMadre + "recomendaciones.php");
+            setTitle("Recomendaciones");
+        } else if (id == R.id.nav_contacto) {
+            Intent i = new Intent(Intent.ACTION_SEND);
+            i.setType("message/rfc822");
+            i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"ramiroestradag@gmail.com"});
+            try {
+                startActivity(Intent.createChooser(i, "Enviar email..."));
+            } catch (android.content.ActivityNotFoundException ex) {
+                Toast.makeText(SesionActivity.this, "Hubo un error al enviar al usar el servicio de email.", Toast.LENGTH_SHORT).show();
+            }
+        } else if (id == R.id.nav_cerrarc) {
+            mei.loadUrl(PagMadre + "logout.php");
+            SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(SesionActivity.this).edit();
+            editor.clear();
+            editor.apply();
+        }
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    private void getDeviceLocation() {
+        if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            //noinspection deprecation
+            Location mLastKnownLocation = LocationServices.FusedLocationApi
+                    .getLastLocation(mGoogleApiClient);
+
+            if (mLastKnownLocation != null) {
+                lat = mLastKnownLocation.getLatitude();
+                lng = mLastKnownLocation.getLongitude();
+            }else{
+                Toast.makeText(getBaseContext(), "No se pudo obtener la ubicación.", Toast.LENGTH_SHORT).show();
+            }
+
+        } else {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    99);
+        }
+    }
+
+    public static void expand(final View v) {
+        v.measure(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        final int targetHeight = v.getMeasuredHeight();
+
+        // Older versions of android (pre API 21) cancel animations for views with a height of 0.
+        v.getLayoutParams().height = 1;
+        v.setVisibility(View.VISIBLE);
+
+        Animation a = new Animation() {
+            @Override
+            protected void applyTransformation(float interpolatedTime, android.view.animation.Transformation t) {
+                super.applyTransformation(interpolatedTime, t);
+                v.getLayoutParams().height = interpolatedTime == 1
+                        ? ViewGroup.LayoutParams.WRAP_CONTENT
+                        : (int)(targetHeight * interpolatedTime);
+                v.requestLayout();
+            }
+
+            @Override
+            public boolean willChangeBounds() {
+                return true;
+            }
+        };
+
+        // 1dp/ms
+        a.setDuration((int)(targetHeight / v.getContext().getResources().getDisplayMetrics().density));
+        v.startAnimation(a);
+    }
+
+    public static void collapse(final View v) {
+        final int initialHeight = v.getMeasuredHeight();
+
+        Animation a = new Animation()
+        {
+            @Override
+            protected void applyTransformation(float interpolatedTime, android.view.animation.Transformation t) {
+                if(interpolatedTime == 1){
+                    v.setVisibility(View.GONE);
+                }else{
+                    v.getLayoutParams().height = initialHeight - (int)(initialHeight * interpolatedTime);
+                    v.requestLayout();
+
+                }
+            }
+
+            @Override
+            public boolean willChangeBounds() {
+                return true;
+            }
+        };
+
+        // 1dp/ms
+        a.setDuration((int)(initialHeight / v.getContext().getResources().getDisplayMetrics().density));
+        v.startAnimation(a);
+    }
+
     private class JavaScriptInterface {
         Context context;
 
         JavaScriptInterface(Context c) {
             context = c;
+        }
+
+        @JavascriptInterface
+        public void pageIndex(int i){
+            switch (i){
+                case 0:
+
+            }
         }
 
         @JavascriptInterface
@@ -474,21 +687,18 @@ public class SesionActivity extends AppCompatActivity
         }
 
         @JavascriptInterface
+        public void logout(){
+            Intent intent = new Intent(SesionActivity.this, LoginActivity.class);
+            startActivity(intent);
+            SesionActivity.this.finish();
+        }
+
+        @JavascriptInterface
         public void empty() {
             runOnUiThread(new Runnable() {
-                @RequiresApi(api = Build.VERSION_CODES.M)
                 @Override
                 public void run() {
-                    if(rangeSeekBar.getVisibility() == View.GONE){
-                        rlempty.setVisibility(View.VISIBLE);
-
-                        redirect.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                mei.loadUrl(PagMadre+"test.php");
-                            }
-                        });
-                    }else{
+                    if (rangeSeekBar.getVisibility() != View.GONE) {
                         lyreco.removeAllViews();
                         lyreco.getLayoutParams().height = (int)(density*30);
                     }
@@ -874,229 +1084,5 @@ public class SesionActivity extends AppCompatActivity
         public String key() {
             return "circle";
         }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case 99: {
-                // If request is cancelled, the result arrays are empty.
-                if (!(grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-
-                }
-            }
-
-        }
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (event.getAction() == KeyEvent.ACTION_DOWN) {
-            switch (keyCode) {
-                case KeyEvent.KEYCODE_BACK:
-                    if (mei.canGoBack()) {
-                        mei.goBack();
-                    } else {
-                        finish();
-                    }
-                    return true;
-            }
-
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    private void getRecomendationRange(int range){
-        RecoLoad.setVisibility(View.VISIBLE);
-        mei.loadUrl("javascript: ajaxReco(" + lat + "," + lng + ","+(range+10)+");");
-        mFirstReco = true;
-        swipeReco.setRefreshing(false);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.action_button_reco, menu);
-        rangoMenu = menu.getItem(0);
-        rangoMenu.setVisible(false);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.rangoReco) {
-            if(ContextCompat.checkSelfPermission(this.getApplicationContext(),
-                    android.Manifest.permission.ACCESS_FINE_LOCATION)
-                    == PackageManager.PERMISSION_GRANTED) {
-                if (rangeSeekBar.getVisibility() == View.VISIBLE) {
-                    collapse(findViewById(R.id.rangeSeekBar));
-
-                    getRecomendationRange(4000);
-
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {setTitle("Recomendaciones");
-                        }
-                    });
-                    rlContentSesion.setPadding(0, 0, 0, 0);
-                } else {
-                    float density = getBaseContext().getResources().getDisplayMetrics().density;
-
-                    expand(findViewById(R.id.rangeSeekBar));
-
-                    rangeSeekBar.setMax(0);
-                    rangeSeekBar.setMax(390);
-                    rangeSeekBar.setProgress(0);
-
-                    rlContentSesion.setPadding(0, (int) (50 * density), 0, 0);
-
-                    getDeviceLocation();
-                    getRecomendationRange(0);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            setTitle("10 km.");
-                        }
-                    });
-                }
-            }else{
-                Snackbar.make( findViewById(android.R.id.content),"Se necesita tener acceso a la ubicación.",
-                        Snackbar.LENGTH_LONG).setAction("Dar permiso", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {getDeviceLocation();}
-                }).show();
-            }
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-            if (id == R.id.nav_inicio) {
-                mei.loadUrl(PagMadre);
-                setTitle("Página principal");
-            } else if (id == R.id.nav_test) {
-                mei.loadUrl(PagMadre + "test.php");
-                setTitle("Test");
-            } else if (id == R.id.nav_perfil) {
-                mei.loadUrl(PagMadre + "perfil.php");
-                setTitle("Perfil");
-            } else if (id == R.id.nav_recomendaciones) {
-                mei.loadUrl(PagMadre + "recomendaciones.php");
-                setTitle("Recomendaciones");
-            } else if (id == R.id.nav_contacto) {
-                Intent i = new Intent(Intent.ACTION_SEND);
-                i.setType("message/rfc822");
-                i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"ramiroestradag@gmail.com"});
-                try {
-                    startActivity(Intent.createChooser(i, "Enviar email..."));
-                } catch (android.content.ActivityNotFoundException ex) {
-                    Toast.makeText(SesionActivity.this, "Hubo un error al enviar al usar el servicio de email.", Toast.LENGTH_SHORT).show();
-                }
-            } else if (id == R.id.nav_cerrarc) {
-                mei.loadUrl(PagMadre + "logout.php");
-                SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(SesionActivity.this).edit();
-                editor.clear();
-                editor.apply();
-
-                Intent intent = new Intent(SesionActivity.this, LoginActivity.class);
-                startActivity(intent);
-                SesionActivity.this.finish();
-            }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
-    private void getDeviceLocation() {
-        if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
-                android.Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-            //noinspection deprecation
-            Location mLastKnownLocation = LocationServices.FusedLocationApi
-                    .getLastLocation(mGoogleApiClient);
-
-            if (mLastKnownLocation != null) {
-                lat = mLastKnownLocation.getLatitude();
-                lng = mLastKnownLocation.getLongitude();
-            }else{
-                Toast.makeText(getBaseContext(), "No se pudo obtener la ubicación.", Toast.LENGTH_SHORT).show();
-            }
-
-        } else {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
-                    99);
-        }
-    }
-
-    public static void expand(final View v) {
-        v.measure(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        final int targetHeight = v.getMeasuredHeight();
-
-        // Older versions of android (pre API 21) cancel animations for views with a height of 0.
-        v.getLayoutParams().height = 1;
-        v.setVisibility(View.VISIBLE);
-
-        Animation a = new Animation() {
-            @Override
-            protected void applyTransformation(float interpolatedTime, android.view.animation.Transformation t) {
-                super.applyTransformation(interpolatedTime, t);
-                v.getLayoutParams().height = interpolatedTime == 1
-                        ? ViewGroup.LayoutParams.WRAP_CONTENT
-                        : (int)(targetHeight * interpolatedTime);
-                v.requestLayout();
-            }
-
-            @Override
-            public boolean willChangeBounds() {
-                return true;
-            }
-        };
-
-        // 1dp/ms
-        a.setDuration((int)(targetHeight / v.getContext().getResources().getDisplayMetrics().density));
-        v.startAnimation(a);
-    }
-
-    public static void collapse(final View v) {
-        final int initialHeight = v.getMeasuredHeight();
-
-        Animation a = new Animation()
-        {
-            @Override
-            protected void applyTransformation(float interpolatedTime, android.view.animation.Transformation t) {
-                if(interpolatedTime == 1){
-                    v.setVisibility(View.GONE);
-                }else{
-                    v.getLayoutParams().height = initialHeight - (int)(initialHeight * interpolatedTime);
-                    v.requestLayout();
-
-                }
-            }
-
-            @Override
-            public boolean willChangeBounds() {
-                return true;
-            }
-        };
-
-        // 1dp/ms
-        a.setDuration((int)(initialHeight / v.getContext().getResources().getDisplayMetrics().density));
-        v.startAnimation(a);
     }
 }

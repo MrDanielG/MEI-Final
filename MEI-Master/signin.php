@@ -131,6 +131,7 @@
 
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script type="text/javascript" src="js/materialize.min.js"></script>
+        <script type="text/javascript" src="js/JSI.js"></script>
         <script>
         $(document).ready(function() {
           $("select").material_select();
@@ -159,15 +160,17 @@
 
                     echo '
                         <script type="text/javascript">
-                            console.log("true|");
+                            if(JSI)
+                              doFunc(JSI.isRegis());
                             Materialize.toast("Se ha registrado con éxito.", 3000, "rounded");
                             Materialize.toast("Bienvenido ;)", 3000, "rounded");
                         </script>';
                 }else {
                     echo '
                         <script type="text/javascript">
-                            console.log("false|");
-                            Materialize.toast("No se pudo registrar, por favor intentelo de nuevo.", 3000, "rounded");
+                            if(JSI)
+                              doFunc(JSI.errorRegis());
+                            Materialize.toast("No se pudo registrar, es posible que el correo ya esté siendo utilizado.", 3000, "rounded");
                             $("#input_usuario").val("'.$usuario.'");
                             $("#input_nombre").val("'.$nombre.'");
                             $("#input_last").val("'.$apellido.'");
