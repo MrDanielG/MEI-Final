@@ -308,17 +308,17 @@
           include "../resourses/scripts.html"; ?>
 
     <script type="text/javascript">
-      if(window.HTMLOUT){
+      if(JSI){
         var pregdiv = document.getElementsByClassName('pregs');
         var radioB = document.getElementsByClassName('option');
         for(var i = 0 ; i < pregdiv.length ; ++i){
-           window.HTMLOUT.pregunta(pregdiv[i].getElementsByClassName('preg')[0].innerText);
-           window.HTMLOUT.radioGCreate();
+           JSI.pregunta(pregdiv[i].getElementsByClassName('preg')[0].innerText);
+           JSI.radioGCreate();
            var radioBs = pregdiv[i].getElementsByClassName('option');
            for(var e = 0 ; e < radioBs.length ; ++e){
-               window.HTMLOUT.radioCreate(radioBs[e].innerText);
+               JSI.radioCreate(radioBs[e].innerText);
            }
-           window.HTMLOUT.separador();
+           JSI.separador();
         }
       }
     </script>

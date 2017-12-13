@@ -28,7 +28,7 @@
                             echo '
                             <div class="card white-1">
                                 <div class="card-content">
-                                    <span><h3 class="card-title carrera">'.$registro['nombre'].'</h3></span>
+                                    <span><h3 class="card-title">'.$registro['nombre'].'</h3></span>
                                     <span class="carrera">'.$registro['NombreUni'].'</span><br>
                                     <span class="carrera">'.$uni['name'].'</span><br>
                                     <span class="carrera">'.$registro['AreaNombre'].'</span>
@@ -67,12 +67,10 @@
                 cardOffset=200;
                 $("#container").offset({top: cardOffset+(-window.pageYOffset/2)});
             }
-            if(window.HTMLOUT){
+            if(JSI){
               var info = document.getElementsByClassName('carrera');
-              window.HTMLOUT.carrerafoto(document.getElementsByClassName('carrera_img')[0].src);
-              for(var i = 0 ; i < info.length ; ++i){
-                 window.HTMLOUT.carrerainfo(info[i].innerHTML,i);
-              }
+              for(var i = 0 ; i < info.length ; ++i)
+                 JSI.infoCareer(info[i].innerHTML,i);
             }
         </script>
     </body>

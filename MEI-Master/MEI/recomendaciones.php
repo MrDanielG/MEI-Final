@@ -104,7 +104,6 @@
             }
 
             function modalMap(latt,lngt){
-              console.log(lngt);
               $('.modal').modal({
                   ready: function(modal, trigger) {
                       $("#map-container").html('<div id="map" style="width:100%;min-height:54vh;"></div>');
@@ -124,5 +123,6 @@
             }
 
         </script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZfDEE62mg_IxJAJctQtb7d0nUkHH1Bvo&callback=initMap"></script>
     </body>
 </html>

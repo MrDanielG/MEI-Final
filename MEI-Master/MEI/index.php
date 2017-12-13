@@ -138,7 +138,7 @@
               var name = el.dataset.name;
               var email = el.dataset.email;
               try{JSI.pageLoaded(2);}catch(e){}
-              try{JSI.navbar(img,name,email);}catch(e){}
+              try{JSI.navBar(img,name,email);}catch(e){}
             }
         </script>
     </body>

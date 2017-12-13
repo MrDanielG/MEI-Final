@@ -56,7 +56,7 @@
                   <ul class="collection with-header">
                     <li class="collection-header"><h4>Tests</h4></li>';
                 while ($registro = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-                    echo "<li><a href='".$registro['archivo']."' class='test collection-item waves-effect waves-dark'>" .$registro['nombre']." con ".$registro['numpreguntas']." preguntas. Tipo: ".$registro['tipo']."</a></li>";
+                    echo "<li><a href='".$registro['archivo']."' class='collection-item waves-effect waves-dark'><span class='test'>" .$registro['nombre']."</span> con <span class='num'>".$registro['numpreguntas']."</span> preguntas. Tipo: ".$registro['tipo']."</a></li>";
                 }
                 echo '
                   </ul>';
@@ -66,10 +66,15 @@
         <?php include '../resourses/footer.html'; ?>
         <?php include '../resourses/scripts.html'; ?>
         <script type="text/javascript">
-          if(window.HTMLOUT){
+          if(JSI){
             var tests = document.getElementsByClassName('test');
+            var num = document.getElementsByClassName('num');
             for(var i = 0 ; i < tests.length ; ++i)
-               window.HTMLOUT.test(tests[i].innerText,tests[i].href);
+              try{JSI.testPage(tests[i].innerText, num[i].innerText);}catch(e){}
+          }
+
+          function getHref(i){
+            JSI.openTest($($('.collection-item').get(i)).attr("href"), $($('.test').get(i)).text());
           }
         </script>
     </body>
