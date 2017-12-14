@@ -42,7 +42,12 @@ class CareerActivity : AppCompatActivity() {
 
         mMEIPage.addJavascriptInterface(JSI(baseContext), mJSIName)
 
-        mMEIPage.webViewClient = WebViewClient()
+        mMEIPage.webViewClient = object : WebViewClient(){
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+                careerLoad.visibility = View.GONE
+            }
+        }
 
         title = ""
         val name = intent.getStringExtra("name")

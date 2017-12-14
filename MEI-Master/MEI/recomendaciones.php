@@ -35,7 +35,9 @@
               $('.tap-target').tapTarget('open');
               document.cookie = "discover=true";
             }
-            $.ajax({url:"ajax/ajaxReco.php",
+            $.ajax({type:"GET",
+                    data:{limit:5},
+                    url:"ajax/ajaxReco.php",
                     success: function(data){
                       $("#recoContainer").html(data);
                     }});
@@ -55,18 +57,18 @@
                   }
               }
               return "";
-          }
+            }
             $("#rangeReco").on('input', e => {
-              $.ajax({url:"ajax/ajaxReco.php?range="+e.target.valueAsNumber+"&lat="+pos.lat+"&lng="+pos.lng,
-                      success: function(data){
-                        $("#recoContainer").html(data);
-                      }});
+              ajaxReco(pos.lat,pos.lng,e.target.valueAsNumber);
             });
+
             $("#rangeRecoC").animate({height:"0px",opacity:"0"});
             $("#republicaCB").click(e=>{
               if(e.target.checked){
                 $("#rangeRecoC").animate({height:"0px",opacity:"0"});
-                $.ajax({url:"ajax/ajaxReco.php",
+                $.ajax({type:"GET",
+                        data:{limit:5},
+                        url:"ajax/ajaxReco.php",
                         success: function(data){
                           $("#recoContainer").html(data);
                         }});
@@ -77,7 +79,9 @@
 
             function ajaxReco(lats,lngs,range){
               $("#rangeRecoC").animate({height:"55px",opacity:"1"});
-              $.ajax({url:"ajax/ajaxReco.php?range="+range+"&lat="+lats+"&lng="+lngs,
+              $.ajax({type:"GET",
+                      data:{limit:5, range: range, lat:lats, lng:lngs},
+                      url:"ajax/ajaxReco.php",
                       success: function(data){
                         $("#recoContainer").html(data);
                       }});

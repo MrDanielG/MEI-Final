@@ -7,6 +7,8 @@
       $lat=$_GET["lat"];
       $lng=$_GET["lng"];
     }
+    $limite = $_GET['limit'];
+    $i = $limite;
     $fechaq = mysqli_query($con,"SELECT id FROM aplicacion_examen WHERE UsrEmail = '$user' ORDER BY id DESC LIMIT 1");
     $fecha = mysqli_fetch_array($fechaq, MYSQLI_NUM);
     $query = "SELECT * FROM exam_recomendacion WHERE UsrEmail = '$user' AND Id_Aplicacion_Examen = '{$fecha[0]}'";
@@ -18,10 +20,16 @@
       $uni = mysqli_fetch_array(mysqli_query($con,"SELECT * FROM universidades INNER JOIN institucion ON institucion.id = universidades.idInstitutucion WHERE nombre =  '".$registro['NombreUni']."'"), MYSQLI_ASSOC);
       if(isset($range)){
         if((distancia($lat,$lng,$univ[1],$univ[2])/1000) <= $range){
+          $i--;
           echoS($univ,$registro,$uni);
         }
       }else{
+        $i--;
         echoS($univ,$registro,$uni);
+      }
+      if($i == 0){
+        echo "<div class='row'><a href='#!' class='col s12 btn white red-text waves-effect more-btn' onclick='moreResult(".($limite+5).")'>Ver más</a></div>";
+        break;
       }
     }
 
@@ -31,7 +39,7 @@
           <div class="reco_foto col s12 m3" data-content="'.$univ[0].'" style="background:url('.$univ[0].') no-repeat center center;"></div>
           <div class="col s12 m9">
               <div class="card-content">
-                  <span class="card-title reco_carrera">'.$registro['Nombre_Carrera'].'</span>
+                  <span class="card-title reco_carrera" data-num="'.$registro["Id"].'" data-l="'.$univ[1].'" data-n="'.$univ[2].'">'.$registro['Nombre_Carrera'].'</span>
                   <span class="reco_universidad">'.$registro['NombreUni'].'</span><br>
                   <span class="reco_inst">'.$uni['name'].'</span>
               </div>
@@ -59,6 +67,14 @@
 ?>
 <script type="text/javascript" src="../js/JSI.js"></script>
 <script type="text/javascript">
+  function moreResult(limit){
+    $.ajax({url:"ajax/ajaxReco.php?limit="+limit+<?php if(isset($_GET["lat"])&&isset($_GET["lng"])){
+      echo "'&range=".$range=$_GET["range"]."&lat=".$lat=$_GET["lat"]."&lng=".$lng=$_GET["lng"]."'";
+    }else{echo "''";} ?>,
+            success: function(data){
+              $("#recoContainer").html(data);
+            }});
+  }
   if(JSI){
     var carrera = document.getElementsByClassName('reco_carrera');
     var uni = document.getElementsByClassName('reco_universidad');
@@ -67,8 +83,9 @@
     var maps = document.getElementsByClassName('reco_maps');
     var foto = document.getElementsByClassName('reco_foto');
     if(carrera.length){
-      for(var i = 0 ; i < carrera.length ; ++i)
-        try{JSI.recPage(carrera[i].innerText,uni[i].innerText,info[i].href, i , foto[i].dataset.content, inst[i].innerText);}catch(e){console.log(e);}
+      for(var i = <?php echo $limite-5; ?> ; i < carrera.length ; ++i)
+        try{JSI.recPage(carrera[i].innerText,uni[i].innerText,info[i].href, i , foto[i].dataset.content, inst[i].innerText, false, Number(carrera[i].dataset.num), Number(carrera[i].dataset.l),Number(carrera[i].dataset.n));}catch(e){console.log(e);}
+      <?php if($i>0) echo "try{JSI.recPage('','','', 4, 'e.jpg', '', true, 0, 0, 0);}catch(e){console.log(e);}" ?>
     }else{
       //window.HTMLOUT.empty();
     }

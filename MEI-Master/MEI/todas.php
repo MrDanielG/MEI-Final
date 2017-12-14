@@ -47,7 +47,6 @@
         <?php include '../resourses/footer.html'; ?>
         <?php include '../resourses/scripts.html'; ?>
         <script>
-
             $(document).ready(function(){
                 $('.modal').modal({
                     ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.

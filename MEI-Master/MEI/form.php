@@ -287,9 +287,9 @@
             </div>
 
             <div class="pregs">
-                <h5 class="preg">¿Que area te gusta mas?</h5><br />
+                <h5 class="preg">¿Qué areas te gusta mas?</h5><br />
                 <input type="radio" name="ingenierias[6]" value="2" id="op160">
-                <label class="option" for="op160">Ingenierias</label>
+                <label class="option" for="op160">Ingeniería</label>
                 <input type="radio" name="biologicas[6]" value="2" id="op161">
                 <label class="option" for="op161">Biologicas</label>
                 <input type="radio" name="sociales[6]" value="2" id="op162">

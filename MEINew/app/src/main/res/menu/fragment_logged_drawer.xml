@@ -29,6 +29,12 @@
             android:icon="@drawable/ic_beenhere_black_24dp"
             android:title="Recomendaciones"
             tools:ignore="HardcodedText" />
+
+        <item
+            android:id="@+id/nav_favs"
+            android:icon="@drawable/ic_favorite_action"
+            android:title="Favoritos"
+            tools:ignore="HardcodedText" />
     </group>
 
     <group

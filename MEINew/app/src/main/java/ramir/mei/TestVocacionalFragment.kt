@@ -5,7 +5,9 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.text.Html
 import android.util.TypedValue
+import android.view.LayoutInflater
 import android.view.View
 import android.view.animation.AlphaAnimation
 import android.view.animation.ScaleAnimation
@@ -14,8 +16,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.*
 import kotlinx.android.synthetic.main.activity_test_vocacional_fragment.*
-
-
+import kotlinx.android.synthetic.main.test_result_layout_sample.view.*
 
 class TestVocacionalFragment : AppCompatActivity() {
     private val mJSIName : String = GlobalVar().getJSIName()
@@ -34,6 +35,10 @@ class TestVocacionalFragment : AppCompatActivity() {
         mMEIPage.settings.domStorageEnabled = true
 
         mMEIPage.addJavascriptInterface(JSI(baseContext, mMEIPage), mJSIName)
+
+        enviarbt.setOnClickListener {
+            mMEIPage.loadUrl("javascript: $('#boton').click();")
+        }
 
         mMEIPage.loadUrl(mURL+intent.getStringExtra("url"))
     }
@@ -132,6 +137,21 @@ class TestVocacionalFragment : AppCompatActivity() {
                 view2.layoutParams.height = dp16
 
                 scaleView(view2)
+            }
+        }
+
+        @JavascriptInterface
+        fun testResult(title : String, html : String){
+            val inflater = LayoutInflater.from(baseContext)
+            val resCard : View = inflater.inflate(R.layout.test_result_layout_sample, prueba , false)
+
+            resCard.tvTitle.text = title
+            resCard.tvDescript.text = Html.fromHtml(html)
+
+            runOnUiThread {
+                this@TestVocacionalFragment.title = "Resultados"
+                prueba.removeAllViews()
+                prueba.addView(resCard)
             }
         }
     }

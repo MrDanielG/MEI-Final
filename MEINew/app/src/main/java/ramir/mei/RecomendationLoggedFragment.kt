@@ -2,13 +2,11 @@ package ramir.mei
 
 import android.app.ActivityOptions
 import android.app.Fragment
-import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.os.Handler
 import android.preference.PreferenceManager
 import android.support.design.widget.Snackbar
 import android.support.v4.app.ActivityCompat
@@ -76,7 +74,14 @@ class RecomendationLoggedFragment : Fragment() {
 
         rootView!!.recomSwipe.isRefreshing = true
 
+        val db = FavoriteDB(activity.baseContext)
+        db.createDatabase()
+
         mMEIPage!!.webViewClient = object : WebViewClient() {
+            override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                super.onPageStarted(view, url, favicon)
+                rootView!!.moreLy.visibility = View.GONE
+            }
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
                 rootView!!.recomSwipe.isRefreshing = false
@@ -116,6 +121,13 @@ class RecomendationLoggedFragment : Fragment() {
             }
         })
 
+        rootView!!.moreLoad.visibility = View.GONE
+
+        rootView!!.button2.setOnClickListener {
+            mMEIPage!!.loadUrl("javascript: $('.more-btn').click()")
+            rootView!!.moreLoad.visibility = View.VISIBLE
+        }
+
         return rootView
     }
 
@@ -130,11 +142,26 @@ class RecomendationLoggedFragment : Fragment() {
             val editor = preferences.edit()
             editor.putBoolean("RangeDiscovery", true)
             editor.apply()
-            TapTargetView.showFor(activity, TapTarget.forView(activity.recomIV , "Rango", "Puedes filtrar las carreras por la distancia entre tú y las universidades presionando el botón."))
+            TapTargetView.showFor(activity, TapTarget.forView(activity.recomIV , "Rango", "Puedes filtrar las carreras por la distancia entre tú y las universidades presionando el botón."), object : TapTargetView.Listener(){
+                override fun onTargetDismissed(view: TapTargetView?, userInitiated: Boolean) {
+                    super.onTargetDismissed(view, userInitiated)
+                    if (!preferences.getBoolean("FavDiscovery", false)) {
+                        val editor = preferences.edit()
+                        editor.putBoolean("FavDiscovery", true)
+                        editor.apply()
+                        TapTargetView.showFor(activity, TapTarget.forView(activity.recomLayout.getChildAt(0).findViewById(R.id.img_main_card1_favorite) , "Favoritos", "Puedes guardar carreras para verlas mas tarde en el apartado de tus favoritos."), object : TapTargetView.Listener(){
+                            override fun onTargetDismissed(view: TapTargetView?, userInitiated: Boolean) {
+                                super.onTargetDismissed(view, userInitiated)
+                            }
+                        })
+                    }
+                }
+            })
         }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        rootView!!.scrollReco.smoothScrollTo(0,0)
         when (item.itemId) {
             R.id.range_loc -> {
                 if (ContextCompat.checkSelfPermission(activity,
@@ -248,23 +275,20 @@ class RecomendationLoggedFragment : Fragment() {
     }
 
     inner class JSI constructor(val context : Context, private val rootView : View) {
-        private val progressDialog = ProgressDialog(activity)
-
-        init {
-            progressDialog.setTitle("Abriendo mapa")
-            progressDialog.setMessage("Espere un momento...")
-            progressDialog.isIndeterminate = true
-            progressDialog.setCancelable(true)
-        }
+        val db = FavoriteDB(activity.baseContext)
 
         @JavascriptInterface
-        fun recPage(Nombre: String, Uni: String, urlInfo: String, iMaps: Int, urlFoto: String, Inst: String) {
+        fun recPage(Nombre: String, Uni: String, urlInfo: String, iMaps: Int, urlFoto: String, Inst: String, mLast: Boolean, Id : Int, lat: Double, lng: Double) {
             activity.runOnUiThread{
+                Log.e("asd", Id.toString())
                 if(mFirst){
                     rootView.recomLayout.removeAllViews()
                     rootView.recomSwipe.isRefreshing = false
                     mFirst = false
+                    rootView.moreLy.visibility = View.VISIBLE
                 }
+
+                rootView.moreLoad.visibility = View.GONE
 
                 val inflater = LayoutInflater.from(context)
                 val recCard : View = inflater.inflate(R.layout.recom_card_sample,rootView.recomLayout , false)
@@ -300,22 +324,47 @@ class RecomendationLoggedFragment : Fragment() {
                 }
 
                 recCard.btn_card_main1_action2.setOnClickListener{
-                    progressDialog.show()
-                    mMEIPage!!.loadUrl("javascript: $(\".reco_maps\").get($iMaps).click()")
-                    Log.e("prg", progressDialog.toString())
+                    val intent = Intent(activity, MapsActivity::class.java)
+                    intent.putExtra("lat", lat)
+                    intent.putExtra("lon", lng)
+                    startActivity(intent)
                 }
 
-                recomLayout.addView(recCard)
-            }
-        }
+                var c = db.getFavoriteById(Id)
+                if (c.count > 0){
+                    Picasso.with(context).load(R.drawable.ic_favorite_action).into(recCard.img_main_card1_favorite)
+                }
 
-        @JavascriptInterface
-        fun loadMap(latMap: Double, lngMap: Double) {
-            val intent = Intent(activity, MapsActivity::class.java)
-            intent.putExtra("lat", latMap)
-            intent.putExtra("lon", lngMap)
-            startActivity(intent)
-            Handler().postDelayed({progressDialog.cancel()},1000)
+                recCard.img_main_card1_favorite.setOnClickListener {
+                    c = db.getFavoriteById(Id)
+                    if (c.count > 0){
+                        if(db.deleteFavoriteById(Id)){
+                            Toast.makeText(context, "Se ha eliminado de favoritos.", Toast.LENGTH_SHORT).show()
+                            Picasso.with(context).load(R.drawable.ic_favorite_border).into(recCard.img_main_card1_favorite)
+                        }
+                    }else{
+                        val data = FavoriteData()
+                        data.id = Id
+                        data.urlFoto = urlFoto
+                        data.inst = Inst
+                        data.nombre = Nombre
+                        data.uni = Uni
+                        data.lat = lat
+                        data.lng = lng
+                        if(db.addFavorites(data)) {
+                            Toast.makeText(context, "Se ha agregado a favoritos.", Toast.LENGTH_SHORT).show()
+                            Picasso.with(context).load(R.drawable.ic_favorite_action).into(recCard.img_main_card1_favorite)
+                        }
+                    }
+                }
+
+                if(!mLast) {
+                    recomLayout.addView(recCard)
+
+                }else{
+                    rootView.moreLy.visibility = View.GONE
+                }
+            }
         }
     }
 }

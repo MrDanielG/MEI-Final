@@ -46,9 +46,8 @@
             include '../resourses/scripts.html';
         ?>
         <script type="text/javascript">
-          if(window.HTMLOUT){
-            window.HTMLOUT.test_result(document.getElementById('resu').innerText);
-            window.HTMLOUT.test_result_detalles(document.getElementById('resu_info').innerHTML);
+          if(JSI){
+            JSI.testResult(document.getElementById('resu').innerText, document.getElementById('resu_info').innerHTML);
           }
         </script>
     </body>

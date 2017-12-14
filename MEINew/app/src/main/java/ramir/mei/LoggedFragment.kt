@@ -87,6 +87,10 @@ class LoggedFragment : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                 fragmentManager.beginTransaction().replace(R.id.loggedContent, RecomendationLoggedFragment()).commit()
                 title = "Recomendaciones"
             }
+            R.id.nav_favs -> {
+                fragmentManager.beginTransaction().replace(R.id.loggedContent, FavoritesLoggedFragment()).commit()
+                title = "Favoritos"
+            }
             R.id.nav_contacto -> {
                 val i = Intent(Intent.ACTION_SEND)
                 i.type = "message/rfc822"
@@ -101,6 +105,8 @@ class LoggedFragment : AppCompatActivity(), NavigationView.OnNavigationItemSelec
 
             }
             R.id.nav_cerrarc -> {
+                val db = FavoriteDB(baseContext)
+                db.deleteTable()
                 val editor = PreferenceManager.getDefaultSharedPreferences(this@LoggedFragment).edit()
                 editor.clear()
                 editor.apply()
