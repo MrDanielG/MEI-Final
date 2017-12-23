@@ -72,6 +72,7 @@ class TestVocacionalFragment : AppCompatActivity() {
         @JavascriptInterface
         fun pregunta(pregunta: String) {
             runOnUiThread {
+                testLoad.visibility = View.GONE
                 val param = TableRow.LayoutParams(
                         TableRow.LayoutParams.WRAP_CONTENT,
                         TableRow.LayoutParams.WRAP_CONTENT, 1f)

@@ -138,23 +138,14 @@ class RecomendationLoggedFragment : Fragment() {
 
 
         val preferences = PreferenceManager.getDefaultSharedPreferences(activity)
-        if (!preferences.getBoolean("RangeDiscovery", false)) {
+        if (!preferences.getBoolean("RecoDiscovery", false)) {
             val editor = preferences.edit()
-            editor.putBoolean("RangeDiscovery", true)
+            editor.putBoolean("RecoDiscovery", true)
             editor.apply()
             TapTargetView.showFor(activity, TapTarget.forView(activity.recomIV , "Rango", "Puedes filtrar las carreras por la distancia entre tú y las universidades presionando el botón."), object : TapTargetView.Listener(){
                 override fun onTargetDismissed(view: TapTargetView?, userInitiated: Boolean) {
                     super.onTargetDismissed(view, userInitiated)
-                    if (!preferences.getBoolean("FavDiscovery", false)) {
-                        val editor = preferences.edit()
-                        editor.putBoolean("FavDiscovery", true)
-                        editor.apply()
-                        TapTargetView.showFor(activity, TapTarget.forView(activity.recomLayout.getChildAt(0).findViewById(R.id.img_main_card1_favorite) , "Favoritos", "Puedes guardar carreras para verlas mas tarde en el apartado de tus favoritos."), object : TapTargetView.Listener(){
-                            override fun onTargetDismissed(view: TapTargetView?, userInitiated: Boolean) {
-                                super.onTargetDismissed(view, userInitiated)
-                            }
-                        })
-                    }
+                    TapTargetView.showFor(activity, TapTarget.forView(activity.recomLayout.getChildAt(0).findViewById(R.id.img_main_card1_favorite) , "Favoritos", "Puedes guardar carreras para verlas mas tarde en el apartado de tus favoritos."))
                 }
             })
         }
@@ -318,9 +309,16 @@ class RecomendationLoggedFragment : Fragment() {
                     intent.putExtra("img", urlFoto)
                     intent.putExtra("name", Nombre)
                     intent.putExtra("uni", Uni)
+                    intent.putExtra("inst", Inst)
+                    intent.putExtra("id", Id)
+                    intent.putExtra("lat", lat)
+                    intent.putExtra("lng", lng)
                     val p1 = android.util.Pair(recCard.img_main_card_1 as View , "recoImage")
                     val p2 = android.util.Pair(recCard.tv_card_main_1_title as View, "recoTitle")
-                    activity.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity, p1, p2).toBundle())
+                    //val p3 = android.util.Pair(recCard.card_main_1_1 as View, "recoCard")
+                    val p4 = android.util.Pair(recCard.tv_card_main1_subtitle2 as View, "recoUni")
+                    val p5 = android.util.Pair(recCard.tv_card_main1_subtitle as View, "recoInst")
+                    activity.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity, p1, p2, p4, p5).toBundle())
                 }
 
                 recCard.btn_card_main1_action2.setOnClickListener{

@@ -137,8 +137,15 @@
               var img = el.dataset.picture;
               var name = el.dataset.name;
               var email = el.dataset.email;
+              var sliderImages = $(".slides").find("img")
+              var sliderTit = $(".slides").find("h3")
+              var sliderDesc = $(".slides").find("h5")
               try{JSI.pageLoaded(2);}catch(e){}
               try{JSI.navBar(img,name,email);}catch(e){}
+              for (var i = 0; i < $(sliderImages).length ; i++) {
+                var txt = "\n\t"+$($(sliderTit).get(i)).text()+"\n\t"+$($(sliderDesc).get(i)).text()+"\n";
+                try{JSI.indexPage($($(sliderImages).get(i)).attr("src"), txt);}catch(e){}
+              }
             }
         </script>
     </body>

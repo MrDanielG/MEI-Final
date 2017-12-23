@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import com.daimajia.slider.library.SliderTypes.TextSliderView
+import kotlinx.android.synthetic.main.logged_index_fragment.view.*
 
 /**
  * Creado por Ramiro el 22/11/2017 a las 07:18 PM para MEINew.
@@ -25,16 +27,20 @@ class IndexLoggedFragment : Fragment() {
         mMEIPage.webViewClient = WebViewClient()
         mMEIPage.settings.javaScriptEnabled = true
         mMEIPage.settings.domStorageEnabled = true
-        mMEIPage.addJavascriptInterface(JSI(), mJSIName)
+        mMEIPage.addJavascriptInterface(JSI(rootView), mJSIName)
 
         mMEIPage.loadUrl(mURL)
         return rootView
     }
 
-    inner class JSI {
+    inner class JSI constructor (val v : View) {
         @JavascriptInterface
-        fun indexPage(){
-
+        fun indexPage(url : String, desc : String){
+            activity.runOnUiThread {
+                val sliderView = TextSliderView(activity.baseContext)
+                sliderView.description(desc).image(url)
+                v.slider.addSlider(sliderView)
+            }
         }
     }
 

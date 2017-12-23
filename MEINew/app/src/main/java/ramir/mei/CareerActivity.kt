@@ -2,6 +2,7 @@ package ramir.mei
 
 import android.animation.ArgbEvaluator
 import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
@@ -10,6 +11,7 @@ import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
 import android.text.Html
 import android.text.method.LinkMovementMethod
+import android.util.TypedValue
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
@@ -17,11 +19,11 @@ import android.view.animation.AlphaAnimation
 import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.Toast
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Transformation
 import kotlinx.android.synthetic.main.activity_career.*
 import kotlinx.android.synthetic.main.carrer_content.*
-
 
 
 class CareerActivity : AppCompatActivity() {
@@ -45,13 +47,44 @@ class CareerActivity : AppCompatActivity() {
         mMEIPage.webViewClient = object : WebViewClient(){
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
-                careerLoad.visibility = View.GONE
+                careerLoad.visibility = View.INVISIBLE
             }
         }
 
         title = ""
         val name = intent.getStringExtra("name")
         val uni = intent.getStringExtra("uni")
+        val Id = intent.getIntExtra("id", 0)
+
+        val db = FavoriteDB(baseContext)
+        if(db.getFavoriteById(Id).count > 0){
+            Picasso.with(baseContext).load(R.drawable.ic_favorite_action).into(fab_scrolling)
+        }
+
+        fab_scrolling.setOnClickListener {
+            if(db.getFavoriteById(Id).count > 0){
+                if(db.deleteFavoriteById(Id)){
+                    Toast.makeText(baseContext, "Se ha eliminado de favoritos.", Toast.LENGTH_SHORT).show()
+                    Picasso.with(baseContext).load(R.drawable.ic_favorite_border).into(fab_scrolling)
+                }
+            }else{
+                val data = FavoriteData()
+                data.id = Id
+                data.urlFoto = intent.getStringExtra("img")
+                data.inst = intent.getStringExtra("inst")
+                data.nombre = name
+                data.uni = uni
+                data.lat = intent.getDoubleExtra("lat", 0.0)
+                data.lng = intent.getDoubleExtra("lng", 0.0)
+                if(db.addFavorites(data)) {
+                    Toast.makeText(baseContext, "Se ha agregado a favoritos.", Toast.LENGTH_SHORT).show()
+                    Picasso.with(baseContext).load(R.drawable.ic_favorite_action).into(fab_scrolling)
+                }
+            }
+        }
+
+        id_univ.text = uni
+        id_inst.text = intent.getStringExtra("inst")
 
         careerTitle.text = name
         careerTitle.setTextColor(Color.BLACK)
@@ -60,6 +93,15 @@ class CareerActivity : AppCompatActivity() {
         animation.setEvaluator(ArgbEvaluator())
         animation.duration = 500
         animation.start()
+
+        val animator = ValueAnimator.ofFloat(14f, 18f)
+        animator.duration = 500
+        animator.addUpdateListener({ valueAnimator ->
+            val animatedValue = valueAnimator.animatedValue as Float
+            id_univ.setTextSize(TypedValue.COMPLEX_UNIT_SP, animatedValue)
+            id_inst.setTextSize(TypedValue.COMPLEX_UNIT_SP, animatedValue)
+        })
+        animator.start()
 
         setSupportActionBar(toolbar)
         if (supportActionBar != null) {
@@ -101,6 +143,20 @@ class CareerActivity : AppCompatActivity() {
         animationColor.setEvaluator(ArgbEvaluator())
         animationColor.duration = 500
         animationColor.start()
+
+        val animator = ValueAnimator.ofFloat(18f, 14f)
+        animator.duration = 500
+        animator.addUpdateListener({ valueAnimator ->
+            val animatedValue = valueAnimator.animatedValue as Float
+            id_univ.setTextSize(TypedValue.COMPLEX_UNIT_SP, animatedValue)
+            id_inst.setTextSize(TypedValue.COMPLEX_UNIT_SP, animatedValue)
+        })
+        animator.start()
+
+        val animationAlpha = AlphaAnimation(1f, 0f)
+        animationAlpha.duration = 200
+        id_career_content.startAnimation(animationAlpha)
+        id_career_content.visibility = View.GONE
     }
 
     inner class JSI constructor(val context : Context) {
