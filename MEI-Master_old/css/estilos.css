@@ -1,0 +1,43 @@
+*{
+	margin: 0px;
+	padding: 0px;
+	font-family: 'Raleway', sans-serif;
+	font-weight: lighter;
+	box-sizing: border-box;
+}
+
+#map {
+	height: 200px;
+	width: 100%;
+   }
+
+#img_inicio {
+	width: 60%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#div_menu {
+	width: 90%;
+}
+
+.carrera_img{
+	width: 100%;
+	height: auto;
+}
+
+.reco_foto{
+	height:12.5rem !important;
+	background-size: auto 100% !important;
+}
+
+@media screen and (min-width: 300px) {
+	.reco_foto{
+		min-height:12.5rem !important;
+		background-size: 100% auto !important;
+	}
+	#div_menu {
+		width: 100%;
+	}
+}
