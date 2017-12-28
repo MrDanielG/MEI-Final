@@ -2,7 +2,7 @@
 <link rel="stylesheet" type="text/css" href="../css/estilos.css">
 <!--Import Google Icon Font-->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 <!--Import materialize.css-->
 <link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection" />
 <meta charset="utf-8" />
@@ -16,4 +16,6 @@
     }
     $user = $_SESSION['user'];
     include '../conn.php';
+    $res = mysqli_fetch_array(mysqli_query($con, "SELECT UID FROM usuario WHERE email = '{$_SESSION["user"]}'"), MYSQLI_NUM);
+    $usr_uid = $res[0];
 ?>

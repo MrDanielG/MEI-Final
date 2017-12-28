@@ -10,12 +10,12 @@
             include '../conn.php';
             $ext = array(".jpg",".jpeg",".png",".gif");
             $fileext=NULL;
-            $query = "SELECT * FROM usuarios WHERE (email = '".$_SESSION['user']."')";
+            $query = "SELECT * FROM usuario WHERE email = '".$_SESSION['user']."'";
             $result = mysqli_query($con,$query);
             $usuario = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
             foreach($ext as &$val){
-                if(file_exists("../resourses/profile_pics/".$usuario["id"].$val)){
+                if(file_exists("../resourses/profile_pics/".$usuario["UID"].$val)){
                     $fileext = $val;
                     break;
                 }
@@ -35,7 +35,7 @@
             }
 
 
-            echo '<br><span id="profile-nombre">'.$usuario["nombre(s)"]." ".$usuario["apellido(s)"].'</span><br>';
+            echo '<br><span id="profile-nombre">'.$usuario["name"]." ".$usuario["last_name"].'</span><br>';
             echo '<span id="profile-correo">'.$usuario["email"].'</span><br>';
             echo '<span id="profile-edad">'.$usuario["edad"].' años</span><br>';
             echo '<span id="profile-ciudad">'.$usuario["ciudad"].'</span><br>
@@ -49,7 +49,7 @@
 
             echo '<span><h3>Examenes aplicados</h3></span><br>';
 
-            $query = "SELECT * FROM aplicacion_examen INNER JOIN examenes ON aplicacion_examen.IdExamen=examenes.id WHERE (UsrEmail = '".$usuario["email"]."')";
+            $query = "SELECT * FROM aplicacion_examen INNER JOIN examen ON aplicacion_examen.id_examen = examen.UID WHERE id_user = '".$usuario["UID"]."'";
             $result = mysqli_query($con,$query);
 
             echo "<table id='examen-table' class='striped'>
@@ -72,7 +72,7 @@
             }
 
             echo '</table>';
-
+            echo mysqli_error($con);
         ?>
         <form enctype="multipart/form-data" action="" method="post" style="display:none">
             <input type="file" name="img" id="input-img">

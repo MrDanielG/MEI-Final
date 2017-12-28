@@ -6,45 +6,48 @@
     <body>
         <?php include '../resourses/menu.html'; ?>
             <?php
-                $carrera = $_GET['carrera'];
+                $name = $_GET['carrera'];
                 $uni = $_GET['uni'];
-                //echo "".$carrera."<br>".$uni."";
-                $queryfoto = mysqli_query($con,"SELECT (uni_foto) FROM universidades WHERE nombre = '{$uni}'");
+                //echo "".$carrera."<br>".$carrera."";
+                $query = mysqli_query($con,"SELECT * FROM carrera_uni
+                          JOIN universidad ON universidad.UID = carrera_uni.id_universidad
+                          JOIN carrera_info ON carrera_info.UID = carrera_uni.id_carrera
+                          JOIN institucion ON institucion.UID = universidad.id_institutucion
+                          WHERE carrera_info.nombre  = '$name' AND universidad.nombre = '$uni'");
 
-                $foto = mysqli_fetch_array($queryfoto, MYSQLI_NUM);
+                $carrera = mysqli_fetch_array($query, MYSQLI_NUM);
                 echo '
-                <div class="parallax-container" style="height: 100vh">
-                    <div class=""><img class="carrera_img" src="'.$foto[0].'" height="100%"></div>
+                <div>
+                  <div class=""><span style="position: absolute; padding:5px; margin:15px; background-color:#00000050; color: white; ">Foto: '.$carrera[12].'</span><img class="carrera_img" src="'.$carrera[11].'" style="width: 100%; position: fixed; top:0px; z-index: -1;"></div>
                 </div>';
             ?>
             <div id="container" style="display:block;">
                 <div class="container">
                     <?php
-                        $query = "SELECT * FROM carreras WHERE (nombre = '$carrera' AND NombreUni = '$uni')";
-                        $result = mysqli_query($con,$query);
+                      echo '
+                      <div class="card white-1">
+                        <div class="card-content">
+                          <span class="right green-text text-darken-1"><h5>Promedio: $'.$carrera[19].' - $'.$carrera[20].'/mes</h5></span>
+                          <span><h3 class="card-title">'.$carrera[16].'</h3></span>
+                          <span class="carrera">'.$carrera[7].'</span><br>
+                          <span class="carrera">'.$carrera[23].' - Ranking México: #'.$carrera[26].' / Ranking Mundo: #'.$carrera[27].'</span><br>
+                          <h5>Descripción</h5>
+                          <span class="carrera">'.$carrera[17].'</span>
+                          <h5>'.$uni.'</h5>
+                          <span class="carrera">'.$carrera[8].'</span>
+                          <h5>Plan de estudios</h5>
+                          <span class="carrera">'.$carrera[2].'</span>
+                          <h5>Perfil de egreso</h5>
+                          <span class="carrera">'.$carrera[3].'</span>
+                          <h5>Becas</h5>
+                          <span class="carrera">'.$carrera[25].'</span>
+                          <h5>Intercambios</h5>
+                          <span class="carrera">'.$carrera[24].'</span>
+                          <h5>Referencias</h5>
+                          <span class="carrera">'.$carrera[5].'</span>
+                        </div>
+                      </div>';
 
-                        while ($registro = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-                            $uni = mysqli_fetch_array(mysqli_query($con,"SELECT * FROM universidades INNER JOIN institucion ON institucion.id = universidades.idInstitutucion WHERE nombre =  '".$registro['NombreUni']."'"), MYSQLI_ASSOC);
-                            echo '
-                            <div class="card white-1">
-                                <div class="card-content">
-                                    <span><h3 class="card-title">'.$registro['nombre'].'</h3></span>
-                                    <span class="carrera">'.$registro['NombreUni'].'</span><br>
-                                    <span class="carrera">'.$uni['name'].'</span><br>
-                                    <span class="carrera">'.$registro['AreaNombre'].'</span>
-                                    <h5>Descripción</h5>
-                                    <span class="carrera">'.$registro['descripcion'].'</span>
-                                    <h5>Plan de estudios</h5>
-                                    <span class="carrera">'.$registro['planestudios'].'</span>
-                                    <h5>Becas</h5>
-                                    <span class="carrera">'.$uni['becas'].'</span>
-                                    <h5>Perfil de egreso</h5>
-                                    <span class="carrera">'.$registro['perfilegreso'].'</span>
-                                    <h5>Intercambios</h5>
-                                    <span class="carrera">'.$registro['intercambio'].'</span>
-                                </div>
-                            </div>';
-                        }
                     ?>
                 </div>
             <?php include '../resourses/footer.html'; ?>

@@ -2,30 +2,36 @@
     include '../../conn.php';
     session_start();
     $user = $_SESSION['user'];
-    if(isset($_GET["lat"])&&isset($_GET["lng"])){
+    $res = mysqli_fetch_array(mysqli_query($con, "SELECT UID FROM usuario WHERE email = '{$_SESSION["user"]}'"), MYSQLI_NUM);
+    $usr_uid = $res[0];
+    if(isset($_GET["lat"]) && isset($_GET["lng"])){
       $range=$_GET["range"];
       $lat=$_GET["lat"];
       $lng=$_GET["lng"];
     }
     $limite = $_GET['limit'];
     $i = $limite;
-    $fechaq = mysqli_query($con,"SELECT id FROM aplicacion_examen WHERE UsrEmail = '$user' ORDER BY id DESC LIMIT 1");
-    $fecha = mysqli_fetch_array($fechaq, MYSQLI_NUM);
-    $query = "SELECT * FROM exam_recomendacion WHERE UsrEmail = '$user' AND Id_Aplicacion_Examen = '{$fecha[0]}'";
-    $result = mysqli_query($con,$query);
 
-    while($registro = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-      $univq = mysqli_query($con,"SELECT uni_foto,latitud,longitud FROM universidades WHERE nombre = '{$registro['NombreUni']}'");
-      $univ = mysqli_fetch_array($univq, MYSQLI_NUM);
-      $uni = mysqli_fetch_array(mysqli_query($con,"SELECT * FROM universidades INNER JOIN institucion ON institucion.id = universidades.idInstitutucion WHERE nombre =  '".$registro['NombreUni']."'"), MYSQLI_ASSOC);
+    $last = mysqli_fetch_array(mysqli_query($con,"SELECT UID FROM aplicacion_examen WHERE id_user = '$usr_uid' ORDER BY UID DESC LIMIT 1"), MYSQLI_NUM);
+
+    $result = mysqli_query($con,"SELECT * FROM exam_recomendacion WHERE id_user = '$usr_uid' AND id_test_aplicado = '{$last[0]}'");
+
+    while($uni_reco = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+      $q = "SELECT universidad.foto_url, carrera_info.nombre, universidad.nombre, institucion.name, universidad.lat, universidad.lng, carrera_info.salario_min, carrera_info.salario_max FROM carrera_uni
+            JOIN universidad ON universidad.UID = carrera_uni.id_universidad
+            JOIN carrera_info ON carrera_info.UID = carrera_uni.id_carrera
+            JOIN institucion ON institucion.UID = universidad.id_institutucion WHERE carrera_uni.UID = '{$uni_reco["id_carrera"]}'";
+
+      $card = mysqli_fetch_array( mysqli_query($con,$q) , MYSQLI_NUM);
+
       if(isset($range)){
-        if((distancia($lat,$lng,$univ[1],$univ[2])/1000) <= $range){
+        if((distancia($lat, $lng, $card[4], $card[5])/1000) <= $range){
           $i--;
-          echoS($univ,$registro,$uni);
+          echoS($card);
         }
       }else{
         $i--;
-        echoS($univ,$registro,$uni);
+        echoS($card);
       }
       if($i == 0){
         echo "<div class='row'><a href='#!' class='col s12 btn white red-text waves-effect more-btn' onclick='moreResult(".($limite+5).")'>Ver más</a></div>";
@@ -33,19 +39,20 @@
       }
     }
 
-    function echoS($univ,$registro,$uni){
+    function echoS($card){
       echo '
       <div class="card row hoverable">
-          <div class="reco_foto col s12 m3" data-content="'.$univ[0].'" style="background:url('.$univ[0].') no-repeat center center;"></div>
+          <div class="reco_foto col s12 m3" data-content="'.$card[0].'" style="background:url('.$card[0].') no-repeat center center;"></div>
           <div class="col s12 m9">
               <div class="card-content">
-                  <span class="card-title reco_carrera" data-num="'.$registro["Id"].'" data-l="'.$univ[1].'" data-n="'.$univ[2].'">'.$registro['Nombre_Carrera'].'</span>
-                  <span class="reco_universidad">'.$registro['NombreUni'].'</span><br>
-                  <span class="reco_inst">'.$uni['name'].'</span>
+                <span class="right green-text text-darken-1"><h6>$'.$card[6].' - $'.$card[7].'/mes</h6></span>
+                  <span class="card-title reco_carrera">'.$card[1].'</span>
+                  <span class="reco_universidad">'.$card[2].'</span><br>
+                  <span class="reco_inst">'.$card[3].'</span>
               </div>
               <div class="card-action">
-                  <a href="carrera.php?carrera='.$registro["Nombre_Carrera"].'&uni='.$registro["NombreUni"].'" class="reco_info">Información</a>
-                  <a class="modal-trigger reco_maps" onclick="if(JSI){JSI.loadMap('.$univ[1].','.$univ[2].');}else{modalMap('.$univ[1].','.$univ[2].');}" href="#map-modal">Ubicación</a>
+                  <a href="carrera.php?carrera='.$card[1].'&uni='.$card[2].'" class="reco_info">Información</a>
+                  <a class="modal-trigger reco_maps" data-lat="'.$card[4].'" data-lng="'.$card[5].'" onclick="lati = '.$card[4].', long= '.$card[5].';" href="#map-modal">Ubicación</a>
               </div>
           </div>
       </div>';

@@ -73,7 +73,7 @@
     <div class="container">
       <div class="card">
         <div class="card-content">
-          <a class="btn" href="todas.php">Todas las carreras agregadas (Con vista previa del resultado final)</a><br>
+          <a class="btn" href="../MEI/todas.php">Todas las carreras agregadas (Con vista previa del resultado final)</a><br>
           <span class="text-color-gray">Algunos son compatibles con etiquetas HTML</span>
           <blockquote style="border-left-color: #42a5f5">
             Relacionado a la carrera

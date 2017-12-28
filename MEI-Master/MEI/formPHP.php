@@ -19,8 +19,7 @@
 
                             include 'class/form.class.php';
                             $form = new Formulario($resultados); //Clase evaluadora de formularios
-                            $idExamen = 1;
-                            $UsrEmail = $_SESSION['user'];
+                            $id_examen = 1;
                             $fecha = date("Y-m-d");
                             $resultado = $form->resultado_id;
                             $form->imprimir_resultados();
@@ -29,10 +28,10 @@
                             include '../conn.php';
                             mysqli_query($con,"SET NAMES 'utf8'");
 
-                            $consulta = " INSERT INTO aplicacion_examen (IdExamen, UsrEmail, fecha, resultado) VALUES ('$idExamen','$UsrEmail','$fecha','$resultado') ";
+                            $consulta = "INSERT INTO `aplicacion_examen`(`id_examen`, `id_user`, `fecha`, `resultado`) VALUES ($id_examen ,'$usr_uid','$fecha','$resultado');";
                             mysqli_query($con,$consulta);
                             $id = mysqli_insert_id($con);
-                            $form->gen_reco($idExamen,$id,$resultado,$con);
+                            $form->gen_reco($id_examen,$id,$resultado,$con,$usr_uid);
                         }
                     ?>
                     <div class="card-actions">

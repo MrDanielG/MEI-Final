@@ -8,7 +8,7 @@
         <div class="container">
             <div class="card row">
               <div class="card-content col s12">
-                <input type="checkbox" name="republica" checked id="republicaCB"><label for="republicaCB" style="z-index:10000">Toda la república mexicana</label>
+                <input type="checkbox" name="republica" checked id="republicaCB"><label for="republicaCB">Toda la república mexicana</label>
                 <div id="rangeRecoC" class="range-field">Rango (km.) <input type="range" id="rangeReco" value="10" min="10" max="400"></div>
                 *Se necesita tener acceso a la ubicación para usar esta herramienta.
               </div>
@@ -107,24 +107,31 @@
               }
             }
 
-            function modalMap(latt,lngt){
-              $('.modal').modal({
-                  ready: function(modal, trigger) {
-                      $("#map-container").html('<div id="map" style="width:100%;min-height:54vh;"></div>');
-                      var uluru = { lat: latt, lng: lngt };
-                      map = new google.maps.Map(document.getElementById('map'), {
-                          zoom: 17,
-                          center: uluru
-                      });
-                      marker = new google.maps.Marker({
-                          position: uluru,
-                          map: map
-                      });
-                      map.setCenter(new google.maps.LatLng(latt, lngt));
-                      marker.setPosition(new google.maps.LatLng(latt, lngt));
-                  }
-              });
-            }
+            $(document).ready(function(){
+              $("#map-container").animate({height: "0px"});
+                $('.modal').modal({
+                    ready: function(modal, trigger) {
+                      $("#map-container").css("height", "0px");
+                        $("#map-container").html('<div id="map" style="width:100%;min-height:54vh;display:none;"></div>');
+                        $("#map-container").animate({height: "60vh"});
+                        $("#map").fadeIn("slow");
+                        var uluru = { lat: lati, lng: long };
+                        map = new google.maps.Map(document.getElementById('map'), {
+                            zoom: 17,
+                            center: uluru
+                        });
+                        marker = new google.maps.Marker({
+                            position: uluru,
+                            map: map
+                        });
+                        map.setCenter(new google.maps.LatLng(lati, long));
+                        marker.setPosition(new google.maps.LatLng(lati, long));
+                    },
+                    complete: function(){
+                      $("#map-container").animate({height: "0px"});
+                    }
+                });
+            });
 
         </script>
         <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZfDEE62mg_IxJAJctQtb7d0nUkHH1Bvo&callback=initMap"></script>
