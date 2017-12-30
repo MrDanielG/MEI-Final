@@ -128,6 +128,7 @@
                         marker.setPosition(new google.maps.LatLng(lati, long));
                     },
                     complete: function(){
+                      $("#map").css("display", "none");
                       $("#map-container").animate({height: "0px"});
                     }
                 });

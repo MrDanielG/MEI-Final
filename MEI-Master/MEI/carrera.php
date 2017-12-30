@@ -27,7 +27,7 @@
                       echo '
                       <div class="card white-1">
                         <div class="card-content">
-                          <span class="right green-text text-darken-1"><h5>Promedio: $'.$carrera[19].' - $'.$carrera[20].'/mes</h5></span>
+                          <span class="right green-text text-darken-1"><h5>Promedio: $'.$carrera[19].' - $'.$carrera[20].'/mes <i class="material-icons tooltipped" data-position="bottom" data-delay="0" data-tooltip="El promedio depende de la experiencia, el puesto, la preparación profesional y del trabajo realizado en el mes.">info_outline</i></h5></span>
                           <span><h3 class="card-title">'.$carrera[16].'</h3></span>
                           <span class="carrera">'.$carrera[7].'</span><br>
                           <span class="carrera">'.$carrera[23].' - Ranking México: #'.$carrera[26].' / Ranking Mundo: #'.$carrera[27].'</span><br>
