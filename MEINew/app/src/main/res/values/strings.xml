@@ -56,4 +56,6 @@
     <string name="intercambios">Intercambios</string>
     <string name="perfil_de_egreso">Perfil de egreso</string>
     <string name="title_activity_maps">Ubicación de la universidad</string>
+    <string name="com.twitter.sdk.android.CONSUMER_KEY">Zf9fexNkYxwdNavztzahalpH4</string>
+    <string name="com.twitter.sdk.android.CONSUMER_SECRET">dIac2VlNdngrDeqbmWKSUFidgRvAA8z8QITazEV0kQz135c1aS</string>
 </resources>

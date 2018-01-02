@@ -135,20 +135,6 @@ class RecomendationLoggedFragment : Fragment() {
         super.onCreateOptionsMenu(menu, menuInflater)
         menuInflater!!.inflate(R.menu.logged, menu)
         menu!!.getItem(0).isVisible = true
-
-
-        val preferences = PreferenceManager.getDefaultSharedPreferences(activity)
-        if (!preferences.getBoolean("RecoDiscovery", false)) {
-            val editor = preferences.edit()
-            editor.putBoolean("RecoDiscovery", true)
-            editor.apply()
-            TapTargetView.showFor(activity, TapTarget.forView(activity.recomIV , "Rango", "Puedes filtrar las carreras por la distancia entre tú y las universidades presionando el botón."), object : TapTargetView.Listener(){
-                override fun onTargetDismissed(view: TapTargetView?, userInitiated: Boolean) {
-                    super.onTargetDismissed(view, userInitiated)
-                    TapTargetView.showFor(activity, TapTarget.forView(activity.recomLayout.getChildAt(0).findViewById(R.id.img_main_card1_favorite) , "Favoritos", "Puedes guardar carreras para verlas mas tarde en el apartado de tus favoritos."))
-                }
-            })
-        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -269,10 +255,22 @@ class RecomendationLoggedFragment : Fragment() {
         val db = FavoriteDB(activity.baseContext)
 
         @JavascriptInterface
-        fun recPage(Nombre: String, Uni: String, urlInfo: String, iMaps: Int, urlFoto: String, Inst: String, mLast: Boolean, Id : Int, lat: Double, lng: Double) {
+        fun recPage(Nombre: String, Uni: String, urlInfo: String, iMaps: Int, urlFoto: String, Inst: String, mLast: Boolean, Id : Int, lat: Double, lng: Double, sueldo : String) {
             activity.runOnUiThread{
                 Log.e("asd", Id.toString())
                 if(mFirst){
+                    val preferences = PreferenceManager.getDefaultSharedPreferences(activity)
+                    if (!preferences.getBoolean("RecoDiscovery", false)) {
+                        val editor = preferences.edit()
+                        editor.putBoolean("RecoDiscovery", true)
+                        editor.apply()
+                        TapTargetView.showFor(activity, TapTarget.forView(activity.recomIV , "Rango", "Puedes filtrar las carreras por la distancia entre tú y las universidades presionando el botón."), object : TapTargetView.Listener(){
+                            override fun onTargetDismissed(view: TapTargetView?, userInitiated: Boolean) {
+                                super.onTargetDismissed(view, userInitiated)
+                                TapTargetView.showFor(activity, TapTarget.forView(activity.recomLayout.getChildAt(0).findViewById(R.id.img_main_card1_favorite) , "Favoritos", "Puedes guardar carreras para verlas mas tarde en el apartado de tus favoritos."))
+                            }
+                        })
+                    }
                     rootView.recomLayout.removeAllViews()
                     rootView.recomSwipe.isRefreshing = false
                     mFirst = false
@@ -301,6 +299,7 @@ class RecomendationLoggedFragment : Fragment() {
                 }).into(recCard.img_main_card_1)
 
                 recCard.tv_card_main_1_title.text = Nombre
+                recCard.tv_card_main1_sueldo.text = sueldo
                 recCard.tv_card_main1_subtitle2.text = Uni
                 recCard.tv_card_main1_subtitle.text = Inst
 
@@ -310,15 +309,13 @@ class RecomendationLoggedFragment : Fragment() {
                     intent.putExtra("name", Nombre)
                     intent.putExtra("uni", Uni)
                     intent.putExtra("inst", Inst)
+                    intent.putExtra("sueldo", sueldo)
                     intent.putExtra("id", Id)
                     intent.putExtra("lat", lat)
                     intent.putExtra("lng", lng)
                     val p1 = android.util.Pair(recCard.img_main_card_1 as View , "recoImage")
                     val p2 = android.util.Pair(recCard.tv_card_main_1_title as View, "recoTitle")
-                    //val p3 = android.util.Pair(recCard.card_main_1_1 as View, "recoCard")
-                    val p4 = android.util.Pair(recCard.tv_card_main1_subtitle2 as View, "recoUni")
-                    val p5 = android.util.Pair(recCard.tv_card_main1_subtitle as View, "recoInst")
-                    activity.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity, p1, p2, p4, p5).toBundle())
+                    activity.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity, p1, p2).toBundle())
                 }
 
                 recCard.btn_card_main1_action2.setOnClickListener{
@@ -346,6 +343,7 @@ class RecomendationLoggedFragment : Fragment() {
                         data.urlFoto = urlFoto
                         data.inst = Inst
                         data.nombre = Nombre
+                        data.sueldo = sueldo
                         data.uni = Uni
                         data.lat = lat
                         data.lng = lng
@@ -358,7 +356,6 @@ class RecomendationLoggedFragment : Fragment() {
 
                 if(!mLast) {
                     recomLayout.addView(recCard)
-
                 }else{
                     rootView.moreLy.visibility = View.GONE
                 }

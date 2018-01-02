@@ -6,7 +6,7 @@ package ramir.mei
 
 class GlobalVar{
     fun getMeiURL(): String{
-       return "http://192.168.1.68/MEI-Final/MEI-Master/"
+       return "http://192.168.1.76/MEI-Final/MEI-Master/"
     }
 
     fun getJSIName():String{

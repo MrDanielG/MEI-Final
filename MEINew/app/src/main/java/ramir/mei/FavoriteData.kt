@@ -14,6 +14,7 @@ class FavoriteData {
     var inst : String = "inst"
     var lat : Double = 0.0
     var lng : Double = 0.0
+    var sueldo : String = "Sueldo"
 
     fun toContentValues(): ContentValues {
         val col = FavoriteDB.DBCols()
@@ -22,6 +23,7 @@ class FavoriteData {
         values.put(col.id, id)
         values.put(col.urlFoto, urlFoto)
         values.put(col.nombre, nombre)
+        values.put(col.sueldo, sueldo)
         values.put(col.uni, uni)
         values.put(col.inst, inst)
         values.put(col.lat, lat)

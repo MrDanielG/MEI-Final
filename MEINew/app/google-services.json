@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "735472365857",
+    "firebase_url": "https://meiv3-6b45a.firebaseio.com",
+    "project_id": "meiv3-6b45a",
+    "storage_bucket": "meiv3-6b45a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:735472365857:android:2caf891da4c92537",
+        "android_client_info": {
+          "package_name": "ramir.mei"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "735472365857-opc15mm8beq9r6voab0i9rhv2729fna2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ramir.mei",
+            "certificate_hash": "ef9944cf5f585bb7aae31a03c033c19ebfddbc42"
+          }
+        },
+        {
+          "client_id": "735472365857-qgevham70douoqda9el8amt4gvjl7ugi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPI3pLUMX4bzxYH6oWfNg7AQySGILcrz8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "735472365857-qgevham70douoqda9el8amt4gvjl7ugi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -40,6 +40,16 @@
             android:transitionName="recoTitle" />
 
         <TextView
+            android:id="@+id/tv_card_main1_sueldo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/tv_card_main_1_title"
+            android:layout_below="@+id/tv_card_main_1_title"
+            android:text="Salario"
+            android:textColor="@android:color/holo_green_dark"
+            android:textSize="15sp" />
+
+        <TextView
             android:id="@+id/tv_card_main1_subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -53,7 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignStart="@+id/tv_card_main_1_title"
-            android:layout_below="@+id/tv_card_main_1_title"
+            android:layout_below="@+id/tv_card_main1_sueldo"
             android:text="Universidad"
             android:transitionName="recoUni" />
 

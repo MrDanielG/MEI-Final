@@ -17,7 +17,7 @@
     $result = mysqli_query($con,"SELECT * FROM exam_recomendacion WHERE id_user = '$usr_uid' AND id_test_aplicado = '{$last[0]}'");
 
     while($uni_reco = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-      $q = "SELECT universidad.foto_url, carrera_info.nombre, universidad.nombre, institucion.name, universidad.lat, universidad.lng, carrera_info.salario_min, carrera_info.salario_max FROM carrera_uni
+      $q = "SELECT universidad.foto_url, carrera_info.nombre, universidad.nombre, institucion.name, universidad.lat, universidad.lng, carrera_info.salario_min, carrera_info.salario_max, carrera_uni.UID FROM carrera_uni
             JOIN universidad ON universidad.UID = carrera_uni.id_universidad
             JOIN carrera_info ON carrera_info.UID = carrera_uni.id_carrera
             JOIN institucion ON institucion.UID = universidad.id_institutucion WHERE carrera_uni.UID = '{$uni_reco["id_carrera"]}'";
@@ -46,7 +46,7 @@
           <div class="col s12 m9">
               <div class="card-content">
                 <span class="right green-text text-darken-1"><h6>$'.$card[6].' - $'.$card[7].'/mes</h6></span>
-                  <span class="card-title reco_carrera">'.$card[1].'</span>
+                  <span class="card-title reco_carrera" data-num="'.$card[8].'">'.$card[1].'</span>
                   <span class="reco_universidad">'.$card[2].'</span><br>
                   <span class="reco_inst">'.$card[3].'</span>
               </div>
@@ -91,10 +91,10 @@
     var foto = document.getElementsByClassName('reco_foto');
     if(carrera.length){
       for(var i = <?php echo $limite-5; ?> ; i < carrera.length ; ++i)
-        try{JSI.recPage(carrera[i].innerText,uni[i].innerText,info[i].href, i , foto[i].dataset.content, inst[i].innerText, false, Number(carrera[i].dataset.num), Number(carrera[i].dataset.l),Number(carrera[i].dataset.n));}catch(e){console.log(e);}
-      <?php if($i>0) echo "try{JSI.recPage('','','', 4, 'e.jpg', '', true, 0, 0, 0);}catch(e){console.log(e);}" ?>
+        try{JSI.recPage(carrera[i].innerText, uni[i].innerText,info[i].href, i , foto[i].dataset.content, inst[i].innerText, false, Number(carrera[i].dataset.num), Number(maps[i].dataset.lat),Number(maps[i].dataset.lng), document.getElementsByClassName("right green-text text-darken-1")[i].innerText);}catch(e){console.log(e);}
+      <?php if($i > 0) echo "try{JSI.recPage('','','', 4, 'e.jpg', '', true, 0, 0, 0, '');}catch(e){console.log(e);}"; ?>
     }else{
-      //window.HTMLOUT.empty();
+      try{JSI.recPage('','','', 4, 'e.jpg', '', true, 0, 0, 0, '');}catch(e){console.log(e);}
     }
   }
 </script>

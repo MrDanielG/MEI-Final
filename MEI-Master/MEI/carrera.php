@@ -29,22 +29,24 @@
                         <div class="card-content">
                           <span class="right green-text text-darken-1"><h5>Promedio: $'.$carrera[19].' - $'.$carrera[20].'/mes <i class="material-icons tooltipped" data-position="bottom" data-delay="0" data-tooltip="El promedio depende de la experiencia, el puesto, la preparación profesional y del trabajo realizado en el mes.">info_outline</i></h5></span>
                           <span><h3 class="card-title">'.$carrera[16].'</h3></span>
-                          <span class="carrera">'.$carrera[7].'</span><br>
-                          <span class="carrera">'.$carrera[23].' - Ranking México: #'.$carrera[26].' / Ranking Mundo: #'.$carrera[27].'</span><br>
-                          <h5>Descripción</h5>
-                          <span class="carrera">'.$carrera[17].'</span>
-                          <h5>'.$uni.'</h5>
-                          <span class="carrera">'.$carrera[8].'</span>
-                          <h5>Plan de estudios</h5>
-                          <span class="carrera">'.$carrera[2].'</span>
-                          <h5>Perfil de egreso</h5>
-                          <span class="carrera">'.$carrera[3].'</span>
-                          <h5>Becas</h5>
-                          <span class="carrera">'.$carrera[25].'</span>
-                          <h5>Intercambios</h5>
-                          <span class="carrera">'.$carrera[24].'</span>
-                          <h5>Referencias</h5>
-                          <span class="carrera">'.$carrera[5].'</span>
+                          <div class="carrera">
+                            <span>'.$carrera[7].'</span><br>
+                            <span>'.$carrera[23].' - Ranking México: #'.$carrera[26].' / Ranking Mundo: #'.$carrera[27].'</span><br>
+                            <h5>Descripción</h5>
+                            <span>'.$carrera[17].'</span>
+                            <h5>'.$uni.'</h5>
+                            <span>'.$carrera[8].'</span>
+                            <h5>Plan de estudios</h5>
+                            <span>'.$carrera[2].'</span>
+                            <h5>Perfil de egreso</h5>
+                            <span>'.$carrera[3].'</span>
+                            <h5>Becas</h5>
+                            <span>'.$carrera[25].'</span>
+                            <h5>Intercambios</h5>
+                            <span>'.$carrera[24].'</span>
+                            <h5>Referencias</h5>
+                            <span>'.$carrera[5].'</span>
+                          </div>
                         </div>
                       </div>';
 
@@ -72,8 +74,7 @@
             }
             if(JSI){
               var info = document.getElementsByClassName('carrera');
-              for(var i = 0 ; i < info.length ; ++i)
-                 JSI.infoCareer(info[i].innerHTML,i);
+              try { JSI.infoCareer(info[0].innerHTML);} catch (e) {}
             }
         </script>
     </body>

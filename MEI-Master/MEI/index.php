@@ -146,6 +146,21 @@
                 var txt = "\n\t"+$($(sliderTit).get(i)).text()+"\n\t"+$($(sliderDesc).get(i)).text()+"\n";
                 try{JSI.indexPage($($(sliderImages).get(i)).attr("src"), txt);}catch(e){}
               }
+
+              <?php
+                include '../conn.php';
+                $r = mysqli_query($con, "SELECT name, rank_nac FROM institucion ORDER BY rank_nac ASC");
+
+                for ($i=0; $i < 10 && $q = mysqli_fetch_array($r, MYSQLI_NUM) ; $i++) {
+                  echo 'try {JSI.bestInst('.($q[1]==""?2:$q[1]).', "'.$q[0].'");} catch (e) {}';
+                }
+
+                $r = mysqli_query($con, "SELECT ciudad FROM usuario");
+
+                while($q = mysqli_fetch_array($r, MYSQLI_NUM)){
+                  echo 'try {JSI.mapStats("'.$q[0].'");} catch (e) {}';
+                }
+              ?>
             }
         </script>
     </body>

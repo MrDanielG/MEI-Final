@@ -2,7 +2,6 @@ package ramir.mei
 
 import android.animation.ArgbEvaluator
 import android.animation.ObjectAnimator
-import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
@@ -11,7 +10,6 @@ import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
 import android.text.Html
 import android.text.method.LinkMovementMethod
-import android.util.TypedValue
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
@@ -72,6 +70,7 @@ class CareerActivity : AppCompatActivity() {
                 data.id = Id
                 data.urlFoto = intent.getStringExtra("img")
                 data.inst = intent.getStringExtra("inst")
+                data.sueldo = intent.getStringExtra("sueldo")
                 data.nombre = name
                 data.uni = uni
                 data.lat = intent.getDoubleExtra("lat", 0.0)
@@ -83,9 +82,6 @@ class CareerActivity : AppCompatActivity() {
             }
         }
 
-        id_univ.text = uni
-        id_inst.text = intent.getStringExtra("inst")
-
         careerTitle.text = name
         careerTitle.setTextColor(Color.BLACK)
 
@@ -93,15 +89,6 @@ class CareerActivity : AppCompatActivity() {
         animation.setEvaluator(ArgbEvaluator())
         animation.duration = 500
         animation.start()
-
-        val animator = ValueAnimator.ofFloat(14f, 18f)
-        animator.duration = 500
-        animator.addUpdateListener({ valueAnimator ->
-            val animatedValue = valueAnimator.animatedValue as Float
-            id_univ.setTextSize(TypedValue.COMPLEX_UNIT_SP, animatedValue)
-            id_inst.setTextSize(TypedValue.COMPLEX_UNIT_SP, animatedValue)
-        })
-        animator.start()
 
         setSupportActionBar(toolbar)
         if (supportActionBar != null) {
@@ -144,15 +131,6 @@ class CareerActivity : AppCompatActivity() {
         animationColor.duration = 500
         animationColor.start()
 
-        val animator = ValueAnimator.ofFloat(18f, 14f)
-        animator.duration = 500
-        animator.addUpdateListener({ valueAnimator ->
-            val animatedValue = valueAnimator.animatedValue as Float
-            id_univ.setTextSize(TypedValue.COMPLEX_UNIT_SP, animatedValue)
-            id_inst.setTextSize(TypedValue.COMPLEX_UNIT_SP, animatedValue)
-        })
-        animator.start()
-
         val animationAlpha = AlphaAnimation(1f, 0f)
         animationAlpha.duration = 200
         id_career_content.startAnimation(animationAlpha)
@@ -162,30 +140,15 @@ class CareerActivity : AppCompatActivity() {
     inner class JSI constructor(val context : Context) {
         @Suppress("DEPRECATION")
         @JavascriptInterface
-        fun infoCareer(info: String, i: Int) {
+        fun infoCareer(info: String) {
             runOnUiThread {
-                when (i) {
-                    0 -> id_univ.text = Html.fromHtml(info)
-                    1 -> id_inst.text = Html.fromHtml(info)
-                    2 -> id_area.text = Html.fromHtml(info)
-                    3 -> id_descrip.text = Html.fromHtml(info)
-                    4 ->{
-                        id_plan.text = Html.fromHtml(info)
-                        id_plan.movementMethod = LinkMovementMethod.getInstance()}
-                    5 ->{
-                        id_becas.text = Html.fromHtml(info)
-                        id_becas.movementMethod = LinkMovementMethod.getInstance()}
-                    6 ->{
-                        id_perfil_egreso.text = Html.fromHtml(info)
-                        id_perfil_egreso.movementMethod = LinkMovementMethod.getInstance()}
-                    7 ->{
-                        id_intercambios.text = Html.fromHtml(info)
-                        id_intercambios.movementMethod = LinkMovementMethod.getInstance()
-                        id_career_content.visibility = View.VISIBLE
-                        val fadein = AlphaAnimation(0.0f, 1.0f)
-                        fadein.duration = 500
-                        id_career_content.startAnimation(fadein)}
-                }
+                tv_carrera.text = Html.fromHtml(info)
+                tv_carrera.movementMethod = LinkMovementMethod.getInstance()
+
+                id_career_content.visibility = View.VISIBLE
+                val fadein = AlphaAnimation(0.0f, 1.0f)
+                fadein.duration = 500
+                id_career_content.startAnimation(fadein)
             }
         }
     }

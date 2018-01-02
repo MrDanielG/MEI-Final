@@ -19,6 +19,7 @@ class FavoriteDB constructor(c: Context) : SQLiteOpenHelper(c, "favorite.db", nu
                       val id : String = "id",
                       val urlFoto : String = "urlFoto",
                       val nombre : String = "nombre",
+                      val sueldo : String = "sueldo",
                       val uni : String = "uni",
                       val inst : String = "inst",
                       val lat : String = "lat",
@@ -37,6 +38,7 @@ class FavoriteDB constructor(c: Context) : SQLiteOpenHelper(c, "favorite.db", nu
                     + col.id + " INTEGER NOT NULL,"
                     + col.urlFoto + " TEXT NOT NULL,"
                     + col.nombre + " TEXT NOT NULL,"
+                    + col.sueldo + " TEXT NOT NULL,"
                     + col.uni + " TEXT NOT NULL,"
                     + col.inst + " TEXT NOT NULL,"
                     + col.lat + " DOUBLE NOT NULL,"

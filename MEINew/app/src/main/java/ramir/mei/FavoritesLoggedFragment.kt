@@ -32,6 +32,7 @@ class FavoritesLoggedFragment : Fragment() {
             val Nombre = c.getString(c.getColumnIndex(col.nombre))
             val Uni = c.getString(c.getColumnIndex(col.uni))
             val Inst = c.getString(c.getColumnIndex(col.inst))
+            val Sueldo = c.getString(c.getColumnIndex(col.sueldo))
             val lat = c.getDouble(c.getColumnIndex(col.lat))
             val lng = c.getDouble(c.getColumnIndex(col.lng))
             val Id = c.getInt(c.getColumnIndex(col.id))
@@ -57,6 +58,7 @@ class FavoritesLoggedFragment : Fragment() {
                 }).into(recCard.img_main_card_1)
 
                 recCard.tv_card_main_1_title.text = Nombre
+                recCard.tv_card_main1_sueldo.text = Sueldo
                 recCard.tv_card_main1_subtitle2.text = Uni
                 recCard.tv_card_main1_subtitle.text = Inst
 
@@ -66,6 +68,7 @@ class FavoritesLoggedFragment : Fragment() {
                     intent.putExtra("name", Nombre)
                     intent.putExtra("uni", Uni)
                     intent.putExtra("inst", Inst)
+                    intent.putExtra("sueldo", Sueldo)
                     intent.putExtra("id", Id)
                     intent.putExtra("lat", lat)
                     intent.putExtra("lng", lng)
