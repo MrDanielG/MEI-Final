@@ -155,11 +155,11 @@
                   echo 'try {JSI.bestInst('.($q[1]==""?2:$q[1]).', "'.$q[0].'");} catch (e) {}';
                 }
 
+                /*
                 $r = mysqli_query($con, "SELECT ciudad FROM usuario");
-
                 while($q = mysqli_fetch_array($r, MYSQLI_NUM)){
                   echo 'try {JSI.mapStats("'.$q[0].'");} catch (e) {}';
-                }
+                }*/
               ?>
             }
         </script>

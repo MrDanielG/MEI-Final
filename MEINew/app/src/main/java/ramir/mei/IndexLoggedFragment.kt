@@ -106,7 +106,7 @@ class IndexLoggedFragment : Fragment(), OnMapReadyCallback {
     }
 
     inner class JSI constructor (val v : View) {
-        val list = ArrayList<LatLng>()
+        //val list = ArrayList<LatLng>()
 
         @JavascriptInterface
         fun indexPage(url : String, desc : String){

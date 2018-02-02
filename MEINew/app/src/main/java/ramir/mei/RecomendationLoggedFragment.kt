@@ -259,22 +259,29 @@ class RecomendationLoggedFragment : Fragment() {
             activity.runOnUiThread{
                 Log.e("asd", Id.toString())
                 if(mFirst){
-                    val preferences = PreferenceManager.getDefaultSharedPreferences(activity)
-                    if (!preferences.getBoolean("RecoDiscovery", false)) {
-                        val editor = preferences.edit()
-                        editor.putBoolean("RecoDiscovery", true)
-                        editor.apply()
-                        TapTargetView.showFor(activity, TapTarget.forView(activity.recomIV , "Rango", "Puedes filtrar las carreras por la distancia entre tú y las universidades presionando el botón."), object : TapTargetView.Listener(){
-                            override fun onTargetDismissed(view: TapTargetView?, userInitiated: Boolean) {
-                                super.onTargetDismissed(view, userInitiated)
-                                TapTargetView.showFor(activity, TapTarget.forView(activity.recomLayout.getChildAt(0).findViewById(R.id.img_main_card1_favorite) , "Favoritos", "Puedes guardar carreras para verlas mas tarde en el apartado de tus favoritos."))
-                            }
-                        })
-                    }
                     rootView.recomLayout.removeAllViews()
                     rootView.recomSwipe.isRefreshing = false
                     mFirst = false
                     rootView.moreLy.visibility = View.VISIBLE
+
+                    if(mLast){
+                        val inflater = LayoutInflater.from(context)
+                        inflater.inflate(R.layout.empty_sample,rootView.recomLayout , true)
+                    }else{
+                        val preferences = PreferenceManager.getDefaultSharedPreferences(activity)
+                        if (!preferences.getBoolean("RecoDiscovery", false)) {
+                            val editor = preferences.edit()
+                            editor.putBoolean("RecoDiscovery", true)
+                            editor.apply()
+                            TapTargetView.showFor(activity, TapTarget.forView(activity.recomIV , "Rango", "Puedes filtrar las carreras por la distancia entre tú y las universidades presionando el botón."), object : TapTargetView.Listener(){
+                                override fun onTargetDismissed(view: TapTargetView?, userInitiated: Boolean) {
+                                    super.onTargetDismissed(view, userInitiated)
+                                    TapTargetView.showFor(activity, TapTarget.forView(activity.recomLayout.getChildAt(0).findViewById(R.id.img_main_card1_favorite) , "Favoritos", "Puedes guardar carreras para verlas mas tarde en el apartado de tus favoritos."))
+                                }
+                            })
+                        }
+                    }
+
                 }
 
                 rootView.moreLoad.visibility = View.GONE
@@ -326,6 +333,7 @@ class RecomendationLoggedFragment : Fragment() {
                 }
 
                 var c = db.getFavoriteById(Id)
+
                 if (c.count > 0){
                     Picasso.with(context).load(R.drawable.ic_favorite_action).into(recCard.img_main_card1_favorite)
                 }
