@@ -12,17 +12,16 @@
     $limite = $_GET['limit'];
     $i = $limite;
 
-    $last = mysqli_fetch_array(mysqli_query($con,"SELECT UID FROM aplicacion_examen WHERE id_user = '$usr_uid' ORDER BY UID DESC LIMIT 1"), MYSQLI_NUM);
+    $result = mysqli_fetch_array(mysqli_query($con,"SELECT id_resultado FROM aplicacion_examen WHERE id_user = '$usr_uid' ORDER BY UID DESC LIMIT 1"), MYSQLI_NUM);
 
-    $result = mysqli_query($con,"SELECT * FROM exam_recomendacion WHERE id_user = '$usr_uid' AND id_test_aplicado = '{$last[0]}'");
+    $q = "SELECT universidad.foto_url, carrera_info.nombre, universidad.nombre, institucion.name, universidad.lat, universidad.lng, carrera_info.salario_min, carrera_info.salario_max, carrera_uni.UID FROM carrera_uni
+          JOIN universidad ON universidad.UID = carrera_uni.id_universidad
+          JOIN carrera_info ON carrera_info.UID = carrera_uni.id_carrera
+          JOIN institucion ON institucion.UID = universidad.id_institutucion WHERE carrera_info.id_area = {$result[0]} ORDER BY carrera_info.nombre";
 
-    while($uni_reco = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-      $q = "SELECT universidad.foto_url, carrera_info.nombre, universidad.nombre, institucion.name, universidad.lat, universidad.lng, carrera_info.salario_min, carrera_info.salario_max, carrera_uni.UID FROM carrera_uni
-            JOIN universidad ON universidad.UID = carrera_uni.id_universidad
-            JOIN carrera_info ON carrera_info.UID = carrera_uni.id_carrera
-            JOIN institucion ON institucion.UID = universidad.id_institutucion WHERE carrera_uni.UID = '{$uni_reco["id_carrera"]}'";
+    $r_2 = mysqli_query($con,$q);
 
-      $card = mysqli_fetch_array( mysqli_query($con,$q) , MYSQLI_NUM);
+    while($card = mysqli_fetch_array( $r_2 , MYSQLI_NUM)){
 
       if(isset($range)){
         if((distancia($lat, $lng, $card[4], $card[5])/1000) <= $range){

@@ -56,10 +56,10 @@
                   <ul class="collection with-header">
                     <li class="collection-header"><h4>Tests</h4></li>';
                 while ($registro = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-                    echo "<li><a href='".$registro['archivo']."' class='collection-item waves-effect waves-dark'><span class='test'>" .$registro['nombre']."</span> con <span class='num'>".$registro['num_preguntas']."</span> preguntas. Tipo: ".$registro['tipo']."</a></li>";
+                  $num = mysqli_fetch_array(mysqli_query($con, "SELECT COUNT(*) FROM `pregunta` WHERE `id_examen` =".$registro["UID"]),MYSQLI_NUM);
+                  echo "<li><a href='form.php?id={$registro["UID"]}' class='collection-item waves-effect waves-dark'><span class='test'><b>".$registro['nombre']."</b></span> con <span class='num'>".$num[0]."</span> preguntas. Tipo: ".$registro['tipo']."</a></li>";
                 }
-                echo '
-                  </ul>';
+                echo '</ul>';
 
             ?>
         </div>

@@ -9,7 +9,7 @@
             <div class="card row">
               <div class="card-content col s12">
                 <input type="checkbox" name="republica" checked id="republicaCB"><label for="republicaCB">Toda la república mexicana</label>
-                <div id="rangeRecoC" class="range-field">Rango (km.) <input type="range" id="rangeReco" value="10" min="10" max="400"></div>
+                <div id="rangeRecoC">Rango (km.) <div class="range-field"><input type="range" id="rangeReco" value="10" min="10" max="400"></div></div>
                 *Se necesita tener acceso a la ubicación para usar esta herramienta.
               </div>
             </div>

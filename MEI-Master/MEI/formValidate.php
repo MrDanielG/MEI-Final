@@ -12,30 +12,26 @@
                     <?php
                         if(isset($_POST["submit"])){
                             /*Arreglo para crear el objeto Formulario */
-                            $resultados = array('Ingeniería'  =>$_POST['ingenierias'],
-                                                'Biológicas'  =>$_POST['biologicas'],
-                                                'Sociales'    =>$_POST['sociales'],
-                                                'Humanidades' =>$_POST['humanidades_artes']);
+
+                            $resultados = $_POST;
+                            unset($resultados["submit"]);
 
                             include 'class/form.class.php';
                             $form = new Formulario($resultados); //Clase evaluadora de formularios
                             $id_examen = 1;
                             $fecha = date("Y-m-d");
-                            $resultado = $form->resultado_id;
                             $form->imprimir_resultados();
 
                             /*Conexión con la base de datos*/
                             include '../conn.php';
-                            mysqli_query($con,"SET NAMES 'utf8'");
-
-                            $consulta = "INSERT INTO `aplicacion_examen`(`id_examen`, `id_user`, `fecha`, `resultado`) VALUES ($id_examen ,'$usr_uid','$fecha','$resultado');";
-                            mysqli_query($con,$consulta);
+                            $resultado = mysqli_fetch_array( mysqli_query($con, "SELECT `UID` FROM `area` WHERE `nombre` = ".$form->resultado_id), MYSQLI_NUM);
+                            mysqli_query($con,"INSERT INTO `aplicacion_examen`(`id_examen`, `id_user`, `fecha`, `id_resultado`) VALUES ($id_examen ,'$usr_uid','$fecha','$resultado[0]');");
                             $id = mysqli_insert_id($con);
-                            $form->gen_reco($id_examen,$id,$resultado,$con,$usr_uid);
                         }
                     ?>
                     <div class="card-actions">
-                        <a href="recomendaciones.php">Ir a recomendaciones</a>
+                      <br>
+                        <a href="recomendaciones.php" class="btn">Ir a recomendaciones</a>
                     </div>
                 </div>
             </div>
