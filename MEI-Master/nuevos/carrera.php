@@ -14,10 +14,19 @@
 <html>
     <head>
         <title><?php echo $_GET["carrera"] ?></title>
-        <?php include '../resourses/header.html'; ?>
+        <link rel="stylesheet" type="text/css" href="../css/estilos.css">
+        <!--Import Google Icon Font-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+        <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection" />
+        <meta charset="utf-8" />
+
+        <!--Let browser know website is optimized for mobile-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     </head>
     <body style="background-image: url('<?php echo $carrera[11]; ?>');background-size: cover;background-attachment: fixed; background-position: center center;">
-        <?php include '../resourses/menu.html';
+        <?php
             echo '
             <div>
               <div class=""><span style="position: absolute; padding:5px; margin:15px; background-color:#00000050; color: white; ">Foto: '.$carrera[12].'</span></div>

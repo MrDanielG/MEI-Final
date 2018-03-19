@@ -93,7 +93,6 @@
                                       <option>Guerrero</option>
                                       <option>Hidalgo</option>
                                       <option>Jalisco</option>
-                                      <option>México</option>
                                       <option>Michoacán</option>
                                       <option>Morelos</option>
                                       <option>Nayarit</option>

@@ -43,7 +43,7 @@
                                           JOIN `area` ON `area`.`UID` = `pregunta`.`id_area`
                                           WHERE `respuesta`.`id_pregunta` =".$p_id);
 
-                for ($i=1; $res = mysqli_fetch_array($q, MYSQLI_NUM) ; $i++) {
+                for ($i = 1; $res = mysqli_fetch_array($q, MYSQLI_NUM) ; $i++) {
                   if(!isset($areas[$res[0]])){
                     $areas[$res[0]] = 0;
                   }else if($i == 1){
