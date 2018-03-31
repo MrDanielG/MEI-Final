@@ -1,5 +1,5 @@
 <?php
-  if(isset($_GET["id"])&&isset($_GET["token"])){
+/*if(isset($_GET["id"])&&isset($_GET["token"])){
     include '../conn.php';
 
     $q = "SELECT expira FROM `sesion_agregar_unis` WHERE UID = ".$_GET["id"]." AND token = '".$_GET["token"]."'";
@@ -23,7 +23,7 @@
   }else{
     echo "Acceso denegado. La sesion a la que intenta entrar no existe o ha expirado.";
     die();
-  }
+  }*/
 ?>
 <html>
   <head>

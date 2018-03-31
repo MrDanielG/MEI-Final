@@ -36,7 +36,7 @@ import kotlinx.android.synthetic.main.recom_card_sample.view.*
  */
 
 class RecomendationLoggedFragment : Fragment() {
-    private val mURL : String = GlobalVar().getMeiURL()+"MEI/recomendaciones.php"
+    private var mURL : String = ""
     private val mJSIName : String = GlobalVar().getJSIName()
     private var lat = 0.0
     private var lng = 0.0
@@ -48,6 +48,9 @@ class RecomendationLoggedFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+
+        mURL = GlobalVar().getMeiURL(activity)+"MEI/recomendaciones.php"
+
         mGoogleApiClient = GoogleApiClient.Builder(activity)
                 .addConnectionCallbacks(object : GoogleApiClient.ConnectionCallbacks {
                     override fun onConnected(bundle: Bundle?) {

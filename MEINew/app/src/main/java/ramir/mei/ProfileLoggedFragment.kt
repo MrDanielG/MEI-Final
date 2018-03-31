@@ -22,13 +22,15 @@ import kotlinx.android.synthetic.main.profile_content.view.*
  * Creado por Ramiro el 22/11/2017 a las 07:38 PM para MEINew.
  */
 class ProfileLoggedFragment : Fragment() {
-    private val mURL : String = GlobalVar().getMeiURL()+"MEI/perfil.php"
+    private var mURL : String = ""
     private val mJSIName : String = GlobalVar().getJSIName()
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater!!.inflate(R.layout.logged_profile_fragment, container, false)
         val context = activity.baseContext
         val mMEIPage = WebView(context)
+
+        mURL = GlobalVar().getMeiURL(activity)+"MEI/perfil.php"
 
         rootView.swipeProfile.isRefreshing = true
 

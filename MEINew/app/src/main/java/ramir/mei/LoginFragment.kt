@@ -16,12 +16,13 @@ import kotlinx.android.synthetic.main.fragment_login.view.*
 import java.util.regex.Pattern
 
 class LoginFragment : android.app.Fragment() {
-    private val pagMEI = GlobalVar().getMeiURL() + "login.php"
+    private var pagMEI = ""
     private val mJSIName : String = GlobalVar().getJSIName()
     private val mTAG = "Login Activity"
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater!!.inflate(R.layout.fragment_login, container, false)
+        pagMEI = GlobalVar().getMeiURL(activity) + "login.php"
 
         activity.runOnUiThread { Picasso.with(activity.baseContext).load(pagMEI + "/../imgs/logo1.png").into(rootView.logoView) }
 
@@ -82,6 +83,8 @@ class LoginFragment : android.app.Fragment() {
         MEI.loadUrl(pagMEI)
         return rootView
     }
+
+
 
     private inner class JavaScriptInterface internal constructor(internal var context: Context) {
 
