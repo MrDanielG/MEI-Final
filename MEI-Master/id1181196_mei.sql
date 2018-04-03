@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-02-2018 a las 04:09:05
+-- Tiempo de generación: 04-04-2018 a las 00:18:28
 -- Versión del servidor: 10.1.28-MariaDB
 -- Versión de PHP: 7.1.10
 
@@ -127,7 +127,8 @@ INSERT INTO `carrera_info` (`UID`, `nombre`, `descripcion`, `id_area`, `salario_
 (51, 'Licenciatura en Lengua y Literatura Hispánicas', 'Esta carrera forma profesionistas que estudian la estructura y el desarrollo histórico de la lengua española, así como de las literaturas hispánicas (mexicana, española e iberoamericana) como manifestaciones más acabadas de la lengua.\r\n<br><br>\r\nAsimismo los capacita para analizar, interpretar y difundir ––mediante técnicas de investigación documental y bibliográfica; análisis teórico y lingüístico; crítica; creación literaria y docencia––, el valor cultural de la lengua y las literaturas hispánicas.\r\n<br><br>\r\nSu campo laboral es muy amplio, ya que incluye centros educativos y de investigación, bibliotecas, editoriales, agencias de publicidad, o medios de difusión como radio, televisión, revistas y periódicos.', 2, 8000, 20000, 'humanidad,literatura,lengua,hispano'),
 (53, 'Licenciatura en Matemáticas Aplicadas y Computación', 'El licenciado en Matemáticas Aplicadas y Computación aplica creativamente las diversas técnicas matemáticas y computacionales para analizar, evaluar y resolver, por medio de modelos, problemas en diversas áreas de conocimiento que afectan de manera directa o indirecta a la sociedad.<br><br>\r\n\r\nAnalista bursátil y financiero, catedrático, investigador, consultor en diversas áreas y proyectos, o diseñador de software son algunas de las actividades que puede desempeñar este profesionista.', 3, 6000, 50000, 'matematicas,computacion,licenciatura,aplicada'),
 (54, 'Licenciatura en Pedagogía', 'El pedagogo estudia integralmente la educación para describir, comprender, explicar, evaluar e intervenir en el fortalecimiento y mejora de los procesos educativos, analiza y propone alternativas de solución en problemas relacionados con el campo educativo, además de atender a diversos sectores de la población que requieren ayuda pedagógica.\r\n<br><br>\r\nDesarrolla actividades de docencia, orientación educativa, educación permanente y capacitación, administración y gestión educativas, desarrollo curricular, comunicación e investigación en este campo, en instituciones públicas y privadas o en el ejercicio libre de la profesión, atendiendo las distintas orientaciones de la práctica profesional.', 2, 12000, 40000, 'educacion,pedagogia,orientacion,profesional'),
-(55, ' Licenciatura en Comunicación y Periodismo', 'El licenciado en Comunicación y Periodismo formado en FES Aragón es el profesional que entiende que la comunicación es un proceso. En este sentido, lo conoce puntualmente en todas sus formas y niveles, por lo que es capaz de analizar y evaluar el fenómeno comunicacional.<br>\r\n\r\nAsimismo, está al tanto de las formas adecuadas que deben tener los mensajes, determina a través de qué medios conviene difundirlos para que cubran mejor las necesidades de información de la sociedad y explica los problemas de la comunicación, el desarrollo del individuo y de la sociedad.\r\n<br>\r\nCon el dominio de las relaciones existentes entre los procesos de la comunicación y otras disciplinas del área social, este profesionista resuelve de manera adecuada las necesidades que la realidad exige.\r\n<br>\r\nEl estudio de los procesos de la comunicación colectiva implica investigar y analizar la información y los mensajes emitidos por los medios de comunicación social para proceder a la valoración de sus repercusiones sobre la sociedad.', 4, 5000, 20000, 'periodismo,comunicacion,social,television,licenciatura');
+(55, ' Licenciatura en Comunicación y Periodismo', 'El licenciado en Comunicación y Periodismo formado en FES Aragón es el profesional que entiende que la comunicación es un proceso. En este sentido, lo conoce puntualmente en todas sus formas y niveles, por lo que es capaz de analizar y evaluar el fenómeno comunicacional.<br>\r\n\r\nAsimismo, está al tanto de las formas adecuadas que deben tener los mensajes, determina a través de qué medios conviene difundirlos para que cubran mejor las necesidades de información de la sociedad y explica los problemas de la comunicación, el desarrollo del individuo y de la sociedad.\r\n<br>\r\nCon el dominio de las relaciones existentes entre los procesos de la comunicación y otras disciplinas del área social, este profesionista resuelve de manera adecuada las necesidades que la realidad exige.\r\n<br>\r\nEl estudio de los procesos de la comunicación colectiva implica investigar y analizar la información y los mensajes emitidos por los medios de comunicación social para proceder a la valoración de sus repercusiones sobre la sociedad.', 4, 5000, 20000, 'periodismo,comunicacion,social,television,licenciatura'),
+(56, 'Prueba', 'asdasd', 1, 123, 123, '.');
 
 -- --------------------------------------------------------
 
@@ -198,7 +199,12 @@ INSERT INTO `carrera_uni` (`UID`, `id_carrera`, `plan_estudio`, `perfil_egreso`,
 (50, 38, 'Para ver el plan de estudios ve al siguiente <a href=\"http://oferta.unam.mx/carrera/archivos/planes/relacionesinterna-fesacatlan-plandestudios13.pdf\">enlace</a>.', 'El egresado de la FES Acatlán analizará situaciones, problemas y conflictos internacionales, y de esta manera estará en condiciones de conducir, prever y ofrecer soluciones al respecto. Por tanto es un profesionista de enlace entre: la Economía, la Ciencia Política, las Ciencias Jurídicas, la Geografía y la Historia.<br>\r\n<br>\r\nDe acuerdo con lo anterior, el profesional en Relaciones Internacionales será capaz de:<br>\r\n* Analizar, evaluar y prever las diferentes vinculaciones de México con otros países en áreas distintas como economía, finanzas internacionales, política internacional y derecho internacional.<br>\r\n* Identificar los problemas que son objeto de estudio de las relaciones internacionales.<br>\r\n* Elaborar estrategias aplicables al comercio y los negocios internacionales con el propósito de incrementar la presencia económica de México en el mundo.<br>\r\n* Contribuir profesionalmente en el análisis de la política exterior de México.<br>\r\n* Explicar el comportamiento de los sujetos internacionales.', 18, '<ul>\r\n  <li><a href=\"http://oferta.unam.mx/carreras/12/relaciones-internacionales\">http://oferta.unam.mx/carreras/12/relaciones-internacionales</a></li>\r\n</ul>'),
 (51, 39, 'Para ver el plan de estudios ve al siguiente <a href=\"http://oferta.unam.mx/carrera/archivos/planes/sociologia-fesacatlan-plandestudios13.pdf\">enlace</a>.', 'Conocimientos:<br>\r\n* La formación teórica que le dará los elementos suficientes para confrontar diferentes estructuras sociales, la posibilidad del cambio y la redefinición de nuevas formas de organización social.<br>\r\n* Las corrientes, escuelas y autores que han dado forma a la disciplina y que han permitido al sociólogo ampliar la visión y las perspectivas de análisis.\r\n<br><br>\r\nHabilidades y aptitudes:<br>\r\n* La flexibilidad, la multi e interdisciplina lo forman como un profesionista con capacidad y adaptación a un mundo cambiante.<br>\r\n* El estudio activo, la creatividad, la disciplina, la autoformación y la actualización en el aprendizaje están presentes en el egresado.\r\n<br><br>\r\nActitudes:<br>\r\n* De responsabilidad y honestidad para consigo mismo y para con los demás, considerados los conocimientos y el avance de la ciencia.<br>\r\n* De interés permanente por los problemas sociales.', 18, '<ul>\r\n  <li><a href=\"http://oferta.unam.mx/carreras/9/sociologia\">http://oferta.unam.mx/carreras/9/sociologia</a></li>\r\n\r\n</ul>'),
 (52, 21, 'Para ver información relacionada al plan de estudios ve al siguiente <a href=\"http://oferta.unam.mx/carrera/archivos/planes/arquitecturaplanestudiosaragon13.pdf\">enlace</a>.', 'Al concluir los estudios, este profesional estará capacitado para:<br>\r\n:<br>\r\n\r\n* Ejercer aquellas actividades relacionadas con el quehacer arquitectónico.:<br>\r\n\r\n* Concebir, determinar y realizar espacios internos que satisfagan las diversas necesidades del hombre en su dualidad física y espiritual, expresada como individuo y miembro de la sociedad.<br>\r\n\r\n* Resolver todo tipo de problemas de alojamiento a nivel urbano, a fin de generar unidades complejas para los grandes sectores de la población.', 19, '<ul>\r\n  <li><a href=\"http://oferta.unam.mx/carreras/26/arquitectura\">http://oferta.unam.mx/carreras/26/arquitectura</a></li>\r\n  <li><a href=\"http://oferta.unam.mx/escuela-facultad/19/facultad-de-estudios-superiores-aragon\">http://oferta.unam.mx/escuela-facultad/19/facultad-de-estudios-superiores-aragon</a></li>\r\n</ul>'),
-(53, 55, 'Para ver el plan de estudios ve al siguiente <a href=\"http://oferta.unam.mx/carrera/archivos/planes/comunicayperiodismo-fesaragon-plandeestudios13a.pdf\">enlace</a>.', 'Los alumnos que cursen esta licenciatura en la FES Aragón obtendrán conocimientos y habilidades de acuerdo con las siguientes etapas de formación:\r\n<br><br>\r\nEtapa Propedéutica\r\n<br>\r\n* Comprenderá el objeto mismo de las ciencias sociales y la comunicación, así como su relación con: ciencia política, economía, sociología y epistemología.<br>\r\n* Conocerá las funciones sociales del periodismo.\r\n<br><br>\r\nEtapa Formativa\r\n<br>\r\n* Conocerá y aplicará los diferentes géneros periodísticos, además de las diversas teorías y métodos de la comunicación.<br>\r\n* Conocerá aspectos teórico-metodológicos respecto al desarrollo y el régimen legal de los medios de comunicación, la psicología, la opinión pública, la publicidad y la propaganda.\r\n<br><br>\r\nEtapa de Preespecialización\r\n<br>\r\nAl concluir esta etapa de formación que incluye las preespecialidades de prensa, radio o televisión, además de las asignaturas optativas, el alumno aplicará sus conocimientos teórico-técnicos en los procesos de producción de mensajes.', 19, '<ul>\r\n  <li><a href=\"http://oferta.unam.mx/carrera/archivos/planes/comunicayperiodismo-fesaragon-plandeestudios13a.pdf\">http://oferta.unam.mx/carrera/archivos/planes/comunicayperiodismo-fesaragon-plandeestudios13a.pdf</a></li>\r\n\r\n</ul>');
+(53, 55, 'Para ver el plan de estudios ve al siguiente <a href=\"http://oferta.unam.mx/carrera/archivos/planes/comunicayperiodismo-fesaragon-plandeestudios13a.pdf\">enlace</a>.', 'Los alumnos que cursen esta licenciatura en la FES Aragón obtendrán conocimientos y habilidades de acuerdo con las siguientes etapas de formación:\r\n<br><br>\r\nEtapa Propedéutica\r\n<br>\r\n* Comprenderá el objeto mismo de las ciencias sociales y la comunicación, así como su relación con: ciencia política, economía, sociología y epistemología.<br>\r\n* Conocerá las funciones sociales del periodismo.\r\n<br><br>\r\nEtapa Formativa\r\n<br>\r\n* Conocerá y aplicará los diferentes géneros periodísticos, además de las diversas teorías y métodos de la comunicación.<br>\r\n* Conocerá aspectos teórico-metodológicos respecto al desarrollo y el régimen legal de los medios de comunicación, la psicología, la opinión pública, la publicidad y la propaganda.\r\n<br><br>\r\nEtapa de Preespecialización\r\n<br>\r\nAl concluir esta etapa de formación que incluye las preespecialidades de prensa, radio o televisión, además de las asignaturas optativas, el alumno aplicará sus conocimientos teórico-técnicos en los procesos de producción de mensajes.', 19, '<ul>\r\n  <li><a href=\"http://oferta.unam.mx/carrera/archivos/planes/comunicayperiodismo-fesaragon-plandeestudios13a.pdf\">http://oferta.unam.mx/carrera/archivos/planes/comunicayperiodismo-fesaragon-plandeestudios13a.pdf</a></li>\r\n\r\n</ul>'),
+(55, 1, 'asdasd', 'asdasd', 9, ''),
+(56, 56, 'asdasd', 'asdasd', 4, ''),
+(57, 56, 'asdasd', 'asdasd', 4, ''),
+(58, 56, 'asdasd', 'asdasd', 11, ''),
+(59, 56, 'asdasd', 'asdasd', 9, '');
 
 -- --------------------------------------------------------
 
@@ -374,6 +380,26 @@ INSERT INTO `respuesta` (`UID`, `id_pregunta`, `respuesta`, `valor`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `sesion_agregar_unis`
+--
+
+CREATE TABLE `sesion_agregar_unis` (
+  `UID` int(11) NOT NULL,
+  `token` varchar(40) NOT NULL,
+  `correo` varchar(40) DEFAULT NULL,
+  `expira` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `sesion_agregar_unis`
+--
+
+INSERT INTO `sesion_agregar_unis` (`UID`, `token`, `correo`, `expira`) VALUES
+(1, 'ab69eaf6fb654987b0dd8e914badc7b3', 'Pruebas', '2019-02-27 17:26:33');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `universidad`
 --
 
@@ -405,7 +431,11 @@ INSERT INTO `universidad` (`UID`, `nombre`, `descripcion`, `lat`, `lng`, `foto_u
 (16, 'Facultad de Derecho', 'En la Facultad de Derecho se da la pluralidad del conocimiento y la libertad de pensar; al mismo tiempo, el estudiante obtiene una educación de excelencia, ya que se encuentra con la planta académica más calificada del país y obtiene, a partir de esa misma libertad y responsabilidad, una visión amplia del fenómeno jurídico y de sus implicaciones valorativas.\r\n<br><br>\r\nLa Facultad de Derecho es la institución de más tradición, fuerza intelectual y de trascendencia del panorama de la educación superior en México; de sus aulas han egresado personalidades de reconocido prestigio, así como numerosos premios nacionales e internacionales, además ha obtenido la certificación de calidad, expedida por el Consejo para la Acreditación de los Estudios de Derecho.', '19.333316', '-99.185922', 'https://facultaddederechounamblog.files.wordpress.com/2016/09/p1010009.jpg', 'LIC. María de Lourdes García Ruiz', 'Ciudad de México', 1),
 (17, 'Facultad de Economía', 'En las aulas de la Facultad de Economía se han formado varias generaciones de destacados economistas, quienes no sólo han jugado un papel importante en el ámbito profesional de su competencia, sino que además han participado con alternativas y propuestas a la solución de los problemas nacionales.\r\n<br><br>\r\nEl papel desempeñado por la Facultad dentro de la política económica y financiera durante los últimos veinte años ha sido indispensable.\r\n<br><br>\r\nLos diversos galardones que le han sido otorgados a sus académicos dan cuenta de su nivel de excelencia como institución educativa además de que el Sistema Nacional de Investigadores ha reconocido a más de treinta de sus miembros.', '19.334854', '-99.183575', 'http://static.panoramio.com/photos/original/8609904.jpg', 'Mapio.net', 'Ciudad de México', 1),
 (18, 'Facultad de Estudios Superiores Acatlán', 'La Facultad de Estudios Superiores Acatlán está considerada como uno de los centros académico-culturales más importantes de la zona noroeste del área metropolitana y uno de los espacios alternativos a Ciudad Universitaria. Con 40 años de vida, promueve un amplio abanico de opciones curriculares y de desarrollo humano. Actualmente cuenta con los niveles de calidad más altos en todos sus programas educativos, lo que garantiza la calidad en el desempeño de sus egresados.\r\n<br><br>\r\nEn la búsqueda de formar profesionales altamente capacitados y especializados, brinda diversos posgrados con carácter multidisciplinario en diferentes disciplinas –Derecho, Economía, Ciencias Políticas y Sociales, Relaciones Internacionales, Ingeniería, Urbanismo y Educación.', '19.483990', '-99.246369', 'http://www.planoinformativo.com/stock12/image/2015/Mayo/10/FES-Acatlan2.jpg', 'Notimex | Plano Informativo', 'Ciudad de México', 1),
-(19, 'Facultad de Estudios Superiores Aragón', 'Forma profesionistas en las áreas de las Ciencias Sociales, las Humanidades, las Artes, y las Ciencias Físico-Matemáticas y las Ingenierías con una visión  integral. Ha logrado posicionarse como una institución de gran solidez en la preparación de sus egresados, a través de la docencia, la investigación multidisciplinaria, la difusión cultural y la práctica deportiva.\r\n<br>\r\nEl desarrollo y fortalecimiento académico han sido impulsados favorablemente a través de los estudios de posgrado que imparte la Facultad, reconocidos por su calidad y excelencia. La oferta académica de posgrado incluye estudios en las áreas de Derecho, Economía, Arquitectura, Ingeniería Civil y Pedagogía.', '19.476618', '-99.044569', 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Facultad_de_Estudios_Superiores_Arag%C3%B3n_2.jpg/1280px-Facultad_de_Estudios_Superiores_Arag%C3%B3n_2.jpg', 'ProtoplasmaKid | Wikimedia Commons', 'Ciudad de México', 1);
+(19, 'Facultad de Estudios Superiores Aragón', 'Forma profesionistas en las áreas de las Ciencias Sociales, las Humanidades, las Artes, y las Ciencias Físico-Matemáticas y las Ingenierías con una visión  integral. Ha logrado posicionarse como una institución de gran solidez en la preparación de sus egresados, a través de la docencia, la investigación multidisciplinaria, la difusión cultural y la práctica deportiva.\r\n<br>\r\nEl desarrollo y fortalecimiento académico han sido impulsados favorablemente a través de los estudios de posgrado que imparte la Facultad, reconocidos por su calidad y excelencia. La oferta académica de posgrado incluye estudios en las áreas de Derecho, Economía, Arquitectura, Ingeniería Civil y Pedagogía.', '19.476618', '-99.044569', 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Facultad_de_Estudios_Superiores_Arag%C3%B3n_2.jpg/1280px-Facultad_de_Estudios_Superiores_Arag%C3%B3n_2.jpg', 'ProtoplasmaKid | Wikimedia Commons', 'Ciudad de México', 1),
+(22, 'Facultad de Odontología', 'asdasd', '123', '122.99999997', 'screen_1920x1080_2018-02-05_19-42-59.232.png', 'asdasd', 'Baja California', 2),
+(23, 'Facultad de Odontología', 'asdasd', '123', '122.99999997', 'screen_1920x1080_2018-02-05_19-42-59.232.png', 'asdasd', 'Baja California', 2),
+(24, 'Facultad de Arquitectura', 'asdasd', '123', '122.99999997', 'screen_1920x1080_2018-02-05_19-42-59.232.png', 'asd', 'Baja California Sur', 2),
+(25, 'Unidad Académica de Ciencias Biológicas', 'asdasd', '123', '122.99999994', 'http://php.net/manual/en/images/e88cefb5c3fca5060e2490b9763c4433-readfile.png', 'asdasd', 'Baja California', 2);
 
 -- --------------------------------------------------------
 
@@ -494,6 +524,13 @@ ALTER TABLE `respuesta`
   ADD KEY `id_pregunta` (`id_pregunta`);
 
 --
+-- Indices de la tabla `sesion_agregar_unis`
+--
+ALTER TABLE `sesion_agregar_unis`
+  ADD PRIMARY KEY (`UID`),
+  ADD UNIQUE KEY `token` (`token`);
+
+--
 -- Indices de la tabla `universidad`
 --
 ALTER TABLE `universidad`
@@ -527,13 +564,13 @@ ALTER TABLE `area`
 -- AUTO_INCREMENT de la tabla `carrera_info`
 --
 ALTER TABLE `carrera_info`
-  MODIFY `UID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `UID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT de la tabla `carrera_uni`
 --
 ALTER TABLE `carrera_uni`
-  MODIFY `UID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `UID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT de la tabla `examen`
@@ -560,10 +597,16 @@ ALTER TABLE `respuesta`
   MODIFY `UID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
+-- AUTO_INCREMENT de la tabla `sesion_agregar_unis`
+--
+ALTER TABLE `sesion_agregar_unis`
+  MODIFY `UID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT de la tabla `universidad`
 --
 ALTER TABLE `universidad`
-  MODIFY `UID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `UID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- Restricciones para tablas volcadas
