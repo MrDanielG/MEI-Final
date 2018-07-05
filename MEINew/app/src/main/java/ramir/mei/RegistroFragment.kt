@@ -19,13 +19,13 @@ import java.util.regex.Pattern
 class RegistroFragment : android.app.Fragment() {
     private var mURL = ""
     private var sinError : Boolean = true
-    private val mJSIName : String = GlobalVar().getJSIName()
+    private val mJSIName : String = Utils().getJSIName()
     var cityValue : Int = 0
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view: View = inflater!!.inflate(R.layout.fragment_registro, container, false)
-        mURL = GlobalVar().getMeiURL(activity) + "signin.php"
+        mURL = Utils().getMeiURL() + "signin.php"
         val wbMEI = WebView(activity)
 
         view.et_r_lugar.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {

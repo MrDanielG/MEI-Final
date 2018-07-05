@@ -17,12 +17,12 @@ import java.util.regex.Pattern
 
 class LoginFragment : android.app.Fragment() {
     private var pagMEI = ""
-    private val mJSIName : String = GlobalVar().getJSIName()
+    private val mJSIName : String = Utils().getJSIName()
     private val mTAG = "Login Activity"
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater!!.inflate(R.layout.fragment_login, container, false)
-        pagMEI = GlobalVar().getMeiURL(activity) + "login.php"
+        pagMEI = Utils().getMeiURL() + "login.php"
 
         activity.runOnUiThread { Picasso.with(activity.baseContext).load(pagMEI + "/../imgs/logo1.png").into(rootView.logoView) }
 

@@ -26,13 +26,13 @@ import kotlinx.android.synthetic.main.carrer_content.*
 
 class CareerActivity : AppCompatActivity() {
     private var mURL : String = ""
-    private val mJSIName : String = GlobalVar().getJSIName()
+    private val mJSIName : String = Utils().getJSIName()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_career)
 
-        mURL = GlobalVar().getMeiURL(baseContext)+"MEI/carrera.php?carrera="
+        mURL = Utils().getMeiURL()+"MEI/carrera.php?carrera="
 
         val density = resources.displayMetrics.density
 

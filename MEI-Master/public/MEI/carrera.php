@@ -1,5 +1,5 @@
 <?php
-  include '../conn.php';
+  include '../../private/conn.php';
   $name = $_GET['carrera'];
   $uni = $_GET['uni'];
   //echo "".$carrera."<br>".$carrera."";

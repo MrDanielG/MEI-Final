@@ -11,19 +11,16 @@
                 <div class="card-content">
                     <?php
                         if(isset($_POST["submit"])){
-                            /*Arreglo para crear el objeto Formulario */
-
                             $resultados = $_POST;
                             unset($resultados["submit"]);
 
                             include 'class/form.class.php';
-                            $form = new Formulario($resultados); //Clase evaluadora de formularios
+                            $form = new Formulario($resultados); 
                             $id_examen = 1;
                             $fecha = date("Y-m-d");
                             $form->imprimir_resultados();
 
-                            /*Conexión con la base de datos*/
-                            include '../conn.php';
+        
                             $resultado = mysqli_fetch_array( mysqli_query($con, "SELECT `UID` FROM `area` WHERE `nombre` = ".$form->resultado_id), MYSQLI_NUM);
                             mysqli_query($con,"INSERT INTO `aplicacion_examen`(`id_examen`, `id_user`, `fecha`, `id_resultado`) VALUES ($id_examen ,'$usr_uid','$fecha','$resultado[0]');");
                             $id = mysqli_insert_id($con);

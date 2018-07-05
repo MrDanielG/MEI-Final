@@ -23,14 +23,14 @@ import kotlinx.android.synthetic.main.profile_content.view.*
  */
 class ProfileLoggedFragment : Fragment() {
     private var mURL : String = ""
-    private val mJSIName : String = GlobalVar().getJSIName()
+    private val mJSIName : String = Utils().getJSIName()
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater!!.inflate(R.layout.logged_profile_fragment, container, false)
         val context = activity.baseContext
         val mMEIPage = WebView(context)
 
-        mURL = GlobalVar().getMeiURL(activity)+"MEI/perfil.php"
+        mURL = Utils().getMeiURL()+"MEI/perfil.php"
 
         rootView.swipeProfile.isRefreshing = true
 

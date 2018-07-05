@@ -21,14 +21,14 @@ import kotlinx.android.synthetic.main.logged_test_fragment.view.*
 
 class TestLoggedFragment : Fragment() {
     private var mURL : String = ""
-    private val mJSIName : String = GlobalVar().getJSIName()
+    private val mJSIName : String = Utils().getJSIName()
     private val listItems = ArrayList<Map<String, String>>()
     private var isIntent = false
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater!!.inflate(R.layout.logged_test_fragment, container, false)
 
-        mURL = GlobalVar().getMeiURL(activity)+"MEI/test.php"
+        mURL = Utils().getMeiURL()+"MEI/test.php"
 
         val adapter = SimpleAdapter(activity.baseContext , listItems,
                 android.R.layout.simple_list_item_2,

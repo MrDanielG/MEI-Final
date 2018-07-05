@@ -19,7 +19,6 @@
 
         <form action="formValidate.php" method="post" class="form card-content">
             <?php
-              include '../conn.php';
 
               $result = mysqli_query($con, "SELECT * FROM `pregunta` WHERE `id_examen` = ".$_GET["id"]);
               $areas = array();

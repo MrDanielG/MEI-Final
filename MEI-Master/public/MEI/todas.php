@@ -4,12 +4,10 @@
         <?php include '../resourses/header.html'; ?>
     </head>
     <body>
-
         <?php include '../resourses/menu.html'; ?><br><br>
 
         <div class="container">
             <?php
-                include '../conn.php';
                 $query = "SELECT universidad.foto_url, carrera_info.nombre, universidad.nombre, institucion.name, universidad.lat, universidad.lng, carrera_info.salario_min, carrera_info.salario_max FROM carrera_uni
                           JOIN universidad ON universidad.UID = carrera_uni.id_universidad
                           JOIN carrera_info ON carrera_info.UID = carrera_uni.id_carrera

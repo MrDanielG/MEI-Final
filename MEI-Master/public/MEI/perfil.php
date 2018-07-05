@@ -7,7 +7,6 @@
         <?php include '../resourses/menu.html'; ?>
         <div class="container" align = "center"><br>
         <?php
-            include '../conn.php';
             $ext = array(".jpg",".jpeg",".png",".gif");
             $fileext=NULL;
             $query = "SELECT * FROM usuario WHERE email = '".$_SESSION['user']."'";
@@ -15,7 +14,7 @@
             $usuario = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
             foreach($ext as &$val){
-                if(file_exists("../resourses/profile_pics/".$usuario["UID"].$val)){
+                if(file_exists("../resourses/profile_pics/".$usr_uid.$val)){
                     $fileext = $val;
                     break;
                 }
@@ -29,7 +28,7 @@
               <div class="card-panel white"> ';
 
             if($fileext){
-                echo '<div id="profile-img" class="circle responsive-img tooltipped" data-position="bottom" data-delay="50" data-tooltip="Has click para cambiar la imagen" style="background-image: url(../resourses/profile_pics/'.$usuario["id"].$fileext.'); width: 20vw;height: 20vw;background-size:cover;background-position:center;"></div><br><br>';
+                echo '<div id="profile-img" class="circle responsive-img tooltipped" data-position="bottom" data-delay="50" data-tooltip="Has click para cambiar la imagen" style="background-image: url(../resourses/profile_pics/'.$usr_uid.$fileext.'); width: 20vw;height: 20vw;background-size:cover;background-position:center;"></div><br><br>';
             }else{
                   echo '<div id="profile-img" class="circle responsive-img tooltipped" data-position="bottom" data-delay="50" data-tooltip="Has click para cambiar la imagen" style="background-image: url(../resourses/profile_pics/0.png); width:300px;height:300px;background-size:cover;background-position:center;"></div><br><br>';
             }
@@ -84,19 +83,19 @@
                 $imageFileType = pathinfo($_FILES["img"]["name"], PATHINFO_EXTENSION);
                 if($imageFileType == "jpg" || $imageFileType == "png" || $imageFileType == "jpeg" || $imageFileType == "gif"){
                     foreach($ext as &$val){
-                        if(file_exists("../resourses/profile_pics/".$usuario["id"].$val)){
-                            unlink("../resourses/profile_pics/".$usuario["id"].$val);
+                        if(file_exists("../resourses/profile_pics/".$usr_uid.$val)){
+                            unlink("../resourses/profile_pics/".$usr_uid.$val);
                         }
                     }
-                    if(move_uploaded_file($_FILES["img"]["tmp_name"], "../resourses/profile_pics/".$usuario["id"].".".$imageFileType)){
+                    if(move_uploaded_file($_FILES["img"]["tmp_name"], "../resourses/profile_pics/".$usr_uid.".".$imageFileType)){
                         echo "<script> Materialize.toast('Se ha actualizado la imagen', 3000, 'rounded');
-                                $('#profile-img').attr('src','../resourses/profile_pics/".$usuario["id"].".".$imageFileType."');
+                                $('#profile-img').attr('src','../resourses/profile_pics/".$usr_uid.".".$imageFileType."');
                             </script>";
                     }else{
                         echo "<script> Materialize.toast('No se ha podido actualizar la imagen...', 3000, 'rounded');</script>";
                     }
                 }else{
-                    echo "<script> Materialize.toast('El archivo subido no es una imagen...', 3000, 'rounded');</script>";
+                    echo "<script> Materialize.toast('El archivo subido no es una imagen valida...', 3000, 'rounded');</script>";
                 }
             }
         ?>

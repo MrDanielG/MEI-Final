@@ -26,13 +26,13 @@ import kotlinx.android.synthetic.main.nav_header_logged_fragment.view.*
 
 class LoggedFragment : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private var mURL : String = ""
-    private val mJSIName : String = GlobalVar().getJSIName()
+    private val mJSIName : String = Utils().getJSIName()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_logged)
         setSupportActionBar(toolbar)
-        mURL = GlobalVar().getMeiURL(baseContext)+"MEI/index.php"
+        mURL = Utils().getMeiURL()+"MEI/index.php"
 
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
@@ -122,7 +122,7 @@ class LoggedFragment : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                         super.onPageFinished(view, url)
                     }
                 }
-                logout.loadUrl(GlobalVar().getMeiURL(baseContext)+"MEI/logout.php")
+                logout.loadUrl(Utils().getMeiURL()+"MEI/logout.php")
             }
         }
 

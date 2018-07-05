@@ -1,5 +1,5 @@
 <?php
-    include '../../conn.php';
+    include '../../../private/conn.php';
     session_start();
     $user = $_SESSION['user'];
     $res = mysqli_fetch_array(mysqli_query($con, "SELECT UID FROM usuario WHERE email = '{$_SESSION["user"]}'"), MYSQLI_NUM);

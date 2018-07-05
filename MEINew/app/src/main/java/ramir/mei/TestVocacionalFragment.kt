@@ -19,14 +19,14 @@ import kotlinx.android.synthetic.main.activity_test_vocacional_fragment.*
 import kotlinx.android.synthetic.main.test_result_layout_sample.view.*
 
 class TestVocacionalFragment : AppCompatActivity() {
-    private val mJSIName : String = GlobalVar().getJSIName()
+    private val mJSIName : String = Utils().getJSIName()
     private var mURL : String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_test_vocacional_fragment)
 
-        mURL = GlobalVar().getMeiURL(baseContext)+"MEI/"
+        mURL = Utils().getMeiURL()+"MEI/"
 
         val mMEIPage = WebView(baseContext)
 

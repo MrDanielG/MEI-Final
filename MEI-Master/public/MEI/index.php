@@ -64,7 +64,7 @@
           </div>
 
           <div class="col s12 m6" id="div_img">
-            <img src="../imgs/logo1.png" alt="Mei-Logo" id="img_inicio">
+            <img src="../../assets/imgs/logo1.png" alt="Mei-Logo" id="img_inicio">
           </div>
         </div>
       </div>

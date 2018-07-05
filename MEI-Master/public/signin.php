@@ -21,12 +21,12 @@
         <title>Registro</title>
         <meta charset="UTF-8">
         <!--Estilos-->
-        <link rel="stylesheet" type="text/css" href="css/estilos_login.css">
+        <link rel="stylesheet" type="text/css" href="../assets/css/estilos_login.css">
         <!--Import Google Icon Font-->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
         <!--Import materialize.css-->
-        <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+        <link type="text/css" rel="stylesheet" href="../assets/css/materialize.min.css" media="screen,projection" />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
         <!--Let browser know website is optimized for mobile-->
@@ -42,7 +42,7 @@
                                 <h3>Registrar usuario</h3>
 
                                 <div align="center">
-                                    <img src="imgs\logo1.png" heigh="40%" width="40%">
+                                    <img src="../assets/imgs\logo1.png" heigh="40%" width="40%">
                                 </div>
 
                                 <div class="input-field">
@@ -129,8 +129,8 @@
         </div>
 
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-        <script type="text/javascript" src="js/materialize.min.js"></script>
-        <script type="text/javascript" src="js/JSI.js"></script>
+        <script type="text/javascript" src="../assets/js/materialize.min.js"></script>
+        <script type="text/javascript" src="../assets/js/JSI.js"></script>
         <script>
         $(document).ready(function() {
           $("select").material_select();

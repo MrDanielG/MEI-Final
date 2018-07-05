@@ -1,5 +1,4 @@
 <?php
-  include '../conn.php';
   $query = "SELECT * FROM usuario WHERE (email = '".$_SESSION['user']."')";
   $result = mysqli_query($con,$query);
   $usuario = mysqli_fetch_array($result, MYSQLI_ASSOC);

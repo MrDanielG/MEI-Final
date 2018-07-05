@@ -46,9 +46,6 @@
 
         <div class="container">
             <?php
-                /*Conexión con la base de datos*/
-                include '../conn.php';
-
                 $query = "SELECT * FROM examen";
                 $result = mysqli_query($con,$query);
 

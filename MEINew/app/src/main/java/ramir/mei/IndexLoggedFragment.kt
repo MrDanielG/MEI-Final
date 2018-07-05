@@ -42,7 +42,7 @@ import kotlinx.android.synthetic.main.logged_index_fragment.view.*
 
 class IndexLoggedFragment : Fragment(), OnMapReadyCallback {
     private var mURL : String = ""
-    private val mJSIName : String = GlobalVar().getJSIName()
+    private val mJSIName : String = Utils().getJSIName()
     var mProvider : HeatmapTileProvider? = null
     var mOverlay : TileOverlay? = null
     var list = arrayListOf(LatLng(0.0,0.0))
@@ -51,7 +51,7 @@ class IndexLoggedFragment : Fragment(), OnMapReadyCallback {
         val rootView = inflater!!.inflate(R.layout.logged_index_fragment, container, false)
         val context = activity.baseContext
         val mMEIPage = WebView(context)
-        mURL = GlobalVar().getMeiURL(activity)+"MEI/"
+        mURL = Utils().getMeiURL()+"MEI/"
 
         val config = TwitterConfig.Builder(context)
                 .logger(DefaultLogger(Log.DEBUG))
