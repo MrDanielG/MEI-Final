@@ -58,18 +58,18 @@ class ProfileLoggedFragment : Fragment() {
 
         @JavascriptInterface
         fun perfil(url: String, name: String, correo: String, edad: String, ciudad: String) {
-            activity.runOnUiThread({
-                Picasso.with(context).load(mURL + "/../../resourses/profile_pics/" + url).transform(CircleTransform()).into(rootView.perfil_foto)
+            activity.runOnUiThread {
+                Picasso.get().load(mURL + "/../../resourses/profile_pics/" + url).transform(CircleTransform()).into(rootView.perfil_foto)
                 rootView.textView.text = name
                 rootView.textView2.text = correo
                 rootView.textView3.text = edad
                 rootView.textView4.text = ciudad
-            })
+            }
         }
 
         @JavascriptInterface
         fun perfilTabla(test: String, fecha: String, resu: String) {
-            activity.runOnUiThread({
+            activity.runOnUiThread {
                 val tvTest = TextView(context)
                 val tvFecha = TextView(context)
                 val tvResu = TextView(context)
@@ -102,7 +102,7 @@ class ProfileLoggedFragment : Fragment() {
                 rootView.tablaTest.addView(view2, layoutParams)
 
                 view2.layoutParams.height = dp1
-            })
+            }
         }
     }
 

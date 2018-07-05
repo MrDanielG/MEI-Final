@@ -1,121 +1,73 @@
 package ramir.mei
 
-import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.*
 import android.widget.Toast
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_login.view.*
-import java.util.regex.Pattern
+import org.json.JSONObject
 
 class LoginFragment : android.app.Fragment() {
-    private var pagMEI = ""
-    private val mJSIName : String = Utils().getJSIName()
-    private val mTAG = "Login Activity"
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater!!.inflate(R.layout.fragment_login, container, false)
-        pagMEI = Utils().getMeiURL() + "login.php"
+        val queue = Volley.newRequestQueue(activity)
+        val url = Utils().getMeiURL() + "login.php"
 
-        activity.runOnUiThread { Picasso.with(activity.baseContext).load(pagMEI + "/../imgs/logo1.png").into(rootView.logoView) }
+        Picasso.get().load("file:///android_asset/logo.png").into(rootView.logoView)
 
-        val MEI = WebView(activity)
-
-        val webSettings = MEI.settings
-        webSettings.javaScriptEnabled = true
-        webSettings.domStorageEnabled = true
-
-        MEI.addJavascriptInterface(JavaScriptInterface(activity.baseContext), mJSIName)
-
-        MEI.webViewClient = object : WebViewClient() {
-
-            override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
-                super.onPageStarted(view, url, favicon)
-                rootView.progressBar.visibility = View.VISIBLE
+        val req = object : StringRequest(Request.Method.POST, url, Response.Listener {
+            try {
+                val resp = JSONObject(it)
+                if(resp.getBoolean("login")){
+                    PreferenceManager.getDefaultSharedPreferences(activity).edit().putBoolean("login", true).putString("key", resp.getString("key")).apply()
+                            activity.startActivity(Intent(activity, LoggedFragment::class.java))
+                    activity.finish()
+                }else{
+                    Toast.makeText(activity, "Correo electrónico o contraseña incorrectos.", Toast.LENGTH_SHORT).show()
+                    rootView.et_pass.editText?.setText("")
+                }
+            }catch (e : Exception){
+                Log.e("asd", e.toString())
             }
-
-            override fun onPageFinished(view: WebView, url: String) {
-                rootView.progressBar.visibility = View.GONE
-                rootView.scrollLogin.visibility = View.VISIBLE
-            }
-
-        }
-        MEI.webChromeClient = object : WebChromeClient() {
-            override fun onConsoleMessage(cm: ConsoleMessage): Boolean {
-                Log.i(mTAG, cm.message())
-                return true
+        }, Response.ErrorListener {
+            Log.e("asd", it.toString())
+        }){
+            override fun getParams(): MutableMap<String, String> {
+                return hashMapOf("usr" to rootView.et_email.editText?.text.toString(), "pass" to rootView.et_pass.editText?.text.toString())
             }
         }
 
         rootView.btn_login.setOnClickListener {
-            val email = rootView.et_email.text.toString()
-            val passw = rootView.et_pass.text.toString()
+            val email = rootView.et_email.editText?.text.toString()
+            val passw = rootView.et_pass.editText?.text.toString()
 
             var error: Boolean? = true
 
-            if (!isValidEmail(email)) {
+            if (!Utils().isValidEmail(email, resources)) {
                 rootView.et_email.error = "Correo electrónico inválido."
                 error = false
             }
 
-            if (!isValidPassword(passw)) {
+            if (!Utils().isValidPassword(passw)) {
                 rootView.et_pass.error = "Contraseña inválida."
                 error = false
             }
 
             if (error!!) {
-                MEI.loadUrl("javascript:" +
-                        "var usr = document.getElementById('input_usuario');" +
-                        "var pass = document.getElementById('input_pass');" +
-                        "usr.value='" + et_email.text.toString() + "';" +
-                        "pass.value='" + et_pass.text.toString() + "';" +
-                        "$('#btn_submit').click();")
+                queue.add(req)
+                Toast.makeText(activity, "Iniciando sesión", Toast.LENGTH_SHORT).show()
             }
         }
-
-        MEI.loadUrl(pagMEI)
         return rootView
-    }
-
-
-
-    private inner class JavaScriptInterface internal constructor(internal var context: Context) {
-
-        @JavascriptInterface
-        fun pageLoaded(i: Int) {
-            if(i == 2){
-                activity.runOnUiThread {
-                    et_email.setText("")
-                    et_pass.setText("")
-                    startActivity(Intent(activity, LoggedFragment::class.java))
-                    activity.finish()
-                }
-            }
-        }
-
-        @JavascriptInterface
-        fun loginError() {
-            Toast.makeText(context, "Correo electrónico o contraseña incorrectos, por favor, intentelo de nuevo.", Toast.LENGTH_SHORT).show()
-            et_pass.setText("")
-        }
-    }
-
-    private fun isValidPassword(pass: String?): Boolean {
-        return pass != null && pass.length > 6
-    }
-
-    private fun isValidEmail(email: String): Boolean {
-        val regex = resources.getString(R.string.valid_email_pattern)
-
-        val pattern = Pattern.compile(regex)
-        val matcher = pattern.matcher(email)
-        return matcher.matches()
     }
 }

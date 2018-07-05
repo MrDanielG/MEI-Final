@@ -2,7 +2,6 @@ package ramir.mei
 
 import android.app.ProgressDialog
 import android.content.Intent
-import android.graphics.*
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.design.widget.NavigationView
@@ -12,45 +11,72 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.squareup.picasso.Picasso
-import com.squareup.picasso.Transformation
 import kotlinx.android.synthetic.main.app_bar_logged_fragment.*
 import kotlinx.android.synthetic.main.fragment_logged.*
 import kotlinx.android.synthetic.main.nav_header_logged_fragment.view.*
+import org.json.JSONObject
 
+/**
+    val req = object : StringRequest(Request.Method.POST, url, Response.Listener {
+        try {
 
-
+        }catch (e:Exception){
+            Log.e("asd", e.toString())
+        }
+    }, Response.ErrorListener {
+        Log.e("asd", it.message)
+    }){
+        override fun getParams(): MutableMap<String, String> {
+            return hashMapOf("device" to "", "key" to Utils().getKey(baseContext))
+        }
+    }
+ */
 class LoggedFragment : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-    private var mURL : String = ""
-    private val mJSIName : String = Utils().getJSIName()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_logged)
         setSupportActionBar(toolbar)
-        mURL = Utils().getMeiURL()+"MEI/index.php"
-
+        val queue = Volley.newRequestQueue(this)
+        val url = Utils().getMeiURL()+"perfil.php"
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
-
-        fragmentManager.beginTransaction().add(R.id.loggedContent, IndexLoggedFragment()).commit()
-
-        val mMEIPage = WebView(baseContext)
-
-        mMEIPage.webViewClient = WebViewClient()
-        mMEIPage.settings.javaScriptEnabled = true
-        mMEIPage.settings.domStorageEnabled = true
-        mMEIPage.addJavascriptInterface(JSI(), mJSIName)
-
-        mMEIPage.loadUrl(mURL)
-
         nav_view.setNavigationItemSelectedListener(this)
+
+        val req = object : StringRequest(Request.Method.POST, url, Response.Listener {
+            try {
+                val response = JSONObject(it)
+                val hView = nav_view.getHeaderView(0)
+
+                Picasso.get().load(Utils().getMeiURL() + response.getString("0")).transform(Utils.CircleTransform()).into(hView.ivProfile)
+
+                hView.tvName.text = response.getString("name") + " " + response.getString("last_name")
+                hView.tvEmail.text = response.getString("email")
+
+            }catch (e:Exception){
+                Log.e("asd", e.toString())
+            }
+        }, Response.ErrorListener {
+            Log.e("asd", it.message)
+        }){
+            override fun getParams(): MutableMap<String, String> {
+                return hashMapOf("device" to "", "key" to Utils().getKey(baseContext))
+            }
+        }
+
+        //fragmentManager.beginTransaction().add(R.id.loggedContent, IndexLoggedFragment()).commit()
+
+
+        queue.add(req)
     }
 
     override fun onBackPressed() {
@@ -128,53 +154,5 @@ class LoggedFragment : AppCompatActivity(), NavigationView.OnNavigationItemSelec
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
-    }
-
-    private inner class JSI {
-        @JavascriptInterface
-        fun navBar(img : String, name:String, email:String){
-            runOnUiThread {
-                val navigationView = nav_view
-                val hView = navigationView.getHeaderView(0)
-
-                Picasso.with(baseContext).load(mURL + "/../../resourses/profile_pics/" + img).transform(CircleTransform()).into(hView.ivProfile)
-
-                Log.e("Img", mURL + "/../resourses/profile_pics/" + img)
-
-                hView.tvName.text = name
-                hView.tvEmail.text = email
-            }
-        }
-    }
-
-    inner class CircleTransform : Transformation {
-
-        private var x: Int = 0
-        private var y: Int = 0
-
-        override fun transform(source: Bitmap): Bitmap {
-            val size = Math.min(source.width, source.height)
-
-            x = (source.width - size) / 2
-            y = (source.height - size) / 2
-
-            val squaredBitmap = Bitmap.createBitmap(source, x, y, size, size)
-            if (squaredBitmap !== source) source.recycle()
-            val bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
-
-            val canvas = Canvas(bitmap)
-            val paint = Paint()
-            val shader = BitmapShader(squaredBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
-            paint.shader = shader
-            paint.isAntiAlias = true
-
-            val r = size / 2f
-            canvas.drawCircle(r, r, r, paint)
-
-            squaredBitmap.recycle()
-            return bitmap
-        }
-
-        override fun key() = "circle(x=$x,y=$y)"
     }
 }

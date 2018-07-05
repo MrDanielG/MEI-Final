@@ -292,7 +292,7 @@ class RecomendationLoggedFragment : Fragment() {
                 val inflater = LayoutInflater.from(context)
                 val recCard : View = inflater.inflate(R.layout.recom_card_sample,rootView.recomLayout , false)
 
-                Picasso.with(context).load(urlFoto).transform(object : Transformation {
+                Picasso.get().load(urlFoto).transform(object : Transformation {
 
                     override fun transform(source: Bitmap): Bitmap {
                         val targetHeight = 800
@@ -338,7 +338,7 @@ class RecomendationLoggedFragment : Fragment() {
                 var c = db.getFavoriteById(Id)
 
                 if (c.count > 0){
-                    Picasso.with(context).load(R.drawable.ic_favorite_action).into(recCard.img_main_card1_favorite)
+                    Picasso.get().load(R.drawable.ic_favorite_action).into(recCard.img_main_card1_favorite)
                 }
 
                 recCard.img_main_card1_favorite.setOnClickListener {
@@ -346,7 +346,7 @@ class RecomendationLoggedFragment : Fragment() {
                     if (c.count > 0){
                         if(db.deleteFavoriteById(Id)){
                             Toast.makeText(context, "Se ha eliminado de favoritos.", Toast.LENGTH_SHORT).show()
-                            Picasso.with(context).load(R.drawable.ic_favorite_border).into(recCard.img_main_card1_favorite)
+                            Picasso.get().load(R.drawable.ic_favorite_border).into(recCard.img_main_card1_favorite)
                         }
                     }else{
                         val data = FavoriteData()
@@ -360,7 +360,7 @@ class RecomendationLoggedFragment : Fragment() {
                         data.lng = lng
                         if(db.addFavorites(data)) {
                             Toast.makeText(context, "Se ha agregado a favoritos.", Toast.LENGTH_SHORT).show()
-                            Picasso.with(context).load(R.drawable.ic_favorite_action).into(recCard.img_main_card1_favorite)
+                            Picasso.get().load(R.drawable.ic_favorite_action).into(recCard.img_main_card1_favorite)
                         }
                     }
                 }

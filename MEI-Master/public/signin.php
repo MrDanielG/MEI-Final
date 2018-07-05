@@ -10,7 +10,7 @@
         $edad = $_POST['edad'];
         $city = $_POST['city'];
 
-        include 'conn.php';
+        include "../private/conn.php";
 
         mysqli_query ($con,"SET NAMES 'utf8'");
     }

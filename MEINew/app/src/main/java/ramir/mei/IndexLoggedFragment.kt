@@ -30,12 +30,6 @@ import kotlinx.android.synthetic.main.logged_index_fragment.*
 import kotlinx.android.synthetic.main.logged_index_fragment.view.*
 
 
-
-
-
-
-
-
 /**
  * Creado por Ramiro el 22/11/2017 a las 07:18 PM para MEINew.
  */

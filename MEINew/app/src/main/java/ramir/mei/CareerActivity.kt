@@ -59,14 +59,14 @@ class CareerActivity : AppCompatActivity() {
 
         val db = FavoriteDB(baseContext)
         if(db.getFavoriteById(Id).count > 0){
-            Picasso.with(baseContext).load(R.drawable.ic_favorite_action).into(fab_scrolling)
+            Picasso.get().load(R.drawable.ic_favorite_action).into(fab_scrolling)
         }
 
         fab_scrolling.setOnClickListener {
             if(db.getFavoriteById(Id).count > 0){
                 if(db.deleteFavoriteById(Id)){
                     Toast.makeText(baseContext, "Se ha eliminado de favoritos.", Toast.LENGTH_SHORT).show()
-                    Picasso.with(baseContext).load(R.drawable.ic_favorite_border).into(fab_scrolling)
+                    Picasso.get().load(R.drawable.ic_favorite_border).into(fab_scrolling)
                 }
             }else{
                 val data = FavoriteData()
@@ -80,7 +80,7 @@ class CareerActivity : AppCompatActivity() {
                 data.lng = intent.getDoubleExtra("lng", 0.0)
                 if(db.addFavorites(data)) {
                     Toast.makeText(baseContext, "Se ha agregado a favoritos.", Toast.LENGTH_SHORT).show()
-                    Picasso.with(baseContext).load(R.drawable.ic_favorite_action).into(fab_scrolling)
+                    Picasso.get().load(R.drawable.ic_favorite_action).into(fab_scrolling)
                 }
             }
         }
@@ -98,7 +98,7 @@ class CareerActivity : AppCompatActivity() {
             supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         }
 
-        Picasso.with(baseContext).load(intent.getStringExtra("img")).transform(object : Transformation {
+        Picasso.get().load(intent.getStringExtra("img")).transform(object : Transformation {
 
             override fun transform(source: Bitmap): Bitmap {
                 val targetHeight = (density*200).toInt()
@@ -114,7 +114,7 @@ class CareerActivity : AppCompatActivity() {
             override fun key(): String = "cropPosterTransformation720"
         }).into(image_scrolling_top)
 
-        mMEIPage.loadUrl(mURL+"$name&uni=$uni")
+        mMEIPage.loadUrl("$mURL$name&uni=$uni")
     }
 
     override fun onBackPressed() {

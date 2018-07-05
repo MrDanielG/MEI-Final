@@ -41,7 +41,7 @@ class FavoritesLoggedFragment : Fragment() {
                 val inflater = LayoutInflater.from(activity.baseContext)
                 val recCard : View = inflater.inflate(R.layout.recom_card_sample,rootView.recomLayout , false)
 
-                Picasso.with(activity.baseContext).load(urlFoto).transform(object : Transformation {
+                Picasso.get().load(urlFoto).transform(object : Transformation {
 
                     override fun transform(source: Bitmap): Bitmap {
                         val targetHeight = 800
@@ -84,12 +84,12 @@ class FavoritesLoggedFragment : Fragment() {
                     startActivity(intent)
                 }
 
-                Picasso.with(activity.baseContext).load(R.drawable.ic_favorite_action).into(recCard.img_main_card1_favorite)
+                Picasso.get().load(R.drawable.ic_favorite_action).into(recCard.img_main_card1_favorite)
 
                 recCard.img_main_card1_favorite.setOnClickListener {
                     if(db.deleteFavoriteById(Id)){
                         Toast.makeText(activity.baseContext, "Se ha eliminado de favoritos.", Toast.LENGTH_SHORT).show()
-                        Picasso.with(activity.baseContext).load(R.drawable.ic_favorite_border).into(recCard.img_main_card1_favorite)
+                        Picasso.get().load(R.drawable.ic_favorite_border).into(recCard.img_main_card1_favorite)
                         recCard.visibility = View.GONE
                     }
                 }

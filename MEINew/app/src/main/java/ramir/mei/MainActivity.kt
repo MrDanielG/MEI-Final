@@ -1,76 +1,62 @@
 package ramir.mei
 
 import android.annotation.SuppressLint
-import android.app.FragmentManager
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.view.animation.AlphaAnimation
 import android.view.animation.AnimationSet
-import android.webkit.JavascriptInterface
-import android.webkit.WebSettings
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import com.android.volley.DefaultRetryPolicy
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-    private var mURL : String = ""
-    private val mJSIName : String = Utils().getJSIName()
-    private var pageMEI : WebView? = null
-
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
-        mURL = Utils().getMeiURL()+"login.php"
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         Log.e("MAIN", "Iniciado...")
 
-        Picasso.with(baseContext).load("$mURL/../imgs/logo1.png").into(this@MainActivity.logoLoading)
+        val queue = Volley.newRequestQueue(this)
+        val url = Utils().getMeiURL()+"login.php"
 
-        pageMEI = WebView(this)
+        Picasso.get().load("file:///android_asset/logo.png").into(logoLoading)
 
-        val webSetting: WebSettings = pageMEI!!.settings
-        webSetting.javaScriptEnabled = true
-        webSetting.domStorageEnabled = true
+        val req = StringRequest(Request.Method.GET, url, Response.Listener {
+            val fadeOut = AlphaAnimation(1f, 0f)
+            fadeOut.startOffset = 1000
+            fadeOut.duration = 200
+            val animation = AnimationSet(true)
+            animation.addAnimation(fadeOut)
 
-        pageMEI!!.webViewClient = WebViewClient()
+            loadingLayout.animation = animation
+            loadingLayout.visibility = View.GONE
+            pb_main.visibility = View.GONE
+            fragmentManager.beginTransaction().add(R.id.frameContainer, NotLogFragment()).commit()
+        }, Response.ErrorListener {
+            Log.e("asd", it.toString())
+            pb_main.visibility = View.GONE
+        })
 
-        pageMEI!!.loadUrl(mURL)
+        req.retryPolicy = DefaultRetryPolicy(5000,2,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
 
-        pageMEI!!.addJavascriptInterface(JSI(fragmentManager), mJSIName)
-
-    }
-
-    override fun onResume() {
-        super.onResume()
-        pageMEI!!.reload()
-    }
-
-    private inner class JSI constructor(val fragmentManager: FragmentManager) {
-        @JavascriptInterface
-        fun pageLoaded(i: Int) {
-            this@MainActivity.runOnUiThread {
-                val fadeOut = AlphaAnimation(1f, 0f)
-                fadeOut.startOffset = 1000
-                fadeOut.duration = 200
-                val animation = AnimationSet(true)
-                animation.addAnimation(fadeOut)
-                this@MainActivity.loadingLayout.animation = animation
-                this@MainActivity.loadingLayout.visibility = View.GONE
+        Handler().postDelayed({
+            if(PreferenceManager.getDefaultSharedPreferences(this).getBoolean("login", false)){
+                startActivity(Intent(this, LoggedFragment::class.java))
+                finish()
+            }else{
+                queue.add(req)
                 pb_main.visibility = View.GONE
             }
-
-            when(i){
-                1 -> fragmentManager.beginTransaction().add(R.id.frameContainer, NotLogFragment()).commit()
-                2 -> {
-                    startActivity(Intent(baseContext, LoggedFragment::class.java))
-                    finish()
-                }
-            }
-        }
+        }, 2000)
     }
 }
