@@ -72,7 +72,6 @@
 
     <script type="text/javascript" src="../assets/js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="../assets/js/materialize.min.js"></script>
-    <script type="text/javascript" src="../assets/js/JSI.js"></script>
     <script>
       $(document).ready(function() {
         Materialize.updateTextFields();
@@ -82,10 +81,7 @@
 
 
       //TODO: Ver la forma de que estas partes sean privadas
-      if(JSI){
-        try{doFunc(JSI.logout());}catch(e){}
-        try{doFunc(JSI.pageLoaded(1));}catch(e){}
-      }
+
     </script>
     <?php
         if(isset($consulta)){
@@ -98,8 +94,7 @@
             }else{
                 echo '
                     <script type="text/javascript">
-                        if(JSI)
-                          JSI.loginError();
+                        
                         Materialize.toast("No se pudo iniciar sesión", 3000, "rounded");
                         $("#input_usuario").val("'.$usr.'");
                     </script>';
