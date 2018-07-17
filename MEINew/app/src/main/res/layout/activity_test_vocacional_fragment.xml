@@ -21,16 +21,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="16dp"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:id="@+id/ly_testvoca"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp">
+                    android:animateLayoutChanges="true"
+                    android:orientation="vertical">
 
                     <ProgressBar
                         android:id="@+id/testLoad"
@@ -39,21 +37,17 @@
                         android:layout_height="wrap_content" />
                 </LinearLayout>
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <Button
-                        android:id="@+id/enviarbt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true"
-                        android:layout_margin="8dp"
-                        android:backgroundTint="@color/colorPrimary"
-                        android:text="Enviar"
-                        android:textColor="@android:color/background_light" />
-                </RelativeLayout>
+                <Button
+                    android:id="@+id/enviarbt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:layout_margin="8dp"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:text="Enviar"
+                    android:textColor="@android:color/background_light" />
 
             </LinearLayout>
 

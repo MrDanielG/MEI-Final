@@ -1,4 +1,4 @@
-package ramir.mei
+package ramir.mei.fragment.notLogged
 
 import android.content.Intent
 import android.os.Bundle
@@ -15,13 +15,16 @@ import com.android.volley.toolbox.Volley
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_login.view.*
 import org.json.JSONObject
+import ramir.mei.R
+import ramir.mei.Utils
+import ramir.mei.activity.LoggedActivity
 
 class LoginFragment : android.app.Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater!!.inflate(R.layout.fragment_login, container, false)
         val queue = Volley.newRequestQueue(activity)
-        val url = Utils().getMeiURL() + "login.php"
+        val url = Utils().getMeiURL()
 
         Picasso.get().load("file:///android_asset/logo.png").into(rootView.logoView)
 
@@ -30,7 +33,7 @@ class LoginFragment : android.app.Fragment() {
                 val resp = JSONObject(it)
                 if(resp.getBoolean("login")){
                     PreferenceManager.getDefaultSharedPreferences(activity).edit().putBoolean("login", true).putString("key", resp.getString("key")).apply()
-                            activity.startActivity(Intent(activity, LoggedFragment::class.java))
+                            activity.startActivity(Intent(activity, LoggedActivity::class.java))
                     activity.finish()
                 }else{
                     Toast.makeText(activity, "Correo electrónico o contraseña incorrectos.", Toast.LENGTH_SHORT).show()
@@ -43,15 +46,17 @@ class LoginFragment : android.app.Fragment() {
             Log.e("asd", it.toString())
         }){
             override fun getParams(): MutableMap<String, String> {
-                return hashMapOf("usr" to rootView.et_email.editText?.text.toString(), "pass" to rootView.et_pass.editText?.text.toString())
+                return hashMapOf("usr" to rootView.et_email.editText?.text.toString(),
+                        "pass" to rootView.et_pass.editText?.text.toString(),
+                        "req" to "login",
+                        "device" to "")
             }
         }
 
         rootView.btn_login.setOnClickListener {
             val email = rootView.et_email.editText?.text.toString()
             val passw = rootView.et_pass.editText?.text.toString()
-
-            var error: Boolean? = true
+            var error: Boolean = true
 
             if (!Utils().isValidEmail(email, resources)) {
                 rootView.et_email.error = "Correo electrónico inválido."
@@ -63,7 +68,7 @@ class LoginFragment : android.app.Fragment() {
                 error = false
             }
 
-            if (error!!) {
+            if (error) {
                 queue.add(req)
                 Toast.makeText(activity, "Iniciando sesión", Toast.LENGTH_SHORT).show()
             }

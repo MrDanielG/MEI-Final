@@ -1,6 +1,5 @@
-package ramir.mei
+package ramir.mei.activity
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -17,17 +16,17 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
+import ramir.mei.R
+import ramir.mei.Utils
+import ramir.mei.fragment.notLogged.NotLogFragment
 
 class MainActivity : AppCompatActivity() {
-    @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        Log.e("MAIN", "Iniciado...")
-
         val queue = Volley.newRequestQueue(this)
-        val url = Utils().getMeiURL()+"login.php"
+        val url = Utils().getMeiURL()
 
         Picasso.get().load("file:///android_asset/logo.png").into(logoLoading)
 
@@ -41,7 +40,7 @@ class MainActivity : AppCompatActivity() {
             loadingLayout.animation = animation
             loadingLayout.visibility = View.GONE
             pb_main.visibility = View.GONE
-            fragmentManager.beginTransaction().add(R.id.frameContainer, NotLogFragment()).commit()
+            fragmentManager.beginTransaction().replace(R.id.frameContainer, NotLogFragment()).commit()
         }, Response.ErrorListener {
             Log.e("asd", it.toString())
             pb_main.visibility = View.GONE
@@ -51,7 +50,7 @@ class MainActivity : AppCompatActivity() {
 
         Handler().postDelayed({
             if(PreferenceManager.getDefaultSharedPreferences(this).getBoolean("login", false)){
-                startActivity(Intent(this, LoggedFragment::class.java))
+                startActivity(Intent(this, LoggedActivity::class.java))
                 finish()
             }else{
                 queue.add(req)

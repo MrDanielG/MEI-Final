@@ -71,7 +71,6 @@
       return $angle * $earthRadius;
     }
 ?>
-<script type="text/javascript" src="../js/JSI.js"></script>
 <script type="text/javascript">
   function moreResult(limit){
     $.ajax({url:"ajax/ajaxReco.php?limit="+limit+<?php if(isset($_GET["lat"])&&isset($_GET["lng"])){
@@ -80,20 +79,5 @@
             success: function(data){
               $("#recoContainer").html(data);
             }});
-  }
-  if(JSI){
-    var carrera = document.getElementsByClassName('reco_carrera');
-    var uni = document.getElementsByClassName('reco_universidad');
-    var inst = document.getElementsByClassName('reco_inst');
-    var info = document.getElementsByClassName('reco_info');
-    var maps = document.getElementsByClassName('reco_maps');
-    var foto = document.getElementsByClassName('reco_foto');
-    if(carrera.length){
-      for(var i = <?php echo $limite-5; ?> ; i < carrera.length ; ++i)
-        try{JSI.recPage(carrera[i].innerText, uni[i].innerText,info[i].href, i , foto[i].dataset.content, inst[i].innerText, false, Number(carrera[i].dataset.num), Number(maps[i].dataset.lat),Number(maps[i].dataset.lng), document.getElementsByClassName("right green-text text-darken-1")[i].innerText);}catch(e){console.log(e);}
-      <?php if($i > 0) echo "try{JSI.recPage('','','', 4, 'e.jpg', '', true, 0, 0, 0, '');}catch(e){console.log(e);}"; ?>
-    }else{
-      try{JSI.recPage('','','', 4, 'e.jpg', '', true, 0, 0, 0, '');}catch(e){console.log(e);}
-    }
   }
 </script>

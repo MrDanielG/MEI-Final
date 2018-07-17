@@ -1,6 +1,5 @@
-package ramir.mei
+package ramir.mei.activity
 
-import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.preference.PreferenceManager
@@ -11,8 +10,6 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.webkit.WebView
-import android.webkit.WebViewClient
 import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.Response
@@ -23,29 +20,33 @@ import kotlinx.android.synthetic.main.app_bar_logged_fragment.*
 import kotlinx.android.synthetic.main.fragment_logged.*
 import kotlinx.android.synthetic.main.nav_header_logged_fragment.view.*
 import org.json.JSONObject
+import ramir.mei.R
+import ramir.mei.SQL.FavoriteDB
+import ramir.mei.Utils
+import ramir.mei.fragment.logged.*
 
 /**
     val req = object : StringRequest(Request.Method.POST, url, Response.Listener {
         try {
-
+            val response = JSONObject(it)
         }catch (e:Exception){
             Log.e("asd", e.toString())
         }
     }, Response.ErrorListener {
-        Log.e("asd", it.message)
+        Log.e("asd", it.toString())
     }){
         override fun getParams(): MutableMap<String, String> {
             return hashMapOf("device" to "", "key" to Utils().getKey(baseContext))
         }
     }
  */
-class LoggedFragment : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class LoggedActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_logged)
         setSupportActionBar(toolbar)
         val queue = Volley.newRequestQueue(this)
-        val url = Utils().getMeiURL()+"perfil.php"
+        val url = Utils().getMeiURL()
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer_layout.addDrawerListener(toggle)
@@ -66,15 +67,16 @@ class LoggedFragment : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                 Log.e("asd", e.toString())
             }
         }, Response.ErrorListener {
-            Log.e("asd", it.message)
+            Log.e("asd", it.toString())
         }){
             override fun getParams(): MutableMap<String, String> {
-                return hashMapOf("device" to "", "key" to Utils().getKey(baseContext))
+                return hashMapOf("device" to "",
+                        "key" to Utils().getKey(baseContext),
+                        "req" to "perfil")
             }
         }
 
-        //fragmentManager.beginTransaction().add(R.id.loggedContent, IndexLoggedFragment()).commit()
-
+        fragmentManager.beginTransaction().add(R.id.loggedContent, IndexLoggedFragment()).commit()
 
         queue.add(req)
     }
@@ -127,28 +129,16 @@ class LoggedFragment : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                 try {
                     startActivity(Intent.createChooser(i, "Enviar correo electrónico..."))
                 } catch (ex: android.content.ActivityNotFoundException) {
-                    Toast.makeText(this@LoggedFragment, "No hay clientes para enviar correo electrónico instalados.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@LoggedActivity, "No hay clientes para enviar correo electrónico instalados.", Toast.LENGTH_SHORT).show()
                 }
 
             }
             R.id.nav_cerrarc -> {
-                val db = FavoriteDB(baseContext)
+                val db = FavoriteDB(this)
                 db.deleteTable()
-                val editor = PreferenceManager.getDefaultSharedPreferences(this@LoggedFragment).edit()
-                editor.clear()
-                editor.apply()
-                val logout = WebView(baseContext)
-                val progressDialog = ProgressDialog(this@LoggedFragment)
-                progressDialog.setMessage("Cerrando sesión...")
-                progressDialog.show()
-                logout.webViewClient = object : WebViewClient(){
-                    override fun onPageFinished(view: WebView?, url: String?) {
-                        startActivity(Intent(baseContext, MainActivity::class.java))
-                        finish()
-                        super.onPageFinished(view, url)
-                    }
-                }
-                logout.loadUrl(Utils().getMeiURL()+"MEI/logout.php")
+                PreferenceManager.getDefaultSharedPreferences(this@LoggedActivity).edit().clear().apply()
+                startActivity(Intent(this,MainActivity::class.java))
+                finish()
             }
         }
 

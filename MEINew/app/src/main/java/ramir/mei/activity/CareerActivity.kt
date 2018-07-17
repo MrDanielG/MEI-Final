@@ -1,4 +1,4 @@
-package ramir.mei
+package ramir.mei.activity
 
 import android.animation.ArgbEvaluator
 import android.animation.ObjectAnimator
@@ -22,6 +22,10 @@ import com.squareup.picasso.Picasso
 import com.squareup.picasso.Transformation
 import kotlinx.android.synthetic.main.activity_career.*
 import kotlinx.android.synthetic.main.carrer_content.*
+import ramir.mei.R
+import ramir.mei.SQL.FavoriteDB
+import ramir.mei.SQL.FavoriteData
+import ramir.mei.Utils
 
 
 class CareerActivity : AppCompatActivity() {

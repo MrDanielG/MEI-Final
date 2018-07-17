@@ -71,7 +71,7 @@
             }
 
             echo '</table>';
-            echo mysqli_error($con);
+    
         ?>
         <form enctype="multipart/form-data" action="" method="post" style="display:none">
             <input type="file" name="img" id="input-img">

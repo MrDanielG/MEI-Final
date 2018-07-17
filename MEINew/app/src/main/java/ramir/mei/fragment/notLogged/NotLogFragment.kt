@@ -1,4 +1,4 @@
-package ramir.mei
+package ramir.mei.fragment.notLogged
 
 import android.app.Fragment
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.support.design.widget.BottomNavigationView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import ramir.mei.R
 
 class NotLogFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {

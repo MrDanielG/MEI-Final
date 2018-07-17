@@ -1,4 +1,4 @@
-package ramir.mei
+package ramir.mei.fragment.logged
 
 import android.app.ActivityOptions
 import android.app.Fragment
@@ -13,6 +13,10 @@ import com.squareup.picasso.Picasso
 import com.squareup.picasso.Transformation
 import kotlinx.android.synthetic.main.logged_rec_fragment.view.*
 import kotlinx.android.synthetic.main.recom_card_sample.view.*
+import ramir.mei.R
+import ramir.mei.SQL.FavoriteDB
+import ramir.mei.activity.CareerActivity
+import ramir.mei.activity.MapsActivity
 
 /**
  * Creado por Ramiro el 14/12/2017 a las 01:59 AM para MEINew.
@@ -21,7 +25,7 @@ class FavoritesLoggedFragment : Fragment() {
     override fun onCreateView(inflaterI: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val rootView = inflaterI!!.inflate(R.layout.logged_favorites_fragment, container, false)
 
-        val db = FavoriteDB(activity.baseContext)
+        val db = FavoriteDB(activity)
         val col = FavoriteDB.DBCols()
 
         db.createDatabase()

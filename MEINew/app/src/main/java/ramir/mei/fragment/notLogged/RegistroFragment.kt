@@ -1,4 +1,4 @@
-package ramir.mei
+package ramir.mei.fragment.notLogged
 
 import android.os.Bundle
 import android.util.Log
@@ -13,12 +13,14 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.fragment_registro.view.*
 import org.json.JSONObject
+import ramir.mei.R
+import ramir.mei.Utils
 
 class RegistroFragment : android.app.Fragment() {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view: View = inflater!!.inflate(R.layout.fragment_registro, container, false)
         val queue = Volley.newRequestQueue(activity)
-        val url = Utils().getMeiURL() + "signin.php"
+        val url = Utils().getMeiURL()
 
         val adapter = ArrayAdapter.createFromResource(activity.baseContext, R.array.estados_array, android.R.layout.simple_spinner_item)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -51,7 +53,9 @@ class RegistroFragment : android.app.Fragment() {
                         "nombre" to view.et_r_nombre.text.toString(),
                         "apellido" to view.et_r_last.text.toString(),
                         "edad" to view.et_r_edad.text.toString(),
-                        "city" to view.et_r_lugar.selectedItem.toString())
+                        "city" to view.et_r_lugar.selectedItem.toString(),
+                        "req" to "signin",
+                        "device" to "")
             }
         }
 
