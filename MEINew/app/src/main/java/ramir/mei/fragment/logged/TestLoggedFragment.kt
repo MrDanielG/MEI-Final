@@ -17,6 +17,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 import ramir.mei.R
 import ramir.mei.Utils
+import ramir.mei.activity.TestVocacionalActivity
 
 /**
  * Creado por Ramiro el 22/11/2017 a las 07:37 PM para MEINew.
@@ -40,7 +41,7 @@ class TestLoggedFragment : Fragment() {
 
         rootView.listTest.setOnItemClickListener { _, _, i, _ -> kotlin.run {
             isIntent = true
-            val intent = Intent(activity, TestVocacionalFragment::class.java)
+            val intent = Intent(activity, TestVocacionalActivity::class.java)
             intent.putExtra("UID", itemUid[i])
             intent.putExtra("name", listItems[i]["linea1"])
             startActivity(intent)

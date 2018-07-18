@@ -9,31 +9,35 @@
 
     switch($_POST["req"]){
         case "login":
-            include "login.php";
+            include "res/login.php";
             break;
         
         case "signin":
-            include "signin.php";
+            include "res/signin.php";
             break;
 
         case "perfil":
-            include "perfil.php";
+            include "res/perfil.php";
             break;
 
         case "listTest":
-            include "testList.php";
+            include "res/testList.php";
             break;
 
         case "testForm":
-            include "test.php";
+            include "res/test.php";
             break;
 
         case "formSend":
-            include "formSend.php";
+            include "res/formSend.php";
             break;
 
         case "recom":
-            include "recomendaciones.php";
+            include "res/recomendaciones.php";
+            break;
+
+        case "carrera":
+            include "res/carrera.php";
             break;
     }
 ?>

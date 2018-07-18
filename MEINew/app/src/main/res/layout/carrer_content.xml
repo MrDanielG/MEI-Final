@@ -9,48 +9,238 @@
     tools:context="ramir.mei.activity.CareerActivity"
     tools:showIn="@layout/activity_career">
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/cardCareer"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:backgroundTint="@color/cardview_light_background"
-        android:transitionName="recoCard"
-        app:cardCornerRadius="3dp"
-        app:cardElevation="0dp">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:translationY="-14dp">
 
-        <LinearLayout
+        <ProgressBar
+            android:id="@+id/careerLoad"
+            style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/colorAccent"
+            android:translationY="7dp" />
+
+        <LinearLayout
+            android:id="@+id/id_career_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="45dp"
             android:orientation="vertical">
 
-            <ProgressBar
-                android:id="@+id/careerLoad"
-                style="?android:attr/progressBarStyleHorizontal"
+            <TextView android:textColor="@android:color/black" android:foreground="?attr/selectableItemBackground" android:padding="10dp"
+                android:id="@+id/btn_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:indeterminate="true"
-                android:indeterminateTint="@color/colorAccent"
-                android:translationY="-7dp" />
+                android:fontFamily="sans-serif"
+                android:text="Descripción"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textSize="16sp" />
 
-            <LinearLayout
-                android:id="@+id/id_career_content"
+            <net.cachapa.expandablelayout.ExpandableLayout
+                android:id="@+id/col_desc"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="8dp">
+                android:layout_height="wrap_content"
+                app:el_duration="300"
+                app:el_expanded="true">
 
-                <TextView
-                    android:id="@+id/tv_carrera"
+                <WebView
+                    android:id="@+id/wv_desc"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:lineSpacingMultiplier="1.2"
-                    android:textColor="@color/common_google_signin_btn_text_dark_focused"
-                    android:textColorLink="@android:color/holo_blue_bright"
-                    android:textSize="16sp" />
-            </LinearLayout>
+                    android:layout_height="wrap_content" />
+            </net.cachapa.expandablelayout.ExpandableLayout>
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#DDD" />
+
+            <TextView android:textColor="@android:color/black" android:foreground="?attr/selectableItemBackground" android:padding="10dp"
+                android:id="@+id/btn_uni"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:text="Uni"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textSize="16sp" />
+
+            <net.cachapa.expandablelayout.ExpandableLayout
+                android:id="@+id/col_uni"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:el_duration="300"
+                app:el_expanded="true">
+
+                <WebView
+                    android:id="@+id/wv_uni"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </net.cachapa.expandablelayout.ExpandableLayout>
+
+
+            <View
+                android:id="@+id/view3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#DDD" />
+
+            <TextView android:textColor="@android:color/black"
+                android:id="@+id/btn_plan_est"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:foreground="?attr/selectableItemBackground"
+                android:padding="10dp"
+                android:text="@string/plan_de_estudios"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textSize="16sp" />
+
+            <net.cachapa.expandablelayout.ExpandableLayout
+                android:id="@+id/col_plan_est"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:el_duration="300"
+                app:el_expanded="true">
+
+                <WebView
+                    android:id="@+id/wv_plan_est"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </net.cachapa.expandablelayout.ExpandableLayout>
+
+            <View
+                android:id="@+id/view6"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#DDD" />
+
+            <TextView android:textColor="@android:color/black"
+                android:id="@+id/btn_perf_egreso"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:foreground="?attr/selectableItemBackground"
+                android:padding="10dp"
+                android:text="@string/perfil_de_egreso"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textSize="16sp" />
+
+            <net.cachapa.expandablelayout.ExpandableLayout
+                android:id="@+id/col_perf_egreso"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:el_duration="300"
+                app:el_expanded="true">
+
+                <WebView
+                    android:id="@+id/wv_perf_egreso"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </net.cachapa.expandablelayout.ExpandableLayout>
+
+
+            <View
+                android:id="@+id/view4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#DDD" />
+
+            <TextView android:textColor="@android:color/black"
+                android:id="@+id/btn_becas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:foreground="?attr/selectableItemBackground"
+                android:padding="10dp"
+                android:text="Becas"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textSize="16sp" />
+
+            <net.cachapa.expandablelayout.ExpandableLayout
+                android:id="@+id/col_becas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:el_duration="300"
+                app:el_expanded="true">
+
+                <WebView
+                    android:id="@+id/wv_becas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </net.cachapa.expandablelayout.ExpandableLayout>
+
+            <View
+                android:id="@+id/view5"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#DDD" />
+
+            <TextView android:textColor="@android:color/black"
+                android:id="@+id/btn_inter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:foreground="?attr/selectableItemBackground"
+                android:padding="10dp"
+                android:text="Intercambios"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textSize="16sp" />
+
+            <net.cachapa.expandablelayout.ExpandableLayout
+                android:id="@+id/col_inter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:el_duration="300"
+                app:el_expanded="true">
+
+                <WebView
+                    android:id="@+id/wv_inter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </net.cachapa.expandablelayout.ExpandableLayout>
+
+            <View
+                android:id="@+id/view7"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#DDD" />
+
+            <TextView android:textColor="@android:color/black"
+                android:id="@+id/btn_ref"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:foreground="?attr/selectableItemBackground"
+                android:padding="10dp"
+                android:text="Referencias"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textSize="16sp" />
+
+            <net.cachapa.expandablelayout.ExpandableLayout
+                android:id="@+id/col_ref"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:el_duration="300"
+                app:el_expanded="true">
+
+                <WebView
+                    android:id="@+id/wv_ref"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </net.cachapa.expandablelayout.ExpandableLayout>
 
         </LinearLayout>
 
-    </android.support.v7.widget.CardView>
-
+    </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

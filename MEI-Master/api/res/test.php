@@ -1,5 +1,4 @@
 <?php
-    //include "../private/conn.php";
     $UID = $_POST["UID"];
     $result = mysqli_query($con, "SELECT * FROM `pregunta` WHERE `id_examen` = ".$UID);
     $pregs = array();
@@ -17,13 +16,10 @@
                 $areas[$res[0]]++;
             }
 
-            $areasF = array("name" => $res[0].'['.$areas[$res[0]].']', "value" => $res[2]);
-            
-            //echo '<input required type="radio" id="op'.$uid.$i.'" name="'.$res[0].'['.$areas[$res[0]].']" value="'.$res[2].'">
-                //<label class="option" for="op'.$uid.$i.'">'.$res[1].'</label>';
-        }
+            $areasF = array("name" => $res[0],"index" => $areas[$res[0]] ,"value" => $res[2]);
         array_push($preg, $areasF);
         array_push($pregs, $preg);
+        }
     }
 
     echo json_encode($pregs);

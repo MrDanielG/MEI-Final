@@ -5,7 +5,7 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.provider.BaseColumns
-
+import android.util.Log
 
 
 /**
@@ -35,7 +35,7 @@ class FavoriteDB constructor(c: Context) : SQLiteOpenHelper(c, "favorite.db", nu
         try {
             p0.execSQL("CREATE TABLE " + col.tableName + " ("
                     + col._id + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + col.id + " INTEGER NOT NULL,"
+                    + col.id + " TEXT NOT NULL,"
                     + col.urlFoto + " TEXT NOT NULL,"
                     + col.nombre + " TEXT NOT NULL,"
                     + col.sueldo + " TEXT NOT NULL,"
@@ -48,22 +48,35 @@ class FavoriteDB constructor(c: Context) : SQLiteOpenHelper(c, "favorite.db", nu
         }
     }
 
-    fun getFavoriteById(id : Int) : Cursor{
+    fun getFavoriteById(id : String) : Cursor{
         return readableDatabase.query(col.tableName,
                 null,
-                col.id + " LIKE ?",
-                arrayOf(id.toString()), null, null, null)
+                "${col.id} = ?",
+                arrayOf(id), null, null, null)
     }
 
-    fun deleteFavoriteById(Id : Int) : Boolean{
+    fun deleteFavoriteById(Id : String) : Boolean{
         val p0 = writableDatabase
 
-        try {
-            p0.execSQL("DELETE FROM "+ col.tableName +" WHERE id = "+Id)
-            return true
+        return try {
+            p0.execSQL("DELETE FROM ${col.tableName} WHERE id = '$Id'")
+            true
         }catch (e : Exception){
-            return false
+            Log.e("asd", e.toString())
+            false
         }
+    }
+
+    fun containsFavoriteById(Id : String) : Boolean{
+        val cursor = readableDatabase.query(col.tableName,
+                null,
+                "${col.id} = $Id",
+                null, null, null, null)
+
+        val count = cursor.count
+        cursor.close()
+
+        return count > 0
     }
 
     fun deleteTable(){
@@ -97,7 +110,5 @@ class FavoriteDB constructor(c: Context) : SQLiteOpenHelper(c, "favorite.db", nu
         }
     }
 
-    override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
-        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {}
 }

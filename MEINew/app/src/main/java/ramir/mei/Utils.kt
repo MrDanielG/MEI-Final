@@ -11,6 +11,7 @@ import android.view.animation.Animation
 import android.view.animation.ScaleAnimation
 import com.squareup.picasso.Transformation
 import java.util.regex.Pattern
+import kotlin.math.absoluteValue
 
 /**
 * Creado por Ramiro el 21/11/2017 a las 01:19 AM para MEINew.
@@ -21,6 +22,14 @@ class Utils{
 
     fun getJSIName():String{
         return "KOTLIN"
+    }
+
+    fun dpToPixel(resources: Resources, dp : Int) : Int{
+        return (resources.displayMetrics.density * dp).toInt()
+    }
+
+    fun generateRecomId(lat : Double,lng: Double,name: String, uni : String, inst : String) : Int{
+        return (lat.toInt() + lng.toInt() + name.hashCode() + uni.hashCode() + inst.hashCode()).absoluteValue
     }
 
     fun expand(v: View) {

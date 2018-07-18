@@ -6,8 +6,6 @@
       $lat=$_POST["lat"];
       $lng=$_POST["lng"];
     }
-    $limite = $_POST['limit'];
-    $i = $limite;
 
     $result = mysqli_fetch_array(mysqli_query($con,"SELECT id_resultado FROM aplicacion_examen WHERE id_user = '$usr_uid' ORDER BY UID DESC LIMIT 1"), MYSQLI_NUM);
 
@@ -21,16 +19,10 @@
     while($card = mysqli_fetch_array( $r_2 , MYSQLI_NUM)){
       if(isset($range)){
         if((distancia($lat, $lng, $card[4], $card[5])/1000) <= $range){
-          $i--;
           array_push($carreras,$card);
         }
       }else{
-        $i--;
         array_push($carreras,$card);
-      }
-      if($i == 0){
-        //echo "<div class='row'><a href='#!' class='col s12 btn white red-text waves-effect more-btn' onclick='moreResult(".($limite+5).")'>Ver más</a></div>";
-        break;
       }
     }
     echo json_encode($carreras);

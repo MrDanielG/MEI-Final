@@ -7,7 +7,7 @@ import android.content.ContentValues
  * Creado por Ramiro el 14/12/2017 a las 12:00 AM para MEINew.
  */
 class FavoriteData {
-    var id : Int = 0
+    var id : String = "id123"
     var nombre : String = "nombre"
     var urlFoto : String = "url"
     var uni : String = "uni"

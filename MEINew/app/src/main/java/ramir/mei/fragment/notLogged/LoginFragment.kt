@@ -56,7 +56,7 @@ class LoginFragment : android.app.Fragment() {
         rootView.btn_login.setOnClickListener {
             val email = rootView.et_email.editText?.text.toString()
             val passw = rootView.et_pass.editText?.text.toString()
-            var error: Boolean = true
+            var error = true
 
             if (!Utils().isValidEmail(email, resources)) {
                 rootView.et_email.error = "Correo electrónico inválido."
