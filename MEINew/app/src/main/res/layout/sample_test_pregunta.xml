@@ -38,19 +38,6 @@
         app:layout_constraintTop_toBottomOf="@+id/test_pregunta"
         app:layout_constraintVertical_bias="0.0">
 
-        <RadioButton
-            android:id="@+id/test_agree"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="De acuerdo" />
-
-        <RadioButton
-            android:id="@+id/test_disagree"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="En desacuerdo" />
     </RadioGroup>
 
     <View

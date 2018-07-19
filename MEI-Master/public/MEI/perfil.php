@@ -48,7 +48,10 @@
 
             echo '<span><h3>Examenes aplicados</h3></span><br>';
 
-            $query = "SELECT * FROM aplicacion_examen INNER JOIN examen ON aplicacion_examen.id_examen = examen.UID WHERE id_user = '".$usuario["UID"]."'";
+            $query = "SELECT * FROM aplicacion_examen 
+                            INNER JOIN examen ON aplicacion_examen.id_examen = examen.UID 
+                            INNER JOIN area ON aplicacion_examen.id_resultado = area.UID
+                            WHERE id_user = '".$usuario["UID"]."'";
             $result = mysqli_query($con,$query);
 
             echo "<table id='examen-table' class='striped'>
@@ -66,7 +69,7 @@
                     "<tr>
                         <td class='testName'>".$examen[6]."</td>
                         <td class='testFecha'>".$res."</td>
-                        <td class='testResu'>".$examen[4]."</td>
+                        <td class='testResu'>".$examen[9]."</td>
                     </tr>";
             }
 
@@ -107,22 +110,6 @@
             $("#input-img").change(e => {
                 $(e.target).parent().submit();
             });
-
-            if(JSI){
-              var imgUrl = document.getElementById('dataUser').dataset.picture;
-              var name = document.getElementById('profile-nombre').innerText;
-              var email = document.getElementById('profile-correo').innerText;
-              var edad = document.getElementById('profile-edad').innerText;
-              var city = document.getElementById('profile-ciudad').innerText;
-              JSI.perfil(imgUrl,name,email,edad,city);
-              var test = document.getElementsByClassName('testName');
-              var fecha = document.getElementsByClassName('testFecha');
-              var resu = document.getElementsByClassName('testResu');
-              JSI.perfilTabla('Nombre','Fecha','Resultado');
-              for(var i = 0 ; i < test.length ; ++i){
-                  JSI.perfilTabla(test[i].innerText,fecha[i].innerText,resu[i].innerText);
-              }
-            }
         </script>
     </body>
 </html>

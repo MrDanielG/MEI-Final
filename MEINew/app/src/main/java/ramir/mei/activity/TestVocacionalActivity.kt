@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.Toast
@@ -22,9 +23,12 @@ import org.json.JSONArray
 import org.json.JSONObject
 import ramir.mei.R
 import ramir.mei.Utils
+import java.util.*
+import kotlin.collections.ArrayList
 
 class TestVocacionalActivity : AppCompatActivity() {
-    data class PreguntaData(val pregunta : String, val area : String, val value : Int, var resp : Boolean? = null)
+    data class PreguntaData(val pregunta : String, val area : String, val respuestas : ArrayList<Pair<String,Int>>, var resp : Int? = null)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_test_vocacional_fragment)
@@ -45,9 +49,12 @@ class TestVocacionalActivity : AppCompatActivity() {
                 val response = JSONArray(it)
 
                 for (i in 0 until response.length()){
-                    val pregunta = JSONObject(response[i].toString())
-                    val prop = JSONObject(pregunta.getString("0"))
-                    preguntasList.add(PreguntaData(pregunta.getString("pregunta_examen"), prop.getString("name"), prop.getInt("value")))
+                    val pregunta = JSONArray(response[i].toString())
+                    val resData = ArrayList<Pair<String,Int>>()
+                    for(z in 1 until pregunta.length()){
+                        resData.add(Pair(JSONObject(pregunta[z].toString()).getString("res"),JSONObject(pregunta[z].toString()).getInt("value")))
+                    }
+                    preguntasList.add(PreguntaData(JSONObject(pregunta[0].toString()).getString("pregunta_examen"), JSONObject(pregunta[1].toString()).getString("name"), resData))
                 }
                 ly_testvoca.adapter.notifyDataSetChanged()
                 ly_testvoca.scheduleLayoutAnimation()
@@ -72,7 +79,9 @@ class TestVocacionalActivity : AppCompatActivity() {
                 if(response.getBoolean("send")){
                     AlertDialog.Builder(this).setTitle("Resultado: "+response.getString("result"))
                             .setMessage("Ve al apartado de recomendaciones para ver las carreras ofertadas con tus aptidutes.")
-                            .setPositiveButton("Aceptar", null)
+                            .setPositiveButton("Aceptar"){ _, _ ->
+                                finish()
+                            }
                             .create().show()
                 }else{
                     Toast.makeText(this, "Error: Algo ocurrió al intentar mandar tus resultados.", Toast.LENGTH_SHORT).show()
@@ -85,15 +94,12 @@ class TestVocacionalActivity : AppCompatActivity() {
         }){
             override fun getParams(): MutableMap<String, String> {
                 val area = HashMap<String, Int>()
-                var mult: Int
 
                 for(resp in preguntasList){
-                    mult = if(resp.resp == true) 1 else -1
-
                     if(area.containsKey(resp.area)){
-                        area[resp.area]?.plus(resp.value*mult)
+                        area[resp.area]?.plus(resp.resp!!)
                     }else{
-                        area[resp.area] = resp.value*mult
+                        area[resp.area] = resp.resp!!
                     }
                 }
 
@@ -107,6 +113,8 @@ class TestVocacionalActivity : AppCompatActivity() {
                         temp = areaRes.second
                     }
                 }
+
+                Log.e("asd", area.toString())
 
                 return hashMapOf("device" to "",
                         "key" to Utils().getKey(this@TestVocacionalActivity),
@@ -145,8 +153,18 @@ class TestVocacionalActivity : AppCompatActivity() {
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val data = preguntasList[position]
 
+            for(radioData in data.respuestas){
+                val radioButton = RadioButton(this@TestVocacionalActivity)
+                radioButton.text = radioData.first
+                radioButton.id = View.generateViewId()
+                holder.radioGroup.addView(radioButton)
+            }
+
             holder.radioGroup.setOnCheckedChangeListener { _, i ->
-                data.resp = (i == 0)
+                Log.e("asd", i.toString())
+                val radioButtonIndex = holder.radioGroup.indexOfChild(holder.radioGroup.findViewById(i))
+                data.resp = data.respuestas[radioButtonIndex].second
+                Log.e("asd", data.respuestas[radioButtonIndex].second.toString())
             }
 
             holder.pregunta.text = data.pregunta
@@ -165,5 +183,6 @@ class TestVocacionalActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         overridePendingTransition(R.anim.pull_in_left, R.anim.push_out_right)
+        finish()
     }
 }
