@@ -1,14 +1,14 @@
-<footer class="page-footer red darken-3">
+<footer class="page-footer redColor">
   <div class="container">
     <div class="row">
       <div class="col l6 s12">
-        <h5 class="white-text">Acerca de Nosotros</h5>
+        <h5 class="white-text">¿Qué es MEI?</h5>
 
         <p align="justify" style="color: white !important">
 
-          Como miembros del Centro de Estudios Cientificos y Tecnológicos Campus Zacatecas desarrollamos esta plataforma con el fin
-          de resolver una problemática que teníamos nosotros como estudiantes y resolverla utilizando las tecnologías y conocimientos
-          obtenidos durante nuestros estudios en el bachiller.
+            M.E.I. es una plataforma web la cual ayuda a los estudiantes a elegir una carrera tomando en cuenta las habilidades
+            y gustos del estudiante, determinando que es lo mejor para el así como las diferentes universidades que se encuentran
+            cerca de este
           
         </p>
 
@@ -17,8 +17,8 @@
       <div class="col l4 offset-l2 s12">
         <h5 class="white-text">Redes Sociales</h5>
         <div class="collection">
-          <a href="https://www.facebook.com/CECyT18ZacatecasIPN/" class="collection-item" uk-icon="icon: facebook">Facebook</a>
-          <a href="http://www.cecyt18.ipn.mx/Paginas/inicio.aspx" class="collection-item">Página Web</a>
+          <a href="" class="collection-item" uk-icon="icon: facebook">Facebook</a>
+          <a href="" class="collection-item">Página Web</a>
         </div>
 
       </div>
@@ -26,9 +26,17 @@
   </div>
   <div class="footer-copyright">
     <div class="container" align="center">
-      <p class="white-text"> © 2017 CECyT 18 Zacatecas</p>
+      <p class="white-text"> <span id="anio"></span> ©  ZI/OX</p>
     </div>
   </div>
 </footer>
+
+<script src="../../assets/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../../assets/js/materialize.js"></script>
+
+<script>
+  var anio = new Date().getFullYear();
+  $("#anio").text(anio);
+</script>
 
 

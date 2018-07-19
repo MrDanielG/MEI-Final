@@ -21,7 +21,7 @@
 
   <!-- MENU -->
   <nav>
-    <div class="nav-wrapper red darken-3">
+    <div class="nav-wrapper redColor">
       <div class="container" id="div_menu">
         <a href="#!" class="brand-logo">Mi Escuela Ideal</a>
         <a href="#" data-activates="mobile-demo" class="button-collapse">
@@ -29,24 +29,24 @@
         </a>
         <ul class="right hide-on-med-and-down">
           <li>
-            <a href="#"> Contactanos</a>
+            <a href="#"> Contáctanos</a>
           </li>
           <li>
             <a href="login.php">Inicia sesión </a>
           </li>
           <li>
-            <a href="signin.php">Registrate</a>
+            <a href="signin.php">Regístrate</a>
           </li>
         </ul>
         <ul class="side-nav" id="mobile-demo">
           <li>
-            <a href="#"> Contactanos</a>
+            <a href="#"> Contáctanos</a>
           </li>
           <li>
             <a href="login.php">Inicia sesión </a>
           </li>
           <li>
-            <a href="signin.php">Registrate</a>
+            <a href="signin.php">Regístrate</a>
           </li>
         </ul>
       </div>
@@ -109,7 +109,7 @@
             <span class="card-title">¿Qué es M.E.I.?</span>
             <p class="" align="justify">M.E.I. es una plataforma web la cual ayuda a los estudiantes a elegir una carrera tomando en cuenta las habilidades
               y gustos del estudiante, determinando que es lo mejor para el así como las diferentes universidades que se encuentran
-              cenca de este.</p>
+              cerca de este.</p>
           </div>
         </div>
       </div>
@@ -173,7 +173,8 @@
     </div>
   </div>
 
-  <footer class="page-footer red darken-3">
+  <!-- FOOTER -->
+  <footer class="page-footer redColor">
     <div class="container">
       <div class="row">
         <div class="col l6 s12">
@@ -213,7 +214,7 @@
               </span>
               <p class="grey-text text-darken-3">
                 Luis Mario Trejo Hinojosa
-                <br> correodetrejoxd@gmail.com
+                <br> luistrejohi@gmail.com
               </p>
             </li>
           </ul>
@@ -222,12 +223,6 @@
         </div>
         <div class="col l4 offset-l2 s12">
           <h5 class="white-text">Contacto</h5>
-          <ul>
-            <p class="white-text">
-              <b>Dirección:</b>
-              <br> Boulevard El Bote S/N, 98160 Zacatecas, Zac.
-            </p>
-          </ul>
 
           <div id="map"></div>
 
@@ -236,7 +231,7 @@
     </div>
     <div class="footer-copyright">
       <div class="container" align="center">
-        <p class="white-text"> © 2017 CECyT 18 Zacatecas</p>
+        <p class="white-text"><span id="anio"></span> © ZI/OX</p>
       </div>
     </div>
   </footer>
@@ -264,6 +259,10 @@
     }
   </script>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZfDEE62mg_IxJAJctQtb7d0nUkHH1Bvo&callback=initMap"></script>
+  <script>
+      var anio = new Date().getFullYear();
+      $("#anio").text(anio);
+    </script>
 </body>
 
 </html>

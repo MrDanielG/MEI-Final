@@ -25,16 +25,20 @@
     die();
   }*/
 ?>
-<html>
+  <html>
+
   <head>
-    <title>Nuevos datos</title>
+    <title>Ingresar Datos MEI</title>
+
     <!--Estilos-->
-    <link rel="stylesheet" type="text/css" href="../css/estilos.css">
+    <link rel="stylesheet" type="text/css" href="../../assets/css/estilos.css">
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="../../assets/css/materialize.min.css" media="screen,projection" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <meta charset="utf-8" />
 
     <!--Let browser know website is optimized for mobile-->
@@ -109,125 +113,178 @@
 
     }
 ?>
-    <div class="container">
-      <div class="card">
-        <div class="card-content">
-          <div class="card">
-            <div class="card-content">
-              <h5>Expira en <span id="countdown"></span></h5>
-            </div>
+
+      <nav>
+        <div class="nav-wrapper redColor">
+          <div class="container" id="div_menu">
+            <a href="#!" class="brand-logo">Mi Escuela Ideal</a>
+            <a href="#" data-activates="mobile-demo" class="button-collapse">
+              <i class="material-icons">menu</i>
+            </a>
+            <ul class="right hide-on-med-and-down">
+              <li>
+                <a href="#">Contáctanos</a> <!-- Bug al meter iconos wtf -->
+                  
+              </li>
+            </ul>
+            <ul class="side-nav" id="mobile-demo">
+              <li>
+                <a href="#"> Contáctanos</a>
+              </li>
+            </ul>
           </div>
-          <a class="btn" href="todas.php" target="_blank">Carreras agregadas (Vista previa)</a><br><br>
-          <span class="text-color-gray">Algunos son compatibles con etiquetas HTML</span>
-          <blockquote style="border-left-color: #42a5f5">
-            Relacionado a la carrera
-          </blockquote>
-          <blockquote style="border-left-color: #4db6ac">
-            Relacionado a la unidad academica
-          </blockquote>
-          <blockquote style="border-left-color: #cddc39">
-            Relacionado a la institucion
-          </blockquote>
-          <form method="post">
-          <blockquote style="border-left-color: #42a5f5">
-            Nombre de la carrera (Licenciatura en Biología, Ingeniería en Alimentos):
-            <input type="text" name="carrera" id="name" required autocomplete="off">
-          </blockquote>
-          <blockquote style="border-left-color: #4db6ac">
-            Nombre de la unidad academica (Centro Universitario de Ciencias Exactas e Ingenierías, Facultad de Medicina): <br>
-            <input type="text" name="unidad" id="unid" required autocomplete="off">
-          </blockquote>
-          <blockquote style="border-left-color: #cddc39">
-            Pertenece a (Instituto Politécnico Nacional, Universidad Nacional Autonoma de México, etc):
-            <input type="text" name="inst" id="inst" required autocomplete="off">
-          </blockquote>
+        </div>
+      </nav>
 
+
+      <div class="container">
+        <div class="card">
+          <div class="card-content">
+            <div class="card">
+              <div class="card-content">
+                <h5>Expira en: 
+                  <span id="countdown"></span>
+                </h5>
+              </div>
+            </div>
+            <a class="btn" href="todas.php" target="_blank">Carreras agregadas (Vista previa)</a>
+            <br>
+            <br>
+            <span class="text-color-gray">Algunos son compatibles con etiquetas HTML</span>
             <blockquote style="border-left-color: #42a5f5">
-              <div class="carrIn">
-                <blockquote>
-                  Descripcion general de la carrera <span style="color:red">(compatible con HTML)</span> <a class="material-icons tooltipped" style="font-size: 15px;" data-position="bottom" data-delay="0" data-tooltip="Es la descripcion general de la carrera. Se ingresará una única vez y se usará para todas las universidades que impartan esta carrera.">info_outline</a>:
-                  <textarea name="carreraDesc" class="carreraDesc" cols="30" rows="20" required></textarea><br> Vista previa
-                  <div class="carreraDesc uniIn" style="border: 1px solid red" required>
+              Relacionado a la carrera
+            </blockquote>
+            <blockquote style="border-left-color: #4db6ac">
+              Relacionado a la unidad academica
+            </blockquote>
+            <blockquote style="border-left-color: #cddc39">
+              Relacionado a la institucion
+            </blockquote>
+            <form method="post">
+              <blockquote style="border-left-color: #42a5f5">
+                Nombre de la carrera (Licenciatura en Biología, Ingeniería en Alimentos):
+                <input type="text" name="carrera" id="name" required autocomplete="off">
+              </blockquote>
+              <blockquote style="border-left-color: #4db6ac">
+                Nombre de la unidad academica (Centro Universitario de Ciencias Exactas e Ingenierías, Facultad de Medicina):
+                <br>
+                <input type="text" name="unidad" id="unid" required autocomplete="off">
+              </blockquote>
+              <blockquote style="border-left-color: #cddc39">
+                Pertenece a (Instituto Politécnico Nacional, Universidad Nacional Autonoma de México, etc):
+                <input type="text" name="inst" id="inst" required autocomplete="off">
+              </blockquote>
 
-                  </div><br>
-                </blockquote>
-                <blockquote>
-                  Area a la que pertenece la carrera:
-                  <select class="browser-default" name="area" id="" required>
+              <blockquote style="border-left-color: #42a5f5">
+                <div class="carrIn">
+                  <blockquote>
+                    Descripcion general de la carrera
+                    <span style="color:red">(compatible con HTML)</span>
+                    <a class="material-icons tooltipped" style="font-size: 15px;" data-position="bottom"
+                      data-delay="0" data-tooltip="Es la descripcion general de la carrera. Se ingresará una única vez y se usará para todas las universidades que impartan esta carrera.">info_outline</a>:
+                    <textarea name="carreraDesc" class="carreraDesc" cols="30" rows="20" required></textarea>
+                    <br> Vista previa
+                    <div class="carreraDesc uniIn" style="border: 1px solid red" required>
+
+                    </div>
+                    <br>
+                  </blockquote>
+                  <blockquote>
+                    Area a la que pertenece la carrera:
+                    <select class="browser-default" name="area" id="" required>
                       <option disabled selected>Seleccione una opción...</option>
                       <option value="1">Ciencias Quimico/Biológicas</option>
                       <option value="2">Humanidades y Artes</option>
                       <option value="3">Ciencias Fisico/Matematicas y de Ingeniería</option>
                       <option value="4">Ciencias Sociales</option>
-                  </select>
-                </blockquote>
-                <blockquote>
-                  Mínimo del promedio del salario por mes<a class="material-icons tooltipped" style="font-size: 15px;" data-position="bottom" data-delay="0" data-tooltip="Generalmente es el salario de un recien egresado de la carrera.">info_outline</a>:
-                  <input class="uniIn" type="number" step="0.01" name="sueldo_min" min="0" required><br>
-                </blockquote>
-                <blockquote>
+                    </select>
+                  </blockquote>
+                  <blockquote>
+                    Mínimo del promedio del salario por mes
+                    <a class="material-icons tooltipped" style="font-size: 15px;"
+                      data-position="bottom" data-delay="0" data-tooltip="Generalmente es el salario de un recien egresado de la carrera.">info_outline</a>:
+                    <input class="uniIn" type="number" step="0.01" name="sueldo_min" min="0" required>
+                    <br>
+                  </blockquote>
+                  <blockquote>
 
-                  Máximo del promedio del salario por mes<a class="material-icons tooltipped" style="font-size: 15px;" data-position="bottom" data-delay="0" data-tooltip="Generalmente es el salario de un senior en puestos de trabajo elevados.">info_outline</a>:
-                  <input class="uniIn" type="number" step="0.01" name="sueldo_max" min="0" required><br>
-                </blockquote>
-              </div>
-              <blockquote>
-                Plan de estudios <span style="color:red">(compatible con HTML)</span><a class="material-icons tooltipped" style="font-size: 15px;" data-position="bottom" data-delay="0" data-tooltip="Si hay un documento oficial en internet puede solo poner el enlace con una etiqueta A de HTML.">info_outline</a>:
-                <textarea name="plan_estudios" class="plan_estudios" cols="30" rows="20" required></textarea> Vista previa
-                <div class="plan_estudios" style="border: 2px solid red" required>
-
+                    Máximo del promedio del salario por mes
+                    <a class="material-icons tooltipped" style="font-size: 15px;"
+                      data-position="bottom" data-delay="0" data-tooltip="Generalmente es el salario de un senior en puestos de trabajo elevados.">info_outline</a>:
+                    <input class="uniIn" type="number" step="0.01" name="sueldo_max" min="0" required>
+                    <br>
+                  </blockquote>
                 </div>
-              </blockquote>
-              <blockquote>
-
-                Perfil de egreso <span style="color:red">(compatible con HTML)</span>:
-                <textarea name="perfEgreso" class="perfEgreso" cols="30" rows="20" required></textarea> Vista previa
-                <div class="perfEgreso" style="border: 2px solid red" required>
-
-                </div>
-              </blockquote>
-            </blockquote>
-            <blockquote style="border-left-color: #4db6ac">
-              <div class="uniIn">
                 <blockquote>
-
-                  Descripcion de la unidad academica <span style="color:red">(compatible con HTML)</span>:
-                  <textarea type="text" name="unidad_desc" class="uni_desc" id="" required></textarea>
-                  Vista previa
-                  <div class="uni_desc" style="border: 2px solid red" required>
+                  Plan de estudios
+                  <span style="color:red">(compatible con HTML)</span>
+                  <a class="material-icons tooltipped" style="font-size: 15px;" data-position="bottom"
+                    data-delay="0" data-tooltip="Si hay un documento oficial en internet puede solo poner el enlace con una etiqueta A de HTML.">info_outline</a>:
+                  <textarea name="plan_estudios" class="plan_estudios" cols="30" rows="20" required></textarea> Vista previa
+                  <div class="plan_estudios" style="border: 2px solid red" required>
 
                   </div>
                 </blockquote>
                 <blockquote>
 
-                  Coordenadas de la unidad academica: <br>
+                  Perfil de egreso
+                  <span style="color:red">(compatible con HTML)</span>:
+                  <textarea name="perfEgreso" class="perfEgreso" cols="30" rows="20" required></textarea> Vista previa
+                  <div class="perfEgreso" style="border: 2px solid red" required>
+
+                  </div>
+                </blockquote>
+              </blockquote>
+              <blockquote style="border-left-color: #4db6ac">
+                <div class="uniIn">
                   <blockquote>
 
-                    Latitud:<input type="number" name="lat" id="lat" step="0.00000001" required>
+                    Descripcion de la unidad academica
+                    <span style="color:red">(compatible con HTML)</span>:
+                    <textarea type="text" name="unidad_desc" class="uni_desc" id="" required></textarea>
+                    Vista previa
+                    <div class="uni_desc" style="border: 2px solid red" required>
+
+                    </div>
                   </blockquote>
                   <blockquote>
 
-                    Longitud <input type="number" name="lng" id="lng" step="0.00000001" required>
+                    Coordenadas de la unidad academica:
+                    <br>
+                    <blockquote>
+
+                      Latitud:
+                      <input type="number" name="lat" id="lat" step="0.00000001" required>
+                    </blockquote>
+                    <blockquote>
+
+                      Longitud
+                      <input type="number" name="lng" id="lng" step="0.00000001" required>
+                    </blockquote>
                   </blockquote>
-                </blockquote>
-                <blockquote>
-                  Imagen de las instalaciones de la unidad academica (resolucion recomendada: 1920x1080 o superior)<br><br>
-                  <input class="file-input1" type="file" name="imgF" value=""><br><br>
+                  <blockquote>
+                    Imagen de las instalaciones de la unidad academica (resolucion recomendada: 1920x1080 o superior)
+                    <br>
+                    <br>
+                    <input class="file-input1" type="file" name="imgF" value="">
+                    <br>
+                    <br> o
 
-                  o<br><br>
+                    <br>
+                    <br> Enlace de la imagen:
+                    <input type="url" name="img" class="file-input2" required>
+                    <br>
+                  </blockquote>
+                  <blockquote>
 
-                  Enlace de la imagen:
-                  <input type="url" name="img" class="file-input2" required><br>
-                </blockquote>
-                <blockquote>
+                    Autor de la foto:
+                    <input type="text" name="img-autor" id="" required>
+                    <br>
+                  </blockquote>
+                  <blockquote>
 
-                  Autor de la foto:
-                  <input type="text" name="img-autor" id="" required><br>
-                </blockquote>
-                <blockquote>
-
-                  Estado de la unidad academica (Ciudad de México, Zacatecas):
-                  <div class="input-field">
+                    Estado de la unidad academica (Ciudad de México, Zacatecas):
+                    <div class="input-field">
                       <select class="validate" id="input_lugar" name="ciudad" required>
                         <option disabled selected>Seleccione una opción...</option>
                         <option>Aguascalientes</option>
@@ -263,49 +320,60 @@
                         <option>Yucatán</option>
                         <option>Zacatecas</option>
                       </select>
-                  </div>
-                </blockquote>
+                    </div>
+                  </blockquote>
+                </div>
+              </blockquote>
+              <blockquote style="border-left-color: #cddc39 ">
+                <div class="instIn">
+                  <blockquote>
+                    Ranking nacional:
+                    <a href="https://www.topuniversities.com/university-rankings/latin-american-university-rankings/2018"
+                      target="_blank">Sacar de aquí</a>
+                    <input type="number" name="rank_nac" value="" min="0" required>
+                  </blockquote>
+                  <blockquote>
+                    Ranking mundial:
+                    <a href="https://www.topuniversities.com/university-rankings/latin-american-university-rankings/2018"
+                      target="_blank">Sacar de aquí</a>
+                    <input type="number" name="rank_wrld" value="" min="0" required>
+                  </blockquote>
+                  <blockquote>
+
+                    Becas que ofrece la institución
+                    <span style="color:red">(compatible con HTML)</span>:
+                    <textarea name="becas" id="" class="becas" cols="30" rows="10" required></textarea> Vista previa
+                    <div class="becas" style="border: 2px solid red" required>
+
+                    </div>
+                  </blockquote>
+                  <blockquote>
+
+                    Opciones de intercambio internacional o nacional
+                    <span style="color:red">(compatible con HTML)</span>:
+                    <textarea name="intercambio" class="intercambio" cols="30" rows="20" required></textarea> Vista previa
+                    <div class="intercambio" style="border: 2px solid red" required>
+
+                    </div>
+                  </blockquote>
+                </div>
+              </blockquote>
+              <div align="center">
+                <input type="submit" name="smt" class="btn">
               </div>
-            </blockquote>
-            <blockquote style="border-left-color: #cddc39 ">
-              <div class="instIn">
-                <blockquote>
-                  Ranking nacional: <a href="https://www.topuniversities.com/university-rankings/latin-american-university-rankings/2018" target="_blank">Sacar de aquí</a>
-                  <input type="number" name="rank_nac" value="" min="0" required>
-                </blockquote>
-                <blockquote>
-                  Ranking mundial: <a href="https://www.topuniversities.com/university-rankings/latin-american-university-rankings/2018" target="_blank">Sacar de aquí</a>
-                  <input type="number" name="rank_wrld" value="" min="0" required>
-                </blockquote>
-                <blockquote>
-
-                  Becas que ofrece la institución <span style="color:red">(compatible con HTML)</span>:
-                  <textarea name="becas" id="" class="becas" cols="30" rows="10" required></textarea> Vista previa
-                  <div class="becas" style="border: 2px solid red" required>
-
-                  </div>
-                </blockquote>
-                <blockquote>
-
-                  Opciones de intercambio internacional o nacional<span style="color:red">(compatible con HTML)</span>:
-                  <textarea name="intercambio" class="intercambio" cols="30" rows="20" required></textarea> Vista previa
-                  <div class="intercambio" style="border: 2px solid red" required>
-
-                  </div>
-                </blockquote>
-              </div>
-            </blockquote>
-            <input type="submit" name="smt" class="btn">
-          </form>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
+
+      <?php include '../../public/resourses/footer.html' ?>
+
   </body>
-  <script src="../js/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="../js/materialize.js"></script>
+  <script src="../../assets/js/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="../../assets/js/materialize.js"></script>
   <script>
     var countDownDate = new Date("<?php echo $date;?>").getTime();
-    var x = setInterval(function() {
+    var x = setInterval(function () {
       var now = new Date().getTime();
       var distance = countDownDate - now;
       var days = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -313,23 +381,23 @@
       var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-      document.getElementById("countdown").innerHTML = days + "d " + hours + "h "
-      + minutes + "m " + seconds + "s ";
+      document.getElementById("countdown").innerHTML = days + "d " + hours + "h " +
+        minutes + "m " + seconds + "s ";
     }, 1000);
     $(".file-input1").change(e => {
-      if($(".file-input1").val() == ""){
+      if ($(".file-input1").val() == "") {
         $(".file-input2").removeAttr("disabled");
         $(".file-input2").attr("placeholder", "");
-      }else{
+      } else {
         $(".file-input2").attr("disabled", "");
         $(".file-input2").attr("placeholder", "Desabilitado");
       }
     });
 
     $(".file-input2").keyup(e => {
-      if($(".file-input2").val() == ""){
+      if ($(".file-input2").val() == "") {
         $(".uniIn").find("input").removeAttr("disabled");
-      }else{
+      } else {
         $(".file-input1").attr("disabled", "");
       }
 
@@ -360,11 +428,11 @@
 
     $($(".referencias").get(1)).html($($(".referencias").get(0)).val());
 
-    $(document).ready(function() {
+    $(document).ready(function () {
       $('select').material_select();
     });
     var cont = [false, false, false];
-    $(document).ready(function() {
+    $(document).ready(function () {
       $('input#name').autocomplete({
         data: {
           <?php
@@ -375,8 +443,8 @@
               } ?>
         },
         limit: 5,
-        onAutocomplete: function(val) {
-          cont[0]=true;
+        onAutocomplete: function (val) {
+          cont[0] = true;
           ajaxDis();
           $(".carrIn").find("input").attr("disabled", "")
           $(".carrIn").find("select").attr("disabled", "")
@@ -395,36 +463,43 @@
                   echo "\"".$r["nombre"]."\":null,";
               } ?>
         },
-        onAutocomplete: function(val) {
-          cont[1]=true;
+        onAutocomplete: function (val) {
+          cont[1] = true;
           ajaxDis();
         },
         limit: 5,
       });
 
-      function ajaxDis(){
-        if(cont[0] && cont[1] && cont[2]){
-          dato = [$("#name").val(),$("#unid").val(), $("#inst").val()]
+      function ajaxDis() {
+        if (cont[0] && cont[1] && cont[2]) {
+          dato = [$("#name").val(), $("#unid").val(), $("#inst").val()]
           $.ajax({
-            url : "ajaxCname.php",
-            type : "POST",
-            data : {data:dato},
-            success: function(s){
-              if(s != ""){
-                Materialize.toast('Parece ser que esta información ya ha sido ingresada. Recarge la página para ingresar una nueva.', 5000, 'rounded');
+            url: "ajaxCname.php",
+            type: "POST",
+            data: {
+              data: dato
+            },
+            success: function (s) {
+              if (s != "") {
+                Materialize.toast(
+                  'Parece ser que esta información ya ha sido ingresada. Recarge la página para ingresar una nueva.',
+                  5000, 'rounded');
               }
             }
           });
         }
-        if(cont[1] && cont[2]){
+        if (cont[1] && cont[2]) {
           dato = [$("#unid").val(), $("#inst").val()]
           $.ajax({
-            url : "ajaxInst.php",
-            type : "POST",
-            data : {data:dato},
-            success: function(s){
-              if(s != ""){
-                Materialize.toast('Parece ser que ya tenemos informació de '+dato[0]+' de '+dato[1]+'. Ya no es necesario ingresar su información, sólo el de la carrera.', 10000, 'rounded');
+            url: "ajaxInst.php",
+            type: "POST",
+            data: {
+              data: dato
+            },
+            success: function (s) {
+              if (s != "") {
+                Materialize.toast('Parece ser que ya tenemos informació de ' + dato[0] + ' de ' + dato[1] +
+                  '. Ya no es necesario ingresar su información, sólo el de la carrera.', 10000, 'rounded');
                 $(".uniIn").find("input").attr("disabled", "");
                 $(".uniIn").find("input").attr("placeholder", "Desabilitado. Ya tenemos esta informacion");
                 $(".uniIn").find("textarea").attr("disabled", "");
@@ -433,7 +508,7 @@
                 $(".instIn").find("input").attr("placeholder", "Desabilitado. Ya tenemos esta informacion");
                 $(".instIn").find("textarea").attr("disabled", "");
                 $(".instIn").find("textarea").attr("placeholder", "Desabilitado. Ya tenemos esta informacion");
-              }else{
+              } else {
                 $(".uniIn").find("input").removeAttr("disabled");
                 $(".uniIn").find("input").attr("placeholder", "");
                 $(".uniIn").find("textarea").removeAttr("disabled");
@@ -444,7 +519,7 @@
         }
       }
 
-      $("#name").keyup(function(){
+      $("#name").keyup(function () {
 
         $(".carrIn").find("input").removeAttr("disabled");
         $(".carrIn").find("input").attr("placeholder", "");
@@ -454,7 +529,7 @@
         ajaxDis();
       });
 
-      $("#unid").keyup(function(){
+      $("#unid").keyup(function () {
         $(".uniIn").find("input").removeAttr("disabled");
         $(".uniIn").find("input").attr("placeholder", "");
         $(".uniIn").find("textarea").removeAttr("disabled");
@@ -462,7 +537,7 @@
         ajaxDis();
       });
 
-      $("#inst").keyup(function(){
+      $("#inst").keyup(function () {
         $(".instIn").find("input").removeAttr("disabled");
         $(".instIn").find("input").attr("placeholder", "");
         $(".instIn").find("textarea").removeAttr("disabled");
@@ -479,8 +554,8 @@
                   echo "\"".$r["name"]."\":null,";
               } ?>
         },
-        onAutocomplete: function(val) {
-          cont[2]=true;
+        onAutocomplete: function (val) {
+          cont[2] = true;
           ajaxDis();
           $(".instIn").find("input").attr("disabled", "");
           $(".instIn").find("input").attr("placeholder", "Desabilitado. Ya tenemos esta informacion");
@@ -493,6 +568,10 @@
 
 
     $("img").remove();
+  </script>
+
+  <script>
+    $(".button-collapse").sideNav();
   </script>
 
   </html>
