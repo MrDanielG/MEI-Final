@@ -2,14 +2,17 @@
     $key = $_POST["key"];
 
     if(isset($_POST["tabla"])){
-        $query = "SELECT * FROM aplicacion_examen INNER JOIN examen ON aplicacion_examen.id_examen = examen.UID WHERE id_user = '".$key."'";
+        $query = "SELECT * FROM aplicacion_examen 
+                    INNER JOIN examen ON aplicacion_examen.id_examen = examen.UID 
+                    INNER JOIN area ON aplicacion_examen.id_resultado = area.UID
+                    WHERE id_user = '".$key."'";
         $result = mysqli_query($con,$query);
         $tabla = array();
 
         while ($examen = mysqli_fetch_array($result, MYSQLI_NUM)){
             $date = new DateTime($examen[3]);
             $res = $date->format('d/m/Y');
-            $data = array("test" => $examen[6], "fecha" => $res, "resu" => $examen[4]);
+            $data = array("test" => $examen[6], "fecha" => $res, "resu" => $examen[9]);
 
             array_push($tabla, $data);
         }

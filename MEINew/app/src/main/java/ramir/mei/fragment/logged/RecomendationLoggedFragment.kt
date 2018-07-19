@@ -171,7 +171,6 @@ class RecomendationLoggedFragment : Fragment() {
                 }
                 root?.recomLayout?.recycledViewPool?.clear()
                 root?.recomLayout?.adapter = RecomendationAdapter(recomendationList, db, activity as LoggedActivity, root!!)
-                root?.recomLayout?.scheduleLayoutAnimation()
             }catch (e:Exception){
                 Log.e("asd", e.toString())
             }
@@ -195,7 +194,12 @@ class RecomendationLoggedFragment : Fragment() {
 
         val LIMIT = 5
         var currentLimit = 0
-        var innerList = arrayListOf<RecomendationData?>(null)
+        var innerList = arrayListOf<RecomendationData?>()
+        var inicio = true
+
+        init {
+            loadData()
+        }
 
         fun loadData(){
             if(recomendationList.size > 0){
@@ -238,6 +242,10 @@ class RecomendationLoggedFragment : Fragment() {
             if (holder is CardViewHolder) {
                 val data = innerList[position]!!
                 if(position == 0){
+                    if(inicio){
+                        rootView.recomLayout.scheduleLayoutAnimation()
+                        inicio = false
+                    }
                     val layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
                     layoutParams.setMargins(Utils().dpToPixel(activity.resources, 8),Utils().dpToPixel(activity.resources, 7),Utils().dpToPixel(activity.resources, 8),Utils().dpToPixel(activity.resources, 7))
                     holder.viewHolder.layoutParams = layoutParams
