@@ -18,11 +18,7 @@ import kotlin.math.absoluteValue
 */
 
 class Utils{
-    fun getMeiURL() = "http://192.168.0.26/MEI-Final/MEI-Master/api/api.php"
-
-    fun getJSIName():String{
-        return "KOTLIN"
-    }
+    fun getMeiURL() = "http://192.168.1.82/MEI-Final/MEI-Master/api/api.php"
 
     fun dpToPixel(resources: Resources, dp : Int) : Int{
         return (resources.displayMetrics.density * dp).toInt()

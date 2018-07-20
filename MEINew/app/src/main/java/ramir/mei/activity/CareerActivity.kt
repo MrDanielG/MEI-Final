@@ -84,7 +84,7 @@ class CareerActivity : AppCompatActivity() {
                         5 -> wv_inter
                         6 -> wv_ref
                         else -> WebView(this)
-                    }.loadData(str+"<div class='content'>"+response[i].toString()+"</div>", "text/html", "utf-8")
+                    }.loadDataWithBaseURL(null,str+"<div class='content'>"+response[i].toString()+"</div>", "text/html", "utf-8", null)
                 }
 
                 id_career_content.visibility = View.VISIBLE
@@ -186,6 +186,8 @@ class CareerActivity : AppCompatActivity() {
         val animationAlpha = AlphaAnimation(1f, 0f)
         animationAlpha.duration = 200
         id_career_content.startAnimation(animationAlpha)
+        fab_scrolling.startAnimation(animationAlpha)
         id_career_content.visibility = View.GONE
+        fab_scrolling.visibility = View.GONE
     }
 }

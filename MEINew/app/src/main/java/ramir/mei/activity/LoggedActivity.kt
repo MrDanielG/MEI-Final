@@ -76,7 +76,7 @@ class LoggedActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             }
         }
 
-        fragmentManager.beginTransaction().add(R.id.loggedContent, IndexLoggedFragment()).commit()
+        fragmentManager.beginTransaction().replace(R.id.loggedContent, IndexLoggedFragment()).commit()
 
         queue.add(req)
     }

@@ -109,7 +109,7 @@ class FavoritesLoggedFragment : Fragment() {
                 intent.putExtra("lat", data.lat)
                 intent.putExtra("lng", data.lng)
                 val p1 = android.util.Pair(holder.cardImage as View , "recoImage")
-                val p2 = android.util.Pair(holder.infoBtn as View, "recoTitle")
+                val p2 = android.util.Pair(holder.tituloText as View, "recoTitle")
                 activity.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity, p1, p2).toBundle())
             }
 

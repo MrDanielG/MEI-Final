@@ -44,7 +44,7 @@ class ProfileLoggedFragment : Fragment() {
                         "Fecha",
                         "Resultado",
                         activity, resources.displayMetrics.density,
-                        rootView)
+                        rootView, 0)
 
                 for(i in 0 until response.length()){
                     val data = JSONObject(response[i].toString())
@@ -53,7 +53,7 @@ class ProfileLoggedFragment : Fragment() {
                             data.getString("fecha"),
                             data.getString("resu"),
                             activity, resources.displayMetrics.density,
-                            rootView)
+                            rootView, 1)
                 }
             }catch (e:Exception){
                 Log.e("asd", e.toString())
@@ -100,16 +100,18 @@ class ProfileLoggedFragment : Fragment() {
         return rootView
     }
 
-    fun perfilTabla(test: String, fecha: String, resu: String, context: Context, density : Float, rootView : View) {
+    fun perfilTabla(test: String, fecha: String, resu: String, context: Context, density : Float, rootView : View, type : Int) {
         val tvTest = TextView(context)
         val tvFecha = TextView(context)
         val tvResu = TextView(context)
         tvTest.text = test
         tvFecha.text = fecha
         tvResu.text = resu
-        tvFecha.setTextColor(Color.BLACK)
-        tvResu.setTextColor(Color.BLACK)
-        tvTest.setTextColor(Color.BLACK)
+        if(type == 1){
+            tvFecha.setTextColor(Color.BLACK)
+            tvResu.setTextColor(Color.BLACK)
+            tvTest.setTextColor(Color.BLACK)
+        }
 
         val param = TableRow.LayoutParams(
                 TableRow.LayoutParams.WRAP_CONTENT,
@@ -127,7 +129,7 @@ class ProfileLoggedFragment : Fragment() {
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
 
         val view2 = View(activity)
-        view2.setBackgroundColor(Color.parseColor("#D0D0D0"))
+        view2.setBackgroundColor(Color.parseColor("#DDDDDD"))
         val dp1 = (1 * density).toInt()
 
         rootView.tablaTest.addView(view2, layoutParams)
