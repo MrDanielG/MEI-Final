@@ -7,7 +7,7 @@
         $json_arr = array();
         $q = mysqli_query($con, "SELECT `area`.`nombre`, `respuesta`.`respuesta`, `respuesta`.`valor` FROM `pregunta`
                                     JOIN `respuesta` ON `respuesta`.`id_pregunta` = `pregunta`.`UID`
-                                    JOIN `area` ON `area`.`UID` = `pregunta`.`id_area`
+                                    JOIN `area` ON `area`.`UID` = `respuesta`.`id_area`
                                     WHERE `respuesta`.`id_pregunta` =".$preg["UID"]);
 
         array_push($json_arr, $preg);

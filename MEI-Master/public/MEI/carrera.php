@@ -26,6 +26,7 @@
         <div id="container" style="display:block;">
             <div class="container">
                 <?php
+
                   echo '
                   <div class="card white-1">
                   <span class="right" style="margin-right:6px"><a href="#modal-email" class="modal-trigger">¿Hay algo incorrecto? Contactanos</a></span>
@@ -46,10 +47,10 @@
                     </div>
                   </div>
                     <div class="card-content">
-                      <span class="right green-text text-darken-1"><h5>Promedio: $'.$carrera[19].' - $'.$carrera[20].'/mes <i class="material-icons tooltipped" style="font-size: 20px;" data-position="bottom" data-delay="0" data-tooltip="El promedio depende de la experiencia, el puesto, la preparación profesional y del trabajo realizado en el mes.">info_outline</i></h5></span>
+                      <span class="right green-text text-darken-1"><h5>Promedio: $'.$carrera[18].' - $'.$carrera[19].'/mes <i class="material-icons tooltipped" style="font-size: 20px;" data-position="bottom" data-delay="0" data-tooltip="El promedio depende de la experiencia, el puesto, la preparación profesional y del trabajo realizado en el mes.">info_outline</i></h5></span>
                       <span><h3 class="card-title">'.$carrera[16].'</h3></span>
                       <span class="carrera">'.$carrera[7].'</span><br>
-                      <span class="carrera">'.$carrera[23].' - Ranking México: #'.$carrera[26].' / Ranking Mundo: #'.$carrera[27].'</span><br>
+                      <span class="carrera">'.$carrera[22].' - Ranking México: #'.$carrera[25].' / Ranking Mundo: #'.$carrera[26].'</span><br>
                       <h5>Descripción</h5>
                       <span class="carrera">'.$carrera[17].'</span>
                       <h5>'.$uni.'</h5>
@@ -59,9 +60,9 @@
                       <h5>Perfil de egreso</h5>
                       <span class="carrera">'.$carrera[3].'</span>
                       <h5>Becas</h5>
-                      <span class="carrera">'.$carrera[25].'</span>
-                      <h5>Intercambios</h5>
                       <span class="carrera">'.$carrera[24].'</span>
+                      <h5>Intercambios</h5>
+                      <span class="carrera">'.$carrera[23].'</span>
                       <h5>Referencias</h5>
                       <span class="carrera">'.$carrera[5].'</span>
                     </div>

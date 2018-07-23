@@ -1,5 +1,5 @@
 <?php
-  include '../conn.php';
+  include '../../private/conn.php';
   $name = $_GET['carrera'];
   $uni = $_GET['uni'];
   //echo "".$carrera."<br>".$carrera."";
@@ -14,16 +14,18 @@
 <html>
     <head>
         <title><?php echo $_GET["carrera"] ?></title>
-        <link rel="stylesheet" type="text/css" href="../css/estilos.css">
-        <!--Import Google Icon Font-->
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-        <!--Import materialize.css-->
-        <link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection" />
-        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="../../assets/css/estilos.css">
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta charset="utf-8" />
 
-        <!--Let browser know website is optimized for mobile-->
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     </head>
     <body style="background-image: url('<?php echo $carrera[11]; ?>');background-size: cover;background-attachment: fixed; background-position: center center;">
         <?php
@@ -55,10 +57,10 @@
                     </div>
                   </div>
                     <div class="card-content">
-                      <span class="right green-text text-darken-1"><h5>Promedio: $'.$carrera[19].' - $'.$carrera[20].'/mes <i class="material-icons tooltipped" style="font-size: 20px;" data-position="bottom" data-delay="0" data-tooltip="El promedio depende de la experiencia, el puesto, la preparación profesional y del trabajo realizado en el mes.">info_outline</i></h5></span>
+                      <span class="right green-text text-darken-1"><h5>Promedio: $'.$carrera[18].' - $'.$carrera[19].'/mes <i class="material-icons tooltipped" style="font-size: 20px;" data-position="bottom" data-delay="0" data-tooltip="El promedio depende de la experiencia, el puesto, la preparación profesional y del trabajo realizado en el mes.">info_outline</i></h5></span>
                       <span><h3 class="card-title">'.$carrera[16].'</h3></span>
                       <span class="carrera">'.$carrera[7].'</span><br>
-                      <span class="carrera">'.$carrera[23].' - Ranking México: #'.$carrera[26].' / Ranking Mundo: #'.$carrera[27].'</span><br>
+                      <span class="carrera">'.$carrera[22].' - Ranking México: #'.$carrera[25].' / Ranking Mundo: #'.$carrera[26].'</span><br>
                       <h5>Descripción</h5>
                       <span class="carrera">'.$carrera[17].'</span>
                       <h5>'.$uni.'</h5>
@@ -68,9 +70,9 @@
                       <h5>Perfil de egreso</h5>
                       <span class="carrera">'.$carrera[3].'</span>
                       <h5>Becas</h5>
-                      <span class="carrera">'.$carrera[25].'</span>
-                      <h5>Intercambios</h5>
                       <span class="carrera">'.$carrera[24].'</span>
+                      <h5>Intercambios</h5>
+                      <span class="carrera">'.$carrera[23].'</span>
                       <h5>Referencias</h5>
                       <span class="carrera">'.$carrera[5].'</span>
                     </div>
@@ -81,7 +83,8 @@
 
             <?php include '../resourses/footer.html'; ?>
         </div>
-        <?php include '../resourses/scripts.html'; ?>
+        <script src="../../assets/js/jquery-3.2.1.min.js"></script>
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
         <script>
             $(document).ready(function(){
                 $("#modal-email").modal();

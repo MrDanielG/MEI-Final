@@ -11,5 +11,5 @@
 
     $carrera = mysqli_fetch_array($query, MYSQLI_NUM);
 
-    echo json_encode(array($carrera[17], $carrera[8], $carrera[2],$carrera[3],$carrera[25],$carrera[24],$carrera[5]));
+    echo json_encode(array($carrera[17], $carrera[8], $carrera[2],$carrera[3],$carrera[24],$carrera[23],$carrera[5]));
 ?>

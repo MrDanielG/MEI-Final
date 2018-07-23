@@ -27,7 +27,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class TestVocacionalActivity : AppCompatActivity() {
-    data class PreguntaData(val pregunta : String, val area : String, val respuestas : ArrayList<Pair<String,Int>>, var resp : Int? = null)
+    data class PreguntaData(val pregunta : String, val area : String, val respuestas : ArrayList<Pair<String,Int>>, var respData : Pair<String,Int>? = null)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -97,9 +97,9 @@ class TestVocacionalActivity : AppCompatActivity() {
 
                 for(resp in preguntasList){
                     if(area.containsKey(resp.area)){
-                        area[resp.area]?.plus(resp.resp!!)
+                        area[resp.respData!!.first]?.plus(resp.respData!!.second)
                     }else{
-                        area[resp.area] = resp.resp!!
+                        area[resp.respData!!.first] = resp.respData!!.second
                     }
                 }
 
@@ -127,7 +127,7 @@ class TestVocacionalActivity : AppCompatActivity() {
         enviarbt.setOnClickListener {
             var error = false
             for (item in preguntasList){
-                if(item.resp == null){
+                if(item.respData == null){
                     error = true
                 }
             }
@@ -161,10 +161,8 @@ class TestVocacionalActivity : AppCompatActivity() {
             }
 
             holder.radioGroup.setOnCheckedChangeListener { _, i ->
-                Log.e("asd", i.toString())
                 val radioButtonIndex = holder.radioGroup.indexOfChild(holder.radioGroup.findViewById(i))
-                data.resp = data.respuestas[radioButtonIndex].second
-                Log.e("asd", data.respuestas[radioButtonIndex].second.toString())
+                data.respData = Pair(data.respuestas[radioButtonIndex].first,data.respuestas[radioButtonIndex].second)
             }
 
             holder.pregunta.text = data.pregunta

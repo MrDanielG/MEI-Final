@@ -5,25 +5,21 @@
     </head>
     <body>
         <?php include '../resourses/menu.html'; ?>
-        <div class="container">
-            <div class="card">
-
+        <div class="container row">
+            <div class="card col s6 offset-s3">
                 <div class="card-content">
                     <?php
-                        if(isset($_POST["submit"])){
-                            $resultados = $_POST;
-                            unset($resultados["submit"]);
-
-                            include 'class/form.class.php';
-                            $form = new Formulario($resultados); 
-                            $id_examen = 1;
+                        if(isset($_GET["area"])){
+                            $resultado = $_GET["area"];
                             $fecha = date("Y-m-d");
-                            $form->imprimir_resultados();
+                            $id = -1;
 
-        
-                            $resultado = mysqli_fetch_array( mysqli_query($con, "SELECT `UID` FROM `area` WHERE `nombre` = ".$form->resultado_id), MYSQLI_NUM);
-                            mysqli_query($con,"INSERT INTO `aplicacion_examen`(`id_examen`, `id_user`, `fecha`, `id_resultado`) VALUES ($id_examen ,'$usr_uid','$fecha','$resultado[0]');");
-                            $id = mysqli_insert_id($con);
+                            echo "<span class='card-title'>Resultado: {$resultado}</span>";
+                            echo "Parece ser que eres bueno para {$resultado}, ve a tus recomendaciones para ver las carreras que se ofertan con tus aptitudes.";
+
+                            $res = mysqli_fetch_array( mysqli_query($con, "SELECT `UID` FROM `area` WHERE `nombre` = '{$resultado}' LIMIT 1"), MYSQLI_NUM);
+                            if(mysqli_query($con,"INSERT INTO `aplicacion_examen`(`id_examen`, `id_user`, `fecha`, `id_resultado`) VALUES ({$_GET["UID"]} ,'{$usr_uid}','$fecha','$res[0]');"))
+                                $id = mysqli_insert_id($con);
                         }
                     ?>
                     <div class="card-actions">

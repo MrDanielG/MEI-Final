@@ -2,19 +2,18 @@
     <head>
         <title>Todas | MEI</title>
 
-        <link rel="stylesheet" type="text/css" href="../css/estilos.css">
-        <!--Import Google Icon Font-->
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-        <!--Import materialize.css-->
-        <link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection" />
-        <meta charset="utf-8" />
+        <!--Estilos-->
+    <link rel="stylesheet" type="text/css" href="../../assets/css/estilos.css">
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta charset="utf-8" />
 
-        <!--Let browser know website is optimized for mobile-->
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-        <script src="../js/jquery-3.2.1.min.js"></script>
-        <script type="text/javascript" src="../js/materialize.js"></script>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     </head>
     <body>
 
@@ -23,7 +22,7 @@
             <div class="card-content">
               <div id="heatmap" style="height: 500px"></div>
               <?php
-                  include '../conn.php';
+                  include '../../private/conn.php';
 
                   $q = mysqli_query($con, "SELECT UID FROM carrera_uni");
                   echo "Total de carreras: ".mysqli_num_rows($q);
@@ -37,16 +36,16 @@
                   $q = mysqli_query($con, "SELECT UID FROM institucion");
                   echo "<br>Total de instituciones: ".mysqli_num_rows($q);
 
-                  $q = mysqli_query($con, "SELECT UID FROM carrera_info WHERE id_area = 1");
+                  $q = mysqli_query($con, "SELECT UID FROM carrera_area WHERE id_area = 1");
                   echo "<br>Total de carreras únicas de Ciencias Quimico/Biologicas: ".mysqli_num_rows($q);
 
-                  $q = mysqli_query($con, "SELECT UID FROM carrera_info WHERE id_area = 2");
+                  $q = mysqli_query($con, "SELECT UID FROM carrera_area WHERE id_area = 2");
                   echo "<br>Total de carreras únicas de Humanidades y Artes: ".mysqli_num_rows($q);
 
-                  $q = mysqli_query($con, "SELECT UID FROM carrera_info WHERE id_area = 3");
+                  $q = mysqli_query($con, "SELECT UID FROM carrera_area WHERE id_area = 3");
                   echo "<br>Total de carreras únicas de Ciencias Fisico/Matemáticas y de Igeniería: ".mysqli_num_rows($q);
 
-                  $q = mysqli_query($con, "SELECT UID FROM carrera_info WHERE id_area = 4");
+                  $q = mysqli_query($con, "SELECT UID FROM carrera_area WHERE id_area = 4");
                   echo "<br>Total de carreras únicas de Ciencias Sociales: ".mysqli_num_rows($q); ?>
             </div>
           </div>
@@ -84,7 +83,7 @@
             </div>
         </div>
         <script src="../js/jquery-3.2.1.min.js"></script>
-        <script type="text/javascript" src="../js/materialize.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
         <script>
         var map, marker,lati,long;;
         function initMap() {

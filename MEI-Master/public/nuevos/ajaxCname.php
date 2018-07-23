@@ -1,5 +1,5 @@
 <?php
-    include '../conn.php';
+    include '../../private/conn.php';
     $data = $_POST["data"];
 
     $q = "SELECT universidad.foto_url, carrera_info.nombre, universidad.nombre, institucion.name, universidad.lat, universidad.lng FROM carrera_uni

@@ -9,10 +9,12 @@
 
     $result = mysqli_fetch_array(mysqli_query($con,"SELECT id_resultado FROM aplicacion_examen WHERE id_user = '$usr_uid' ORDER BY UID DESC LIMIT 1"), MYSQLI_NUM);
 
-    $q = "SELECT universidad.foto_url, carrera_info.nombre, universidad.nombre, institucion.name, universidad.lat, universidad.lng, carrera_info.salario_min, carrera_info.salario_max, carrera_uni.UID FROM carrera_uni
-          JOIN universidad ON universidad.UID = carrera_uni.id_universidad
-          JOIN carrera_info ON carrera_info.UID = carrera_uni.id_carrera
-          JOIN institucion ON institucion.UID = universidad.id_institutucion WHERE carrera_info.id_area = {$result[0]} ORDER BY carrera_info.nombre";
+     $q = "SELECT universidad.foto_url, carrera_info.nombre, universidad.nombre, institucion.name, universidad.lat, universidad.lng, carrera_info.salario_min, carrera_info.salario_max, carrera_uni.UID FROM carrera_uni
+            JOIN universidad ON universidad.UID = carrera_uni.id_universidad
+            JOIN carrera_info ON carrera_info.UID = carrera_uni.id_carrera
+            JOIN institucion ON institucion.UID = universidad.id_institutucion
+            JOIN carrera_area ON carrera_info.UID = carrera_area.id_carrera
+            WHERE carrera_area.id_area = {$result[0]} ORDER BY carrera_info.nombre";
 
     $r_2 = mysqli_query($con,$q);
     $carreras = array();

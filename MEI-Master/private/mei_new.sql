@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-04-2018 a las 00:18:28
+-- Tiempo de generación: 22-07-2018 a las 21:22:11
 -- Versión del servidor: 10.1.28-MariaDB
 -- Versión de PHP: 7.1.10
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `id1181196_mei`
+-- Base de datos: `mei_new`
 --
 
 -- --------------------------------------------------------
@@ -42,7 +42,18 @@ CREATE TABLE `aplicacion_examen` (
 
 INSERT INTO `aplicacion_examen` (`UID`, `id_examen`, `id_user`, `fecha`, `id_resultado`) VALUES
 (1, 1, '4d09640e908161ae1c2098e0fcadb73d91a4b304', '2018-02-22', 3),
-(5, 1, '4d09640e908161ae1c2098e0fcadb73d91a4b304', '2018-02-23', 1);
+(5, 1, '4d09640e908161ae1c2098e0fcadb73d91a4b304', '2018-02-23', 1),
+(10, 1, '4d09640e908161ae1c2098e0fcadb73d91a4b304', '2018-07-17', 4),
+(11, 1, '885a5a6e26f1d9b3efaf99f828d7b30751137082', '2018-07-19', 4),
+(12, 1, '4d09640e908161ae1c2098e0fcadb73d91a4b304', '2018-07-19', 4),
+(13, 1, '4d09640e908161ae1c2098e0fcadb73d91a4b304', '2018-07-19', 1),
+(14, 1, '885a5a6e26f1d9b3efaf99f828d7b30751137082', '2018-07-19', 4),
+(15, 1, '4d09640e908161ae1c2098e0fcadb73d91a4b304', '2018-07-20', 4),
+(16, 1, '4d09640e908161ae1c2098e0fcadb73d91a4b304', '2018-07-21', 1),
+(17, 1, '4d09640e908161ae1c2098e0fcadb73d91a4b304', '2018-07-21', 1),
+(18, 1, '4d09640e908161ae1c2098e0fcadb73d91a4b304', '2018-07-21', 1),
+(19, 1, '4d09640e908161ae1c2098e0fcadb73d91a4b304', '2018-07-21', 1),
+(20, 1, '4d09640e908161ae1c2098e0fcadb73d91a4b304', '2018-07-21', 3);
 
 -- --------------------------------------------------------
 
@@ -53,6 +64,7 @@ INSERT INTO `aplicacion_examen` (`UID`, `id_examen`, `id_user`, `fecha`, `id_res
 CREATE TABLE `area` (
   `UID` int(11) NOT NULL,
   `nombre` varchar(72) NOT NULL,
+  `nombre_completo` tinytext NOT NULL,
   `descripcion` mediumtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -60,11 +72,42 @@ CREATE TABLE `area` (
 -- Volcado de datos para la tabla `area`
 --
 
-INSERT INTO `area` (`UID`, `nombre`, `descripcion`) VALUES
-(1, 'Biológicas', 'Las ciencias biológicas son aquellas que se dedican a estudiar la vida y sus procesos. Se trata de una rama de las ciencias naturales que investiga el origen, la evolución y las propiedades de los seres vivos.\r\n'),
-(2, 'Humanidades', 'Relacion con las humanidades'),
-(3, 'Ingeniería', 'La ingeniería es el conjunto de conocimientos científicos y tecnológicos para la innovación, invención, desarrollo y mejoramiento de técnicas y herramientas para satisfacer las necesidades de las empresas y la sociedad.\r\nEl ingeniero utiliza las matemáticas, las matemáticas aplicadas, la física, química y otras ciencias tanto para el desarrollo de tecnologías, como para el manejo eficiente y productivo de recursos y fuerzas de la naturaleza en beneficio de la sociedad. La ingeniería es una actividad que transforma el conocimiento en algo práctico.\r\nLa ingeniería aplica los conocimientos y métodos científicos a la invención o perfeccionamiento de tecnologías de manera pragmática y ágil, adecuándose a las limitaciones de tiempo, recursos, requerimientos legales, requerimientos de seguridad, ecológicos, etc.\r\n'),
-(4, 'Sociales', 'Relacion con las sociales');
+INSERT INTO `area` (`UID`, `nombre`, `nombre_completo`, `descripcion`) VALUES
+(1, 'biologicas', 'Ciencias Quimico/Biologicas', 'Las ciencias biológicas son aquellas que se dedican a estudiar la vida y sus procesos. Se trata de una rama de las ciencias naturales que investiga el origen, la evolución y las propiedades de los seres vivos.\r\n'),
+(2, 'humanidades', 'Humanidades y Artes', 'Relacion con las humanidades'),
+(3, 'ingenieria', 'Ciencias Fisico/Matemáticas y de Igeniería', 'La ingeniería es el conjunto de conocimientos científicos y tecnológicos para la innovación, invención, desarrollo y mejoramiento de técnicas y herramientas para satisfacer las necesidades de las empresas y la sociedad.\r\nEl ingeniero utiliza las matemáticas, las matemáticas aplicadas, la física, química y otras ciencias tanto para el desarrollo de tecnologías, como para el manejo eficiente y productivo de recursos y fuerzas de la naturaleza en beneficio de la sociedad. La ingeniería es una actividad que transforma el conocimiento en algo práctico.\r\nLa ingeniería aplica los conocimientos y métodos científicos a la invención o perfeccionamiento de tecnologías de manera pragmática y ágil, adecuándose a las limitaciones de tiempo, recursos, requerimientos legales, requerimientos de seguridad, ecológicos, etc.\r\n'),
+(4, 'sociales', 'Ciencias Sociales', 'Relacion con las sociales');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `carrera_area`
+--
+
+CREATE TABLE `carrera_area` (
+  `UID` int(11) NOT NULL,
+  `id_carrera` int(11) NOT NULL,
+  `id_area` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `carrera_area`
+--
+
+INSERT INTO `carrera_area` (`UID`, `id_carrera`, `id_area`) VALUES
+(3, 1, 1),
+(4, 11, 1),
+(5, 11, 1),
+(6, 15, 3),
+(7, 15, 3),
+(8, 16, 1),
+(9, 17, 1),
+(10, 18, 3),
+(11, 20, 3),
+(12, 21, 3),
+(13, 22, 3),
+(14, 21, 3),
+(15, 22, 3);
 
 -- --------------------------------------------------------
 
@@ -76,7 +119,6 @@ CREATE TABLE `carrera_info` (
   `UID` int(11) NOT NULL,
   `nombre` varchar(72) NOT NULL,
   `descripcion` mediumtext NOT NULL,
-  `id_area` int(11) NOT NULL,
   `salario_min` float DEFAULT NULL,
   `salario_max` float DEFAULT NULL,
   `keywords` text NOT NULL
@@ -86,49 +128,52 @@ CREATE TABLE `carrera_info` (
 -- Volcado de datos para la tabla `carrera_info`
 --
 
-INSERT INTO `carrera_info` (`UID`, `nombre`, `descripcion`, `id_area`, `salario_min`, `salario_max`, `keywords`) VALUES
-(1, 'Cirujano Dentista', 'La licenciatura de Cirujano Dentista forma profesionistas capaces de resolver las necesidades de salud bucodental de la población, mediante un criterio clínico integral. Su labor se enfoca hacia la solución de: caries dental, enfermedad periodontal (tejidos de sostén del diente), malposiciones dentarias, alteraciones de la articulación temporomandibular, cáncer bucal y malformaciones de labio y paladar.', 1, 7000, 30000, 'biologicas,odontología,diente,dentista'),
-(11, 'Licenciatura en Biología', 'El egresado de la licenciatura en Biología es concebido como una persona cuyo bagaje intelectual incluya un espectro de conocimientos básicos desde el nivel molecular y celular, hasta visiones integrativas que le permitan comprender los procesos de cambio de la biosfera en el tiempo y en el espacio. Debe ser una persona consciente no sólo de la extraordinaria diversidad biológica que caracteriza al país, sino también de la riqueza que el uso y preservación de ésta representan para mantener y desarrollar nuestra identidad nacional. El egresado de Biología es un profesional que por sus conocimientos profundos de la ciencia de la vida, realiza docencia e investigación y colabora adecuadamente aplicando sus conocimientos para resolver problemas de investigación o aplicaciones de otras disciplinas vinculadas.', 1, 5500, 12000, 'biológicas,biologo,zoologo,microorganismos,programación,python,zacatecas'),
-(15, 'Ingeniería en Sistemas Computacionales', 'El ingeniero en sistemas computacionales es un experto en el manejo de sistemas de programación (software) o sistemas electrónicos (hardware), capaz de diseñar, desarrollar, implantar y mantener actualizadas las infraestructuras de cómputo y comunicación; promoviendo así, la modernización y optimización de procesos en las empresas, organismos e instituciones donde preste sus servicios.', 3, 8000, 50000, 'computacion,sistemas,upiiz,ipn,programacion,software,industria,ingenieria'),
-(16, 'Ingeniería Ambiental', 'La ingeniería ambiental es un área y rama de las ciencias ambientales que se basa en el diseño, la aplicación, y la gestión de procesos, productos y servicios tecnológicos para la prevención, el control y remedio de problemas de degradación ambiental; para el desarrollo del uso sustentable de recursos naturales en procesos productivos y de consumo, teniendo siempre como prioridad la excelente calidad de vida en nuestro entorno.<br>\r\n\r\nLa ingeniería ambiental contribuye a garantizar, mediante la conservación y preservación de los recursos naturales, una mejor calidad de vida para la generación actual y para las generaciones futuras. Esta disciplina, en pleno desarrollo, ve cada vez más claro su objetivo y ha venido consolidándose como una necesidad, ya que proporciona una serie de soluciones propicias para enfrentar la actual crisis ecológica que vive el planeta. Por esto, es considerada por muchas personas como una profesión de gran futuro.', 1, 10000, 45000, 'ingeniería,biologica,ambiente,zacatecas,industria'),
-(17, 'Ingeniería en Alimentos', 'La ingeniería en alimentos es la rama multidisciplinaria de la ingeniería que tiene como función el estudio de la transformación y procesos de materias primas de consumo humano en la innovación de productos con una vida útil más prolongada fundamentada en la comprensión de fenómenos de la química, la biología y la física de los alimentos. Esto se realiza con distintos fines, siendo el más importante que el producto pueda conservarse el mayor tiempo posible, sin que pierda su valor nutritivo, reduciendo costos de elaboración y transporte ; deshidratación es el ejemplo más común: leche, frutas.<br>\r\nEl ingeniero en alimentos tiene como trabajo el solucionar los problemas que se presentan en todo el proceso de creación de los alimentos teniendo como objetivo el reducir el impacto al medio ambiente, los desperdicios y costos de producción, otorgando productos de calidad y valor nutrimental satisfaciendo las demandas de los consumidores, desarrollando y mejorando las tecnologías aplicadas en el proceso de producción.', 1, 6000, 17000, 'alimentos,ingenieria,industria,procesamiento,conservacion,biologica,quimica'),
-(18, 'Ingeniería Mecatrónica', 'La ingeniería mecatrónica es una disciplina que sirve para diseñar y desarrollar productos que involucren sistemas de control para el diseño de productos o procesos inteligentes, lo cual busca crear maquinaria más compleja para facilitar las actividades del ser humano a través de procesos electrónicos en la industria mecánica, principalmente. Esta disciplina une la ingeniería mecánica, ingeniería electrónica, ingeniería de control e ingeniería informática. Debido a que combina varias ingenierías en una sola, su punto fuerte es la versatilidad.', 3, 7000, 50000, 'mecaniaca,electronica,ingeniería,software,hardware,informaica,control,automatizacion'),
-(20, 'Ingeniería Metalúrgica', 'La Ingeniería Metalúrgica es la actividad enfocada a la selección y operación de los procesos de manufactura, que comprenden las áreas de conocimiento de metalurgia extractiva, metalurgia química, metalurgia física, los procesos de refinación por electrolisis, la fundición, la soldadura y la metalurgia de polvos; el establecimiento y operación de métodos de control de calidad de materia prima, procesos y productos terminados; la protección de estructuras y partes contra la oxidación y corrosión, la selección de materiales y el análisis de fallas.', 3, 8000, 50000, 'metales,ingenieria,minas,oro,plata,extracción,quimica'),
-(21, 'Arquitectura', 'La arquitectura es el arte y la técnica de proyectar, diseñar, construir y modificar el hábitat humano, incluyendo edificios de todo tipo, estructuras arquitectónicas, espacios arquitectónicos y urbanos. Así, para los antiguos griegos, el arquitecto era el jefe o director de la construcción, y la arquitectura la técnica o arte de quien realizaba el proyecto y dirigía la construcción de los edificios y estructuras, ya que la palabra ????? (techné) significa ‘creación, invención o arte’.', 3, 7000, 50000, 'arte,arquitectura,ingenieria,griego,creacion,construcción,habitat,humano,edificios'),
-(22, 'Arquitectura de Paisaje', 'Planifica, diseña, construye y maneja espacios abiertos como parte del sistema natural y humano, desde una perspectiva responsable, incluyente y significativa en lo ambiental, social y cultural.<br>\r\n\r\nSu trabajo parte del entendimiento y reconocimiento de las condiciones del medio, que obtiene a través de trabajo de campo y estudios de gabinete, para realizar, dentro del taller de diseño, propuestas que satisfagan las necesidades humanas, y potencialicen la vocación del sitio. Conjuga medio natural y antrópico, construyendo con materiales inertes y elementos de la naturaleza (viento, vegetación, agua), los cuales proveen condiciones de confort físico, psíquico y emocional.', 3, 8000, 40000, 'arte,naturaleza,arquitectura'),
-(23, 'Diseño Industrial', 'El diseñador industrial genera objetos y productos de fabricación industrial que tienen contacto directo con el hombre, realiza mejoras a los ya existentes, haciéndolos atractivos para que satisfagan las necesidades de una sociedad que está en constante cambio.<br>\r\n\r\nCrea nuevas propuestas y soluciones acordes con los requerimientos de los diferentes mercados que demandan productos mejor planeados y diseñados, con el objeto de lograr el óptimo aprovechamiento de la infraestructura nacional.<br>\r\n\r\nDesarrolla su actividad en tres áreas principales: dentro de una industria o empresa, en actividades de consultoría, o bien, como empresario productor.', 3, 12000, 40000, 'ingenieria,industria,diseño,fabricacion,productos,necesidad'),
-(24, 'Urbanismo', 'El urbanista diseña la imagen de las ciudades y de los asentamientos rurales, tomando en cuenta la problemática integral de éstas y de sus pobladores. Su objetivo fundamental es el diseño de nuevos espacios urbanos, la ampliación y mejoramiento de los existentes y la remodelación o conservación del patrimonio histórico, cultural y ecológico de las ciudades. Además, brinda soluciones en aspectos relacionados con la vivienda, la industria, el transporte, vialidad, reservas territoriales, ecología.', 3, 9000, 30000, 'urbano,arquitectura,ingenieria,ciudades,ecologia,rural'),
-(25, 'Licenciatura en Arte y Diseño', 'En la actualidad, el arte y las expresiones del diseño aportan nuevas experiencias y formas de interacción con el entorno y con el hombre para sensibilizar, comunicar, transformar y humanizar a la sociedad a través de los lenguajes y expresiones de la imagen, ya sea con recursos tradicionales o de la tecnología digital.<br>\r\n\r\nEn esta licenciatura se forman los profesionales que, con una capacidad crítica y de análisis del contexto, conjugan los conocimientos, habilidades y técnicas de vanguardia del arte y el diseño, así como las herramientas tradicionales y digitales propias de ambas disciplinas con el trabajo interdisciplinario para propiciar las condiciones de integración y transformación de la región.<br>\r\n\r\nProporciona una preparación única en su género y una visión integradora que permite a sus egresados vincular las actividades distintivas de la carrera con las principales problemáticas sociales y participar en el desarrollo de los diversos sectores de la sociedad.', 2, 7000, 40000, 'arte,diseño,licenciatura,tecnología,desarrollo'),
-(26, 'Licenciatura en Artes Visuales', 'En esta carrera se forman los profesionales comprometidos, con una visión humanística-social de las artes visuales, que adquieren una formación teórico-conceptual y la incorporan para llevar a cabo un profundo ejercicio de búsqueda de los distintos procesos y recursos involucrados en la disciplina, para aplicarlos directamente en su obra personal y en proyectos colectivos que transformen y beneficien la vida pública de su entorno y de la sociedad.', 2, 5000, 30000, 'humanidades,artes,social,visual,licenciatura'),
-(27, 'Licenciatura en Diseño y Comunicación Visual', 'Esta carrera forma al profesional que aplica procedimientos y técnicas para investigar, producir y difundir mensajes visuales y audiovisuales que sirvan, no sólo para informar a los distintos sectores de la sociedad, sino para apoyar sus necesidades e impulsar su desarrollo. En ella se emplean técnicas tradicionales, digitales, híbridas y de nueva creación en áreas muy diversas: Audiovisual, Editorial, Gráfica e Ilustración, Iconicidad y Entornos, Simbología y Diseño Tridimensional.<br>\r\n\r\nEl diseñador de la comunicación visual realiza sus actividades con sensibilidad, capacidad creativa y conocimiento de los medios de comunicación masiva, lo cual aplica en proyectos de diversas magnitudes.<br>\r\n\r\nSu formación le permite desempeñar una amplia gama de posibilidades profesionales como fotógrafo, ilustrador, director de arte, o directivo en departamentos de diseño, publicidad y comunicación, y cuenta con disposición para el trabajo interdisciplinario y vocación para la investigación.', 2, 5000, 30000, 'arte,diseño,visual,licenciatura,humanidad,creativo'),
-(28, 'Actuaría', 'Los actuarios son profesionistas que estudian, plantean, formulan y aplican modelos de contenido matemático con el fin de proveer información para la planeación, previsión y toma de decisiones, y para resolver problemas económicos y sociales que involucran riesgos. Intervienen en prácticamente todos los campos del quehacer humano interactuando con los profesionales que ahí se desempeñen.<br>\r\n\r\nLlevan a cabo una labor sumamente diversa y relacionada principalmente con: seguros y planes de beneficio, demografía, finanzas, computación, administración, estadística, investigación de operaciones, economía, docencia e investigación.', 3, 10000, 50000, 'matiematicas,estadistica,prevencion,administracion,investigacion'),
-(29, 'Licenciatura en Ciencias de la Computación', 'Esta carrera forma al profesional con conocimientos teóricos sólidos en la disciplina y con habilidades de programación; capaz de desarrollar soluciones computacionales de frontera. Proporciona los fundamentos que le permiten adaptarse a tecnologías emergentes e ideas nuevas, y la preparación para:<br>\r\n* Analizar, diseñar y construir sistemas de software complejos.<br>\r\n* Desarrollar mecanismos para resolver problemas relacionados con: seguridad, almacenamiento de información en bases de datos y envío de información a través de redes de computadoras.<br>\r\n* Atender áreas particulares como la inteligencia artificial.', 3, 12000, 70000, 'computacion,ciencia,software,licenciatura,ia,red,neuronal'),
-(30, 'Licenciatura en Ciencias de la Tierra', 'Las ciencias de la Tierra abarcan el estudio temporal y espacial del planeta desde un punto de vista físico, incluyendo su interacción con los seres vivos. Las variadas escalas espacio-temporales de la estructura y la historia de la Tierra hacen que los procesos que en ella tienen lugar sean resultado de una compleja interacción entre procesos de distintas escalas espaciales (desde el milímetro hasta los miles de kilómetros) y escalas temporales que abarcan desde las centésimas de segundo hasta los miles de millones de años. Un ejemplo de esta complejidad es el distinto comportamiento mecánico que algunas rocas tienen en función de los procesos que se estudien: mientras las rocas que componen el manto superior responden elásticamente al paso de las ondas sísmicas (con periodos típicos de fracciones de segundo), responden como un fluido en las escalas de tiempo de la tectónica de placas. Otro ejemplo del amplio abanico de escalas temporales es el cambio climático, que se produce en periodos de entre millones de años a unos pocos años, cuando se confunde con las escalas propias del cambio meteorológico.', 3, 8000, 50000, 'tierra,ciencia,mineria,planeta,rocas,estudio,licenciatura'),
-(31, 'Física', 'La Física estudia propiedades y transformaciones de la materia, fenómenos de todo tipo, e interroga experimental y teóricamente a la naturaleza, desde las partículas elementales hasta las galaxias. Apoya a otras ciencias para su desarrollo y elaboración de teorías.<br>\r\n\r\nLos físicos explican los fenómenos mediante teorías basadas en modelos matemáticos y adquieren conocimientos en: Mecánica Clásica y Relativista, Termodinámica, Electromagnetismo, Física Estadística y Cuántica que les brindan una imagen general de las leyes de la naturaleza, y les permiten desarrollar aplicaciones en investigación, docencia, difusión y divulgación de la Física, así como en el ejercicio libre de la profesión.', 3, 8000, 40000, 'fisica,ciencia,fenomenos,matematicas,investigacion,docencia'),
-(32, 'Física Biomédica', 'Las demandas actuales en la constante especialización de los equipos médicos de radioterapia y el avance de las técnicas terapéuticas requieren del apoyo del un profesional como el físico biomédico quien con su formación interdisciplinaria aplique sus conocimientos para participar en diversos ámbitos y sea capaz de:<br>\r\n* Participar en la adquisición, procesamiento y optimización de imágenes para el diagnóstico clínico.<br>\r\n* Colaborar en la detección temprana de enfermedades y la planificación de tratamientos médicos.<br>\r\n* Utilizar, crítica y responsablemente, nuevas tecnologías para la terapia y diagnóstico médico.<br>\r\n* Colaborar con grupos de investigación en departamentos de ciencia básica en el sector salud.<br>\r\n* Realizar labores de seguridad y protección radiológica.<br>\r\n* Colaborar con grupos de investigación en la modelación de sistemas biológicos.<br>\r\n* Participar en la planeación y diseño de instalaciones para el uso de fuentes de radiación.<br>\r\n* Colaborar con grupos interdisciplinarios en ciencias del deporte.', 3, 9500, 60000, 'ciencia,terapia,fisica,medica,biomedica,biologicas'),
-(33, 'Licenciatura en Matemáticas', 'El matemático es el profesionista capaz de encontrar analogías y de modelar situaciones reales, aprende las matemáticas y sus relaciones con otras disciplinas tanto científicas como sociales, en las cuales motiva y resuelve problemas.\r\n<br>\r\nParticipa en equipos interdisciplinarios dedicados a resolver diversos problemas, así como en actividades de docencia y difusión de la matemática en diferentes niveles.', 3, 5000, 45000, 'matematicas,numeros,licenciatura,ciencia'),
-(34, 'Licenciatura en Matemáticas Aplicadas', 'Esta carrera forma al profesional que será capaz de:<br>\r\n\r\n* Participar en proyectos en los que sus conocimientos y habilidades matemáticas sean de utilidad, ya sea dentro del ámbito puramente académico, y en los sectores, productivo y de servicios.<br>\r\n* Detectar situaciones en donde, por su formación, pueda incidir en la solución de problemas concretos, de distintos orígenes, ya sean: científicos, tecnológicos y socioeconómicos.<br>\r\n* Colaborar con otros profesionistas en la formulación de problemas reales en términos matemáticos, así como en su resolución, o en la determinación del tipo de matemáticas que se requerirían.<br>\r\n* Interpretar matemáticamente descripciones de fenómenos de otras disciplinas.<br>\r\n* Intervenir en el desarrollo de enfoques, modelos y procedimientos novedosos que le permitan tratar un problema.<br>\r\n* Impartir cátedra en distintos niveles educativos, y participar, especialmente, en la formación matemática de otras disciplinas.', 3, 6000, 50000, 'matematicas,ciencia,aplicado,industria,producto,licenciatura'),
-(35, 'Licenciatura en Antropología', 'La carrera de Antropología contribuye a la formación de profesionales con una perspectiva integral de la disciplina, con capacidad para generar conocimientos sobre las sociedades y culturas del presente y del pasado, con capacidad para establecer el diálogo y el trabajo interdisciplinario con un pensamiento crítico y humanista.<br>\r\n\r\nEn ella se forman profesionales capaces de comprender y brindar soluciones acordes a las necesidades y problemáticas del entorno social y cultural, tomando como punto de partida la diversidad étnica y cultural del mundo contemporáneo, respetuosos de la diversidad social y cultural, con una perspectiva integral de la antropología.', 4, 7000, 60000, 'social,profesional,disciplina,saciedad,humanista,licenciatura'),
-(36, 'Licenciatura en Ciencias de la Comunicación', 'Con un enfoque creativo, responsable y crítico, en Ciencias de la Comunicación se analiza y difunde la problemática social mediante mensajes y contenidos informativos, escritos y audiovisuales y se estudian los orígenes, la estructura, el desarrollo y los cambios en los procesos de la comunicación humana, tanto interpersonales como grupales, organizacionales, colectivos o masivos.\r\n<br>\r\nEn esta carrera es fundamental estudiar los procesos de la comunicación colectiva, a través de investigar y analizar la información y los mensajes emitidos por los medios de comunicación social, para valorar sus repercusiones sobre los individuos y la sociedad, y no menos importante es contribuir a la adecuada producción y difusión de mensajes para la sociedad, a fin de que ésta disponga de elementos necesarios para la formación de la opinión pública.', 4, 8000, 40000, 'social,comunicacion,licenciatura,medios,tecnología,audiovisual'),
-(37, ' Licenciatura en Ciencias Políticas y Administración Pública', 'Esta licenciatura forma profesionistas expertos en el análisis de la realidad social de las instituciones, procesos y actores que intervienen en la definición de los asuntos públicos.\r\n<br>\r\nActúan con iniciativa, equidad y responsabilidad en función del interés común, y utilizan recursos científicos para identificar, plantear y ofrecer soluciones viables a problemáticas de los procesos e instituciones en que se expresa la vida política y social.\r\n<br>\r\nTienen una visión multidisciplinaria, que conlleva a un razonamiento crítico e inclusivo, para construir modelos y teorías que tienen como referente las demandas de la sociedad.', 4, 8000, 30000, 'social,licenciatura,politica,administracion'),
-(38, 'Licenciatura en Relaciones Internacionales', 'En su expresión más sintética, el objeto de estudio de las Relaciones Internacionales es la realidad internacional y su análisis, por tanto, proporciona los elementos teórico-metodológicos que permiten el análisis y la interpretación en los ámbitos político, económico, jurídico, social y cultural.\r\n<br>\r\nAsimismo contempla los aspectos técnico-prácticos requeridos, tanto a nivel operativo como propositivo, en el proceso de toma de decisiones, vinculando los hechos y los problemas internacionales, por lo que considera el estudio de los procesos históricos y sus consecuencias.\r\n<br>\r\nComo disciplina científica, estudia de manera sistemática y rigurosa las relaciones, los protagonistas, los procesos, los fenómenos y las tendencias que inciden en forma relevante y determinante en la realidad mundial, como una totalidad dinámica, en constante cambio e interdependiente.', 4, 8000, 40000, 'social,internacional,relacion,politica,mundial'),
-(39, 'Licenciatura en Sociología', 'La complejidad en los acontecimientos sociales de fin de siglo demanda una disciplina científica como la Sociología, que proporcione un conocimiento científico y racional de los cambios sociales y políticos contemporáneos, sobre una aplicación sistemática de métodos, teorías e instrumental técnico.\r\n<br><br>\r\nEl objetivo fundamental de la Sociología es comprender, explicar y diagnosticar el entorno de la vida social en todas sus manifestaciones, utilizando una combinación de datos. Dicho conocimiento permite elaborar diagnósticos para la toma de decisiones.\r\n<br><br>\r\nEl sociólogo genera respuestas eficaces a los desafíos que han de enfrentar las sociedades contemporáneas, tanto a nivel macro, como de comunidades y organizaciones pequeñas.', 4, 7500, 40000, 'sociedad,vida,social,licenciatura,datos,decisiones'),
-(40, 'Licenciatura en Administración', 'Profesión especializada en dirigir grupos de trabajo hacia el logro de objetivos de organizaciones privadas, públicas y sociales, optimizando el empleo de recursos, mediante aplicación de técnicas de planeación, organización, dirección y control, utilizadas en las distintas áreas funcionales, tales como: recursos humanos, finanzas, mercadotecnia, producción e informática.<br><br>\r\n\r\nEl licenciado en Administración trabaja en equipos multidisciplinarios en la aplicación de distintas técnicas administrativas; se caracteriza por su visión humanística y emprendedora, vocación de servicio y orientación ética de las organizaciones hacia la creatividad, competitividad y productividad en el ámbito nacional e internacional.', 4, 6000, 30000, 'social,administrar,matematicas,finanzas,mercadotecnia'),
-(41, 'Licenciatura en Informática', 'La licenciatura en Informática forma expertos que aplican y desarrollan tecnologías de información apropiadas para la administración eficiente de las organizaciones, integrando las Tecnologías de Información y Comunicación en sus procesos operativos, valorando nuevos modelos de negocio basados en la innovación tecnológica, con un compromiso social y una visión global.\r\n<br><br>\r\nAsimismo es el profesionista responsable de la creación de las estrategias para la implementación y la administración de Tecnologías de Información en la empresa, así como del mantenimiento de servicios tecnológicos y sistemas de tratamiento de la información de manera integral y eficiente.\r\n<br><br>\r\nEs un agente de cambio, creativo, y multicultural que puede desarrollarse y adaptarse en cualquier ambiente laboral, además es un profesionista analítico, crítico, objetivo, reflexivo, abierto a diferentes alternativas, responsable, creativo, propositivo, emprendedor y, en consecuencia, una autoridad profesional en su área.', 4, 12000, 60000, 'informatca,sistemas,licenciatura'),
-(42, 'Licenciatura en Contaduría', 'El licenciado en Contaduría satisface las necesidades de las organizaciones y los individuos relacionadas con la toma de decisiones sobre su patrimonio, expresado en valores financieros, en la que se determinan medidas sobre el dinero en sus distintas formas de expresión, a fin de incrementar el patrimonio, pagar contribuciones, y llevar un registro de dichas operaciones financieras. Posee además una perspectiva del contexto de las organizaciones con fines económicos o sociales. <br>\r\n<br>\r\nCon vocación de servicio, visión humanística y ética, y capacidad para analizar y dictaminar la información financiera para la toma de decisiones, el egresado de esta carrera cumple con los objetivos establecidos por las organizaciones en un ámbito cambiante debido a los avances en la ciencia y la tecnología, así como a la evolución de la economía. \r\n<br><br>\r\nAdemás expresa su opinión sobre la situación financiera de las organizaciones y se desempeña con un sentido ético y de responsabilidad social.', 4, 6000, 30000, 'social,contador,economia,organizacion,finanzas'),
-(43, 'Licenciatura en Negocios Internacionales', 'La licenciatura en Negocios Internacionales forma profesionistas con una visión interdisciplinaria y global, capaces de diseñar modelos de negocios, generar soluciones creativas a las necesidades de las empresas que participan en el mercado mundial y promover el logro de objetivos en organizaciones públicas, privadas y sociales vinculadas con los negocios internacionales.\r\n<br><br>\r\nPor tanto, el egresado gestiona y promueve organizaciones y negocios que compitan en el mercado global a través de la integración multicultural de equipos de trabajo, además de diseñar e instrumentar estrategias y modelos administrativos que respondan ante un contexto económico internacional cambiante y complejo.\r\n<br><br>\r\nNegocios Internacionales atiende las necesidades y los requerimientos de las organizaciones públicas y privadas que participan en el mercado global en materia de negocios y administración y contribuye a la creación de nuevas fuentes de empleo que produzcan bienes y servicios competitivos internacionalmente.', 4, 5000, 20000, 'social,internacional,relaciones'),
-(44, 'Licenciatura en Derecho', 'En la carrera de Derecho se forman juristas con sentido humanista y responsabilidad social, capaces de generar propuestas de solución a los problemas jurídicos de la sociedad.\r\n<br><br>\r\nEl egresado comprende y resuelve la problemática de la disciplina jurídica, con una sólida conciencia de su responsabilidad y compromiso social para el logro de los fines y principios del Derecho: justicia, equidad, bien común y paz social.\r\n<br><br>\r\nEl licenciado en Derecho debe mantener una actualización integral, científica y humanística en lo teórico y en lo práctico, a fin de contribuir al desarrollo y búsqueda de ordenamientos jurídicos que posibiliten el desenvolvimiento pleno de las capacidades y habilidades humanas; además es capaz de interpretar y aplicar adecuadamente la normatividad jurídica.', 4, 6000, 50000, 'derecho,social,lienciatura'),
-(45, 'Licenciatura en Economía', 'Profesión en la que son evaluados científicamente los fenómenos económicos de la realidad mexicana, mediante la comprensión de: la producción, distribución, intercambio y consumo de bienes y servicios que satisfacen las necesidades del hombre y la sociedad.\r\n<br><br>\r\nEn ella son diseñados e instrumentados modelos económicos con el fin de recomendar, en lo particular y colectivamente, acciones para el mejor empleo de los recursos productivos y la óptima distribución del ingreso en la sociedad.\r\n<br><br>\r\nEl egresado de esta carrera formula soluciones a los problemas económicos que plantea la economía, a partir del análisis de los fenómenos productivos y de los mercados –de bienes y servicios– en los ámbitos nacional e internacional.', 4, 10000, 50000, 'social,economia,dinero,empleo'),
-(46, 'Licenciatura en Comunicación', 'El profesionista de la Comunicación recopila, analiza y sistematiza información para generar mensajes para prensa, radio, televisión, cine o Internet, estudia los fenómenos de la comunicación en sus distintos niveles y medios para aplicar estos conocimientos en las áreas de docencia, investigación, producción, análisis, evaluación de mensajes, diseño de estrategias, campañas de publicidad, de comunicación política y organizacional. Planea, organiza y dirige las estructuras administrativas y organizacionales de los medios de difusión y empresas afines; aplica las metodologías de investigación científica para el análisis y la evaluación de acontecimientos y fenómenos.\r\n<br><br>\r\nDesempeña funciones: académicas, de investigación, de análisis e interpretación de lenguajes escritos e icónicos, en la producción de medios electrónicos y como comentarista, editorialista y articulista. El comunicólogo desarrolla y aplica técnicas, métodos, metodologías y teorías sobre su especialidad en diversos campos.', 4, 7000, 30000, 'comunicacion,licenciatura,analisis,informacion'),
-(47, 'Licenciatura en Diseño Gráfico', 'El profesional del Diseño Gráfico genera formas gráfico-expresivas que satisfacen las necesidades de comunicación visual que hoy en día demandan los distintos sectores sociales, valiéndose de procesos metodológicos y técnicas instrumentales, imágenes, signos, señales, símbolos, ideas y conceptos novedosos y creativos que representen y emitan sensaciones, emociones, información y conocimiento.\r\n<br><br>\r\nLa formación que recibe le permite llevar a cabo con espíritu crítico, propositivo e innovador diversas actividades: diseña carteles, anuncios espectaculares, envases y embalajes de productos, juegos y materiales didácticos; realiza animación en el cine o en la televisión, y efectúa labores relacionadas con el diseño museográfico y de galerías de arte.', 2, 5000, 40000, 'diseño,arte,licenciatura,creativo,grafico,TI'),
-(48, 'Licenciatura en Filosofía', 'El filósofo tiene como tarea la búsqueda de los elementos que fundamentan la comprensión del ser humano y de su entorno.\r\n<br><br>\r\nA través de la enseñanza, la investigación y la difusión de teorías, argumentos y problemas filosóficos, la licenciatura en Filosofía transmite los valores fundamentales de la cultura, gracias a su constante y sistemática reflexión de la realidad –elemento fundamental en esta carrera–, cuestiona las diversas problemáticas de la época actual, desarrolla la conciencia crítica e histórica de la sociedad y contribuye a la formación integral de las personas.\r\n<br><br>\r\nLa preparación profesional del filósofo le da la creatividad necesaria para: enriquecer proyectos e instituciones culturales; impartir docencia a nivel medio superior y superior; dedicarse a la investigación filosófica e interdisciplinaria, y para participar en actividades relacionadas con la difusión de la cultura, por lo que labora en espacios diversos.', 2, 7000, 30000, 'filosofia,humanidad,pregunta,duda'),
-(49, 'Licenciatura en Historia', 'El historiador es capaz de transmitir los conocimientos históricos y de aplicar las herramientas conceptuales y técnicas para investigar e interpretar críticamente el pasado de los hombres desde diversas perspectivas, reflexionar sobre él y relacionarlo con el presente.\r\n<br><br>\r\nAsimismo, se especializa en una época y lugar geográfico determinados, en una corriente histórica, en un algún acontecimiento o proceso, gracias a lo cual colabora en la solución de diversas problemáticas y en la transformación de la sociedad.\r\n<br><br>\r\nParticipa fundamentalmente en la investigación, la docencia y la difusión de la historia y la cultura en los medios masivos de comunicación.', 2, 7000, 30000, 'historia,docencia,licencitura,hechos'),
-(50, 'Ingeniería Civil', 'El ingeniero civil obtiene conocimientos generales de matemáticas, física y química, computación, informática, administración y evaluación de proyectos que lo capacitan para participar en la planeación, organización, construcción, operación y conservación de obras civiles de infraestructura y desarrollo urbano que el país requiere en las áreas de construcción, estructuras, ingeniería sanitaria y ambiental, e ingeniería de sistemas, planeación y transporte.\r\n<br><br>\r\nEs el profesional que gracias a su formación multidisciplinaria entiende el comportamiento de estructuras y obras en construcción; prevé los impactos sociales, ecológicos y económicos que pueden ocasionar; y planea un uso más conveniente de recursos naturales y humanos de grandes áreas, por lo que su tarea es de gran importancia y responsabilidad para las poblaciones urbanas y rurales que conforman nuestro país.', 3, 8000, 60000, 'civil,sociedad,ingenieria,matematicas'),
-(51, 'Licenciatura en Lengua y Literatura Hispánicas', 'Esta carrera forma profesionistas que estudian la estructura y el desarrollo histórico de la lengua española, así como de las literaturas hispánicas (mexicana, española e iberoamericana) como manifestaciones más acabadas de la lengua.\r\n<br><br>\r\nAsimismo los capacita para analizar, interpretar y difundir ––mediante técnicas de investigación documental y bibliográfica; análisis teórico y lingüístico; crítica; creación literaria y docencia––, el valor cultural de la lengua y las literaturas hispánicas.\r\n<br><br>\r\nSu campo laboral es muy amplio, ya que incluye centros educativos y de investigación, bibliotecas, editoriales, agencias de publicidad, o medios de difusión como radio, televisión, revistas y periódicos.', 2, 8000, 20000, 'humanidad,literatura,lengua,hispano'),
-(53, 'Licenciatura en Matemáticas Aplicadas y Computación', 'El licenciado en Matemáticas Aplicadas y Computación aplica creativamente las diversas técnicas matemáticas y computacionales para analizar, evaluar y resolver, por medio de modelos, problemas en diversas áreas de conocimiento que afectan de manera directa o indirecta a la sociedad.<br><br>\r\n\r\nAnalista bursátil y financiero, catedrático, investigador, consultor en diversas áreas y proyectos, o diseñador de software son algunas de las actividades que puede desempeñar este profesionista.', 3, 6000, 50000, 'matematicas,computacion,licenciatura,aplicada'),
-(54, 'Licenciatura en Pedagogía', 'El pedagogo estudia integralmente la educación para describir, comprender, explicar, evaluar e intervenir en el fortalecimiento y mejora de los procesos educativos, analiza y propone alternativas de solución en problemas relacionados con el campo educativo, además de atender a diversos sectores de la población que requieren ayuda pedagógica.\r\n<br><br>\r\nDesarrolla actividades de docencia, orientación educativa, educación permanente y capacitación, administración y gestión educativas, desarrollo curricular, comunicación e investigación en este campo, en instituciones públicas y privadas o en el ejercicio libre de la profesión, atendiendo las distintas orientaciones de la práctica profesional.', 2, 12000, 40000, 'educacion,pedagogia,orientacion,profesional'),
-(55, ' Licenciatura en Comunicación y Periodismo', 'El licenciado en Comunicación y Periodismo formado en FES Aragón es el profesional que entiende que la comunicación es un proceso. En este sentido, lo conoce puntualmente en todas sus formas y niveles, por lo que es capaz de analizar y evaluar el fenómeno comunicacional.<br>\r\n\r\nAsimismo, está al tanto de las formas adecuadas que deben tener los mensajes, determina a través de qué medios conviene difundirlos para que cubran mejor las necesidades de información de la sociedad y explica los problemas de la comunicación, el desarrollo del individuo y de la sociedad.\r\n<br>\r\nCon el dominio de las relaciones existentes entre los procesos de la comunicación y otras disciplinas del área social, este profesionista resuelve de manera adecuada las necesidades que la realidad exige.\r\n<br>\r\nEl estudio de los procesos de la comunicación colectiva implica investigar y analizar la información y los mensajes emitidos por los medios de comunicación social para proceder a la valoración de sus repercusiones sobre la sociedad.', 4, 5000, 20000, 'periodismo,comunicacion,social,television,licenciatura'),
-(56, 'Prueba', 'asdasd', 1, 123, 123, '.');
+INSERT INTO `carrera_info` (`UID`, `nombre`, `descripcion`, `salario_min`, `salario_max`, `keywords`) VALUES
+(1, 'Cirujano Dentista', 'La licenciatura de Cirujano Dentista forma profesionistas capaces de resolver las necesidades de salud bucodental de la población, mediante un criterio clínico integral. Su labor se enfoca hacia la solución de: caries dental, enfermedad periodontal (tejidos de sostén del diente), malposiciones dentarias, alteraciones de la articulación temporomandibular, cáncer bucal y malformaciones de labio y paladar.', 7000, 30000, 'biologicas,odontología,diente,dentista'),
+(11, 'Licenciatura en Biología', 'El egresado de la licenciatura en Biología es concebido como una persona cuyo bagaje intelectual incluya un espectro de conocimientos básicos desde el nivel molecular y celular, hasta visiones integrativas que le permitan comprender los procesos de cambio de la biosfera en el tiempo y en el espacio. Debe ser una persona consciente no sólo de la extraordinaria diversidad biológica que caracteriza al país, sino también de la riqueza que el uso y preservación de ésta representan para mantener y desarrollar nuestra identidad nacional. El egresado de Biología es un profesional que por sus conocimientos profundos de la ciencia de la vida, realiza docencia e investigación y colabora adecuadamente aplicando sus conocimientos para resolver problemas de investigación o aplicaciones de otras disciplinas vinculadas.', 5500, 12000, 'biológicas,biologo,zoologo,microorganismos,programación,python,zacatecas'),
+(15, 'Ingeniería en Sistemas Computacionales', 'El ingeniero en sistemas computacionales es un experto en el manejo de sistemas de programación (software) o sistemas electrónicos (hardware), capaz de diseñar, desarrollar, implantar y mantener actualizadas las infraestructuras de cómputo y comunicación; promoviendo así, la modernización y optimización de procesos en las empresas, organismos e instituciones donde preste sus servicios.', 8000, 50000, 'computacion,sistemas,upiiz,ipn,programacion,software,industria,ingenieria'),
+(16, 'Ingeniería Ambiental', 'La ingeniería ambiental es un área y rama de las ciencias ambientales que se basa en el diseño, la aplicación, y la gestión de procesos, productos y servicios tecnológicos para la prevención, el control y remedio de problemas de degradación ambiental; para el desarrollo del uso sustentable de recursos naturales en procesos productivos y de consumo, teniendo siempre como prioridad la excelente calidad de vida en nuestro entorno.<br>\r\n\r\nLa ingeniería ambiental contribuye a garantizar, mediante la conservación y preservación de los recursos naturales, una mejor calidad de vida para la generación actual y para las generaciones futuras. Esta disciplina, en pleno desarrollo, ve cada vez más claro su objetivo y ha venido consolidándose como una necesidad, ya que proporciona una serie de soluciones propicias para enfrentar la actual crisis ecológica que vive el planeta. Por esto, es considerada por muchas personas como una profesión de gran futuro.', 10000, 45000, 'ingeniería,biologica,ambiente,zacatecas,industria'),
+(17, 'Ingeniería en Alimentos', 'La ingeniería en alimentos es la rama multidisciplinaria de la ingeniería que tiene como función el estudio de la transformación y procesos de materias primas de consumo humano en la innovación de productos con una vida útil más prolongada fundamentada en la comprensión de fenómenos de la química, la biología y la física de los alimentos. Esto se realiza con distintos fines, siendo el más importante que el producto pueda conservarse el mayor tiempo posible, sin que pierda su valor nutritivo, reduciendo costos de elaboración y transporte ; deshidratación es el ejemplo más común: leche, frutas.<br>\r\nEl ingeniero en alimentos tiene como trabajo el solucionar los problemas que se presentan en todo el proceso de creación de los alimentos teniendo como objetivo el reducir el impacto al medio ambiente, los desperdicios y costos de producción, otorgando productos de calidad y valor nutrimental satisfaciendo las demandas de los consumidores, desarrollando y mejorando las tecnologías aplicadas en el proceso de producción.', 6000, 17000, 'alimentos,ingenieria,industria,procesamiento,conservacion,biologica,quimica'),
+(18, 'Ingeniería Mecatrónica', 'La ingeniería mecatrónica es una disciplina que sirve para diseñar y desarrollar productos que involucren sistemas de control para el diseño de productos o procesos inteligentes, lo cual busca crear maquinaria más compleja para facilitar las actividades del ser humano a través de procesos electrónicos en la industria mecánica, principalmente. Esta disciplina une la ingeniería mecánica, ingeniería electrónica, ingeniería de control e ingeniería informática. Debido a que combina varias ingenierías en una sola, su punto fuerte es la versatilidad.', 7000, 50000, 'mecaniaca,electronica,ingeniería,software,hardware,informaica,control,automatizacion'),
+(20, 'Ingeniería Metalúrgica', 'La Ingeniería Metalúrgica es la actividad enfocada a la selección y operación de los procesos de manufactura, que comprenden las áreas de conocimiento de metalurgia extractiva, metalurgia química, metalurgia física, los procesos de refinación por electrolisis, la fundición, la soldadura y la metalurgia de polvos; el establecimiento y operación de métodos de control de calidad de materia prima, procesos y productos terminados; la protección de estructuras y partes contra la oxidación y corrosión, la selección de materiales y el análisis de fallas.', 8000, 50000, 'metales,ingenieria,minas,oro,plata,extracción,quimica'),
+(21, 'Arquitectura', 'La arquitectura es el arte y la técnica de proyectar, diseñar, construir y modificar el hábitat humano, incluyendo edificios de todo tipo, estructuras arquitectónicas, espacios arquitectónicos y urbanos. Así, para los antiguos griegos, el arquitecto era el jefe o director de la construcción, y la arquitectura la técnica o arte de quien realizaba el proyecto y dirigía la construcción de los edificios y estructuras, ya que la palabra ????? (techné) significa ‘creación, invención o arte’.', 7000, 50000, 'arte,arquitectura,ingenieria,griego,creacion,construcción,habitat,humano,edificios'),
+(22, 'Arquitectura de Paisaje', 'Planifica, diseña, construye y maneja espacios abiertos como parte del sistema natural y humano, desde una perspectiva responsable, incluyente y significativa en lo ambiental, social y cultural.<br>\r\n\r\nSu trabajo parte del entendimiento y reconocimiento de las condiciones del medio, que obtiene a través de trabajo de campo y estudios de gabinete, para realizar, dentro del taller de diseño, propuestas que satisfagan las necesidades humanas, y potencialicen la vocación del sitio. Conjuga medio natural y antrópico, construyendo con materiales inertes y elementos de la naturaleza (viento, vegetación, agua), los cuales proveen condiciones de confort físico, psíquico y emocional.', 8000, 40000, 'arte,naturaleza,arquitectura'),
+(23, 'Diseño Industrial', 'El diseñador industrial genera objetos y productos de fabricación industrial que tienen contacto directo con el hombre, realiza mejoras a los ya existentes, haciéndolos atractivos para que satisfagan las necesidades de una sociedad que está en constante cambio.<br>\r\n\r\nCrea nuevas propuestas y soluciones acordes con los requerimientos de los diferentes mercados que demandan productos mejor planeados y diseñados, con el objeto de lograr el óptimo aprovechamiento de la infraestructura nacional.<br>\r\n\r\nDesarrolla su actividad en tres áreas principales: dentro de una industria o empresa, en actividades de consultoría, o bien, como empresario productor.', 12000, 40000, 'ingenieria,industria,diseño,fabricacion,productos,necesidad'),
+(24, 'Urbanismo', 'El urbanista diseña la imagen de las ciudades y de los asentamientos rurales, tomando en cuenta la problemática integral de éstas y de sus pobladores. Su objetivo fundamental es el diseño de nuevos espacios urbanos, la ampliación y mejoramiento de los existentes y la remodelación o conservación del patrimonio histórico, cultural y ecológico de las ciudades. Además, brinda soluciones en aspectos relacionados con la vivienda, la industria, el transporte, vialidad, reservas territoriales, ecología.', 9000, 30000, 'urbano,arquitectura,ingenieria,ciudades,ecologia,rural'),
+(25, 'Licenciatura en Arte y Diseño', 'En la actualidad, el arte y las expresiones del diseño aportan nuevas experiencias y formas de interacción con el entorno y con el hombre para sensibilizar, comunicar, transformar y humanizar a la sociedad a través de los lenguajes y expresiones de la imagen, ya sea con recursos tradicionales o de la tecnología digital.<br>\r\n\r\nEn esta licenciatura se forman los profesionales que, con una capacidad crítica y de análisis del contexto, conjugan los conocimientos, habilidades y técnicas de vanguardia del arte y el diseño, así como las herramientas tradicionales y digitales propias de ambas disciplinas con el trabajo interdisciplinario para propiciar las condiciones de integración y transformación de la región.<br>\r\n\r\nProporciona una preparación única en su género y una visión integradora que permite a sus egresados vincular las actividades distintivas de la carrera con las principales problemáticas sociales y participar en el desarrollo de los diversos sectores de la sociedad.', 7000, 40000, 'arte,diseño,licenciatura,tecnología,desarrollo'),
+(26, 'Licenciatura en Artes Visuales', 'En esta carrera se forman los profesionales comprometidos, con una visión humanística-social de las artes visuales, que adquieren una formación teórico-conceptual y la incorporan para llevar a cabo un profundo ejercicio de búsqueda de los distintos procesos y recursos involucrados en la disciplina, para aplicarlos directamente en su obra personal y en proyectos colectivos que transformen y beneficien la vida pública de su entorno y de la sociedad.', 5000, 30000, 'humanidades,artes,social,visual,licenciatura'),
+(27, 'Licenciatura en Diseño y Comunicación Visual', 'Esta carrera forma al profesional que aplica procedimientos y técnicas para investigar, producir y difundir mensajes visuales y audiovisuales que sirvan, no sólo para informar a los distintos sectores de la sociedad, sino para apoyar sus necesidades e impulsar su desarrollo. En ella se emplean técnicas tradicionales, digitales, híbridas y de nueva creación en áreas muy diversas: Audiovisual, Editorial, Gráfica e Ilustración, Iconicidad y Entornos, Simbología y Diseño Tridimensional.<br>\r\n\r\nEl diseñador de la comunicación visual realiza sus actividades con sensibilidad, capacidad creativa y conocimiento de los medios de comunicación masiva, lo cual aplica en proyectos de diversas magnitudes.<br>\r\n\r\nSu formación le permite desempeñar una amplia gama de posibilidades profesionales como fotógrafo, ilustrador, director de arte, o directivo en departamentos de diseño, publicidad y comunicación, y cuenta con disposición para el trabajo interdisciplinario y vocación para la investigación.', 5000, 30000, 'arte,diseño,visual,licenciatura,humanidad,creativo'),
+(28, 'Actuaría', 'Los actuarios son profesionistas que estudian, plantean, formulan y aplican modelos de contenido matemático con el fin de proveer información para la planeación, previsión y toma de decisiones, y para resolver problemas económicos y sociales que involucran riesgos. Intervienen en prácticamente todos los campos del quehacer humano interactuando con los profesionales que ahí se desempeñen.<br>\r\n\r\nLlevan a cabo una labor sumamente diversa y relacionada principalmente con: seguros y planes de beneficio, demografía, finanzas, computación, administración, estadística, investigación de operaciones, economía, docencia e investigación.', 10000, 50000, 'matiematicas,estadistica,prevencion,administracion,investigacion'),
+(29, 'Licenciatura en Ciencias de la Computación', 'Esta carrera forma al profesional con conocimientos teóricos sólidos en la disciplina y con habilidades de programación; capaz de desarrollar soluciones computacionales de frontera. Proporciona los fundamentos que le permiten adaptarse a tecnologías emergentes e ideas nuevas, y la preparación para:<br>\r\n* Analizar, diseñar y construir sistemas de software complejos.<br>\r\n* Desarrollar mecanismos para resolver problemas relacionados con: seguridad, almacenamiento de información en bases de datos y envío de información a través de redes de computadoras.<br>\r\n* Atender áreas particulares como la inteligencia artificial.', 12000, 70000, 'computacion,ciencia,software,licenciatura,ia,red,neuronal'),
+(30, 'Licenciatura en Ciencias de la Tierra', 'Las ciencias de la Tierra abarcan el estudio temporal y espacial del planeta desde un punto de vista físico, incluyendo su interacción con los seres vivos. Las variadas escalas espacio-temporales de la estructura y la historia de la Tierra hacen que los procesos que en ella tienen lugar sean resultado de una compleja interacción entre procesos de distintas escalas espaciales (desde el milímetro hasta los miles de kilómetros) y escalas temporales que abarcan desde las centésimas de segundo hasta los miles de millones de años. Un ejemplo de esta complejidad es el distinto comportamiento mecánico que algunas rocas tienen en función de los procesos que se estudien: mientras las rocas que componen el manto superior responden elásticamente al paso de las ondas sísmicas (con periodos típicos de fracciones de segundo), responden como un fluido en las escalas de tiempo de la tectónica de placas. Otro ejemplo del amplio abanico de escalas temporales es el cambio climático, que se produce en periodos de entre millones de años a unos pocos años, cuando se confunde con las escalas propias del cambio meteorológico.', 8000, 50000, 'tierra,ciencia,mineria,planeta,rocas,estudio,licenciatura'),
+(31, 'Física', 'La Física estudia propiedades y transformaciones de la materia, fenómenos de todo tipo, e interroga experimental y teóricamente a la naturaleza, desde las partículas elementales hasta las galaxias. Apoya a otras ciencias para su desarrollo y elaboración de teorías.<br>\r\n\r\nLos físicos explican los fenómenos mediante teorías basadas en modelos matemáticos y adquieren conocimientos en: Mecánica Clásica y Relativista, Termodinámica, Electromagnetismo, Física Estadística y Cuántica que les brindan una imagen general de las leyes de la naturaleza, y les permiten desarrollar aplicaciones en investigación, docencia, difusión y divulgación de la Física, así como en el ejercicio libre de la profesión.', 8000, 40000, 'fisica,ciencia,fenomenos,matematicas,investigacion,docencia'),
+(32, 'Física Biomédica', 'Las demandas actuales en la constante especialización de los equipos médicos de radioterapia y el avance de las técnicas terapéuticas requieren del apoyo del un profesional como el físico biomédico quien con su formación interdisciplinaria aplique sus conocimientos para participar en diversos ámbitos y sea capaz de:<br>\r\n* Participar en la adquisición, procesamiento y optimización de imágenes para el diagnóstico clínico.<br>\r\n* Colaborar en la detección temprana de enfermedades y la planificación de tratamientos médicos.<br>\r\n* Utilizar, crítica y responsablemente, nuevas tecnologías para la terapia y diagnóstico médico.<br>\r\n* Colaborar con grupos de investigación en departamentos de ciencia básica en el sector salud.<br>\r\n* Realizar labores de seguridad y protección radiológica.<br>\r\n* Colaborar con grupos de investigación en la modelación de sistemas biológicos.<br>\r\n* Participar en la planeación y diseño de instalaciones para el uso de fuentes de radiación.<br>\r\n* Colaborar con grupos interdisciplinarios en ciencias del deporte.', 9500, 60000, 'ciencia,terapia,fisica,medica,biomedica,biologicas'),
+(33, 'Licenciatura en Matemáticas', 'El matemático es el profesionista capaz de encontrar analogías y de modelar situaciones reales, aprende las matemáticas y sus relaciones con otras disciplinas tanto científicas como sociales, en las cuales motiva y resuelve problemas.\r\n<br>\r\nParticipa en equipos interdisciplinarios dedicados a resolver diversos problemas, así como en actividades de docencia y difusión de la matemática en diferentes niveles.', 5000, 45000, 'matematicas,numeros,licenciatura,ciencia'),
+(34, 'Licenciatura en Matemáticas Aplicadas', 'Esta carrera forma al profesional que será capaz de:<br>\r\n\r\n* Participar en proyectos en los que sus conocimientos y habilidades matemáticas sean de utilidad, ya sea dentro del ámbito puramente académico, y en los sectores, productivo y de servicios.<br>\r\n* Detectar situaciones en donde, por su formación, pueda incidir en la solución de problemas concretos, de distintos orígenes, ya sean: científicos, tecnológicos y socioeconómicos.<br>\r\n* Colaborar con otros profesionistas en la formulación de problemas reales en términos matemáticos, así como en su resolución, o en la determinación del tipo de matemáticas que se requerirían.<br>\r\n* Interpretar matemáticamente descripciones de fenómenos de otras disciplinas.<br>\r\n* Intervenir en el desarrollo de enfoques, modelos y procedimientos novedosos que le permitan tratar un problema.<br>\r\n* Impartir cátedra en distintos niveles educativos, y participar, especialmente, en la formación matemática de otras disciplinas.', 6000, 50000, 'matematicas,ciencia,aplicado,industria,producto,licenciatura'),
+(35, 'Licenciatura en Antropología', 'La carrera de Antropología contribuye a la formación de profesionales con una perspectiva integral de la disciplina, con capacidad para generar conocimientos sobre las sociedades y culturas del presente y del pasado, con capacidad para establecer el diálogo y el trabajo interdisciplinario con un pensamiento crítico y humanista.<br>\r\n\r\nEn ella se forman profesionales capaces de comprender y brindar soluciones acordes a las necesidades y problemáticas del entorno social y cultural, tomando como punto de partida la diversidad étnica y cultural del mundo contemporáneo, respetuosos de la diversidad social y cultural, con una perspectiva integral de la antropología.', 7000, 60000, 'social,profesional,disciplina,saciedad,humanista,licenciatura'),
+(36, 'Licenciatura en Ciencias de la Comunicación', 'Con un enfoque creativo, responsable y crítico, en Ciencias de la Comunicación se analiza y difunde la problemática social mediante mensajes y contenidos informativos, escritos y audiovisuales y se estudian los orígenes, la estructura, el desarrollo y los cambios en los procesos de la comunicación humana, tanto interpersonales como grupales, organizacionales, colectivos o masivos.\r\n<br>\r\nEn esta carrera es fundamental estudiar los procesos de la comunicación colectiva, a través de investigar y analizar la información y los mensajes emitidos por los medios de comunicación social, para valorar sus repercusiones sobre los individuos y la sociedad, y no menos importante es contribuir a la adecuada producción y difusión de mensajes para la sociedad, a fin de que ésta disponga de elementos necesarios para la formación de la opinión pública.', 8000, 40000, 'social,comunicacion,licenciatura,medios,tecnología,audiovisual'),
+(37, ' Licenciatura en Ciencias Políticas y Administración Pública', 'Esta licenciatura forma profesionistas expertos en el análisis de la realidad social de las instituciones, procesos y actores que intervienen en la definición de los asuntos públicos.\r\n<br>\r\nActúan con iniciativa, equidad y responsabilidad en función del interés común, y utilizan recursos científicos para identificar, plantear y ofrecer soluciones viables a problemáticas de los procesos e instituciones en que se expresa la vida política y social.\r\n<br>\r\nTienen una visión multidisciplinaria, que conlleva a un razonamiento crítico e inclusivo, para construir modelos y teorías que tienen como referente las demandas de la sociedad.', 8000, 30000, 'social,licenciatura,politica,administracion'),
+(38, 'Licenciatura en Relaciones Internacionales', 'En su expresión más sintética, el objeto de estudio de las Relaciones Internacionales es la realidad internacional y su análisis, por tanto, proporciona los elementos teórico-metodológicos que permiten el análisis y la interpretación en los ámbitos político, económico, jurídico, social y cultural.\r\n<br>\r\nAsimismo contempla los aspectos técnico-prácticos requeridos, tanto a nivel operativo como propositivo, en el proceso de toma de decisiones, vinculando los hechos y los problemas internacionales, por lo que considera el estudio de los procesos históricos y sus consecuencias.\r\n<br>\r\nComo disciplina científica, estudia de manera sistemática y rigurosa las relaciones, los protagonistas, los procesos, los fenómenos y las tendencias que inciden en forma relevante y determinante en la realidad mundial, como una totalidad dinámica, en constante cambio e interdependiente.', 8000, 40000, 'social,internacional,relacion,politica,mundial'),
+(39, 'Licenciatura en Sociología', 'La complejidad en los acontecimientos sociales de fin de siglo demanda una disciplina científica como la Sociología, que proporcione un conocimiento científico y racional de los cambios sociales y políticos contemporáneos, sobre una aplicación sistemática de métodos, teorías e instrumental técnico.\r\n<br><br>\r\nEl objetivo fundamental de la Sociología es comprender, explicar y diagnosticar el entorno de la vida social en todas sus manifestaciones, utilizando una combinación de datos. Dicho conocimiento permite elaborar diagnósticos para la toma de decisiones.\r\n<br><br>\r\nEl sociólogo genera respuestas eficaces a los desafíos que han de enfrentar las sociedades contemporáneas, tanto a nivel macro, como de comunidades y organizaciones pequeñas.', 7500, 40000, 'sociedad,vida,social,licenciatura,datos,decisiones'),
+(40, 'Licenciatura en Administración', 'Profesión especializada en dirigir grupos de trabajo hacia el logro de objetivos de organizaciones privadas, públicas y sociales, optimizando el empleo de recursos, mediante aplicación de técnicas de planeación, organización, dirección y control, utilizadas en las distintas áreas funcionales, tales como: recursos humanos, finanzas, mercadotecnia, producción e informática.<br><br>\r\n\r\nEl licenciado en Administración trabaja en equipos multidisciplinarios en la aplicación de distintas técnicas administrativas; se caracteriza por su visión humanística y emprendedora, vocación de servicio y orientación ética de las organizaciones hacia la creatividad, competitividad y productividad en el ámbito nacional e internacional.', 6000, 30000, 'social,administrar,matematicas,finanzas,mercadotecnia'),
+(41, 'Licenciatura en Informática', 'La licenciatura en Informática forma expertos que aplican y desarrollan tecnologías de información apropiadas para la administración eficiente de las organizaciones, integrando las Tecnologías de Información y Comunicación en sus procesos operativos, valorando nuevos modelos de negocio basados en la innovación tecnológica, con un compromiso social y una visión global.\r\n<br><br>\r\nAsimismo es el profesionista responsable de la creación de las estrategias para la implementación y la administración de Tecnologías de Información en la empresa, así como del mantenimiento de servicios tecnológicos y sistemas de tratamiento de la información de manera integral y eficiente.\r\n<br><br>\r\nEs un agente de cambio, creativo, y multicultural que puede desarrollarse y adaptarse en cualquier ambiente laboral, además es un profesionista analítico, crítico, objetivo, reflexivo, abierto a diferentes alternativas, responsable, creativo, propositivo, emprendedor y, en consecuencia, una autoridad profesional en su área.', 12000, 60000, 'informatca,sistemas,licenciatura'),
+(42, 'Licenciatura en Contaduría', 'El licenciado en Contaduría satisface las necesidades de las organizaciones y los individuos relacionadas con la toma de decisiones sobre su patrimonio, expresado en valores financieros, en la que se determinan medidas sobre el dinero en sus distintas formas de expresión, a fin de incrementar el patrimonio, pagar contribuciones, y llevar un registro de dichas operaciones financieras. Posee además una perspectiva del contexto de las organizaciones con fines económicos o sociales. <br>\r\n<br>\r\nCon vocación de servicio, visión humanística y ética, y capacidad para analizar y dictaminar la información financiera para la toma de decisiones, el egresado de esta carrera cumple con los objetivos establecidos por las organizaciones en un ámbito cambiante debido a los avances en la ciencia y la tecnología, así como a la evolución de la economía. \r\n<br><br>\r\nAdemás expresa su opinión sobre la situación financiera de las organizaciones y se desempeña con un sentido ético y de responsabilidad social.', 6000, 30000, 'social,contador,economia,organizacion,finanzas'),
+(43, 'Licenciatura en Negocios Internacionales', 'La licenciatura en Negocios Internacionales forma profesionistas con una visión interdisciplinaria y global, capaces de diseñar modelos de negocios, generar soluciones creativas a las necesidades de las empresas que participan en el mercado mundial y promover el logro de objetivos en organizaciones públicas, privadas y sociales vinculadas con los negocios internacionales.\r\n<br><br>\r\nPor tanto, el egresado gestiona y promueve organizaciones y negocios que compitan en el mercado global a través de la integración multicultural de equipos de trabajo, además de diseñar e instrumentar estrategias y modelos administrativos que respondan ante un contexto económico internacional cambiante y complejo.\r\n<br><br>\r\nNegocios Internacionales atiende las necesidades y los requerimientos de las organizaciones públicas y privadas que participan en el mercado global en materia de negocios y administración y contribuye a la creación de nuevas fuentes de empleo que produzcan bienes y servicios competitivos internacionalmente.', 5000, 20000, 'social,internacional,relaciones'),
+(44, 'Licenciatura en Derecho', 'En la carrera de Derecho se forman juristas con sentido humanista y responsabilidad social, capaces de generar propuestas de solución a los problemas jurídicos de la sociedad.\r\n<br><br>\r\nEl egresado comprende y resuelve la problemática de la disciplina jurídica, con una sólida conciencia de su responsabilidad y compromiso social para el logro de los fines y principios del Derecho: justicia, equidad, bien común y paz social.\r\n<br><br>\r\nEl licenciado en Derecho debe mantener una actualización integral, científica y humanística en lo teórico y en lo práctico, a fin de contribuir al desarrollo y búsqueda de ordenamientos jurídicos que posibiliten el desenvolvimiento pleno de las capacidades y habilidades humanas; además es capaz de interpretar y aplicar adecuadamente la normatividad jurídica.', 6000, 50000, 'derecho,social,lienciatura'),
+(45, 'Licenciatura en Economía', 'Profesión en la que son evaluados científicamente los fenómenos económicos de la realidad mexicana, mediante la comprensión de: la producción, distribución, intercambio y consumo de bienes y servicios que satisfacen las necesidades del hombre y la sociedad.\r\n<br><br>\r\nEn ella son diseñados e instrumentados modelos económicos con el fin de recomendar, en lo particular y colectivamente, acciones para el mejor empleo de los recursos productivos y la óptima distribución del ingreso en la sociedad.\r\n<br><br>\r\nEl egresado de esta carrera formula soluciones a los problemas económicos que plantea la economía, a partir del análisis de los fenómenos productivos y de los mercados –de bienes y servicios– en los ámbitos nacional e internacional.', 10000, 50000, 'social,economia,dinero,empleo'),
+(46, 'Licenciatura en Comunicación', 'El profesionista de la Comunicación recopila, analiza y sistematiza información para generar mensajes para prensa, radio, televisión, cine o Internet, estudia los fenómenos de la comunicación en sus distintos niveles y medios para aplicar estos conocimientos en las áreas de docencia, investigación, producción, análisis, evaluación de mensajes, diseño de estrategias, campañas de publicidad, de comunicación política y organizacional. Planea, organiza y dirige las estructuras administrativas y organizacionales de los medios de difusión y empresas afines; aplica las metodologías de investigación científica para el análisis y la evaluación de acontecimientos y fenómenos.\r\n<br><br>\r\nDesempeña funciones: académicas, de investigación, de análisis e interpretación de lenguajes escritos e icónicos, en la producción de medios electrónicos y como comentarista, editorialista y articulista. El comunicólogo desarrolla y aplica técnicas, métodos, metodologías y teorías sobre su especialidad en diversos campos.', 7000, 30000, 'comunicacion,licenciatura,analisis,informacion'),
+(47, 'Licenciatura en Diseño Gráfico', 'El profesional del Diseño Gráfico genera formas gráfico-expresivas que satisfacen las necesidades de comunicación visual que hoy en día demandan los distintos sectores sociales, valiéndose de procesos metodológicos y técnicas instrumentales, imágenes, signos, señales, símbolos, ideas y conceptos novedosos y creativos que representen y emitan sensaciones, emociones, información y conocimiento.\r\n<br><br>\r\nLa formación que recibe le permite llevar a cabo con espíritu crítico, propositivo e innovador diversas actividades: diseña carteles, anuncios espectaculares, envases y embalajes de productos, juegos y materiales didácticos; realiza animación en el cine o en la televisión, y efectúa labores relacionadas con el diseño museográfico y de galerías de arte.', 5000, 40000, 'diseño,arte,licenciatura,creativo,grafico,TI'),
+(48, 'Licenciatura en Filosofía', 'El filósofo tiene como tarea la búsqueda de los elementos que fundamentan la comprensión del ser humano y de su entorno.\r\n<br><br>\r\nA través de la enseñanza, la investigación y la difusión de teorías, argumentos y problemas filosóficos, la licenciatura en Filosofía transmite los valores fundamentales de la cultura, gracias a su constante y sistemática reflexión de la realidad –elemento fundamental en esta carrera–, cuestiona las diversas problemáticas de la época actual, desarrolla la conciencia crítica e histórica de la sociedad y contribuye a la formación integral de las personas.\r\n<br><br>\r\nLa preparación profesional del filósofo le da la creatividad necesaria para: enriquecer proyectos e instituciones culturales; impartir docencia a nivel medio superior y superior; dedicarse a la investigación filosófica e interdisciplinaria, y para participar en actividades relacionadas con la difusión de la cultura, por lo que labora en espacios diversos.', 7000, 30000, 'filosofia,humanidad,pregunta,duda'),
+(49, 'Licenciatura en Historia', 'El historiador es capaz de transmitir los conocimientos históricos y de aplicar las herramientas conceptuales y técnicas para investigar e interpretar críticamente el pasado de los hombres desde diversas perspectivas, reflexionar sobre él y relacionarlo con el presente.\r\n<br><br>\r\nAsimismo, se especializa en una época y lugar geográfico determinados, en una corriente histórica, en un algún acontecimiento o proceso, gracias a lo cual colabora en la solución de diversas problemáticas y en la transformación de la sociedad.\r\n<br><br>\r\nParticipa fundamentalmente en la investigación, la docencia y la difusión de la historia y la cultura en los medios masivos de comunicación.', 7000, 30000, 'historia,docencia,licencitura,hechos'),
+(50, 'Ingeniería Civil', 'El ingeniero civil obtiene conocimientos generales de matemáticas, física y química, computación, informática, administración y evaluación de proyectos que lo capacitan para participar en la planeación, organización, construcción, operación y conservación de obras civiles de infraestructura y desarrollo urbano que el país requiere en las áreas de construcción, estructuras, ingeniería sanitaria y ambiental, e ingeniería de sistemas, planeación y transporte.\r\n<br><br>\r\nEs el profesional que gracias a su formación multidisciplinaria entiende el comportamiento de estructuras y obras en construcción; prevé los impactos sociales, ecológicos y económicos que pueden ocasionar; y planea un uso más conveniente de recursos naturales y humanos de grandes áreas, por lo que su tarea es de gran importancia y responsabilidad para las poblaciones urbanas y rurales que conforman nuestro país.', 8000, 60000, 'civil,sociedad,ingenieria,matematicas'),
+(51, 'Licenciatura en Lengua y Literatura Hispánicas', 'Esta carrera forma profesionistas que estudian la estructura y el desarrollo histórico de la lengua española, así como de las literaturas hispánicas (mexicana, española e iberoamericana) como manifestaciones más acabadas de la lengua.\r\n<br><br>\r\nAsimismo los capacita para analizar, interpretar y difundir ––mediante técnicas de investigación documental y bibliográfica; análisis teórico y lingüístico; crítica; creación literaria y docencia––, el valor cultural de la lengua y las literaturas hispánicas.\r\n<br><br>\r\nSu campo laboral es muy amplio, ya que incluye centros educativos y de investigación, bibliotecas, editoriales, agencias de publicidad, o medios de difusión como radio, televisión, revistas y periódicos.', 8000, 20000, 'humanidad,literatura,lengua,hispano'),
+(53, 'Licenciatura en Matemáticas Aplicadas y Computación', 'El licenciado en Matemáticas Aplicadas y Computación aplica creativamente las diversas técnicas matemáticas y computacionales para analizar, evaluar y resolver, por medio de modelos, problemas en diversas áreas de conocimiento que afectan de manera directa o indirecta a la sociedad.<br><br>\r\n\r\nAnalista bursátil y financiero, catedrático, investigador, consultor en diversas áreas y proyectos, o diseñador de software son algunas de las actividades que puede desempeñar este profesionista.', 6000, 50000, 'matematicas,computacion,licenciatura,aplicada'),
+(54, 'Licenciatura en Pedagogía', 'El pedagogo estudia integralmente la educación para describir, comprender, explicar, evaluar e intervenir en el fortalecimiento y mejora de los procesos educativos, analiza y propone alternativas de solución en problemas relacionados con el campo educativo, además de atender a diversos sectores de la población que requieren ayuda pedagógica.\r\n<br><br>\r\nDesarrolla actividades de docencia, orientación educativa, educación permanente y capacitación, administración y gestión educativas, desarrollo curricular, comunicación e investigación en este campo, en instituciones públicas y privadas o en el ejercicio libre de la profesión, atendiendo las distintas orientaciones de la práctica profesional.', 12000, 40000, 'educacion,pedagogia,orientacion,profesional'),
+(55, ' Licenciatura en Comunicación y Periodismo', 'El licenciado en Comunicación y Periodismo formado en FES Aragón es el profesional que entiende que la comunicación es un proceso. En este sentido, lo conoce puntualmente en todas sus formas y niveles, por lo que es capaz de analizar y evaluar el fenómeno comunicacional.<br>\r\n\r\nAsimismo, está al tanto de las formas adecuadas que deben tener los mensajes, determina a través de qué medios conviene difundirlos para que cubran mejor las necesidades de información de la sociedad y explica los problemas de la comunicación, el desarrollo del individuo y de la sociedad.\r\n<br>\r\nCon el dominio de las relaciones existentes entre los procesos de la comunicación y otras disciplinas del área social, este profesionista resuelve de manera adecuada las necesidades que la realidad exige.\r\n<br>\r\nEl estudio de los procesos de la comunicación colectiva implica investigar y analizar la información y los mensajes emitidos por los medios de comunicación social para proceder a la valoración de sus repercusiones sobre la sociedad.', 5000, 20000, 'periodismo,comunicacion,social,television,licenciatura'),
+(56, 'Prueba', 'asdasd', 123, 123, '.'),
+(57, '1', '1', 1, 1, ''),
+(60, 'asd', 'asdasd', 123123, 123, ''),
+(63, '111111', '111111', 11111, 111111, '');
 
 -- --------------------------------------------------------
 
@@ -204,7 +249,9 @@ INSERT INTO `carrera_uni` (`UID`, `id_carrera`, `plan_estudio`, `perfil_egreso`,
 (56, 56, 'asdasd', 'asdasd', 4, ''),
 (57, 56, 'asdasd', 'asdasd', 4, ''),
 (58, 56, 'asdasd', 'asdasd', 11, ''),
-(59, 56, 'asdasd', 'asdasd', 9, '');
+(59, 56, 'asdasd', 'asdasd', 9, ''),
+(60, 63, 'dsfgdfhgfds', 'asdfsghf', 4, ''),
+(61, 63, 'dsfgdfhgfds', 'asdfsghf', 4, '');
 
 -- --------------------------------------------------------
 
@@ -257,46 +304,46 @@ INSERT INTO `institucion` (`UID`, `name`, `intercambio`, `becas`, `rank_nac`, `r
 
 CREATE TABLE `pregunta` (
   `UID` int(11) NOT NULL,
-  `id_examen` int(11) DEFAULT NULL,
-  `pregunta_examen` text COLLATE utf8_unicode_ci,
-  `id_area` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `id_examen` int(11) NOT NULL,
+  `pregunta_examen` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `pregunta`
 --
 
-INSERT INTO `pregunta` (`UID`, `id_examen`, `pregunta_examen`, `id_area`) VALUES
-(1, 1, '¿Te interesaría organizar una cooperacion grupal para comprar algo al aula?', 4),
-(2, 1, '¿Te llama la atención entender lo que origina las emociones de una persona?', 2),
-(3, 1, 'Al ver una pintura ¿te interesa conocer las técnicas que se emplearon para hacerla?', 2),
-(4, 1, '¿Te gustaría armar un pequeño aparato electrónico?', 3),
-(5, 1, '¿Te interesa el cuidado de los animales?', 1),
-(6, 1, '¿Te ha llamado la atención aprender a tocar un instrumento musical?', 2),
-(7, 1, '¿Te es interesante los diferentes comportamientos de tus compañeros de clase?', 2),
-(8, 1, '¿Te gustaría controlar tus gastos para manejar el dinero más eficientemente?', 4),
-(9, 1, '¿Te llama la atención ver y entender los componentes internos de un celular?', 3),
-(10, 1, '¿Te gustaría conocer el funcionamiento del corazón?', 1),
-(11, 1, '¿Te interesaría investigar una solución para disminuir la contaminación del aire?', 1),
-(12, 1, 'Al ver el interior del cofre de un auto ¿te llaman la atención sus componentes y funcionamiento?', 3),
-(13, 1, 'Si te eligieran como lider de un proyecto ¿aceptarías el puesto?', 4),
-(14, 1, 'Al considerar las ineficiencias de tu ciudad ¿te gustaria proponer propuestas a los representantes de esta?', 2),
-(15, 1, 'Cuando escuchas una canción ¿te interesan los instrumentos musicales y tonos que incluye la pista?', 2),
-(16, 1, '¿Te gustaría ser el lider de una empresa?', 4),
-(17, 1, '¿Te gustaría diseñar y hacer los cálculos para construir un puente?', 3),
-(18, 1, '¿Te es interesante estudiar las causas y efectos de los transtornos o enfermedades emocionales?', 2),
-(19, 1, '¿Te gustaría diseñar la publicidad para una gran empresa?', 2),
-(20, 1, '¿Te interesaría realizar el control de calidad de los alimentos?', 1),
-(21, 1, '¿Te gustaría aprender y estudiar otros idiomas para hablarlos casi perfectamente?', 2),
-(22, 1, '¿Aceptarías supervisar las ventas de un centro comercial?', 4),
-(23, 1, '¿Te gustaría componer la música para una película?', 2),
-(24, 1, '¿Te llama la atención el estudio de nuevas curas para las enfermedades?', 1),
-(25, 1, '¿Te gustaría hacer proyectos de extracción minera?', 3),
-(26, 1, '¿Te gustaría estudiar el comportamiento de los animales que viven en el mar?', 1),
-(27, 1, '¿Te gustaría elegir o diseñar los muebles interiores de una casa?', 2),
-(28, 1, 'Te gustaría conocer las diferentes religiones, así como sus fundamentos y darlas a conocer?', 2),
-(29, 1, '¿Te gustaría crear una aplicación de organización para tu telefono celular?', 3),
-(30, 1, '¿Te gustaría organizar una excursión grupal?', 4);
+INSERT INTO `pregunta` (`UID`, `id_examen`, `pregunta_examen`) VALUES
+(1, 1, '¿Te interesaría organizar una cooperacion grupal para comprar algo al aula?'),
+(2, 1, '¿Te llama la atención entender lo que origina las emociones de una persona?'),
+(3, 1, 'Al ver una pintura ¿te interesa conocer las técnicas que se emplearon para hacerla?'),
+(4, 1, '¿Te gustaría armar un pequeño aparato electrónico?'),
+(5, 1, '¿Te interesa el cuidado de los animales?'),
+(6, 1, '¿Te ha llamado la atención aprender a tocar un instrumento musical?'),
+(7, 1, '¿Te es interesante los diferentes comportamientos de tus compañeros de clase?'),
+(8, 1, '¿Te gustaría controlar tus gastos para manejar el dinero más eficientemente?'),
+(9, 1, '¿Te llama la atención ver y entender los componentes internos de un celular?'),
+(10, 1, '¿Te gustaría conocer el funcionamiento del corazón?'),
+(11, 1, '¿Te interesaría investigar una solución para disminuir la contaminación del aire?'),
+(12, 1, 'Al ver el interior del cofre de un auto ¿te llaman la atención sus componentes y funcionamiento?'),
+(13, 1, 'Si te eligieran como lider de un proyecto ¿aceptarías el puesto?'),
+(14, 1, 'Al considerar las ineficiencias de tu ciudad ¿te gustaria proponer propuestas a los representantes de esta?'),
+(15, 1, 'Cuando escuchas una canción ¿te interesan los instrumentos musicales y tonos que incluye la pista?'),
+(16, 1, '¿Te gustaría ser el lider de una empresa?'),
+(17, 1, '¿Te gustaría diseñar y hacer los cálculos para construir un puente?'),
+(18, 1, '¿Te es interesante estudiar las causas y efectos de los transtornos o enfermedades emocionales?'),
+(19, 1, '¿Te gustaría diseñar la publicidad para una gran empresa?'),
+(20, 1, '¿Te interesaría realizar el control de calidad de los alimentos?'),
+(21, 1, '¿Te gustaría aprender y estudiar otros idiomas para hablarlos casi perfectamente?'),
+(22, 1, '¿Aceptarías supervisar las ventas de un centro comercial?'),
+(23, 1, '¿Te gustaría componer la música para una película?'),
+(24, 1, '¿Te llama la atención el estudio de nuevas curas para las enfermedades?'),
+(25, 1, '¿Te gustaría hacer proyectos de extracción minera?'),
+(26, 1, '¿Te gustaría estudiar el comportamiento de los animales que viven en el mar?'),
+(27, 1, '¿Te gustaría elegir o diseñar los muebles interiores de una casa?'),
+(28, 1, 'Te gustaría conocer las diferentes religiones, así como sus fundamentos y darlas a conocer?'),
+(29, 1, '¿Te gustaría crear una aplicación de organización para tu telefono celular?'),
+(30, 1, '¿Te gustaría organizar una excursión grupal?'),
+(31, 1, '¿Cuál de las siguientes áreas prefieres?');
 
 -- --------------------------------------------------------
 
@@ -308,6 +355,7 @@ CREATE TABLE `respuesta` (
   `UID` int(11) NOT NULL,
   `id_pregunta` int(11) DEFAULT NULL,
   `respuesta` text COLLATE utf8_unicode_ci,
+  `id_area` int(11) NOT NULL,
   `valor` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -315,67 +363,71 @@ CREATE TABLE `respuesta` (
 -- Volcado de datos para la tabla `respuesta`
 --
 
-INSERT INTO `respuesta` (`UID`, `id_pregunta`, `respuesta`, `valor`) VALUES
-(1, 1, 'No me interesa', '-1'),
-(2, 1, 'Me interesa', '1'),
-(3, 2, 'No me interesa', '-1'),
-(4, 2, 'Me interesa', '1'),
-(5, 3, 'No me interesa', '-1'),
-(6, 3, 'Me interesa', '1'),
-(7, 4, 'No me interesa', '-1'),
-(8, 4, 'Me interesa', '1'),
-(9, 5, 'No me interesa', '-1'),
-(10, 5, 'Me interesa', '1'),
-(11, 6, 'No me interesa', '-1'),
-(12, 6, 'Me interesa', '1'),
-(13, 7, 'No me interesa', '-1'),
-(14, 7, 'Me interesa', '1'),
-(15, 8, 'No me interesa', '-1'),
-(16, 8, 'Me interesa', '1'),
-(17, 9, 'No me interesa', '-1'),
-(18, 9, 'Me interesa', '1'),
-(19, 10, 'No me interesa', '-1'),
-(20, 10, 'Me interesa', '1'),
-(21, 11, 'No me interesa', '-1'),
-(22, 11, 'Me interesa', '1'),
-(23, 12, 'No me interesa', '-1'),
-(24, 12, 'Me interesa', '1'),
-(25, 13, 'No me interesa', '-1'),
-(26, 13, 'Me interesa', '1'),
-(27, 14, 'No me interesa', '-1'),
-(28, 14, 'Me interesa', '1'),
-(29, 15, 'No me interesa', '-1'),
-(30, 15, 'Me interesa', '1'),
-(31, 16, 'No me interesa', '-1'),
-(32, 16, 'Me interesa', '1'),
-(33, 17, 'No me interesa', '-1'),
-(34, 17, 'Me interesa', '1'),
-(35, 18, 'No me interesa', '-1'),
-(36, 18, 'Me interesa', '1'),
-(37, 19, 'No me interesa', '-1'),
-(38, 19, 'Me interesa', '1'),
-(39, 20, 'No me interesa', '-1'),
-(40, 20, 'Me interesa', '1'),
-(41, 21, 'No me interesa', '-1'),
-(42, 21, 'Me interesa', '1'),
-(43, 22, 'No me interesa', '-1'),
-(44, 22, 'Me interesa', '1'),
-(45, 23, 'No me interesa', '-1'),
-(46, 23, 'Me interesa', '1'),
-(47, 24, 'No me interesa', '-1'),
-(48, 24, 'Me interesa', '1'),
-(49, 25, 'No me interesa', '-1'),
-(50, 25, 'Me interesa', '1'),
-(51, 26, 'No me interesa', '-1'),
-(52, 26, 'Me interesa', '1'),
-(53, 27, 'No me interesa', '-1'),
-(54, 27, 'Me interesa', '1'),
-(55, 28, 'No me interesa', '-1'),
-(56, 28, 'Me interesa', '1'),
-(57, 29, 'No me interesa', '-1'),
-(58, 29, 'Me interesa', '1'),
-(59, 30, 'No me interesa', '-1'),
-(60, 30, 'Me interesa', '1');
+INSERT INTO `respuesta` (`UID`, `id_pregunta`, `respuesta`, `id_area`, `valor`) VALUES
+(1, 1, 'No me interesa', 4, '-1'),
+(2, 1, 'Me interesa', 4, '1'),
+(3, 2, 'No me interesa', 2, '-1'),
+(4, 2, 'Me interesa', 2, '1'),
+(5, 3, 'No me interesa', 2, '-1'),
+(6, 3, 'Me interesa', 2, '1'),
+(7, 4, 'No me interesa', 3, '-1'),
+(8, 4, 'Me interesa', 3, '1'),
+(9, 5, 'No me interesa', 1, '-1'),
+(10, 5, 'Me interesa', 1, '1'),
+(11, 6, 'No me interesa', 2, '-1'),
+(12, 6, 'Me interesa', 2, '1'),
+(13, 7, 'No me interesa', 2, '-1'),
+(14, 7, 'Me interesa', 2, '1'),
+(15, 8, 'No me interesa', 4, '-1'),
+(16, 8, 'Me interesa', 4, '1'),
+(17, 9, 'No me interesa', 3, '-1'),
+(18, 9, 'Me interesa', 3, '1'),
+(19, 10, 'No me interesa', 1, '-1'),
+(20, 10, 'Me interesa', 1, '1'),
+(21, 11, 'No me interesa', 1, '-1'),
+(22, 11, 'Me interesa', 1, '1'),
+(23, 12, 'No me interesa', 3, '-1'),
+(24, 12, 'Me interesa', 3, '1'),
+(25, 13, 'No me interesa', 4, '-1'),
+(26, 13, 'Me interesa', 4, '1'),
+(27, 14, 'No me interesa', 2, '-1'),
+(28, 14, 'Me interesa', 2, '1'),
+(29, 15, 'No me interesa', 2, '-1'),
+(30, 15, 'Me interesa', 2, '1'),
+(31, 16, 'No me interesa', 4, '-1'),
+(32, 16, 'Me interesa', 4, '1'),
+(33, 17, 'No me interesa', 3, '-1'),
+(34, 17, 'Me interesa', 3, '1'),
+(35, 18, 'No me interesa', 2, '-1'),
+(36, 18, 'Me interesa', 2, '1'),
+(37, 19, 'No me interesa', 2, '-1'),
+(38, 19, 'Me interesa', 2, '1'),
+(39, 20, 'No me interesa', 1, '-1'),
+(40, 20, 'Me interesa', 1, '1'),
+(41, 21, 'No me interesa', 2, '-1'),
+(42, 21, 'Me interesa', 2, '1'),
+(43, 22, 'No me interesa', 4, '-1'),
+(44, 22, 'Me interesa', 4, '1'),
+(45, 23, 'No me interesa', 2, '-1'),
+(46, 23, 'Me interesa', 2, '1'),
+(47, 24, 'No me interesa', 1, '-1'),
+(48, 24, 'Me interesa', 1, '1'),
+(49, 25, 'No me interesa', 3, '-1'),
+(50, 25, 'Me interesa', 3, '1'),
+(51, 26, 'No me interesa', 1, '-1'),
+(52, 26, 'Me interesa', 1, '1'),
+(53, 27, 'No me interesa', 2, '-1'),
+(54, 27, 'Me interesa', 2, '1'),
+(55, 28, 'No me interesa', 2, '-1'),
+(56, 28, 'Me interesa', 2, '1'),
+(57, 29, 'No me interesa', 3, '-1'),
+(58, 29, 'Me interesa', 3, '1'),
+(59, 30, 'No me interesa', 4, '-1'),
+(60, 30, 'Me interesa', 4, '1'),
+(61, 31, 'Biológicas', 1, '5'),
+(62, 31, 'Humanidades', 2, '5'),
+(63, 31, 'Ingeniería', 3, '5'),
+(64, 31, 'Sociales', 4, '5');
 
 -- --------------------------------------------------------
 
@@ -458,7 +510,10 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`UID`, `email`, `pass`, `name`, `last_name`, `edad`, `ciudad`) VALUES
-('4d09640e908161ae1c2098e0fcadb73d91a4b304', 'prueba@prue.com', 'ef163fb6406c786402863dc6fb56472c53e85eda', 'Ramiro', 'Estrada Garcia', 18, 'Zacatecas');
+('15584d890f9cd2413fa85ed5bbc78583691eca32', 'ramiroestradag@gmail.com', '57f96f53b891f28dfabad52690b01325ea6db41e', 'ram', 'nsksks', 10, ''),
+('4d09640e908161ae1c2098e0fcadb73d91a4b304', 'prueba@prue.com', 'ef163fb6406c786402863dc6fb56472c53e85eda', 'Ramiro', 'Estrada Garcia', 18, 'Zacatecas'),
+('885a5a6e26f1d9b3efaf99f828d7b30751137082', 'thedaniel115@gmail.com', 'dc940ac29dcd634b9a9c02bff67a00f8024ab931', 'Daniel', 'Garnica', 19, 'Puebla'),
+('f050f159e1d97092583e9a5b6813607b81ee7aab', 'ramiroestradag@hotmail.com', '7d3a41288556d50a876b89f3e5251be78e7823da', 'jdksks', 'ndjdj', 10, 'Aguascalientes');
 
 --
 -- Índices para tablas volcadas
@@ -480,12 +535,19 @@ ALTER TABLE `area`
   ADD PRIMARY KEY (`UID`);
 
 --
+-- Indices de la tabla `carrera_area`
+--
+ALTER TABLE `carrera_area`
+  ADD PRIMARY KEY (`UID`),
+  ADD KEY `id_carrera` (`id_carrera`),
+  ADD KEY `id_area` (`id_area`);
+
+--
 -- Indices de la tabla `carrera_info`
 --
 ALTER TABLE `carrera_info`
   ADD PRIMARY KEY (`UID`),
-  ADD UNIQUE KEY `nombre` (`nombre`),
-  ADD KEY `id_area` (`id_area`);
+  ADD UNIQUE KEY `nombre` (`nombre`);
 
 --
 -- Indices de la tabla `carrera_uni`
@@ -513,15 +575,15 @@ ALTER TABLE `institucion`
 --
 ALTER TABLE `pregunta`
   ADD PRIMARY KEY (`UID`),
-  ADD KEY `id_examen` (`id_examen`),
-  ADD KEY `id_area` (`id_area`);
+  ADD KEY `pregunta_ibfk_1` (`id_examen`);
 
 --
 -- Indices de la tabla `respuesta`
 --
 ALTER TABLE `respuesta`
   ADD PRIMARY KEY (`UID`),
-  ADD KEY `id_pregunta` (`id_pregunta`);
+  ADD KEY `id_pregunta` (`id_pregunta`),
+  ADD KEY `pregunta_ibfk_2` (`id_area`);
 
 --
 -- Indices de la tabla `sesion_agregar_unis`
@@ -552,7 +614,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `aplicacion_examen`
 --
 ALTER TABLE `aplicacion_examen`
-  MODIFY `UID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `UID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `area`
@@ -561,16 +623,22 @@ ALTER TABLE `area`
   MODIFY `UID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT de la tabla `carrera_area`
+--
+ALTER TABLE `carrera_area`
+  MODIFY `UID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
 -- AUTO_INCREMENT de la tabla `carrera_info`
 --
 ALTER TABLE `carrera_info`
-  MODIFY `UID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `UID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- AUTO_INCREMENT de la tabla `carrera_uni`
 --
 ALTER TABLE `carrera_uni`
-  MODIFY `UID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `UID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT de la tabla `examen`
@@ -588,25 +656,13 @@ ALTER TABLE `institucion`
 -- AUTO_INCREMENT de la tabla `pregunta`
 --
 ALTER TABLE `pregunta`
-  MODIFY `UID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `UID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT de la tabla `respuesta`
 --
 ALTER TABLE `respuesta`
-  MODIFY `UID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
-
---
--- AUTO_INCREMENT de la tabla `sesion_agregar_unis`
---
-ALTER TABLE `sesion_agregar_unis`
-  MODIFY `UID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT de la tabla `universidad`
---
-ALTER TABLE `universidad`
-  MODIFY `UID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `UID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- Restricciones para tablas volcadas
@@ -621,10 +677,11 @@ ALTER TABLE `aplicacion_examen`
   ADD CONSTRAINT `aplicacion_examen_ibfk_3` FOREIGN KEY (`id_resultado`) REFERENCES `area` (`UID`);
 
 --
--- Filtros para la tabla `carrera_info`
+-- Filtros para la tabla `carrera_area`
 --
-ALTER TABLE `carrera_info`
-  ADD CONSTRAINT `carrera_info_ibfk_1` FOREIGN KEY (`id_area`) REFERENCES `area` (`UID`);
+ALTER TABLE `carrera_area`
+  ADD CONSTRAINT `carrera_area_ibfk_1` FOREIGN KEY (`id_carrera`) REFERENCES `carrera_info` (`UID`),
+  ADD CONSTRAINT `carrera_area_ibfk_2` FOREIGN KEY (`id_area`) REFERENCES `area` (`UID`);
 
 --
 -- Filtros para la tabla `carrera_uni`
@@ -637,13 +694,13 @@ ALTER TABLE `carrera_uni`
 -- Filtros para la tabla `pregunta`
 --
 ALTER TABLE `pregunta`
-  ADD CONSTRAINT `pregunta_ibfk_1` FOREIGN KEY (`id_examen`) REFERENCES `examen` (`UID`),
-  ADD CONSTRAINT `pregunta_ibfk_2` FOREIGN KEY (`id_area`) REFERENCES `area` (`UID`);
+  ADD CONSTRAINT `pregunta_ibfk_1` FOREIGN KEY (`id_examen`) REFERENCES `examen` (`UID`);
 
 --
 -- Filtros para la tabla `respuesta`
 --
 ALTER TABLE `respuesta`
+  ADD CONSTRAINT `pregunta_ibfk_2` FOREIGN KEY (`id_area`) REFERENCES `area` (`UID`),
   ADD CONSTRAINT `respuesta_ibfk_1` FOREIGN KEY (`id_pregunta`) REFERENCES `pregunta` (`UID`);
 
 --

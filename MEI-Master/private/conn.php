@@ -1,5 +1,6 @@
 <?php
-  $con = mysqli_connect("localhost","root","","id1181196_mei");
+  //$con = mysqli_connect("aa1cbmojg22wdfr.cblilkyifkni.us-east-2.rds.amazonaws.com:3306","ramiroeda","Nirvana1994","mei_new");
+  $con = mysqli_connect("localhost","root","","mei_new");
   @mysqli_query($con,"SET NAMES 'utf8'");
 
   if (!$con) {
