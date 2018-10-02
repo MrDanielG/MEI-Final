@@ -18,7 +18,7 @@ import kotlin.math.absoluteValue
 */
 
 class Utils{
-    fun getMeiURL() = "http://192.168.1.82/MEI-Final/MEI-Master/api/api.php"
+    fun getMeiURL() = "http://miescuelaideal-env-1.63wmcpt7ac.us-east-2.elasticbeanstalk.com/api/api.php"
 
     fun dpToPixel(resources: Resources, dp : Int) : Int{
         return (resources.displayMetrics.density * dp).toInt()
@@ -32,7 +32,6 @@ class Utils{
         v.measure(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         val targetHeight = v.measuredHeight
 
-        // Older versions of android (pre API 21) cancel animations for views with a height of 0.
         v.layoutParams.height = 1
         v.visibility = View.VISIBLE
 
@@ -51,7 +50,6 @@ class Utils{
             }
         }
 
-        // 1dp/ms
         a.duration = (targetHeight / v.context.resources.displayMetrics.density).toInt().toLong()
         v.startAnimation(a)
     }
@@ -75,7 +73,6 @@ class Utils{
             }
         }
 
-        // 1dp/ms
         a.duration = (initialHeight / v.context.resources.displayMetrics.density).toInt().toLong()
         v.startAnimation(a)
     }
